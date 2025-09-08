@@ -80,6 +80,20 @@
             width: 2px;
             background-color: #e2e8f0;
         }
+        .timeline-item ul li {
+            opacity: 0;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .timeline-item ul li[dir="rtl"] {
+            transform: translateX(40px);
+        }
+        .timeline-item ul li[dir="ltr"] {
+            transform: translateX(-40px);
+        }
+        .timeline-item ul li.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -294,8 +308,31 @@
 
             createTimeline();
             createCharts();
+            setupScrollAnimations();
         });
         
+        function setupScrollAnimations() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const targets = document.querySelectorAll('.timeline-item ul li');
+            targets.forEach(target => {
+                observer.observe(target);
+            });
+        }
+
         function createTimeline() {
             const timelineContainer = document.getElementById('timeline-container');
             timelineContainer.innerHTML = '';
