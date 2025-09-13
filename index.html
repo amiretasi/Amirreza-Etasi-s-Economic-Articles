@@ -213,14 +213,15 @@
             { id: 27, title: 'تحلیل ریسک در نقطه عطف', publication: 'روزنامه شرق', date: '1404/06/13', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1047285', category: 'اقتصادی'},
             { id: 28, title: 'Iran’s SCO entry turning into a road to nowhere', publication: 'Asia Times', date: '2025/09/04', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/irans-sco-entry-turning-into-a-road-to-nowhere/'},
             { id: 29, title: 'Iran’s Snapback: A Systemic Shockwave', publication: 'Asia Sentinel', date: '2025/09/03', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-snapback-systemic-shockwave'},
-            { id: 30, title: 'سفره کوچک جامعه مقاوم', publication: 'اعتماد', date: '1404/06/17', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/237853/%D8%B3%D9%81%D8%B1%D9%87-%DA%A9%D9%88%DA%86%DA%A9-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D9%85%D9%82%D8%A7%D9%88%D9%85'},
+            { id: 30, title: 'سفره کوچک جامعه مقاوم', publication: 'اعتماد', date: '1404/06/17', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/237853/%D8%B3%D9%81%D8%B1%D9%87-%DA%A9%D9%88%DA%86%DA%A9-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D9%85%D9%82%D8%A7%D9%88%D9%85', category: 'اقتصادی / اجتماعی'},
             { id: 31, title: 'ارزیابی نهایی اقتصاد ایران در شانگهای', publication: 'روزنامه شرق', date: '1404/06/17', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1048394'},
-            { id: 32, title: 'اثرات مهاجرت معکوس افغان‌ها بر پروژه‌های عمرانی ایران', publication: 'پیام آبادگران', date: '1404/06/15', language: 'فارسی', link: 'http://payamabadgaran.ir/%D9%85%D8%A7%D9%87%D9%86%D8%A7%D9%85%D9%87-%D9%BE%DB%8C%D8%A7%D9%85-%D8%A2%D8%A8%D8%A7%D8%AF%DA%AF%D8%B1%D8%A7%D9%86-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-425/', category: 'اقتصادی / اجتماعی' }
+            { id: 32, title: 'اثرات مهاجرت معکوس افغان‌ها بر پروژه‌های عمرانی ایران', publication: 'پیام آبادگران', date: '1404/06/15', language: 'فارسی', link: 'http://payamabadgaran.ir/%D9%85%D8%A7%D9%87%D9%86%D8%A7%D9%85%D9%87-%D9%BE%DB%8C%D8%A7%D9%85-%D8%A2%D8%A8%D8%A7%D8%AF%DA%AF%D8%B1%D8%A7%D9%86-%D8%B4%D9%85%D8%A7%D8%B1%D9%87-425/', category: 'اقتصادی / اجتماعی' },
+            { id: 33, title: 'تحلیل استراتژیک سرمایه گذاری در ایران پس از مکانیسم ماشه', publication: 'سپهر ایرانیان', date: '1404/06/23', language: 'فارسی', link: '#', category: 'اقتصادی' }
         ];
 
         const categoryKeywords = {
-            'اقتصادی': /اقتصاد|نفت|طلا|تورم|سهام|پولی|صادرات|بازار|Economic|Inflation|Gold|oil|energy/i,
-            'سیاسی/بین‌الملل': /شانگهای|ابرقدرت‌|ترامپ|خاورمیانه|هسته‌ای|چین|آمریکا|SCO|Doctrine|political|روابط|Snapback/i,
+            'اقتصادی': /اقتصاد|نفت|طلا|تورم|سهام|پولی|صادرات|بازار|سرمایه|Economic|Inflation|Gold|oil|energy/i,
+            'سیاسی/بین‌الملل': /شانگهای|ابرقدرت‌|ترامپ|خاورمیانه|هسته‌ای|چین|آمریکا|SCO|Doctrine|political|روابط|Snapback|ماشه/i,
             'اجتماعی': /افغان|مهاجرت|زنان|معیشت|جامعه|immigration|Afghan|Society|جمعیت/i
         };
 
@@ -291,7 +292,7 @@
             tableBody.innerHTML = '';
 
             articlesData.forEach((article, index) => {
-                const titleLink = article.link 
+                const titleLink = article.link && article.link !== '#'
                     ? `<a href="${article.link}" target="_blank" rel="noopener noreferrer" class="hover:text-teal-600">${article.title}</a>` 
                     : article.title;
 
@@ -371,7 +372,7 @@
                 const displayMonth = monthKey.replace('1404-04', 'تیر ۱۴۰۴').replace('1404-05', 'مرداد ۱۴۰۴').replace('1404-06', 'شهریور ۱۴۰۴');
                 
                 let articlesHTML = monthArticles.map(article => {
-                    const titleLink = article.link 
+                    const titleLink = article.link && article.link !== '#'
                         ? `<a href="${article.link || '#'}" target="_blank" class="hover:text-teal-600">${article.title}</a>`
                         : article.title;
                     const alignmentClass = article.language === 'فارسی' ? 'text-right' : 'text-left';
