@@ -94,6 +94,61 @@
             opacity: 1;
             transform: translateX(0);
         }
+
+        /* Accordion Styles */
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .collapsible-content.open {
+            max-height: 2000px; /* Large enough value for the main table */
+        }
+        .accordion-toggle-icon {
+             transition: transform 0.3s ease-in-out;
+        }
+        .accordion-header.closed .accordion-toggle-icon {
+             transform: rotate(-180deg);
+        }
+        .publication-accordion-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+        }
+        .publication-accordion-header {
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+         .publication-accordion-header .count-badge {
+            background-color: #f1f5f9;
+            color: #475569;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+         }
+        .publication-accordion-header .toggle-icon {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0d9488; /* teal-600 */
+            transition: transform 0.3s ease-in-out;
+        }
+        .publication-accordion-header.closed .toggle-icon {
+             transform: rotate(0deg);
+        }
+        .publication-accordion-content {
+             max-height: 0;
+             overflow-y: auto;
+             transition: max-height 0.5s ease-in-out;
+             padding: 0 1rem;
+        }
+        .publication-accordion-content.open {
+            max-height: 500px;
+            padding: 1rem;
+            padding-top: 0;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -125,22 +180,27 @@
         </section>
 
         <div class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-16">
-            <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">لیست کامل مقالات منتشر شده</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-right text-slate-500">
-                    <thead class="text-xs text-slate-700 uppercase bg-slate-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">ردیف</th>
-                            <th scope="col" class="px-6 py-3 w-2/5">عنوان مقاله</th>
-                            <th scope="col" class="px-6 py-3">رسانه</th>
-                            <th scope="col" class="px-6 py-3">تاریخ</th>
-                            <th scope="col" class="px-6 py-3">حوزه</th>
-                        </tr>
-                    </thead>
-                    <tbody id="articles-table-body">
-                    </tbody>
-                </table>
+             <div id="main-table-accordion-header" class="accordion-header flex justify-between items-center cursor-pointer">
+                <h2 class="text-2xl font-bold text-slate-900">لیست کامل مقالات منتشر شده</h2>
+                <span class="accordion-toggle-icon text-3xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
             </div>
+            <div id="main-table-accordion-content" class="collapsible-content">
+                <div class="overflow-x-auto mt-8">
+                    <table class="w-full text-sm text-right text-slate-500">
+                        <thead class="text-xs text-slate-700 uppercase bg-slate-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">ردیف</th>
+                                <th scope="col" class="px-6 py-3 w-2/5">عنوان مقاله</th>
+                                <th scope="col" class="px-6 py-3">رسانه</th>
+                                <th scope="col" class="px-6 py-3">تاریخ</th>
+                                <th scope="col" class="px-6 py-3">حوزه</th>
+                            </tr>
+                        </thead>
+                        <tbody id="articles-table-body">
+                        </tbody>
+                    </table>
+                </div>
+             </div>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
@@ -170,6 +230,13 @@
             </div>
         </div>
         
+        <div class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-16">
+            <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">لیست مقالات بر اساس رسانه</h2>
+            <div id="publications-accordion-container" class="space-y-2">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
         <div class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-16">
             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">خط زمانی انتشار مقالات</h2>
             <div id="timeline-container" class="relative max-w-3xl mx-auto">
@@ -219,7 +286,7 @@
             { id: 33, title: 'تحلیل استراتژیک سرمایه گذاری در ایران پس از مکانیسم ماشه', publication: 'سپهر ایرانیان', date: '1404/06/23', language: 'فارسی', link: '#', category: 'اقتصادی' },
             { id: 34, title: 'شاخص دلار بر لبه پرتگاه', publication: 'اکو اقتصاد', date: '1404/06/23', language: 'فارسی', link: 'https://ecoeghtesad.ir/News?id=129386', category: 'سیاسی/بین‌الملل' },
             { id: 35, title: 'وحشت از رکود در آمریکا؛ چرا حرکت بعدی فدرال رزرو یک قمار پرریسک برای سرمایه‌گذاران جهانی است؟', publication: 'اقتصاد آنلاین', date: '1404/06/23', language: 'فارسی', link: 'https://www.eghtesadonline.com/008kgZ', category: 'سیاسی/بین‌الملل' },
-            { id: 36, title: 'نفرين نفت ايران', publication: 'اعتماد', date: '1404/06/24', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238026/%D9%86%DB%8C%D9%85-%D9%82%D8%B1%D9%86-%D9%85%D8%A8%D8%A7%D8%B1%D8%B2%D9%87-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%AD%D8%A7%D9%83%D9%85%DB%8C%D8%AA-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%DB%8C', category: 'اقتصادی' },
+            { id: 36, title: 'نفرين نفت ايران', publication: 'اعتماد', date: '1404/06/24', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238026/%D9%86%DB%8C%D9%85-%D9%82%D8%B1%D9%86-%D9%85%D8%A8%D8%A7%D8%B1%D8%B2%D9%87-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%ﺣ%D8%A7%D9%83%D9%85%DB%8C%D8%AA-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%DB%8C', category: 'اقتصادی' },
             { id: 37, title: 'King Dollar at the precipice: Why currency’s reign is in jeopardy', publication: 'Asia Times', date: '2025/09/16', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/king-dollar-at-the-precipice-why-currencys-reign-is-in-jeopardy/', category: 'سیاسی/بین‌الملل' },
             { id: 38, title: 'تحلیلی بر امواج شوک از تهران تا پکن و مسکو', publication: 'روزنامه شرق', date: '1404/06/26', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1051227', category: 'سیاسی/بین‌الملل' },
             { id: 39, title: 'Fed\'s expected rates cut could reshape global markets', publication: 'Asia Times', date: '2025/09/17', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/feds-expected-rates-cut-could-reshape-global-markets/', category: 'سیاسی/بین‌الملل' }
@@ -289,6 +356,7 @@
             });
             articlesData.sort((a, b) => b.sortableDate - a.sortableDate);
 
+            // Populate KPIs
             document.getElementById('total-articles').textContent = articlesData.length;
             const publications = [...new Set(articlesData.map(a => a.publication))];
             document.getElementById('total-publications').textContent = publications.length;
@@ -297,14 +365,13 @@
             document.getElementById('persian-articles').textContent = persianCount;
             document.getElementById('english-articles').textContent = englishCount;
 
+            // Populate Main Table
             const tableBody = document.getElementById('articles-table-body');
             tableBody.innerHTML = '';
-
             articlesData.forEach((article, index) => {
                 const titleLink = article.link && article.link !== '#'
                     ? `<a href="${article.link}" target="_blank" rel="noopener noreferrer" class="hover:text-teal-600">${article.title}</a>` 
                     : article.title;
-
                 const tableRow = `
                     <tr class="bg-white border-b hover:bg-slate-50">
                         <td class="px-6 py-4 font-medium text-slate-900">${articlesData.length - index}</td>
@@ -312,15 +379,98 @@
                         <td class="px-6 py-4">${article.publication}</td>
                         <td class="px-6 py-4">${article.date}</td>
                         <td class="px-6 py-4">${article.category}</td>
-                    </tr>
-                `;
+                    </tr>`;
                 tableBody.innerHTML += tableRow;
             });
 
+            // Initialize Accordions
+            setupMainTableAccordion();
+            createPublicationsAccordion();
+
+            // Create Visualizations
             createTimeline();
             createCharts();
             setupScrollAnimations();
         });
+
+        function setupMainTableAccordion() {
+            const header = document.getElementById('main-table-accordion-header');
+            const content = document.getElementById('main-table-accordion-content');
+            const icon = header.querySelector('.accordion-toggle-icon');
+
+            header.addEventListener('click', () => {
+                content.classList.toggle('open');
+                header.classList.toggle('closed');
+                icon.textContent = content.classList.contains('open') ? '−' : '+';
+            });
+        }
+
+        function createPublicationsAccordion() {
+            const container = document.getElementById('publications-accordion-container');
+            container.innerHTML = '';
+
+            const articlesByPublication = articlesData.reduce((acc, article) => {
+                const pub = article.publication;
+                if (!acc[pub]) acc[pub] = [];
+                acc[pub].push(article);
+                return acc;
+            }, {});
+
+            const predefinedOrder = [
+                'دنیای اقتصاد',
+                'روزنامه شرق',
+                'اعتماد',
+                'Asia Times',
+                'Asia Sentinel'
+            ];
+            
+            const allPublications = Object.keys(articlesByPublication);
+            const sortedPublications = [
+                ...predefinedOrder,
+                ...allPublications.filter(p => !predefinedOrder.includes(p)).sort((a, b) => {
+                    return articlesByPublication[b].length - articlesByPublication[a].length;
+                })
+            ].filter(p => allPublications.includes(p));
+
+            sortedPublications.forEach(pub => {
+                const articles = articlesByPublication[pub];
+                const articlesHTML = articles.map(article => {
+                    const titleLink = article.link && article.link !== '#'
+                        ? `<a href="${article.link}" target="_blank" rel="noopener noreferrer" class="hover:text-teal-600">${article.title}</a>`
+                        : article.title;
+                    const alignmentClass = article.language === 'فارسی' ? 'text-right' : 'text-left';
+                    const direction = article.language === 'فارسی' ? 'rtl' : 'ltr';
+                    return `<li class="pb-2 ${alignmentClass}" dir="${direction}">${titleLink} <span class="text-xs text-slate-400">(${article.date})</span></li>`;
+                }).join('');
+
+                const itemHTML = `
+                <div class="publication-accordion-item">
+                    <div class="publication-accordion-header">
+                        <span class="font-bold text-slate-800">${pub}</span>
+                        <div class="flex items-center gap-4">
+                            <span class="count-badge">${articles.length} مقاله</span>
+                            <span class="toggle-icon text-3xl font-bold text-teal-600">+</span>
+                        </div>
+                    </div>
+                    <div class="publication-accordion-content">
+                        <ul class="list-disc list-inside space-y-1 text-slate-600">
+                           ${articlesHTML}
+                        </ul>
+                    </div>
+                </div>`;
+                container.innerHTML += itemHTML;
+            });
+
+            document.querySelectorAll('.publication-accordion-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('.toggle-icon');
+                    header.classList.toggle('closed');
+                    content.classList.toggle('open');
+                    icon.textContent = content.classList.contains('open') ? '−' : '+';
+                });
+            });
+        }
         
         function setupScrollAnimations() {
             const observerOptions = {
