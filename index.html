@@ -306,7 +306,8 @@
             { id: 39, title: 'تحلیلی بر امواج شوک از تهران تا پکن و مسکو', publication: 'روزنامه شرق', date: '1404/06/26', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1051227', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران', 'چین'] },
             { id: 40, title: 'Iran Feasts in Crisis', publication: 'Asia Sentinel', date: '2025/09/19', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-feasts-in-crisis?r=61lzwg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
             { id: 41, title: 'غول تحریم‌شده', publication: 'روزنامه اعتماد', date: '1404/06/29', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238298/%D8%BA%D9%88%D9%84-%D8%AA%D8%AD%D8%B1%DB%8C%D9%85-%E2%80%8C%D8%B4%D8%AF%D9%87', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] },
-            { id: 42, title: 'گازهایی که می‌سوزند', publication: 'روزنامه دنیای اقتصاد', date: '1404/06/30', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4214075', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'چین'] }
+            { id: 42, title: 'گازهایی که می‌سوزند', publication: 'روزنامه دنیای اقتصاد', date: '1404/06/30', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4214075', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'چین'] },
+            { id: 43, title: 'ضیافت در بحران', publication: 'روزنامه شرق', date: '1404/07/02', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1053398', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] }
         ];
 
         function jalaliToGregorian(jalaliDateStr) {
@@ -516,6 +517,7 @@
                     if(year === 2025 && month === 7) return '1404-04';
                     if(year === 2025 && month === 8) return '1404-05';
                     if(year === 2025 && month === 9) return '1404-06';
+                    if(year === 2025 && month === 10) return '1404-07';
                     return `${year}-${String(month).padStart(2, '0')}`;
                 }
             };
@@ -535,7 +537,11 @@
 
             sortedMonths.forEach(monthKey => {
                 const monthArticles = articlesByMonth[monthKey];
-                const displayMonth = monthKey.replace('1404-04', 'تیر ۱۴۰۴').replace('1404-05', 'مرداد ۱۴۰۴').replace('1404-06', 'شهریور ۱۴۰۴');
+                const displayMonth = monthKey
+                    .replace('1404-04', 'تیر ۱۴۰۴')
+                    .replace('1404-05', 'مرداد ۱۴۰۴')
+                    .replace('1404-06', 'شهریور ۱۴۰۴')
+                    .replace('1404-07', 'مهر ۱۴۰۴');
                 
                 let articlesHTML = monthArticles.map(article => {
                     const titleLink = article.link && article.link !== '#'
@@ -659,6 +665,8 @@
                      if(year === 2025 && month === 7) monthYearKey = '1404-04';
                      else if(year === 2025 && month === 8) monthYearKey = '1404-05';
                      else if(year === 2025 && month === 9) monthYearKey = '1404-06';
+                     else if(year === 2025 && month === 10) monthYearKey = '1404-07';
+
                 }
                 if (monthYearKey) {
                     acc[monthYearKey] = (acc[monthYearKey] || 0) + 1;
@@ -671,7 +679,7 @@
             new Chart(monthlyCtx, {
                 type: 'line',
                 data: {
-                    labels: sortedMonths.map(([key]) => key.replace('1404-04', 'تیر').replace('1404-05', 'مرداد').replace('1404-06', 'شهریور')),
+                    labels: sortedMonths.map(([key]) => key.replace('1404-04', 'تیر').replace('1404-05', 'مرداد').replace('1404-06', 'شهریور').replace('1404-07', 'مهر')),
                     datasets: [{
                         label: 'تعداد مقالات',
                         data: sortedMonths.map(([, val]) => val),
@@ -726,4 +734,5 @@
 
 </body>
 </html>
+
 
