@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اینفوگرافیک مقالات اقتصادی - امیررضا اعطاسی</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -310,9 +310,11 @@
             { id: 43, title: 'ضیافت در بحران', publication: 'روزنامه شرق', date: '1404/07/02', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1053398', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
             { id: 44, title: 'نبرد روزمره براي فروش نفت', publication: 'روزنامه اعتماد', date: '1404/07/06', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238625/%D9%86%D8%A8%D8%B1%D8%AF-%D8%B1%D9%88%D8%B2%D9%85%D8%B1%D9%87-%D8%A8%D8%B1%D8%A7%DB%8C-%D9%81%D8%B1%D9%88%D8%B4-%D9%86%D9%81%D8%AA', category: 'اقتصادی / انرژی', keywords: ['ایران', 'نفت', 'تحریم', 'چین'] },
             { id: 45, title: 'حسابداران آمریکا در برابر مهندسان چین/ جنگ قدرتی که کسی آن را نمی‌بیند', publication: 'اقتصاد آنلاین', date: '1404/07/07', language: 'فارسی', link: 'https://www.eghtesadonline.com/008lOu', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
-            { id: 46, title: 'کالبد شکافی یک زوال تدریجی', publication: 'روزنامه اعتماد', date: '1404/07/12', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238971/%DA%A9%D8%A7%D9%84%D8%A8%D8%AF-%D8%B4%DA%A9%D8%A7%D9%81%DB%8C-%DB%8C%DA%A9-%D8%B2%D9%88%D8%A7%D9%84-%D8%AA%D8%AF%D8%B1%DB%8C%D8%AC%DB%8C', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'تحریم'] },
-            { id: 47, title: 'واگرایی بزرگ', publication: 'روزنامه شرق', date: '1404/07/10', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1055629', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'جهان'] },
-            { id: 48, title: 'ریشه‌یابی بحران در بخش کشاورزی', publication: 'روزنامه دنیای اقتصاد', date: '1404/07/14', language: 'فارسی', link: 'https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%A8%D8%A7%D8%B4%DA%AF%D8%A7%D9%87-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%D8%AF%D8%A7%D9%86%D8%A7%D9%86-52/4217561-%D8%B1%DB%8C%D8%B4%D9%87-%DB%8C%D8%A7%D8%A8%DB%8C-%D8%A8%D8%AD%D8%B1%D8%A7%D9%86-%D8%AF%D8%B1-%D8%A8%D8%AE%D8%B4-%DA%A9%D8%B4%D8%A7%D9%88%D8%B1%D8%B2%DB%8C', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران', 'تحریم'] }
+            { id: 46, title: 'واگرایی بزرگ', publication: 'روزنامه شرق', date: '1404/07/10', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1055629', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'جهان'] },
+            { id: 47, title: 'کالبد شکافی یک زوال تدریجی', publication: 'روزنامه اعتماد', date: '1404/07/12', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238971/%DA%A9%D8%A7%D9%84%D8%A8%D8%AF-%D8%B4%DA%A9%D8%A7%D9%81%DB%8C-%DB%8C%DA%A9-%D8%B2%D9%88%D8%A7%D9%84-%D8%AA%D8%AF%D8%B1%DB%8C%D8%AC%DB%8C', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'تحریم'] },
+            { id: 48, title: 'ریشه‌یابی بحران در بخش کشاورزی', publication: 'روزنامه دنیای اقتصاد', date: '1404/07/12', language: 'فارسی', link: 'https://donya-e-eqtesad.com/%D8%A8%D8%AE%D8%B4-%D8%A8%D8%A7%D8%B4%DA%AF%D8%A7%D9%87-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%D8%AF%D8%A7%D9%86%D8%A7%D9%86-52/4217561-%D8%B1%DB%8C%D8%B4%D9%87-%DB%8C%D8%A7%D8%A8%DB%8C-%D8%A8%D8%AD%D8%B1%D8%A7%D9%86-%D8%AF%D8%B1-%D8%A8%D8%AE%D8%B4-%DA%A9%D8%B4%D8%A7%D9%88%D8%B1%D8%B2%DB%8C', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران', 'تحریم'] },
+            { id: 49, title: 'فنر فشرده مسکن؛ شمارش معکوس برای جهش بزرگ پس از رکود تاریخی', publication: 'اقتصاد آنلاین', date: '1404/07/14', language: 'فارسی', link: 'https://www.eghtesadonline.com/008m6C', category: 'اقتصادی', keywords: ['مسکن', 'ایران', 'تحریم'] },
+            { id: 50, title: 'فرسایش از درون: تحلیلی بر هزینه بقای اقتصاد ایران', publication: 'روزنامه شرق', date: '1404/07/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1056890', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'تحریم', 'ایران'] }
         ];
 
         function jalaliToGregorian(jalaliDateStr) {
