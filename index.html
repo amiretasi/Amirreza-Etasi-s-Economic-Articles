@@ -316,7 +316,8 @@
             { id: 49, title: 'فنر فشرده مسکن؛ شمارش معکوس برای جهش بزرگ پس از رکود تاریخی', publication: 'اقتصاد آنلاین', date: '1404/07/14', language: 'فارسی', link: 'https://www.eghtesadonline.com/008m6C', category: 'اقتصادی', keywords: ['مسکن', 'ایران', 'تحریم'] },
             { id: 50, title: 'فرسایش از درون: تحلیلی بر هزینه بقای اقتصاد ایران', publication: 'روزنامه شرق', date: '1404/07/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1056890', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'تحریم', 'ایران'] },
             { id: 51, title: 'Chinese engineers vs US accountants: The real power struggle', publication: 'Asia Times', date: '2025/10/07', language: 'انگلیسی', link: 'https://asiatimes.com/2025/10/chinese-engineers-vs-us-accountants-the-real-power-struggle/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'چین', 'اقتصاد جهانی'] },
-            { id: 52, title: 'Iran at the Precipice: The Economics of Endurance', publication: 'Asia Sentinel', date: '2025/10/09', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-precipice-economics-endurance', category: 'اقتصادی / اجتماعی', keywords: ['تورم', 'تحریم', 'ایران'] }
+            { id: 52, title: 'Iran at the Precipice: The Economics of Endurance', publication: 'Asia Sentinel', date: '2025/10/09', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-precipice-economics-endurance', category: 'اقتصادی / اجتماعی', keywords: ['تورم', 'تحریم', 'ایران'] },
+            { id: 53, title: 'Great Fracture as 3 rival blueprints for the global economy emerge', publication: 'Asia Times', date: '2025/10/10', language: 'انگلیسی', link: 'https://asiatimes.com/2025/10/great-fracture-as-3-rival-blueprints-for-the-global-economy-emerge/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'چین', 'روسیه', 'اقتصاد جهانی'] }
         ];
 
         function jalaliToGregorian(jalaliDateStr) {
@@ -608,10 +609,11 @@
                 }
             });
 
-            // Chart 2: Thematic Analysis (Updated Logic)
+            // Chart 2: Thematic Analysis (Updated Logic with merged keywords)
             const allKeywords = articlesData.flatMap(a => a.keywords || []).filter(k => k);
             const themeCounts = allKeywords.reduce((acc, keyword) => {
-                acc[keyword] = (acc[keyword] || 0) + 1;
+                const key = (keyword === 'جهان' || keyword === 'جهانی') ? 'اقتصاد جهانی' : keyword;
+                acc[key] = (acc[key] || 0) + 1;
                 return acc;
             }, {});
             const sortedThemes = Object.entries(themeCounts).filter(([, count]) => count > 0).sort(([, a], [, b]) => b - a);
