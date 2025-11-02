@@ -41,7 +41,7 @@
         .chart-container {
             position: relative;
             width: 100%;
-            height: 400px; /* Standard height */
+            /* height: 400px; */ /* REMOVED - Height will be controlled by wrapper */
             background-color: white;
             border-radius: 0.75rem;
             padding: 1.5rem; /* p-6 */
@@ -96,6 +96,20 @@
          .accordion-header:not(.closed) .accordion-toggle-icon {
              transform: rotate(45deg); /* Rotate to 'x' or similar */
         }
+
+        /* --- BEGIN NEW STYLES --- */
+        /* Scroll Animation Styles */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* --- END NEW STYLES --- */
     </style>
 </head>
 <body class="antialiased">
@@ -125,77 +139,102 @@
 
         <!-- KPIs Section -->
         <section id="kpis" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
-            <div class="kpi-card">
+            <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+            <div class="kpi-card reveal-on-scroll">
                 <h3 class="font-semibold text-slate-500">کل کتاب‌ها (عناوین یکتا)</h3>
                 <p id="total-books" class="text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card reveal-on-scroll">
                 <h3 class="font-semibold text-slate-500">کل نویسندگان</h3>
                 <p id="total-authors" class="text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
-            <div class="kpi-card">
-                <h3 class="font-semibold text-slate-500">قدیمی‌ترین مطالعه</h3>
-                <p id="oldest-read" class="text-4xl font-bold text-teal-600 mt-2">0</s_p>
+            <div class="kpi-card reveal-on-scroll">
+                <h3 class="font-semibold text-slate-500">تعداد دفعات مطالعه</h3>
+                <p id="total-reads" class="text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card reveal-on-scroll">
                 <h3 class="font-semibold text-slate-500">کتاب‌های ۱۴۰۴</h3>
                 <p id="current-year-books" class="text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
         </section>
 
-        <!-- Full List Section -->
-        <div id="full-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16">
-             <div id="main-table-accordion-header" class="accordion-header flex justify-between items-center cursor-pointer">
-                <h2 class="text-2xl font-bold text-slate-900">لیست کامل کتاب‌های مطالعه شده</h2>
-                <span class="accordion-toggle-icon text-3xl font-bold text-teal-600 transition-transform duration-300 transform closed">+</span>
-            </div>
-            <div id="main-table-accordion-content" class="collapsible-content">
-                <div class="overflow-x-auto mt-8">
-                    <table class="w-full text-sm text-right text-slate-500">
-                        <thead class="text-xs text-slate-700 uppercase bg-slate-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">ردیف</th>
-                                <th scope="col" class="px-6 py-3 w-2/5">عنوان کتاب</th>
-                                <th scope="col" class="px-6 py-3">نویسنده</th>
-                                <th scope="col" class="px-6 py-3">تاریخ نگارش</th>
-                                <th scope="col" class="px-6 py-3">تاریخ مطالعه</th>
-                                <!-- Swapped columns -->
-                                <th scope="col" class="px-6 py-3">ملیت</th>
-                                <th scope="col" class="px-6 py-3">ژانر</th>
-                                <!-- Added translator -->
-                                <th scope="col" class="px-6 py-3">مترجم</th>
-                            </tr>
-                        </thead>
-                        <tbody id="books-table-body">
-                        </tbody>
-                    </table>
-                </div>
-             </div>
+        <!-- Full List Accordion (Restored) -->
+        <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+        <div id="full-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+             <div id="main-table-accordion-header" class="accordion-header flex justify-between items-center cursor-pointer closed">
+                  <h2 class="text-2xl font-bold text-slate-900">لیست کامل کتاب‌های مطالعه شده</h2>
+                  <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+              </div>
+              <div id="main-table-accordion-content" class="collapsible-content">
+                  <div class="overflow-x-auto mt-8">
+                      <table class="w-full text-sm text-right text-slate-500">
+                          <thead class="text-xs text-slate-700 uppercase bg-slate-50">
+                              <tr>
+                                  <th scope="col" class="px-6 py-3">ردیف</th>
+                                  <th scope="col" class="px-6 py-3 w-2/5">عنوان کتاب</th>
+                                  <th scope="col" class="px-6 py-3">نویسنده</th>
+                                  <th scope="col" class="px-6 py-3">مترجم</th>
+                                  <th scope="col" class="px-6 py-3">تاریخ نگارش</th>
+                                  <th scope="col" class="px-6 py-3">تاریخ مطالعه</th>
+                                  <th scope="col" class="px-6 py-3">ژانر</th>
+                                  <th scope="col" class="px-6 py-3">ملیت</th>
+                              </tr>
+                          </thead>
+                          <tbody id="books-table-body">
+                              <!-- Populated by JavaScript -->
+                          </tbody>
+                      </table>
+                  </div>
+               </div>
         </div>
         
-        <!-- Charts Section -->
+        <!-- Charts Section (Restored) -->
         <section id="charts-section" class="space-y-8 mb-16">
-            <!-- Full Width Chart -->
-            <div class="chart-container" style="height: 500px;">
-                <h3 class="text-lg font-semibold text-center mb-4">فراوانی کتاب‌ها بر اساس نویسنده</h3>
-                <canvas id="authorChart"></canvas>
+            <!-- Full-width Chart -->
+            <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+            <div class="chart-container reveal-on-scroll">
+                <h3 class="text-lg font-semibold text-center mb-4">فراوانی کتاب‌ها (بر اساس مطالعه) بر اساس نویسنده</h3>
+                <div class="relative h-[400px]">
+                    <canvas id="authorChart"></canvas>
+                </div>
             </div>
             
-            <!-- Two Column Charts -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="chart-container">
+            <!-- Two-column Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+                <div class="chart-container reveal-on-scroll">
                     <h3 class="text-lg font-semibold text-center mb-4">تحلیل ژانرهای مطالعه شده</h3>
-                    <canvas id="genreChart"></canvas>
+                    <div class="relative h-[400px]">
+                        <canvas id="genreChart"></canvas>
+                    </div>
                 </div>
-                <div class="chart-container">
+                <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+                <div class="chart-container reveal-on-scroll">
                     <h3 class="text-lg font-semibold text-center mb-4">تعداد کتاب‌های مطالعه شده (بر اساس سال)</h3>
-                    <canvas id="yearlyProductionChart"></canvas>
+                    <div class="relative h-[400px]">
+                        <canvas id="yearlyProductionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Author List Section -->
+        <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+        <section id="author-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+            <div id="author-list-accordion-header" class="accordion-header flex justify-between items-center cursor-pointer closed">
+                <h2 class="text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس نویسنده</h2>
+                <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+            </div>
+            <div id="author-list-accordion-content" class="collapsible-content">
+                <div id="author-accordion-container" class="space-y-4 mt-8">
+                    <!-- Populated by JavaScript -->
                 </div>
             </div>
         </section>
 
         <!-- Timeline Section -->
-        <section id="timeline-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16">
+        <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+        <section id="timeline-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">خط زمانی مطالعه کتاب‌ها</h2>
             <div id="timeline-container" class="relative max-w-3xl mx-auto">
                 <!-- Populated by JavaScript -->
@@ -234,12 +273,18 @@
             { id: 20, title: 'هیپیاس بزرگ', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/06/20', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
             { id: 21, title: 'هیپیاس کوچک', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/06/20', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
             { id: 22, title: 'آپولوژی', author: 'افلاطون', originalPubDate: '۳۹۹ ق.م', readYear: '1382', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 22.1, title: 'آپولوژی', author: 'افلاطون', originalPubDate: '۳۹۹ ق.م', readYear: '1392', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 22.2, title: 'آپولوژی', author: 'افلاطون', originalPubDate: '۳۹۹ ق.م', readYear: '1397', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
             { id: 23, title: 'ضیافت', author: 'افلاطون', originalPubDate: '۳۸۵ ق.م', readYear: '1380', genre: 'فلسفه', translator: 'محمدعلی فروغی', nationality: 'یونان' },
+            { id: 23.1, title: 'ضیافت', author: 'افلاطون', originalPubDate: '۳۸۵ ق.م', readYear: '1381', genre: 'فلسفه', translator: 'محمدعلی فروغی', nationality: 'یونان' },
+            { id: 23.2, title: 'ضیافت', author: 'افلاطون', originalPubDate: '۳۸۵ ق.م', readYear: '1385', genre: 'فلسفه', translator: 'محمدعلی فروغی', nationality: 'یونان' },
             { id: 24, title: 'کریتون', author: 'افلاطون', originalPubDate: '۳۹۹ ق.م', readYear: '1383', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
             { id: 25, title: 'گرگیاس', author: 'افلاطون', originalPubDate: '۳۸۰ ق.م', readYear: '1384', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
             { id: 26, title: 'خارمیدس', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1384', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
             { id: 81, title: 'پروتاگراس', author: 'افلاطون', originalPubDate: '۳۸۰ ق.م', readYear: '1399', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
             { id: 82, title: 'پروتاگراس', author: 'افلاطون', originalPubDate: '۳۸۰ ق.م', readYear: '1404/08/10', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 105, title: 'لوسیس', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1383', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 106, title: 'لوسیس', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/10', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
 
             // سارتر
             { id: 27, title: 'دیوار', author: 'ژان پل سارتر', originalPubDate: '۱۳۱۸', readYear: '1404/08/08', genre: 'رمان فلسفی', translator: 'صادق هدایت', nationality: 'فرانسه' },
@@ -274,6 +319,7 @@
             { id: 45, title: 'مثنوی معنوی', author: 'مولانا', originalPubDate: 'قرن ۷', readYear: '1383', genre: 'عرفان', translator: 'تصحیح نیکلسون', nationality: 'ایران' },
             { id: 46, title: 'فیه ما فیه', author: 'مولانا', originalPubDate: 'قرن ۷', readYear: '1382', genre: 'عرفان', translator: 'تصحیح فروزانفر', nationality: 'ایران' },
             { id: 47, title: 'خط سوم', author: 'ناصرالدین صاحب‌الزمانی', originalPubDate: '۱۳۵۱', readYear: '1382', genre: 'عرفان', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 47.1, title: 'خط سوم', author: 'ناصرالدین صاحب‌الزمانی', originalPubDate: '۱۳۵۱', readYear: '1380', genre: 'عرفان', translator: 'تألیفی', nationality: 'ایران' },
             { id: 48, title: 'اسفار اربعه', author: 'ملاصدرا', originalPubDate: 'قرن ۱۱', readYear: '1384', genre: 'فلسفه', translator: 'محمد خواجوی', nationality: 'ایران' },
             { id: 49, title: 'اخبار حلاج', author: 'لوئی ماسینیون', originalPubDate: '۱۳۰۱', readYear: '1384', genre: 'عرفان', translator: 'حمید حمید', nationality: 'فرانسه' },
             { id: 50, title: 'مصائب حلاج', author: 'لوئی ماسینیون', originalPubDate: '۱۳۰۱', readYear: '1388', genre: 'عرفان', translator: 'ضیاءالدین دهشیری', nationality: 'فرانسه' },
@@ -321,6 +367,12 @@
             { id: 89, title: 'دستگاه در موسیقی ایرانی', author: 'هرمز فرهت', originalPubDate: '۱۳۶۸', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
             { id: 90, title: 'کتاب سال شیدا ۱', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
             { id: 91, title: 'کتاب سال شیدا ۲', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.1, title: 'کتاب سال شیدا ۳ و ۴', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.2, title: 'کتاب سال شیدا ۷ و ۶', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.3, title: 'کتاب سال شیدا ۵', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.4, title: 'کتاب سال شیدا ۸ و ۹', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1387', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.5, title: 'کتاب سال شیدا ۱۰ و ۱۱', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1387', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.6, title: 'کتاب سال شیدا ۱ و ۲', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
             { id: 92, title: 'ارکستراسیون', author: 'کنت کنان', originalPubDate: '۱۳۳۷', readYear: '1386', genre: 'موسیقی', translator: 'هوشنگ کامکار', nationality: 'آمریکا' },
             { id: 93, title: 'هفت دستگاه موسیقی ایرانی', author: 'مجید کیانی', originalPubDate: '۱۳۷۱', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
             { id: 94, title: 'نگرشی نو به تئوری موسیقی ایرانی', author: 'داریوش طلایی', originalPubDate: '۱۳۷۲', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
@@ -329,15 +381,15 @@
             { id: 95, title: 'سیر حکمت در اروپا', author: 'محمدعلی فروغی', originalPubDate: '۱۳۱۰', readYear: '1381', genre: 'فلسفه', translator: 'تألیفی', nationality: 'ایران' },
             { id: 96, title: 'آخرت و خدا، هدف بعثت انبیاء؟!', author: 'مهدی بازرگان', originalPubDate: '۱۳۴۱', readYear: '1385', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
             { id: 97, title: 'گاو (عزاداران بیل)', author: 'غلامحسین ساعدی', originalPubDate: '۱۳۴۳', readYear: '1377', genre: 'رمان', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 107, title: 'کباب غاز', author: 'محمدعلی جمال‌زاده', originalPubDate: '۱۳۰۰', readYear: '1375', genre: 'داستان کوتاه', translator: 'تألیفی', nationality: 'ایران' },
             { id: 98, title: 'رباعیات خیام', author: 'عمر خیام', originalPubDate: 'قرن ۵', readYear: '1385', genre: 'عرفان', translator: 'تصحیح فروغی', nationality: 'ایران' },
             { id: 99, title: 'قمار عاشقانه', author: 'عبدالکریم سروش', originalPubDate: '۱۳۷۵', readYear: '1383', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
             { id: 100, title: 'سفر به دیگر سو', author: 'کارلوس کاستاندا', originalPubDate: '۱۳۵۰', readYear: '1381', genre: 'عرفان', translator: 'مهران کندری', nationality: 'پرو' },
             { id: 101, title: 'بتهوون', author: 'رومن رولان', originalPubDate: '۱۲۸۲', readYear: '1382', genre: 'زندگی‌نامه', translator: 'محمد مجلسی', nationality: 'فرانسه' },
-            { id: 102, title: 'قرآن', author: 'محمد (ص)', originalPubDate: 'قرن ۱', readYear: '1385', genre: 'فلسفه دینی', translator: 'الهی قمشه‌ای', nationality: 'عربستان' },
+            { id: 102, title: 'قرآن', author: 'محمد', originalPubDate: 'قرن ۱', readYear: '1385', genre: 'فلسفه دینی', translator: 'الهی قمشه‌ای', nationality: 'عربستان' },
             { id: 103, title: 'دوبیتی‌ها (خیام)', author: 'عمر خیام', originalPubDate: 'قرن ۵', readYear: '1387', genre: 'عرفان', translator: 'تصحیح فروغی', nationality: 'ایران' },
-            { id: 104, title: 'ایمان و آزادی', author: 'مجتهد شبستری', originalPubDate: '۱۳۷۶', readYear: '1389', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
-            { id: 105, title: 'لوسیس', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1383', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
-            { id: 106, title: 'لوسیس', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/10', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' }
+            { id: 104, title: 'ایمان و آزادی', author: 'مجتهد شبستری', originalPubDate: '۱۳۷۶', readYear: '1389', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' }
+            
         ];
 
         
@@ -386,14 +438,32 @@
             // 3. Populate Main Table
             populateTable(processedData);
 
-            // 4. Setup Accordion
-            setupMainTableAccordion();
+            // 4. Setup Accordions
+            // *** MODIFICATION: Removed callback ***
+            setupAccordion('main-table-accordion-header', 'main-table-accordion-content');
 
             // 5. Create Visualizations
             createCharts(processedData);
 
             // 6. Create Timeline
             createTimeline(processedData);
+            
+            // 7. NEW: Create Author List
+            createAuthorList(processedData);
+
+            // 8. Setup Animations & Accordions
+            // *** MODIFICATION: Added animations for blocks ***
+            setupScrollAnimations('.kpi-card');
+            setupScrollAnimations('.chart-container');
+            setupScrollAnimations('#full-list-section');
+            setupScrollAnimations('#author-list-section');
+            setupScrollAnimations('#timeline-section');
+            setupScrollAnimations('.timeline-item .reveal-on-scroll'); // For timeline items
+            
+            setupAuthorAccordions(); // NEW: For author list
+            
+            // *** MODIFICATION: Removed callback ***
+            setupAccordion('author-list-accordion-header', 'author-list-accordion-content'); 
         });
 
         function populateKPIs(data) {
@@ -404,8 +474,7 @@
             const authors = [...new Set(data.map(a => a.author))];
             document.getElementById('total-authors').textContent = authors.length;
 
-            const oldestReadYear = data.length ? data[data.length - 1].year : 'N/A';
-            document.getElementById('oldest-read').textContent = oldestReadYear;
+            document.getElementById('total-reads').textContent = data.length;
 
             const currentYearBooks = data.filter(b => b.year === '1404').length;
             document.getElementById('current-year-books').textContent = currentYearBooks;
@@ -413,38 +482,63 @@
 
         function populateTable(data) {
             const tableBody = document.getElementById('books-table-body');
+            // --- FIX: Check if element exists ---
+            if (!tableBody) {
+                console.warn("Element with ID 'books-table-body' not found. Skipping table population.");
+                return; 
+            }
             tableBody.innerHTML = ''; // Clear existing
+            const totalBooks = data.length; // <-- خط اضافه شده
             data.forEach((book, index) => {
+                const rowNum = totalBooks - index; // <-- خط اضافه شده
+                // *** MODIFICATION: Removed reveal-on-scroll class ***
                 const tableRow = `
                     <tr class="bg-white border-b hover:bg-slate-50">
-                        <td class="px-6 py-4 font-medium text-slate-900">${index + 1}</td>
+                        <td class="px-6 py-4 font-medium text-slate-900">${rowNum}</td> <!-- <-- خط ویرایش شده -->
                         <td class="px-6 py-4 font-semibold">${book.title}</td>
                         <td class="px-6 py-4">${book.author}</td>
+                        <!-- "مترجم" moved here -->
+                        <td class="px-6 py-4">${book.translator || '---'}</td>
                         <td class="px-6 py-4">${book.originalPubDate}</td>
                         <td class="px-6 py-4">${book.readYear}</td>
-                        <td class="px-6 py-4">${book.nationality}</td>
                         <td class="px-6 py-4">${book.genre}</td>
-                        <td class="px-6 py-4">${book.translator || '---'}</td>
+                        <!-- "ملیت" moved to the end -->
+                        <td class="px-6 py-4">${book.nationality}</td>
                     </tr>`;
                 tableBody.innerHTML += tableRow;
             });
         }
 
-        function setupMainTableAccordion() {
-            const header = document.getElementById('main-table-accordion-header');
-            const content = document.getElementById('main-table-accordion-content');
+        /**
+         * Generic function to set up an accordion.
+         * *** MODIFICATION: Removed onFirstOpenCallback ***
+         */
+        function setupAccordion(headerId, contentId) {
+            const header = document.getElementById(headerId);
+            // --- FIX: Check if element exists ---
+            if (!header) {
+                console.warn(`Accordion header '${headerId}' not found. Skipping accordion setup.`);
+                return;
+            }
+            const content = document.getElementById(contentId);
             const icon = header.querySelector('.accordion-toggle-icon');
 
             header.addEventListener('click', () => {
                 const isOpen = content.classList.toggle('open');
                 header.classList.toggle('closed', !isOpen);
-                icon.textContent = isOpen ? '−' : '+';
-                icon.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
+                if (icon) {
+                    icon.textContent = isOpen ? '−' : '+';
+                    icon.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
+                }
             });
         }
 
+        // *** MODIFICATION: Removed this function, integrated into DOMContentLoaded ***
+        // function setupMainTableAccordion() { ... }
+
         function createTimeline(data) {
             const timelineContainer = document.getElementById('timeline-container');
+            if (!timelineContainer) return; // <-- Add check
             timelineContainer.innerHTML = ''; // Clear container
 
             // Group books by year
@@ -483,8 +577,10 @@
                         books.sort((a, b) => b.full.localeCompare(a.full));
                         
                         let booksHTML = books.map(book => {
-                            // Add read date in front
-                            return `<li class="text-slate-700"><strong>${book.title}</strong> (${book.readYear}) - ${book.author}</li>`;
+                            // --- EDIT: Added translator and smaller date font ---
+                            const translatorText = (book.translator && book.translator !== 'تألیفی' && book.translator !== 'تصحیح شفیعی کدکنی' && book.translator !== 'تصحیح قزوینی' && book.translator !== 'تصحیح نیکلسون' && book.translator !== 'تصحیح فروزانفر' && book.translator !== 'تصحیح موحد' && book.translator !== 'تصحیح وحید دستگردی' && book.translator !== 'تصحیح هانری کربن' && book.translator !== 'تصحیح فروغی') ? ` - ${book.translator}` : '';
+                            const dateText = `<span class="text-xs text-slate-500">(${book.readYear})</span>`;
+                            return `<li class="text-slate-700 reveal-on-scroll"><strong>${book.title}</strong> - ${book.author}${translatorText} ${dateText}</li>`;
                         }).join('');
 
                         timelineHTML += `
@@ -502,8 +598,10 @@
                     // Handle other years (non-1404)
                     const books = booksByYear[year];
                     let booksHTML = books.map(book => {
-                        // Add read date in front
-                        return `<li class="text-slate-700"><strong>${book.title}</strong> (${book.readYear}) - ${book.author}</li>`;
+                        // --- EDIT: Added translator and smaller date font ---
+                        const translatorText = (book.translator && book.translator !== 'تألیفی' && book.translator !== 'تصحیح شفیعی کدکنی' && book.translator !== 'تصحیح قزوینی' && book.translator !== 'تصحیح نیکلسون' && book.translator !== 'تصحیح فروزانفر' && book.translator !== 'تصحیح موحد' && book.translator !== 'تصحیح وحید دستگردی' && book.translator !== 'تصحیح هانری کربن' && book.translator !== 'تصحیح فروغی') ? ` - ${book.translator}` : '';
+                        const dateText = `<span class="text-xs text-slate-500">(${book.readYear})</span>`;
+                        return `<li class="text-slate-700 reveal-on-scroll"><strong>${book.title}</strong> - ${book.author}${translatorText} ${dateText}</li>`;
                     }).join('');
 
                     timelineHTML += `
@@ -520,11 +618,117 @@
             timelineContainer.innerHTML = timelineHTML;
         }
 
+        /**
+         * NEW: Creates the accordion list for books grouped by author.
+         */
+        function createAuthorList(data) {
+            const container = document.getElementById('author-accordion-container');
+            if (!container) return;
+
+            // 1. Group by author
+            const groupedByAuthor = data.reduce((acc, book) => {
+                const author = book.author || 'نامشخص';
+                if (!acc[author]) acc[author] = [];
+                acc[author].push(book);
+                return acc;
+            }, {});
+
+            // 2. Sort authors by book count (descending)
+            const sortedAuthors = Object.keys(groupedByAuthor).sort((a, b) => {
+                return groupedByAuthor[b].length - groupedByAuthor[a].length;
+            });
+
+            let html = '';
+            sortedAuthors.forEach((author, index) => {
+                const books = groupedByAuthor[author];
+                // Books are already sorted by date from processedData, but re-sorting ensures it.
+                books.sort((a, b) => b.full.localeCompare(a.full));
+                
+                // --- NEW SUB-GROUPING BY TITLE ---
+                const booksByTitle = books.reduce((acc, book) => {
+                    if (!acc[book.title]) {
+                        acc[book.title] = {
+                            book: book, // Store the first book object (for translator, etc.)
+                            readYears: []
+                        };
+                    }
+                    acc[book.title].readYears.push(book.readYear);
+                    return acc;
+                }, {});
+                // --- END NEW SUB-GROUPING ---
+
+                const headerId = `author-header-${index}`;
+                const contentId = `author-content-${index}`;
+
+                let booksHTML = Object.values(booksByTitle).map(group => {
+                    const book = group.book;
+                    // Sort dates ascending (e.g., 1380, 1404)
+                    // --- EDIT: Changed join separator from '، ' to ' - ' ---
+                    const dates = group.readYears.sort((a,b) => a.localeCompare(b)).join(' - '); 
+                    
+                    // --- EDIT: Changed translator format ---
+                    const translatorText = (book.translator && book.translator !== 'تألیفی' && book.translator !== 'تصحیح شفیعی کدکنی' && book.translator !== 'تصحیح قزوینی' && book.translator !== 'تصحیح نیکلسون' && book.translator !== 'تصحیح فروزانفر' && book.translator !== 'تصحیح موحد' && book.translator !== 'تصحیح وحید دستگردی' && book.translator !== 'تصحیح هانری کربن' && book.translator !== 'تصحیح فروغی') ? ` - ${book.translator}` : '';
+                    const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
+
+                    // --- EDIT: Changed display format ---
+                    // *** MODIFICATION: Removed reveal-on-scroll class ***
+                    return `<li class="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right">
+                                <strong>${book.title}</strong>${translatorText} - ${datesText}
+                            </li>`;
+                }).join('');
+
+                html += `
+                    <div class="border border-slate-200 rounded-lg overflow-hidden">
+                        <!-- Author Accordion Header -->
+                        <div id="${headerId}" class="author-accordion-header bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 closed">
+                            <!-- --- EDIT: Changed header format --- -->
+                            <h3 class="font-bold text-lg text-slate-800">
+                                ${author} 
+                                <!-- *** MODIFICATION: Added space for readability *** -->
+                                <span class="text-sm font-medium text-slate-600">${Object.keys(booksByTitle).length} کتاب / ${books.length} بار خوانش</span>
+                            </h3>
+                            <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+                        </div>
+                        <!-- Author Collapsible Content -->
+                        <div id="${contentId}" class="author-collapsible-content collapsible-content bg-white">
+                            <ul class="space-y-1 p-4">
+                                ${booksHTML}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        /**
+         * NEW: Sets up click handlers for the dynamically created author accordions.
+         */
+        function setupAuthorAccordions() {
+            const headers = document.querySelectorAll('.author-accordion-header');
+            
+            headers.forEach(header => {
+                // *** MODIFICATION: Removed dataset flag ***
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling; // Get the content pane
+                    const icon = header.querySelector('.accordion-toggle-icon');
+                    
+                    const isOpen = content.classList.toggle('open');
+                    header.classList.toggle('closed', !isOpen);
+                    icon.textContent = isOpen ? '−' : '+';
+                    icon.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
+
+                    // *** MODIFICATION: Removed animation callback ***
+                });
+            });
+        }
+
 
         function createCharts(data) {
             const chartColors = ['#14b8a6', '#f59e0b', '#3b82f6', '#ef4444', '#8b5cf6', '#ec4899', '#64748b', '#0891b2', '#f97316' ];
             const tealColor = '#0d9488';
-            const amberColor = '#f59e0b';
+            // --- EDIT: Changed color from amber to blue ---
+            const blueColor = '#3b82f6'; // Replaced amber
             
             // --- Chart 1: Author Frequency (Vertical Bar) ---
             const authorCounts = data.reduce((acc, book) => {
@@ -533,69 +737,83 @@
             }, {});
             const sortedAuthors = Object.entries(authorCounts).sort(([, a], [, b]) => b - a);
 
-            const authorCtx = document.getElementById('authorChart').getContext('2d');
-            new Chart(authorCtx, {
-                type: 'bar', // Changed from 'horizontalBar' (Chart.js 2.x) to 'bar' with indexAxis: 'x'
-                data: {
-                    labels: sortedAuthors.map(p => p[0]),
-                    datasets: [{
-                        label: 'تعداد کتاب‌ها',
-                        data: sortedAuthors.map(p => p[1]),
-                        backgroundColor: tealColor,
-                        borderRadius: 4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'x', // 'x' for vertical bar
-                    scales: { 
-                        y: { beginAtZero: true, ticks: { precision: 0 } },
-                        x: {
-                            ticks: {
-                                autoSkip: false, // Show all labels
-                                maxRotation: 60, // Rotate labels if they overlap
-                                minRotation: 0,
-                            }
-                        }
+            // --- FIX: Check if canvas element exists ---
+            const authorCtxEl = document.getElementById('authorChart');
+            if (authorCtxEl) {
+                const authorCtx = authorCtxEl.getContext('2d');
+                new Chart(authorCtx, {
+                    type: 'bar', // Changed from 'horizontalBar' (Chart.js 2.x) to 'bar' with indexAxis: 'x'
+                    data: {
+                        labels: sortedAuthors.map(p => p[0]),
+                        datasets: [{
+                            label: 'تعداد کتاب‌ها',
+                            data: sortedAuthors.map(p => p[1]),
+                            backgroundColor: tealColor,
+                            borderRadius: 4,
+                        }]
                     },
-                    plugins: { 
-                        legend: { display: false }
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'x', // 'x' for vertical bar
+                        scales: { 
+                            y: { beginAtZero: true, ticks: { precision: 0 } },
+                            x: {
+                                ticks: {
+                                    autoSkip: false, // Show all labels
+                                    maxRotation: 60, // Rotate labels if they overlap
+                                    minRotation: 0,
+                                }
+                            }
+                        },
+                        plugins: { 
+                            legend: { display: false }
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                console.warn("Element with ID 'authorChart' not found. Skipping author chart creation.");
+            }
 
             // --- Chart 2: Genre Analysis (Horizontal Bar) ---
             const genreCounts = data.reduce((acc, book) => {
                 acc[book.genre] = (acc[book.genre] || 0) + 1;
                 return acc;
             }, {});
+            // --- FIX: Added '=>' ---
             const sortedGenres = Object.entries(genreCounts).sort(([, a], [, b]) => b - a);
 
-            const genreCtx = document.getElementById('genreChart').getContext('2d');
-            new Chart(genreCtx, {
-                type: 'bar', // Use 'bar' type
-                data: {
-                    labels: sortedGenres.map(t => t[0]),
-                    datasets: [{
-                        label: 'تعداد کتاب‌ها',
-                        data: sortedGenres.map(t => t[1]),
-                        backgroundColor: amberColor,
-                        borderRadius: 4,
-                    }]
-                },
-                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y', // Set to 'y' for horizontal bar chart
-                    scales: { 
-                        x: { beginAtZero: true, ticks: { precision: 0 } },
+            // --- FIX: Check if canvas element exists ---
+            const genreCtxEl = document.getElementById('genreChart');
+            if (genreCtxEl) {
+                const genreCtx = genreCtxEl.getContext('2d');
+                new Chart(genreCtx, {
+                    type: 'bar', // Use 'bar' type
+                    data: {
+                        labels: sortedGenres.map(t => t[0]),
+                        datasets: [{
+                            label: 'تعداد کتاب‌ها',
+                            data: sortedGenres.map(t => t[1]),
+                            // --- EDIT: Changed color from amber to blue ---
+                            backgroundColor: blueColor,
+                            borderRadius: 4,
+                        }]
                     },
-                    plugins: { 
-                        legend: { display: false }
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y', // Set to 'y' for horizontal bar chart
+                        scales: { 
+                            x: { beginAtZero: true, ticks: { precision: 0 } },
+                        },
+                        plugins: { 
+                            legend: { display: false }
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                console.warn("Element with ID 'genreChart' not found. Skipping genre chart creation.");
+            }
 
             // --- Chart 3: Yearly Production (Line Chart) ---
             const articlesByYear = data.reduce((acc, book) => {
@@ -607,29 +825,65 @@
             }, {});
             const sortedYears = Object.entries(articlesByYear).sort(([a], [b]) => a.localeCompare(b));
 
-            const yearlyCtx = document.getElementById('yearlyProductionChart').getContext('2d');
-            new Chart(yearlyCtx, {
-                type: 'line',
-                data: {
-                    labels: sortedYears.map(([key]) => key),
-                    datasets: [{
-                        label: 'تعداد کتاب‌ها',
-                        data: sortedYears.map(([, val]) => val),
-                        borderColor: chartColors[2],
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        fill: true,
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { display: false }
+            // --- FIX: Check if canvas element exists ---
+            const yearlyCtxEl = document.getElementById('yearlyProductionChart');
+            if (yearlyCtxEl) {
+                const yearlyCtx = yearlyCtxEl.getContext('2d');
+                new Chart(yearlyCtx, {
+                    type: 'line',
+                    data: {
+                        labels: sortedYears.map(([key]) => key),
+                        datasets: [{
+                            label: 'تعداد کتاب‌ها',
+                            data: sortedYears.map(([, val]) => val),
+                            borderColor: chartColors[2],
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            fill: true,
+                            tension: 0.1
+                        }]
                     },
-                    scales: {
-                        y: { beginAtZero: true, ticks: { precision: 0 } }
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, ticks: { precision: 0 } }
+                        }
                     }
+                });
+            } else {
+                 console.warn("Element with ID 'yearlyProductionChart' not found. Skipping yearly chart creation.");
+            }
+        }
+
+        /**
+         * Sets up IntersectionObserver to animate items on scroll.
+         */
+        function setupScrollAnimations(selector) {
+            const elements = document.querySelectorAll(selector);
+            if (elements.length === 0) return;
+
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: '0px 0px -50px 0px', // Trigger slightly before it's fully on screen
+                threshold: 0.01
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Animate only once
+                    }
+                });
+            }, observerOptions);
+
+            elements.forEach(el => {
+                // Only observe elements that are not already visible (for accordion)
+                if (!el.classList.contains('visible')) {
+                    observer.observe(el);
                 }
             });
         }
