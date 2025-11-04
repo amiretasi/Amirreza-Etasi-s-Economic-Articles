@@ -1,93 +1,896 @@
-import React, { useMemo } from 'react';
-import type { ProcessedBook } from '../types';
-import Accordion from './Accordion';
-import RevealOnScroll from './RevealOnScroll';
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Updated Title -->
+    <title>کتابخانه من - امیررضا اعطاسی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 6rem; /* Adjust based on nav height */
+        }
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #334155; /* slate-700 */
+        }
+        
+        /* Updated KPI Card Styles */
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1.5rem; /* p-6 */
+            text-align: center;
+            border: 1px solid #e2e8f0; /* slate-200 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+        }
 
-interface GenreAccordionListProps {
-    books: ProcessedBook[];
-}
+        /* Updated Chart Container Styles */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            /* height: 400px; */ /* REMOVED - Height will be controlled by wrapper */
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem; /* p-6 */
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
 
-const GenreAccordionList: React.FC<GenreAccordionListProps> = ({ books }) => {
-    const groupedByGenre = useMemo(() => {
-        const grouped = books.reduce((acc, book) => {
-            const genre = book.genre || 'نامشخص';
-            if (!acc[genre]) {
-                acc[genre] = [];
-            }
-            acc[genre].push(book);
-            return acc;
-        }, {} as Record<string, ProcessedBook[]>);
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-right: 2.5rem;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            right: -0.5rem;
+            top: 0.25rem;
+            height: 1.25rem;
+            width: 1.25rem;
+            background-color: #0d9488; /* teal-600 */
+            border-radius: 9999px;
+            border: 4px solid #f8fafc; /* bg-slate-50 */
+        }
+        .timeline-line {
+            position: absolute;
+            right: 0;
+            top: 0.25rem;
+            bottom: -0.25rem;
+            width: 2px;
+            background-color: #e2e8f0; /* slate-200 */
+        }
 
-        return Object.entries(grouped).sort(([, booksA], [, booksB]) => {
-            return booksB.length - booksA.length;
-        });
-    }, [books]);
+        /* Accordion Styles */
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .collapsible-content.open {
+            /* Removed fixed max-height to fix bug */
+            max-height: 10000px; /* Set to a very large value */
+        }
+        .accordion-toggle-icon {
+             transition: transform 0.3s ease-in-out;
+        }
+        .accordion-header.closed .accordion-toggle-icon {
+             transform: rotate(0deg); /* Start from 0 degrees */
+        }
+         .accordion-header:not(.closed) .accordion-toggle-icon {
+             transform: rotate(45deg); /* Rotate to 'x' or similar */
+        }
 
-    return (
-        <RevealOnScroll>
-            <section id="genre-list-section" className="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16">
-                <Accordion
-                    title={
-                        <h2 className="text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس ژانر</h2>
-                    }
-                >
-                    <div className="space-y-4 mt-8">
-                        {groupedByGenre.map(([genre, genreBooks]) => {
-                            const booksByTitle = genreBooks.reduce((acc, book) => {
-                                if (!acc[book.title]) {
-                                    acc[book.title] = {
-                                        book: book,
-                                        readYears: [],
-                                    };
-                                }
-                                acc[book.title].readYears.push(book.readYear);
-                                return acc;
-                            }, {} as Record<string, { book: ProcessedBook; readYears: string[] }>);
+        /* --- BEGIN NEW STYLES --- */
+        /* Scroll Animation Styles */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* --- END NEW STYLES --- */
+    </style>
+</head>
+<body class="antialiased">
 
-                            const title = (
-                                <h3 className="font-bold text-lg text-slate-800">
-                                    {genre}
-                                    <span className="text-sm font-medium text-slate-600 mr-2">
-                                        ({Object.keys(booksByTitle).length} کتاب / {genreBooks.length} بار خوانش)
-                                    </span>
-                                </h3>
-                            );
+    <!-- Updated Header/Nav -->
+    <nav class="sticky top-0 bg-white/95 backdrop-blur-sm shadow-sm z-50 border-b border-slate-200">
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <h1 class="text-xl font-bold text-slate-800">کتابخانه من</h1>
+            <ul class="flex space-x-6 space-x-reverse font-semibold">
+                <li><a href="#kpis" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">شاخص‌ها</a></li>
+                <li><a href="#full-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">لیست کامل</a></li>
+                <li><a href="#charts-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">نمودارها</a></li>
+                <li><a href="#timeline-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">خط زمانی</a></li>
+                <!-- Added Link -->
+                <li><a href="index.html" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">مقاله های من</a></li>
+            </ul>
+        </div>
+    </nav>
 
-                            return (
-                                <Accordion key={genre} title={title}>
-                                    <ul className="space-y-1 p-4">
-                                        {Object.values(booksByTitle)
-                                            .sort((a, b) => {
-                                                // Sort read years for each book title to find the latest one
-                                                const latestYearA = [...a.readYears].sort((y1, y2) => y2.localeCompare(y1))[0];
-                                                const latestYearB = [...b.readYears].sort((y1, y2) => y2.localeCompare(y1))[0];
-                                                // Compare the latest read years to sort the book titles by most recent first
-                                                return latestYearB.localeCompare(latestYearA);
-                                            })
-                                            .map(({ book, readYears }) => {
-                                            const dates = readYears.sort((a, b) => a.localeCompare(b)).join(' - ');
-                                            const translatorText =
-                                                book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی'].includes(book.translator)
-                                                    ? ` - ${book.translator}`
-                                                    : '';
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
 
-                                            return (
-                                                <li key={`${book.id}-${readYears[0]}`} className="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right">
-                                                    <strong>{book.title}</strong> ({book.author})
-                                                    {translatorText} -{' '}
-                                                    <span className="text-sm text-slate-500">({dates})</span>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </Accordion>
-                            );
-                        })}
+        <!-- Updated Page Header -->
+        <header class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">کتابخانه من</h2>
+            <p class="text-lg text-slate-600 mt-2">تحلیل آماری کتاب‌های مطالعه شده توسط امیررضا اعطاسی</p>
+        </header>
+
+        <!-- KPIs Section -->
+        <section id="kpis" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+            <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+            <div class="kpi-card reveal-on-scroll">
+                <h3 class="font-semibold text-slate-500">کل کتاب‌ها (عناوین یکتا)</h3>
+                <p id="total-books" class="text-4xl font-bold text-teal-600 mt-2">0</p>
+            </div>
+            <div class="kpi-card reveal-on-scroll">
+                <h3 class="font-semibold text-slate-500">کل نویسندگان</h3>
+                <p id="total-authors" class="text-4xl font-bold text-teal-600 mt-2">0</p>
+            </div>
+            <div class="kpi-card reveal-on-scroll">
+                <h3 class="font-semibold text-slate-500">تعداد دفعات مطالعه</h3>
+                <p id="total-reads" class="text-4xl font-bold text-teal-600 mt-2">0</p>
+            </div>
+            <div class="kpi-card reveal-on-scroll">
+                <h3 class="font-semibold text-slate-500">کتاب‌های ۱۴۰۴</h3>
+                <p id="current-year-books" class="text-4xl font-bold text-teal-600 mt-2">0</p>
+            </div>
+        </section>
+
+        <!-- Full List Accordion (Restored) -->
+        <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+        <div id="full-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+             <div id="main-table-accordion-header" class="accordion-header flex justify-between items-center cursor-pointer closed">
+                  <h2 class="text-2xl font-bold text-slate-900">لیست کامل کتاب‌های مطالعه شده</h2>
+                  <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+              </div>
+              <div id="main-table-accordion-content" class="collapsible-content">
+                  <div class="overflow-x-auto mt-8">
+                      <table class="w-full text-sm text-right text-slate-500">
+                          <thead class="text-xs text-slate-700 uppercase bg-slate-50">
+                              <tr>
+                                  <th scope="col" class="px-6 py-3">ردیف</th>
+                                  <th scope="col" class="px-6 py-3 w-2/5">عنوان کتاب</th>
+                                  <th scope="col" class="px-6 py-3">نویسنده</th>
+                                  <th scope="col" class="px-6 py-3">مترجم</th>
+                                  <th scope="col" class="px-6 py-3">تاریخ نگارش</th>
+                                  <th scope="col" class="px-6 py-3">تاریخ مطالعه</th>
+                                  <th scope="col" class="px-6 py-3">ژانر</th>
+                                  <th scope="col" class="px-6 py-3">ملیت</th>
+                              </tr>
+                          </thead>
+                          <tbody id="books-table-body">
+                              <!-- Populated by JavaScript -->
+                          </tbody>
+                      </table>
+                  </div>
+               </div>
+        </div>
+        
+        <!-- Charts Section (Restored) -->
+        <section id="charts-section" class="space-y-8 mb-16">
+            <!-- Full-width Chart -->
+            <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+            <div class="chart-container reveal-on-scroll">
+                <h3 class="text-lg font-semibold text-center mb-4">فراوانی کتاب‌ها (بر اساس مطالعه) بر اساس نویسنده</h3>
+                <div class="relative h-[400px]">
+                    <canvas id="authorChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Two-column Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+                <div class="chart-container reveal-on-scroll">
+                    <h3 class="text-lg font-semibold text-center mb-4">تحلیل ژانرهای مطالعه شده</h3>
+                    <div class="relative h-[400px]">
+                        <canvas id="genreChart"></canvas>
                     </div>
-                </Accordion>
-            </section>
-        </RevealOnScroll>
-    );
-};
+                </div>
+                <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+                <div class="chart-container reveal-on-scroll">
+                    <h3 class="text-lg font-semibold text-center mb-4">تعداد کتاب‌های مطالعه شده (بر اساس سال)</h3>
+                    <div class="relative h-[400px]">
+                        <canvas id="yearlyProductionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-export default GenreAccordionList;
+        <!-- NEW: Author List Section -->
+        <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+        <section id="author-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+            <div id="author-list-accordion-header" class="accordion-header flex justify-between items-center cursor-pointer closed">
+                <h2 class="text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس نویسنده</h2>
+                <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+            </div>
+            <div id="author-list-accordion-content" class="collapsible-content">
+                <div id="author-accordion-container" class="space-y-4 mt-8">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <!-- *** MODIFICATION: Added reveal-on-scroll *** -->
+        <section id="timeline-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+            <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">خط زمانی مطالعه کتاب‌ها</h2>
+            <div id="timeline-container" class="relative max-w-3xl mx-auto">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+        
+    </div>
+    
+    <footer class="text-center mt-8 py-6 border-t border-slate-200">
+        <p class="text-slate-500">تهیه شده توسط امیررضا اعطاسی</p>
+    </footer>
+
+    <script>
+        // Store all book data in this array
+        const booksData = [
+            // شریعتی
+            { id: 1, title: 'هبوط', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1381', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 2, title: 'کویر', author: 'علی شریعتی', originalPubDate: '۱۳۴۸', readYear: '1380', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 3, title: 'اسلام‌شناسی (درس‌های ارشاد)', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1380', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 4, title: 'فاطمه، فاطمه است', author: 'علی شریعتی', originalPubDate: '۱۳۴۸', readYear: '1380', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 7, title: 'انسان بی‌خود', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1388', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 8, title: 'مذهب علیه مذهب', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1385', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 9, title: 'زن در چشم و دل محمد', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1382', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 10, title: 'نیایش', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1383', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 11, title: 'چه باید کرد؟', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1379', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 12, title: 'شهادت', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1379', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 13, title: 'آری، اینچنین بود برادر', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1380', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 14, title: 'حسین وارث آدم', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1380', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 15, title: 'پدر، مادر، ما متهمیم', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1381', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 16, title: 'علی حقیقتی بر گونه اساطیر', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1380', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 17, title: 'نوروز', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1385', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 18, title: 'حج', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1383', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 19, title: 'تاریخ ادیان', author: 'علی شریعتی', originalPubDate: 'دهه ۵۰', readYear: '1378', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+
+            // افلاطون
+            { id: 20, title: 'هیپیاس بزرگ', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/06/20', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 21, title: 'هیپیاس کوچک', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/06/20', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 22, title: 'آپولوژی', author: 'افلاطون', originalPubDate: '۳۹۹ ق.م', readYear: '1382', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 22.1, title: 'آپولوژی', author: 'افلاطون', originalPubDate: '۳۹۹ ق.م', readYear: '1392', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 22.2, title: 'آپولوژی', author: 'افلاطون', originalPubDate: '۳۹۹ ق.م', readYear: '1397', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 23, title: 'ضیافت', author: 'افلاطون', originalPubDate: '۳۸۵ ق.م', readYear: '1380', genre: 'فلسفه', translator: 'محمدعلی فروغی', nationality: 'یونان' },
+            { id: 23.1, title: 'ضیافت', author: 'افلاطون', originalPubDate: '۳۸۵ ق.م', readYear: '1381', genre: 'فلسفه', translator: 'محمدعلی فروغی', nationality: 'یونان' },
+            { id: 23.2, title: 'ضیافت', author: 'افلاطون', originalPubDate: '۳۸۵ ق.م', readYear: '1385', genre: 'فلسفه', translator: 'محمدعلی فروغی', nationality: 'یونان' },
+            { id: 24, title: 'کریتون', author: 'افلاطون', originalPubDate: '۳۹۹ ق.م', readYear: '1383', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 25, title: 'گرگیاس', author: 'افلاطون', originalPubDate: '۳۸۰ ق.م', readYear: '1384', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 26, title: 'خارمیدس', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1384', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 81, title: 'پروتاگراس', author: 'افلاطون', originalPubDate: '۳۸۰ ق.م', readYear: '1399', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 82, title: 'پروتاگراس', author: 'افلاطون', originalPubDate: '۳۸۰ ق.م', readYear: '1404/08/10', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 105, title: 'لوسیس', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1383', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 106, title: 'لوسیس', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/10', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+            { id: 109, title: 'لاخس', author: 'افلاطون', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/11', genre: 'فلسفه', translator: 'محمدحسن لطفی', nationality: 'یونان' },
+
+            // سارتر
+            { id: 27, title: 'دیوار', author: 'ژان پل سارتر', originalPubDate: '۱۳۱۸', readYear: '1404/08/08', genre: 'رمان فلسفی', translator: 'صادق هدایت', nationality: 'فرانسه' },
+            { id: 28, title: 'برزخ', author: 'ژان پل سارتر', originalPubDate: '۱۳۲۳', readYear: '1402', genre: 'فلسفه', translator: 'حمید سمندریان', nationality: 'فرانسه' },
+            { id: 29, title: 'شیطان و خدا', author: 'ژان پل سارتر', originalPubDate: '۱۳۳۰', readYear: '1384', genre: 'فلسفه', translator: 'امید شادکامی', nationality: 'فرانسه' },
+            { id: 30, title: 'تهوع', author: 'ژان پل سارتر', originalPubDate: '۱۳۱۷', readYear: '1383', genre: 'رمان فلسفی', translator: 'امیرجلال‌الدین اعلم', nationality: 'فرانسه' },
+            { id: 31, title: 'دست‌های آلوده', author: 'ژان پل سارتر', originalPubDate: '۱۳۲۷', readYear: '1385', genre: 'فلسفه', translator: 'جلال آل احمد', nationality: 'فرانسه' },
+            { id: 32, title: 'مگس‌ها', author: 'ژان پل سارتر', originalPubDate: '۱۳۲۲', readYear: '1384', genre: 'فلسفه', translator: 'صادق هدایت', nationality: 'فرانسه' },
+            { id: 33, title: 'اگزیستانسیالیسم و اصالت بشر', author: 'ژان پل سارتر', originalPubDate: '۱۳۲۵', readYear: '1381', genre: 'فلسفه', translator: 'مصطفی رحیمی', nationality: 'فرانسه' },
+            { id: 83, title: 'در دفاع از روشنفکران', author: 'ژان پل سارتر', originalPubDate: '۱۳۴۴', readYear: '1384', genre: 'فلسفه', translator: 'رضا سیدحسینی', nationality: 'فرانسه' },
+            
+            // کامو
+            { id: 34, title: 'بیگانه', author: 'آلبر کامو', originalPubDate: '۱۳۲۱', readYear: '1404/08/08', genre: 'رمان فلسفی', translator: 'جلال آل احمد', nationality: 'فرانسه' },
+            { id: 35, title: 'سقوط', author: 'آلبر کامو', originalPubDate: '۱۳۳۵', readYear: '1404/08/09', genre: 'رمان فلسفی', translator: 'پرویز شهدی', nationality: 'فرانسه' },
+            
+            // رضاقلی
+            { id: 36, title: 'جامعه‌شناسی خودکامگی', author: 'علی رضاقلی', originalPubDate: '۱۳۶۳', readYear: '1404/08/07', genre: 'جامعه شناسی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 37, title: 'جامعه‌شناسی خودکامگی', author: 'علی رضاقلی', originalPubDate: '۱۳۶۳', readYear: '1404/04/08', genre: 'جامعه شناسی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 38, title: 'جامعه‌شناسی نخبه‌کشی', author: 'علی رضاقلی', originalPubDate: '۱۳۷۷', readYear: '1404/07/26', genre: 'جامعه شناسی', translator: 'تألیفی', nationality: 'ایران' },
+            
+            // راسل
+            { id: 39, title: 'عرفان و منطق', author: 'برتراند راسل', originalPubDate: '۱۲۹۷', readYear: '1383', genre: 'فلسفه', translator: 'نجف دریابندری', nationality: 'انگلیس' },
+            { id: 40, title: 'زندگینامه برتراند راسل', author: 'برتراند راسل', originalPubDate: '۱۳۴۶', readYear: '1382', genre: 'فلسفه', translator: 'نجف دریابندری', nationality: 'انگلیس' },
+            { id: 41, title: 'چرا مسیحی نیستم', author: 'برتراند راسل', originalPubDate: '۱۳۳۶', readYear: '1400', genre: 'فلسفه', translator: 'نجف دریابندری', nationality: 'انگلیس' },
+
+            // هدایت
+            { id: 42, title: 'بوف کور', author: 'صادق هدایت', originalPubDate: '۱۳۱۵', readYear: '1380', genre: 'رمان فلسفی', translator: 'تألیفی', nationality: 'ایران' },
+
+            // ادبیات کلاسیک و عرفان
+            { id: 43, title: 'منطق‌الطیر', author: 'عطار نیشابوری', originalPubDate: 'قرن ۶', readYear: '1381', genre: 'عرفان', translator: 'تصحیح شفیعی کدکنی', nationality: 'ایران' },
+            { id: 44, title: 'دیوان حافظ', author: 'حافظ شیرازی', originalPubDate: 'قرن ۸', readYear: '1382', genre: 'عرفان', translator: 'تصحیح قزوینی', nationality: 'ایران' },
+            { id: 45, title: 'مثنوی معنوی', author: 'مولانا', originalPubDate: 'قرن ۷', readYear: '1383', genre: 'عرفان', translator: 'تصحیح نیکلسون', nationality: 'ایران' },
+            { id: 46, title: 'فیه ما فیه', author: 'مولانا', originalPubDate: 'قرن ۷', readYear: '1382', genre: 'عرفان', translator: 'تصحیح فروزانفر', nationality: 'ایران' },
+            { id: 47, title: 'خط سوم', author: 'ناصرالدین صاحب‌الزمانی', originalPubDate: '۱۳۵۱', readYear: '1382', genre: 'عرفان', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 47.1, title: 'خط سوم', author: 'ناصرالدین صاحب‌الزمانی', originalPubDate: '۱۳۵۱', readYear: '1380', genre: 'عرفان', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 48, title: 'اسفار اربعه', author: 'ملاصدرا', originalPubDate: 'قرن ۱۱', readYear: '1384', genre: 'فلسفه', translator: 'محمد خواجوی', nationality: 'ایران' },
+            { id: 49, title: 'اخبار حلاج', author: 'لوئی ماسینیون', originalPubDate: '۱۳۰۱', readYear: '1384', genre: 'عرفان', translator: 'حمید حمید', nationality: 'فرانسه' },
+            { id: 50, title: 'مصائب حلاج', author: 'لوئی ماسینیون', originalPubDate: '۱۳۰۱', readYear: '1388', genre: 'عرفان', translator: 'ضیاءالدین دهشیری', nationality: 'فرانسه' },
+            { id: 51, title: 'سرّ نی', author: 'عبدالحسین زرین‌کوب', originalPubDate: '۱۳۶۴', readYear: '1384', genre: 'عرفان', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 52, title: 'پله‌پله تا ملاقات خدا', author: 'عبدالحسین زرین‌کوب', originalPubDate: '۱۳۷۰', readYear: '1384', genre: 'عرفان', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 53, title: 'بحر در کوزه', author: 'عبدالحسین زرین‌کوب', originalPubDate: '۱۳۶۶', readYear: '1384', genre: 'عرفان', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 54, title: 'مقالات شمس', author: 'شمس تبریزی', originalPubDate: 'قرن ۷', readYear: '1385', genre: 'عرفان', translator: 'تصحیح موحد', nationality: 'ایران' },
+            { id: 55, title: 'لیلی و مجنون', author: 'نظامی گنجوی', originalPubDate: 'قرن ۶', readYear: '1380', genre: 'عرفان', translator: 'تصحیح وحید دستگردی', nationality: 'ایران' },
+            { id: 56, title: 'عقل سرخ', author: 'سهروردی', originalPubDate: 'قرن ۶', readYear: '1383', genre: 'فلسفه', translator: 'تصحیح هانری کربن', nationality: 'ایران' },
+            { id: 57, title: 'تفسیر سوره نور', author: 'ملاصدرا', originalPubDate: 'قرن ۱۱', readYear: '1385', genre: 'فلسفه دینی', translator: 'محمد خواجوی', nationality: 'ایران' },
+            { id: 58, title: 'گلستان', author: 'سعدی', originalPubDate: '۶۳۷', readYear: '1382', genre: 'عرفان', translator: 'تصحیح فروغی', nationality: 'ایران' },
+            { id: 59, title: 'بوستان', author: 'سعدی', originalPubDate: '۶۳۶', readYear: '1382', genre: 'عرفان', translator: 'تصحیح فروغی', nationality: 'ایران' },
+            { id: 60, title: 'مقدمه بر المشاعر', author: 'هانری کربن', originalPubDate: '۱۳۴۳', readYear: '1382', genre: 'فلسفه', translator: 'تألیفی', nationality: 'فرانسه' },
+
+            // ادبیات و رمان
+            { id: 61, title: 'قلعه حیوانات', author: 'جورج اورول', originalPubDate: '۱۳۲۴', readYear: '1380', genre: 'رمان فلسفی', translator: 'امیر امیرشاهی', nationality: 'انگلیس' },
+            { id: 62, title: '۱۹۸۴', author: 'جورج اورول', originalPubDate: '۱۳۲۸', readYear: '1381', genre: 'رمان فلسفی', translator: 'صالح حسینی', nationality: 'انگلیس' },
+            { id: 63, title: 'شازده کوچولو', author: 'آنتوان دو سنت اگزوپری', originalPubDate: '۱۳۲۲', readYear: '1380', genre: 'رمان فلسفی', translator: 'احمد شاملو', nationality: 'فرانسه' },
+            { id: 64, title: 'هملت', author: 'ویلیام شکسپیر', originalPubDate: '۱۲۸۰', readYear: '1382', genre: 'نمایشنامه', translator: 'مسعود فرزاد', nationality: 'انگلیس' },
+            { id: 65, title: 'مسخ', author: 'فرانتس کافکا', originalPubDate: '۱۲۹۴', readYear: '1383', genre: 'رمان فلسفی', translator: 'صادق هدایت', nationality: 'اتریش' },
+            { id: 66, title: 'کمدی الهی', author: 'دانته آلیگیری', originalPubDate: '۱۰۰۱', readYear: '1380', genre: 'شعر', translator: 'شجاع‌الدین شفا', nationality: 'ایتالیا' },
+            { id: 67, title: 'روی ماه خداوند را ببوس', author: 'مصطفی مستور', originalPubDate: '۱۳۷۹', readYear: '1379', genre: 'رمان فلسفی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 68, title: 'استخوان خوک و دست‌های جذامی', author: 'مصطفی مستور', originalPubDate: '۱۳۸۳', readYear: '1383', genre: 'رمان فلسفی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 69, title: 'من دانای کل هستم', author: 'مصطفی مستور', originalPubDate: '۱۳۸۸', readYear: '1388', genre: 'رمان فلسفی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 70, title: 'خشم فرشتگان', author: 'سیدنی شلدون', originalPubDate: '۱۳۶۱', readYear: '1375', genre: 'رمان', translator: 'احمدreference', nationality: 'آمریکا' },
+            { id: 71, title: 'آناکارنینا', author: 'لئو تولستوی', originalPubDate: '۱۲۵۶', readYear: '1383', genre: 'رمان فلسفی', translator: 'سروش حبیبی', nationality: 'روسیه' },
+            { id: 72, title: 'مائده‌های زمینی', author: 'آندره ژید', originalPubDate: '۱۲۷۶', readYear: '1380', genre: 'رمان فلسفی', translator: 'جلال آل احمد', nationality: 'فرانسه' },
+            
+            // شعر معاصر
+            { id: 73, title: 'ارغنون', author: 'مهدی اخوان ثالث', originalPubDate: '۱۳۳۰', readYear: '1381', genre: 'شعر', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 74, title: 'زمستان', author: 'مهدی اخوان ثالث', originalPubDate: '۱۳۳۵', readYear: '1382', genre: 'شعر', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 75, title: 'آخر شاهنامه', author: 'مهدی اخوان ثالث', originalPubDate: '۱۳۳۸', readYear: '1383', genre: 'شعر', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 76, title: 'از این اوستا', author: 'مهدی اخوان ثالث', originalPubDate: '۱۳۴۴', readYear: '1383', genre: 'شعر', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 77, title: 'سراب', author: 'هوشنگ ابتهاج (سایه)', originalPubDate: '۱۳۳۰', readYear: '1384', genre: 'شعر', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 78, title: 'سیاه‌مشق', author: 'هوشنگ ابتهاج (سایه)', originalPubDate: '۱۳۳۲', readYear: '1383', genre: 'شعر', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 79, title: 'شبگیر', author: 'هوشنگ ابتهاج (سایه)', originalPubDate: '۱۳۳۲', readYear: '1385', genre: 'شعر', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 80, title: 'زمین', author: 'هوشنگ ابتهاج (سایه)', originalPubDate: '۱۳۳۴', readYear: '1385', genre: 'شعر', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 84, title: 'چند برگ از یلدا', author: 'هوشنگ ابتهاج (سایه)', originalPubDate: '۱۳۴۴', readYear: '1382', genre: 'شعر', translator: 'تألیفی', nationality: 'ایران' },
+
+            // موسیقی
+            { id: 85, title: 'تئوری موسیقی', author: 'مصطفی کمال پورتراب', originalPubDate: '۱۳۴۵', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 86, title: 'تئوری موسیقی', author: 'علینقی وزیری', originalPubDate: '۱۳۱۳', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 87, title: 'تئوری موسیقی', author: 'پرویز منصوری', originalPubDate: 'دهه ۵۰', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 88, title: 'موسیقی کبیر', author: 'ابونصر فارابی', originalPubDate: 'قرن ۳', readYear: '1386', genre: 'موسیقی', translator: 'آذرتاش آذرنوش', nationality: 'ایران' },
+            { id: 89, title: 'دستگاه در موسیقی ایرانی', author: 'هرمز فرهت', originalPubDate: '۱۳۶۸', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 90, title: 'کتاب سال شیدا ۱', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91, title: 'کتاب سال شیدا ۲', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.1, title: 'کتاب سال شیدا ۳ و ۴', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.2, title: 'کتاب سال شیدا ۷ و ۶', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.3, title: 'کتاب سال شیدa ۵', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.4, title: 'کتاب سال شیدا ۸ و ۹', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1387', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.5, title: 'کتاب سال شیدا ۱۰ و ۱۱', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1387', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 91.6, title: 'کتاب سال شیدا ۱ و ۲', author: 'محمدرضا لطفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 92, title: 'ارکستراسیون', author: 'کنت کنان', originalPubDate: '۱۳۳۷', readYear: '1386', genre: 'موسیقی', translator: 'هوشنگ کامکار', nationality: 'آمریکا' },
+            { id: 93, title: 'هفت دستگاه موسیقی ایرانی', author: 'مجید کیانی', originalPubDate: '۱۳۷۱', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 94, title: 'نگرشی نو به تئوری موسیقی ایرانی', author: 'داریوش طلایی', originalPubDate: '۱۳۷۲', readYear: '1386', genre: 'موسیقی', translator: 'تألیفی', nationality: 'ایران' },
+
+            // متفرقه
+            { id: 95, title: 'سیر حکمت در اروپا', author: 'محمدعلی فروغی', originalPubDate: '۱۳۱۰', readYear: '1381', genre: 'فلسفه', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 96, title: 'آخرت و خدا، هدف بعثت انبیاء؟!', author: 'مهدی بازرگان', originalPubDate: '۱۳۴۱', readYear: '1385', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 97, title: 'گاو (عزاداران بیل)', author: 'غلامحسین ساعدی', originalPubDate: '۱۳۴۳', readYear: '1377', genre: 'رمان', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 107, title: 'کباب غاز', author: 'محمدعلی جمال‌زاده', originalPubDate: '۱۳۰۰', readYear: '1375', genre: 'داستان کوتاه', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 98, title: 'رباعیات خیام', author: 'عمر خیام', originalPubDate: 'قرن ۵', readYear: '1385', genre: 'عرفان', translator: 'تصحیح فروغی', nationality: 'ایران' },
+            { id: 99, title: 'قمار عاشقانه', author: 'عبدالکریم سروش', originalPubDate: '۱۳۷۵', readYear: '1383', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 100, title: 'سفر به دیگر سو', author: 'کارلوس کاستاندا', originalPubDate: '۱۳۵۰', readYear: '1381', genre: 'عرفان', translator: 'مهران کندری', nationality: 'پرو' },
+            { id: 101, title: 'بتهوون', author: 'رومن رولان', originalPubDate: '۱۲۸۲', readYear: '1382', genre: 'زندگی‌نامه', translator: 'محمد مجلسی', nationality: 'فرانسه' },
+            { id: 102, title: 'قرآن', author: 'محمد', originalPubDate: 'قرن ۱', readYear: '1385', genre: 'فلسفه دینی', translator: 'الهی قمشه‌ای', nationality: 'عربستان' },
+            { id: 103, title: 'دوبیتی‌ها (خیام)', author: 'عمر خیام', originalPubDate: 'قرن ۵', readYear: '1387', genre: 'عرفان', translator: 'تصحیح فروغی', nationality: 'ایران' },
+            { id: 104, title: 'ایمان و آزادی', author: 'مجتهد شبستری', originalPubDate: '۱۳۷۶', readYear: '1389', genre: 'فلسفه دینی', translator: 'تألیفی', nationality: 'ایران' },
+            { id: 105, title: 'ضحاک ماردوش', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1354', readYear: '1404/08/12', genre: 'جامعه شناسی', nationality: 'ایران' }
+        ];
+
+        
+        // Helper constants for date parsing
+        const JALALI_MONTHS = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+
+        /**
+         * Parses a Jalali date string (e.g., "1404/08/01" or "1380") into components.
+         * Returns an object { year, month, day }
+         */
+        function parseReadDate(dateStr) {
+            if (!dateStr || typeof dateStr !== 'string') {
+                return { year: 'نامشخص', month: null, day: null, full: 'نامشخص' };
+            }
+            const parts = dateStr.split('/');
+            const year = parts[0];
+            const month = parts.length > 1 ? parts[1] : null;
+            const day = parts.length > 2 ? parts[2] : null;
+            return { year, month, day, full: dateStr };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default Chart.js font
+            Chart.defaults.font.family = "'Vazirmatn', sans-serif";
+            Chart.defaults.font.weight = '500';
+            Chart.defaults.plugins.tooltip.direction = 'rtl';
+            Chart.defaults.plugins.tooltip.titleFont = { weight: 'bold', size: 14 };
+            Chart.defaults.plugins.tooltip.bodyFont = { size: 12 };
+            Chart.defaults.plugins.tooltip.padding = 10;
+
+            // 1. Process Data
+            const processedData = booksData.map(book => {
+                const dateInfo = parseReadDate(book.readYear);
+                return { ...book, ...dateInfo };
+            }).sort((a, b) => {
+                // Sort by full date string descending
+                if (a.full.length !== b.full.length) {
+                    return b.full.length - a.full.length; // Puts "1404/08/01" before "1404"
+                }
+                return b.full.localeCompare(a.full); // Sorts "1404/08/01" before "1404/07/01"
+            });
+
+            // 2. Populate KPIs
+            populateKPIs(processedData);
+
+            // 3. Populate Main Table
+            populateTable(processedData);
+
+            // 4. Setup Accordions
+            // *** MODIFICATION: Removed callback ***
+            setupAccordion('main-table-accordion-header', 'main-table-accordion-content');
+
+            // 5. Create Visualizations
+            createCharts(processedData);
+
+            // 6. Create Timeline
+            createTimeline(processedData);
+            
+            // 7. NEW: Create Author List
+            createAuthorList(processedData);
+
+            // 8. Setup Animations & Accordions
+            // *** MODIFICATION: Added animations for blocks ***
+            setupScrollAnimations('.kpi-card');
+            setupScrollAnimations('.chart-container');
+            setupScrollAnimations('#full-list-section');
+            setupScrollAnimations('#author-list-section');
+            setupScrollAnimations('#timeline-section');
+            setupScrollAnimations('.timeline-item .reveal-on-scroll'); // For timeline items
+            
+            setupAuthorAccordions(); // NEW: For author list
+            
+            // *** MODIFICATION: Removed callback ***
+            setupAccordion('author-list-accordion-header', 'author-list-accordion-content'); 
+        });
+
+        function populateKPIs(data) {
+            // Bug Fix: Calculate unique titles, not total reads
+            const uniqueTitles = new Set(data.map(b => b.title));
+            document.getElementById('total-books').textContent = uniqueTitles.size;
+
+            const authors = [...new Set(data.map(a => a.author))];
+            document.getElementById('total-authors').textContent = authors.length;
+
+            document.getElementById('total-reads').textContent = data.length;
+
+            const currentYearBooks = data.filter(b => b.year === '1404').length;
+            document.getElementById('current-year-books').textContent = currentYearBooks;
+        }
+
+        function populateTable(data) {
+            const tableBody = document.getElementById('books-table-body');
+            // --- FIX: Check if element exists ---
+            if (!tableBody) {
+                console.warn("Element with ID 'books-table-body' not found. Skipping table population.");
+                return; 
+            }
+            tableBody.innerHTML = ''; // Clear existing
+            const totalBooks = data.length; // <-- خط اضافه شده
+            data.forEach((book, index) => {
+                const rowNum = totalBooks - index; // <-- خط اضافه شده
+                // *** MODIFICATION: Removed reveal-on-scroll class ***
+                const tableRow = `
+                    <tr class="bg-white border-b hover:bg-slate-50">
+                        <td class="px-6 py-4 font-medium text-slate-900">${rowNum}</td> <!-- <-- خط ویرایش شده -->
+                        <td class="px-6 py-4 font-semibold">${book.title}</td>
+                        <td class="px-6 py-4">${book.author}</td>
+                        <!-- "مترجم" moved here -->
+                        <td class="px-6 py-4">${book.translator || '---'}</td>
+                        <td class="px-6 py-4">${book.originalPubDate}</td>
+                        <td class="px-6 py-4">${book.readYear}</td>
+                        <td class="px-6 py-4">${book.genre}</td>
+                        <!-- "ملیت" moved to the end -->
+                        <td class="px-6 py-4">${book.nationality}</td>
+                    </tr>`;
+                tableBody.innerHTML += tableRow;
+            });
+        }
+
+        /**
+         * Generic function to set up an accordion.
+         * *** MODIFICATION: Removed onFirstOpenCallback ***
+         */
+        function setupAccordion(headerId, contentId) {
+            const header = document.getElementById(headerId);
+            // --- FIX: Check if element exists ---
+            if (!header) {
+                console.warn(`Accordion header '${headerId}' not found. Skipping accordion setup.`);
+                return;
+            }
+            const content = document.getElementById(contentId);
+            const icon = header.querySelector('.accordion-toggle-icon');
+
+            header.addEventListener('click', () => {
+                const isOpen = content.classList.toggle('open');
+                header.classList.toggle('closed', !isOpen);
+                if (icon) {
+                    icon.textContent = isOpen ? '−' : '+';
+                    icon.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
+                }
+            });
+        }
+
+        // *** MODIFICATION: Removed this function, integrated into DOMContentLoaded ***
+        // function setupMainTableAccordion() { ... }
+
+        function createTimeline(data) {
+            const timelineContainer = document.getElementById('timeline-container');
+            if (!timelineContainer) return; // <-- Add check
+            timelineContainer.innerHTML = ''; // Clear container
+
+            // Group books by year
+            const booksByYear = data.reduce((acc, book) => {
+                const year = book.year;
+                if (year === 'نامشخص') return acc; // Skip invalid dates
+                if (!acc[year]) acc[year] = [];
+                acc[year].push(book);
+                return acc;
+            }, {});
+
+            // Group 1404 books by month
+            const booksByMonth1404 = data.reduce((acc, book) => {
+                if (book.year === '1404' && book.month) {
+                    if (!acc[book.month]) acc[book.month] = [];
+                    acc[book.month].push(book);
+                }
+                return acc;
+            }, {});
+
+            const sortedYears = Object.keys(booksByYear).sort((a, b) => b.localeCompare(a));
+            
+            let timelineHTML = '<div class="timeline-line"></div>';
+
+            sortedYears.forEach(year => {
+                if (year === '1404') {
+                    // Handle 1404 separately with months
+                    const sortedMonths1404 = Object.keys(booksByMonth1404).sort((a, b) => b.localeCompare(a));
+                    
+                    sortedMonths1404.forEach(monthKey => {
+                        const monthName = JALALI_MONTHS[parseInt(monthKey, 10) - 1];
+                        const yearMonthTitle = `${monthName} ۱۴۰۴`;
+                        const books = booksByMonth1404[monthKey];
+                        
+                        // Sort books within the month by day, descending
+                        books.sort((a, b) => b.full.localeCompare(a.full));
+                        
+                        let booksHTML = books.map(book => {
+                            // --- EDIT: Added translator and smaller date font ---
+                            const translatorText = (book.translator && book.translator !== 'تألیفی' && book.translator !== 'تصحیح شفیعی کدکنی' && book.translator !== 'تصحیح قزوینی' && book.translator !== 'تصحیح نیکلسون' && book.translator !== 'تصحیح فروزانفر' && book.translator !== 'تصحیح موحد' && book.translator !== 'تصحیح وحید دستگردی' && book.translator !== 'تصحیح هانری کربن' && book.translator !== 'تصحیح فروغی') ? ` - ${book.translator}` : '';
+                            const dateText = `<span class="text-xs text-slate-500">(${book.readYear})</span>`;
+                            return `<li class="text-slate-700 reveal-on-scroll"><strong>${book.title}</strong> - ${book.author}${translatorText} ${dateText}</li>`;
+                        }).join('');
+
+                        timelineHTML += `
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h3 class="font-bold text-lg text-slate-800">${yearMonthTitle}</h3>
+                                <ul class="mt-3 space-y-2">
+                                   ${booksHTML}
+                                </ul>
+                            </div>
+                        `;
+                    });
+
+                } else {
+                    // Handle other years (non-1404)
+                    const books = booksByYear[year];
+                    let booksHTML = books.map(book => {
+                        // --- EDIT: Added translator and smaller date font ---
+                        const translatorText = (book.translator && book.translator !== 'تألیفی' && book.translator !== 'تصحیح شفیعی کدکنی' && book.translator !== 'تصحیح قزوینی' && book.translator !== 'تصحیح نیکلسون' && book.translator !== 'تصحیح فروزانفر' && book.translator !== 'تصحیح موحد' && book.translator !== 'تصحیح وحید دستگردی' && book.translator !== 'تصحیح هانری کربن' && book.translator !== 'تصحیح فروغی') ? ` - ${book.translator}` : '';
+                        const dateText = `<span class="text-xs text-slate-500">(${book.readYear})</span>`;
+                        return `<li class="text-slate-700 reveal-on-scroll"><strong>${book.title}</strong> - ${book.author}${translatorText} ${dateText}</li>`;
+                    }).join('');
+
+                    timelineHTML += `
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <h3 class="font-bold text-lg text-slate-800">سال ${year}</h3>
+                            <ul class="mt-3 space-y-2">
+                               ${booksHTML}
+                            </ul>
+                        </div>
+                    `;
+                }
+            });
+            timelineContainer.innerHTML = timelineHTML;
+        }
+
+        /**
+         * NEW: Creates the accordion list for books grouped by author.
+         */
+        function createAuthorList(data) {
+            const container = document.getElementById('author-accordion-container');
+            if (!container) return;
+
+            // 1. Group by author
+            const groupedByAuthor = data.reduce((acc, book) => {
+                const author = book.author || 'نامشخص';
+                if (!acc[author]) acc[author] = [];
+                acc[author].push(book);
+                return acc;
+            }, {});
+
+            // 2. Sort authors by book count (descending)
+            const sortedAuthors = Object.keys(groupedByAuthor).sort((a, b) => {
+                return groupedByAuthor[b].length - groupedByAuthor[a].length;
+            });
+
+            let html = '';
+            sortedAuthors.forEach((author, index) => {
+                const books = groupedByAuthor[author];
+                // Books are already sorted by date from processedData, but re-sorting ensures it.
+                books.sort((a, b) => b.full.localeCompare(a.full));
+                
+                // --- NEW SUB-GROUPING BY TITLE ---
+                const booksByTitle = books.reduce((acc, book) => {
+                    if (!acc[book.title]) {
+                        acc[book.title] = {
+                            book: book, // Store the first book object (for translator, etc.)
+                            readYears: []
+                        };
+                    }
+                    acc[book.title].readYears.push(book.readYear);
+                    return acc;
+                }, {});
+                // --- END NEW SUB-GROUPING ---
+
+                const headerId = `author-header-${index}`;
+                const contentId = `author-content-${index}`;
+
+                let booksHTML = Object.values(booksByTitle).map(group => {
+                    const book = group.book;
+                    // Sort dates ascending (e.g., 1380, 1404)
+                    // --- EDIT: Changed join separator from '، ' to ' - ' ---
+                    const dates = group.readYears.sort((a,b) => a.localeCompare(b)).join(' - '); 
+                    
+                    // --- EDIT: Changed translator format ---
+                    const translatorText = (book.translator && book.translator !== 'تألیفی' && book.translator !== 'تصحیح شفیعی کدکنی' && book.translator !== 'تصحیح قزوینی' && book.translator !== 'تصحیح نیکلسون' && book.translator !== 'تصحیح فروزانفر' && book.translator !== 'تصحیح موحد' && book.translator !== 'تصحیح وحید دستگردی' && book.translator !== 'تصحیح هانری کربن' && book.translator !== 'تصحیح فروغی') ? ` - ${book.translator}` : '';
+                    const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
+
+                    // --- EDIT: Changed display format ---
+                    // *** MODIFICATION: Removed reveal-on-scroll class ***
+                    return `<li class="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right">
+                                <strong>${book.title}</strong>${translatorText} - ${datesText}
+                            </li>`;
+                }).join('');
+
+                html += `
+                    <div class="border border-slate-200 rounded-lg overflow-hidden">
+                        <!-- Author Accordion Header -->
+                        <div id="${headerId}" class="author-accordion-header bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 closed">
+                            <!-- --- EDIT: Changed header format --- -->
+                            <h3 class="font-bold text-lg text-slate-800">
+                                ${author} 
+                                <!-- *** MODIFICATION: Added space for readability *** -->
+                                <span class="text-sm font-medium text-slate-600">${Object.keys(booksByTitle).length} کتاب / ${books.length} بار خوانش</span>
+                            </h3>
+                            <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+                        </div>
+                        <!-- Author Collapsible Content -->
+                        <div id="${contentId}" class="author-collapsible-content collapsible-content bg-white">
+                            <ul class="space-y-1 p-4">
+                                ${booksHTML}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        /**
+         * NEW: Sets up click handlers for the dynamically created author accordions.
+         */
+        function setupAuthorAccordions() {
+            const headers = document.querySelectorAll('.author-accordion-header');
+            
+            headers.forEach(header => {
+                // *** MODIFICATION: Removed dataset flag ***
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling; // Get the content pane
+                    const icon = header.querySelector('.accordion-toggle-icon');
+                    
+                    const isOpen = content.classList.toggle('open');
+                    header.classList.toggle('closed', !isOpen);
+                    icon.textContent = isOpen ? '−' : '+';
+                    icon.style.transform = isOpen ? 'rotate(45deg)' : 'rotate(0deg)';
+
+                    // *** MODIFICATION: Removed animation callback ***
+                });
+            });
+        }
+
+
+        function createCharts(data) {
+            const chartColors = ['#14b8a6', '#f59e0b', '#3b82f6', '#ef4444', '#8b5cf6', '#ec4899', '#64748b', '#0891b2', '#f97316' ];
+            const tealColor = '#0d9488';
+            // --- EDIT: Changed color from amber to blue ---
+            const blueColor = '#3b82f6'; // Replaced amber
+            
+            // --- Chart 1: Author Frequency (Vertical Bar) ---
+            const authorCounts = data.reduce((acc, book) => {
+                acc[book.author] = (acc[book.author] || 0) + 1;
+                return acc;
+            }, {});
+            const sortedAuthors = Object.entries(authorCounts).sort(([, a], [, b]) => b - a);
+
+            // --- FIX: Check if canvas element exists ---
+            const authorCtxEl = document.getElementById('authorChart');
+            if (authorCtxEl) {
+                const authorCtx = authorCtxEl.getContext('2d');
+                new Chart(authorCtx, {
+                    type: 'bar', // Changed from 'horizontalBar' (Chart.js 2.x) to 'bar' with indexAxis: 'x'
+                    data: {
+                        labels: sortedAuthors.map(p => p[0]),
+                        datasets: [{
+                            label: 'تعداد کتاب‌ها',
+                            data: sortedAuthors.map(p => p[1]),
+                            backgroundColor: tealColor,
+                            borderRadius: 4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'x', // 'x' for vertical bar
+                        scales: { 
+                            y: { beginAtZero: true, ticks: { precision: 0 } },
+                            x: {
+                                ticks: {
+                                    autoSkip: false, // Show all labels
+                                    maxRotation: 60, // Rotate labels if they overlap
+                                    minRotation: 0,
+                                }
+                            }
+                        },
+                        plugins: { 
+                            legend: { display: false }
+                        }
+                    }
+                });
+            } else {
+                console.warn("Element with ID 'authorChart' not found. Skipping author chart creation.");
+            }
+
+            // --- Chart 2: Genre Analysis (Horizontal Bar) ---
+            const genreCounts = data.reduce((acc, book) => {
+                acc[book.genre] = (acc[book.genre] || 0) + 1;
+                return acc;
+            }, {});
+            // --- FIX: Added '=>' ---
+            const sortedGenres = Object.entries(genreCounts).sort(([, a], [, b]) => b - a);
+
+            // --- FIX: Check if canvas element exists ---
+            const genreCtxEl = document.getElementById('genreChart');
+            if (genreCtxEl) {
+                const genreCtx = genreCtxEl.getContext('2d');
+                new Chart(genreCtx, {
+                    type: 'bar', // Use 'bar' type
+                    data: {
+                        labels: sortedGenres.map(t => t[0]),
+                        datasets: [{
+                            label: 'تعداد کتاب‌ها',
+                            data: sortedGenres.map(t => t[1]),
+                            // --- EDIT: Changed color from amber to blue ---
+                            backgroundColor: blueColor,
+                            borderRadius: 4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y', // Set to 'y' for horizontal bar chart
+                        scales: { 
+                            x: { beginAtZero: true, ticks: { precision: 0 } },
+                        },
+                        plugins: { 
+                            legend: { display: false }
+                        }
+                    }
+                });
+            } else {
+                console.warn("Element with ID 'genreChart' not found. Skipping genre chart creation.");
+            }
+
+            // --- Chart 3: Yearly Production (Line Chart) ---
+            const articlesByYear = data.reduce((acc, book) => {
+                const year = book.year;
+                if (year !== 'نامشخص') {
+                    acc[year] = (acc[year] || 0) + 1;
+                }
+                return acc;
+            }, {});
+            const sortedYears = Object.entries(articlesByYear).sort(([a], [b]) => a.localeCompare(b));
+
+            // --- FIX: Check if canvas element exists ---
+            const yearlyCtxEl = document.getElementById('yearlyProductionChart');
+            if (yearlyCtxEl) {
+                const yearlyCtx = yearlyCtxEl.getContext('2d');
+                new Chart(yearlyCtx, {
+                    type: 'line',
+                    data: {
+                        labels: sortedYears.map(([key]) => key),
+                        datasets: [{
+                            label: 'تعداد کتاب‌ها',
+                            data: sortedYears.map(([, val]) => val),
+                            borderColor: chartColors[2],
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            fill: true,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, ticks: { precision: 0 } }
+                        }
+                    }
+                });
+            } else {
+                 console.warn("Element with ID 'yearlyProductionChart' not found. Skipping yearly chart creation.");
+            }
+        }
+
+        /**
+         * Sets up IntersectionObserver to animate items on scroll.
+         */
+        function setupScrollAnimations(selector) {
+            const elements = document.querySelectorAll(selector);
+            if (elements.length === 0) return;
+
+            const observerOptions = {
+                root: null, // viewport
+                rootMargin: '0px 0px -50px 0px', // Trigger slightly before it's fully on screen
+                threshold: 0.01
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Animate only once
+                    }
+                });
+            }, observerOptions);
+
+            elements.forEach(el => {
+                // Only observe elements that are not already visible (for accordion)
+                if (!el.classList.contains('visible')) {
+                    observer.observe(el);
+                }
+            });
+        }
+
+    </script>
+
+</body>
+</html>
+
