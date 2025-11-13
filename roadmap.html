@@ -274,6 +274,9 @@
 
     <script>
         const booksData = [
+            { id: 130, title: 'بیچاره اسفندیار', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1369', readYear: '1404/08/21', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 129, title: 'داش آکل', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '1311', readYear: '1404/08/21', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 128, title: 'انتر تریاکی', author: 'احمد محمود', translator: 'تألیفی', originalPubDate: '1350', readYear: '1404/08/21', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 127, title: 'ضحاک ماردوش', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1354', readYear: '1404/08/18', genre: 'جامعه شناسی', nationality: 'ایران' },
             { id: 1, title: 'شیخ صنعان', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1357', readYear: '1404/08/16', genre: 'جامعه شناسی', nationality: 'ایران' },
             { id: 126, title: 'در آستین مرقع', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1360', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
@@ -328,7 +331,7 @@
             { id: 50, title: 'آخرت و خدا، هدف بعثت انبیاء؟!', author: 'مهدی بازرگان', translator: 'تألیفی', originalPubDate: '۱۳۴۱', readYear: '1385', genre: 'فلسفه دینی', nationality: 'ایران' },
             { id: 51, title: 'رباعیات خیام', author: 'عمر خیام', translator: 'تصحیح فروغی', originalPubDate: 'قرن ۵', readYear: '1385', genre: 'شعر', nationality: 'ایران' },
             { id: 52, title: 'قرآن', author: 'محمد', translator: 'الهی قمشه‌ای', originalPubDate: 'قرن ۱', readYear: '1385', genre: 'فلسفه دینی', nationality: 'عربستان' },
-            { id: 53, title: 'گرگیاس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.م', readYear: '1384', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 53, title: 'گرگیاس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.m', readYear: '1384', genre: 'فلسفه', nationality: 'یونان' },
             { id: 54, title: 'خارمیدس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1384', genre: 'فلسفه', nationality: 'یونان' },
             { id: 55, title: 'شیطان و خدا', author: 'ژان پل سارتر', translator: 'امید شادکامی', originalPubDate: '۱۳۳۰', readYear: '1384', genre: 'فلسفه', nationality: 'فرانسه' },
             { id: 56, title: 'مگس‌ها', author: 'ژان پل سارتر', translator: 'صادق هدایت', originalPubDate: '۱۳۲۲', readYear: '1384', genre: 'فلسفه', nationality: 'فرانسه' },
@@ -441,12 +444,12 @@
             // Setup Accordions
             setupAccordion('main-table-accordion-header', 'main-table-accordion-content');
             setupAccordion('author-list-accordion-header', 'author-list-accordion-content');
-            setupAccordion('genre-list-accordion-header', 'genre-list-accordion-content'); // <-- NEW
+            setupAccordion('genre-list-accordion-header', 'genre-list-accordion-content'); 
 
             createCharts(processedData);
             createTimeline(processedData);
             createAuthorList(processedData);
-            createGenreList(processedData); // <-- NEW
+            createGenreList(processedData); 
 
             setupScrollAnimations();
         });
