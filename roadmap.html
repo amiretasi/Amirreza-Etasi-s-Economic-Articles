@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Updated Title -->
     <title>کتابخانه من - امیررضا اعطاسی</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
@@ -21,6 +22,7 @@
             color: #334155; /* slate-700 */
         }
         
+        /* Updated KPI Card Styles */
         .kpi-card {
             background-color: white;
             border-radius: 0.75rem; /* rounded-xl */
@@ -35,9 +37,11 @@
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
         }
 
+        /* Updated Chart Container Styles */
         .chart-container {
             position: relative;
             width: 100%;
+            /* height: 400px; */ /* REMOVED - Height will be controlled by wrapper */
             background-color: white;
             border-radius: 0.75rem;
             padding: 1.5rem; /* p-6 */
@@ -357,6 +361,7 @@
             { id: 76, title: 'از این اوستا', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۴۴', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
             { id: 77, title: 'سیاه‌مشق', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۲', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
             { id: 78, title: 'قمار عاشقانه', author: 'عبدالکریم سروش', translator: 'تألیفی', originalPubDate: '۱۳۷۵', readYear: '1383', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 131, title: 'چنین گفت زرتشت', author: 'فردریش نیچه', translator: 'داریوش آشوری', originalPubDate: '۱۲۶۲', readYear: '1383', genre: 'فلسفه', nationality: 'آلمان' },
             { id: 79, title: 'زن در چشم و دل محمد', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1382', genre: 'فلسفه دینی', nationality: 'ایران' },
             { id: 80, title: 'آپولوژی', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1382', genre: 'فلسفه', nationality: 'یونان' },
             { id: 81, title: 'زندگینامه برتراند راسل', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۳۴۶', readYear: '1382', genre: 'فلسفه', nationality: 'انگلیس' },
@@ -700,7 +705,7 @@
                     const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
 
                     return `<li class="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right">
-                                <strong>${book.title}</strong> (نویسنده: ${book.author})${translatorText} - ${datesText}
+                                F<strong>${book.title}</strong> (نویسنده: ${book.author})${translatorText} - ${datesText}
                             </li>`;
                 }).join('');
 
@@ -773,7 +778,7 @@
                         maintainAspectRatio: false,
                         indexAxis: 'x', 
                         layout: {
-                            padding: 30 
+                            padding: { top: 10, right: 30, bottom: 10, left: 30 }
                         },
                         scales: { 
                             y: { beginAtZero: true, ticks: { precision: 0 } },
@@ -782,6 +787,7 @@
                                     autoSkip: false, 
                                     maxRotation: 60, 
                                     minRotation: 0,
+                                    font: { size: 10 }
                                 }
                             }
                         },
@@ -817,7 +823,7 @@
                         maintainAspectRatio: false,
                         indexAxis: 'y', 
                          layout: {
-                            padding: 30 
+                            padding: { top: 10, right: 10, bottom: 10, left: 30 }
                         },
                         scales: { 
                             x: { beginAtZero: true, ticks: { precision: 0 } },
@@ -858,7 +864,7 @@
                         responsive: true,
                         maintainAspectRatio: false,
                          layout: {
-                            padding: 30 
+                            padding: { top: 10, right: 30, bottom: 10, left: 10 }
                         },
                         plugins: { 
                             legend: { display: false }
