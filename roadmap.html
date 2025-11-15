@@ -278,6 +278,8 @@
 
     <script>
         const booksData = [
+            { id: 132, title: 'گدا (عزاداران بیل)', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '1343', readYear: '1404/08/22', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 133, title: 'گدا (عزاداران بیل)', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '1343', readYear: '1404/08/22', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 130, title: 'بیچاره اسفندیار', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1369', readYear: '1404/08/21', genre: 'جامعه شناسی', nationality: 'ایران' },
             { id: 129, title: 'داش آکل', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '1311', readYear: '1404/08/21', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 128, title: 'انتر تریاکی', author: 'احمد محمود', translator: 'تألیفی', originalPubDate: '1350', readYear: '1404/08/21', genre: 'داستان کوتاه', nationality: 'ایران' },
@@ -705,7 +707,7 @@
                     const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
 
                     return `<li class="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right">
-                                F<strong>${book.title}</strong> (نویسنده: ${book.author})${translatorText} - ${datesText}
+                                <strong>${book.title}</strong> (نویسنده: ${book.author})${translatorText} - ${datesText}
                             </li>`;
                 }).join('');
 
