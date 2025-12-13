@@ -643,7 +643,8 @@
             }, {});
             const sortedThemes = Object.entries(themeCounts)
                 .filter(([, count]) => count > 0)
-                .sort(([, a], [, b]) => b - a); // Sort most to least
+                .sort(([, a], [, b]) => b - a) // Sort most to least
+                .slice(0, 12); // Limit to top 12 for readability
 
             const thematicCtx = document.getElementById('thematicAnalysisChart').getContext('2d');
             new Chart(thematicCtx, {
