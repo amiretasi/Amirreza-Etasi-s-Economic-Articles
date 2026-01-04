@@ -127,6 +127,7 @@
 
     <script>
         const articlesData = [
+             { id: -19, title: 'تحلیل استراتژیک سرمایه‌گذاری مسکن در لحظه «واگرایی»', publication: 'روزنامه جهان صنعت', date: '1404/10/14', language: 'فارسی', link: 'https://jahanesanat.ir/?p=596661', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت', 'طلا', 'ارز'] },
              { id: -18, title: 'آناتومیِ زوال نقد کتاب عزاداران بیل ساعدی', publication: 'روزنامه هنرمند', date: '1404/10/09', language: 'فارسی', link: '#', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
              { id: -17, title: '۱۴۰۵ سال انتخابهای دشوار میان نشان و نان', publication: 'روزنامه هنرمند', date: '1404/10/14', language: 'فارسی', link: '#', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم', 'جامعه شناسی'] },
              { id: -16, title: 'Anatomy of an economic suicide: Venezuela under Maduro', publication: 'Asia Times', date: '2026/01/04', language: 'انگلیسی', link: 'https://asiatimes.com/2026/01/anatomy-of-an-economic-suicide-venezuela-under-maduro/', category: 'اقتصادی/بین‌الملل', keywords: ['ونزوئلا', 'اقتصاد جهانی', 'تورم'] },
@@ -237,20 +238,38 @@
              { id: 93, title: 'قیمت نفت در دستان ایران', publication: 'روزنامه دنیای اقتصاد', date: '1404/04/04', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4190944', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] }
         ];
 
-        function jalaliToGregorian(jalaliDateStr) {
-            const [j_y, j_m, j_d] = jalaliDateStr.split('/').map(Number);
-            const j_days_in_month = [0, 31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
-            
-            let days = j_d;
-            for (let i = 1; i < j_m; i++) {
-                days += j_days_in_month[i];
+        // تابع تبدیل میلادی به شمسی
+        function gregorianToJalali(gy, gm, gd) {
+            var g_d_m, jy, jm, jd, gy2, days;
+            g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+            gy2 = (gm > 2) ? (gy + 1) : gy;
+            days = 355666 + (365 * gy) + parseInt((gy2 + 3) / 4) - parseInt((gy2 + 99) / 100) + parseInt((gy2 + 399) / 400) + gd + g_d_m[gm - 1];
+            jy = -1595 + (33 * parseInt(days / 12053));
+            days %= 12053;
+            jy += 4 * parseInt(days / 1461);
+            days %= 1461;
+            if (days > 365) {
+                jy += parseInt((days - 1) / 365);
+                days = (days - 1) % 365;
             }
-            
-            // 2025-03-21 corresponds to 1404-01-01
-            const g_start_date = new Date('2025-03-21T00:00:00Z');
-            g_start_date.setDate(g_start_date.getDate() + days - 1);
-            
-            return g_start_date;
+            jm = (days < 186) ? 1 + parseInt(days / 31) : 7 + parseInt((days - 186) / 30);
+            jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
+            return [jy, jm, jd];
+        }
+
+        // تابع کمکی برای تبدیل رشته‌های تاریخ شمسی به شیء Date (جهت سورت)
+        // توجه: این تابع صرفاً برای مقایسه و سورت استفاده می‌شود و نه نمایش
+        function jalaliToGregorian(jalaliDateStr) {
+            // برای سورت دقیق، تبدیل رشته‌ای کافیست چون فرمت YYYY/MM/DD است.
+            // اما برای اطمینان از تایپ Date در کد قبلی، این تابع حفظ شده است.
+            // با توجه به اینکه تاریخ‌ها نرمالایز می‌شوند، سورت رشته‌ای هم کار می‌کند.
+            const [j_y, j_m, j_d] = jalaliDateStr.split('/').map(Number);
+            // یک تخمین ساده برای سورت، چون همه تاریخ‌ها الان شمسی هستند.
+            // سال 1404 را مبنای 2025 می‌گیریم.
+            const yearDiff = j_y - 1404;
+            const gYear = 2025 + yearDiff;
+            // ماه و روز را حدودی مپ می‌کنیم (دقیق نیست ولی برای سورت نسبی کافی است)
+            return new Date(gYear, j_m - 1, j_d);
         }
 
 
@@ -265,15 +284,26 @@
             Chart.defaults.font.family = "'Vazirmatn', sans-serif";
             Chart.defaults.font.weight = '500';
 
+            // نرمال‌سازی تاریخ‌ها: تبدیل میلادی به شمسی
             articlesData.forEach(article => {
-                const dateStr = article.date;
-                if (dateStr.startsWith('1404')) {
-                    article.sortableDate = jalaliToGregorian(dateStr);
-                } else {
-                    article.sortableDate = new Date(dateStr.replace(/\//g, '-'));
+                let dateStr = article.date;
+                // اگر تاریخ میلادی است (با 20 شروع می‌شود)
+                if (dateStr.startsWith('20')) {
+                     const [g_y, g_m, g_d] = dateStr.split(/[-\/]/).map(Number);
+                     const [j_y, j_m, j_d] = gregorianToJalali(g_y, g_m, g_d);
+                     // فرمت استاندارد YYYY/MM/DD
+                     const jalaliStr = `${j_y}/${String(j_m).padStart(2, '0')}/${String(j_d).padStart(2, '0')}`;
+                     article.date = jalaliStr; // جایگزینی با تاریخ شمسی برای نمایش یکپارچه
                 }
+                
+                // ایجاد فیلد قابل سورت
+                // چون همه تاریخ‌ها الان فرمت شمسی YYYY/MM/DD دارند، سورت رشته‌ای هم صحیح است.
+                // اما برای سازگاری با کد قبلی، یک Date object می‌سازیم.
+                article.sortableDate = jalaliToGregorian(article.date);
             });
-            articlesData.sort((a, b) => b.sortableDate - a.sortableDate);
+
+            // سورت نزولی بر اساس تاریخ
+            articlesData.sort((a, b) => b.date.localeCompare(a.date));
 
             // Populate KPIs
             document.getElementById('total-articles').textContent = articlesData.length;
@@ -506,41 +536,15 @@
             });
         }
         
+        // تابع ساده‌شده برای استخراج کلید ماه/سال شمسی
+        // چون همه تاریخ‌ها به شمسی تبدیل شده‌اند، فقط کافیست 7 کاراکتر اول (YYYY-MM) را برداریم
         const getMonthYearKey = (dateStr) => {
-             if (dateStr.startsWith('1404')) {
-                const parts = dateStr.split('/');
-                return `${parts[0]}-${parts[1].padStart(2, '0')}`;
-            } else {
-                const date = new Date(dateStr.replace(/\//g, '-'));
-                const year = date.getFullYear();
-                const month = date.getMonth() + 1; // 1-12
-                const day = date.getDate(); // 1-31
-
-                if (year !== 2025) return `${year}-${String(month).padStart(2, '0')}`;
-                
-                // 2025 Gregorian to 1404 Jalali mapping (Approximate for display grouping)
-                if (month === 3 && day >= 21) return '1404-01'; // Farvardin
-                if (month === 4 && day < 21) return '1404-01';
-                if (month === 4 && day >= 21) return '1404-02'; // Ordibehesht
-                if (month === 5 && day < 22) return '1404-02';
-                if (month === 5 && day >= 22) return '1404-03'; // Khordad
-                if (month === 6 && day < 22) return '1404-03';
-                if (month === 6 && day >= 22) return '1404-04'; // Tir
-                if (month === 7 && day < 23) return '1404-04';
-                if (month === 7 && day >= 23) return '1404-05'; // Mordad
-                if (month === 8 && day < 23) return '1404-05';
-                if (month === 8 && day >= 23) return '1404-06'; // Shahrivar
-                if (month === 9 && day < 23) return '1404-06';
-                if (month === 9 && day >= 23) return '1404-07'; // Mehr
-                if (month === 10 && day < 23) return '1404-07';
-                if (month === 10 && day >= 23) return '1404-08'; // Aban
-                if (month === 11 && day < 22) return '1404-08'; 
-                if (month === 11 && day >= 22) return '1404-09'; // Azar
-                if (month === 12 && day < 21) return '1404-09';
-                if (month === 12 && day >= 21) return '1404-10'; // Dey
-                
-                return `${year}-${String(month).padStart(2, '0')}`; // Fallback
-            }
+             const parts = dateStr.split('/');
+             // اطمینان از اینکه فرمت صحیح است (مثلاً 1404/10)
+             if (parts.length >= 2) {
+                 return `${parts[0]}-${parts[1].padStart(2, '0')}`;
+             }
+             return dateStr;
         };
 
         function createTimeline() {
@@ -558,6 +562,7 @@
                 return acc;
             }, {});
 
+            // سورت کلیدها (ماه‌ها) به صورت نزولی (از جدید به قدیم)
             const sortedMonths = Object.keys(articlesByMonth).sort().reverse();
             
             let timelineHTML = '<div class="timeline-line"></div>';
@@ -571,7 +576,9 @@
                     .replace('1404-07', 'مهر ۱۴۰۴')
                     .replace('1404-08', 'آبان ۱۴۰۴')
                     .replace('1404-09', 'آذر ۱۴۰۴')
-                    .replace('1404-10', 'دی ۱۴۰۴');
+                    .replace('1404-10', 'دی ۱۴۰۴')
+                    .replace('1404-11', 'بهمن ۱۴۰۴')
+                    .replace('1404-12', 'اسفند ۱۴۰۴');
                 
                 let articlesHTML = monthArticles.map(article => {
                     const titleLink = article.link && article.link !== '#'
@@ -698,13 +705,25 @@
                 }
                 return acc;
             }, {});
+            
+            // سورت کلیدها برای نمایش در نمودار (از قدیم به جدید)
             const sortedMonths = Object.entries(articlesByMonth).sort(([a], [b]) => a.localeCompare(b));
 
             const monthlyCtx = document.getElementById('monthlyProductionChart').getContext('2d');
             new Chart(monthlyCtx, {
                 type: 'line',
                 data: {
-                    labels: sortedMonths.map(([key]) => key.replace('1404-04', 'تیر').replace('1404-05', 'مرداد').replace('1404-06', 'شهریور').replace('1404-07', 'مهر').replace('1404-08', 'آبان').replace('1404-09', 'آذر').replace('1404-10', 'دی')),
+                    labels: sortedMonths.map(([key]) => key
+                        .replace('1404-04', 'تیر')
+                        .replace('1404-05', 'مرداد')
+                        .replace('1404-06', 'شهریور')
+                        .replace('1404-07', 'مهر')
+                        .replace('1404-08', 'آبان')
+                        .replace('1404-09', 'آذر')
+                        .replace('1404-10', 'دی')
+                        .replace('1404-11', 'بهمن')
+                        .replace('1404-12', 'اسفند')
+                    ),
                     datasets: [{
                         label: 'تعداد مقالات',
                         data: sortedMonths.map(([, val]) => val),
