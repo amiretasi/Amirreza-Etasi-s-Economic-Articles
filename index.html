@@ -127,6 +127,8 @@
 
     <script>
         const articlesData = [
+             { id: -21, title: 'انجماد در نقطه جوش', publication: 'روزنامه اعتماد', date: '1404/10/15', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/243474/%D8%A7%D9%86%D8%AC%D9%85%D8%A7%D8%AF-%D8%AF%D8%B1-%D9%86%D9%82%D8%B7%D9%87-%D8%AC%D9%88%D8%B4', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت'] },
+             { id: -20, title: 'داستان یک خودکشی اقتصادی', publication: 'روزنامه شرق', date: '1404/10/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1080191', category: 'اقتصادی/بین‌الملل', keywords: ['اقتصاد جهانی', 'آمریکا', 'صنعت', 'آسیا', 'انرژی'] },
              { id: -19, title: 'تحلیل استراتژیک سرمایه‌گذاری مسکن در لحظه «واگرایی»', publication: 'روزنامه جهان صنعت', date: '1404/10/14', language: 'فارسی', link: 'https://jahanesanat.ir/?p=596661', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت', 'طلا', 'ارز'] },
              { id: -18, title: 'آناتومیِ زوال نقد کتاب عزاداران بیل ساعدی', publication: 'روزنامه هنرمند', date: '1404/10/09', language: 'فارسی', link: '#', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
              { id: -17, title: '۱۴۰۵ سال انتخابهای دشوار میان نشان و نان', publication: 'روزنامه هنرمند', date: '1404/10/14', language: 'فارسی', link: '#', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم', 'جامعه شناسی'] },
@@ -138,7 +140,7 @@
              { id: -11, title: 'محاصره فاندامنتال: قیچی «عرضه آمریکا» و «تقاضای چین» بر گردن نفت', publication: 'روزنامه دنیای اقتصاد', date: '1404/10/07', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4240402', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تحریم', 'تورم', 'نفت', 'آمریکا', 'چین'] },
              { id: -9, title: 'ماتريس بازي در ايران', publication: 'روزنامه اعتماد', date: '1404/10/05', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242989/%D9%85%D8%A7%D8%AA%D8%B1%DB%8C%D8%B3-%D8%A8%D8%A7%D8%B2%DB%8C-%D8%AF%D8%B1-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم'] },
              { id: -8, title: 'تحلیل جامع اقتصاد کلان', publication: 'روزنامه جهان صنعت', date: '1404/10/03', language: 'فارسی', link: 'https://jahanesanat.ir/?p=592542', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم'] },
-             { id: -10, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش چهارم)', publication: 'هنرمند آنلاین', date: '1404/10/02', language: 'فارسی', link: 'https://honarmandonline.ir/', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
+             { id: -10, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش چهارم)', publication: 'روزنامه هنرمند', date: '1404/10/02', language: 'فارسی', link: 'https://honarmandonline.ir/', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
              { id: -7, title: 'همگامی هنر و فقر؟', publication: 'روزنامه دنیای اقتصاد', date: '1404/09/30', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4238797', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم', 'جامعه شناسی'] },
              { id: -3, title: 'بانکدار در قفس', publication: 'اقتصاد آنلاین', date: '1404/09/29', language: 'فارسی', link: 'https://www.eghtesadonline.com/008qIs', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'رمز ارز'] },
              { id: -2, title: 'پشت پرده «خودروي ملي»', publication: 'روزنامه اعتماد', date: '1404/09/27', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242668/%D9%BE%D8%B4%D8%AA-%D9%BE%D8%B1%D8%AF%D9%87-%D8%AE%D9%88%D8%AF%D8%B1%D9%88%DB%8C-%D9%85%D9%84%DB%8C', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'صنعت'] },
@@ -705,25 +707,13 @@
                 }
                 return acc;
             }, {});
-            
-            // سورت کلیدها برای نمایش در نمودار (از قدیم به جدید)
             const sortedMonths = Object.entries(articlesByMonth).sort(([a], [b]) => a.localeCompare(b));
 
             const monthlyCtx = document.getElementById('monthlyProductionChart').getContext('2d');
             new Chart(monthlyCtx, {
                 type: 'line',
                 data: {
-                    labels: sortedMonths.map(([key]) => key
-                        .replace('1404-04', 'تیر')
-                        .replace('1404-05', 'مرداد')
-                        .replace('1404-06', 'شهریور')
-                        .replace('1404-07', 'مهر')
-                        .replace('1404-08', 'آبان')
-                        .replace('1404-09', 'آذر')
-                        .replace('1404-10', 'دی')
-                        .replace('1404-11', 'بهمن')
-                        .replace('1404-12', 'اسفند')
-                    ),
+                    labels: sortedMonths.map(([key]) => key.replace('1404-04', 'تیر').replace('1404-05', 'مرداد').replace('1404-06', 'شهریور').replace('1404-07', 'مهر').replace('1404-08', 'آبان').replace('1404-09', 'آذر').replace('1404-10', 'دی').replace('1404-11', 'بهمن').replace('1404-12', 'اسفند')),
                     datasets: [{
                         label: 'تعداد مقالات',
                         data: sortedMonths.map(([, val]) => val),
