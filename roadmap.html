@@ -6,7 +6,11 @@
     <!-- Updated Title -->
     <title>کتابخانه من - امیررضا اعطاسی</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <!-- Primary CDN: cdnjs. If fails, tries unpkg as fallback -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" 
+            onerror="this.onerror=null;this.src='https://unpkg.com/chart.js@3.9.1/dist/chart.min.js';"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -249,7 +253,7 @@
         <section id="charts-section" class="space-y-8 mb-16">
             <div class="chart-container reveal-on-scroll">
                 <h3 class="text-lg font-semibold text-center mb-4">فراوانی کتاب‌ها (بر اساس مطالعه) بر اساس نویسنده</h3>
-                <div class="chart-wrapper">
+                <div class="chart-wrapper" id="authorChartContainer">
                     <canvas id="authorChart"></canvas>
                 </div>
             </div>
@@ -257,13 +261,13 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="chart-container reveal-on-scroll">
                     <h3 class="text-lg font-semibold text-center mb-4">تحلیل ژانرهای مطالعه شده</h3>
-                    <div class="chart-wrapper">
+                    <div class="chart-wrapper" id="genreChartContainer">
                         <canvas id="genreChart"></canvas>
                     </div>
                 </div>
                 <div class="chart-container reveal-on-scroll">
                     <h3 class="text-lg font-semibold text-center mb-4">تعداد کتاب‌های مطالعه شده (بر اساس سال)</h3>
-                    <div class="chart-wrapper">
+                    <div class="chart-wrapper" id="yearlyChartContainer">
                         <canvas id="yearlyProductionChart"></canvas>
                     </div>
                 </div>
@@ -306,6 +310,7 @@
 
     <script>
         const booksData = [
+            { id: 160, title: 'اعتراف', author: 'لئو تولستوی', translator: 'آزیتا همپارتیان', originalPubDate: '۱۸۸۲', readYear: '1404/11/06', genre: 'فلسفه', nationality: 'روسیه' },
             { id: 159, title: 'سگ ولگرد', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۲۱', readYear: '1404/10/29', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 158, title: 'مرده‌خورها', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۰۹', readYear: '1404/10/29', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 157, title: 'نازنین', author: 'فئودور داستایوفسکی', translator: 'یلدا بیدختی‌نژاد', originalPubDate: '۱۸۷۶', readYear: '1404/10/28', genre: 'رمان کوتاه', nationality: 'روسیه' },
@@ -393,7 +398,7 @@
             { id: 52, title: 'قرآن', author: 'محمد', translator: 'الهی قمشه‌ای', originalPubDate: 'قرن ۱', readYear: '1385', genre: 'فلسفه دینی', nationality: 'عربستان' },
             { id: 53, title: 'گرگیاس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.m', readYear: '1384', genre: 'فلسفه', nationality: 'یونان' },
             { id: 54, title: 'خارمیدس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1384', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 55, title: 'شیطان و خدا', author: 'ژان پل سارتر', translator: 'امید شادکامی', originalPubDate: '۱۳۳۰', readYear: '1384', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 55, title: 'شیطان و خدا', author: 'ژان پل سارتر', translator: 'امیرجلال‌الدین اعلم', originalPubDate: '۱۳۳۰', readYear: '1384', genre: 'فلسفه', nationality: 'فرانسه' },
             { id: 56, title: 'مگس‌ها', author: 'ژان پل سارتر', translator: 'صادق هدایت', originalPubDate: '۱۳۲۲', readYear: '1384', genre: 'فلسفه', nationality: 'فرانسه' },
             { id: 57, title: 'در دفاع از روشنفکران', author: 'ژان پل سارتر', translator: 'رضا سیدحسینی', originalPubDate: '۱۳۴۴', readYear: '1384', genre: 'فلسفه', nationality: 'فرانسه' },
             { id: 58, title: 'اسفار اربعه', author: 'ملاصدرا', translator: 'محمد خواجوی', originalPubDate: 'قرن ۱۱', readYear: '1384', genre: 'فلسفه', nationality: 'ایران' },
@@ -481,7 +486,16 @@
             return { year, month, day, full: dateStr };
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('load', function() {
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded');
+                const chartSection = document.getElementById('charts-section');
+                if (chartSection) {
+                    chartSection.innerHTML = '<div class="p-4 bg-red-100 text-red-700 rounded-lg text-center font-bold">خطا در بارگذاری کتابخانه نمودارها (Chart.js). لطفاً اتصال اینترنت خود را بررسی کنید یا صفحه را رفرش کنید.</div>';
+                }
+                return;
+            }
+
             Chart.defaults.font.family = "'Vazirmatn', sans-serif";
             Chart.defaults.font.weight = '500';
             Chart.defaults.plugins.tooltip.direction = 'rtl';
