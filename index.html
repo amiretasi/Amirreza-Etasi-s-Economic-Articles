@@ -5,46 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>کتابخانه دست نوشته های من</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
         body { font-family: 'Vazirmatn', sans-serif; background-color: #f8fafc; color: #334155; }
-        .kpi-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; text-align: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); opacity: 0; transition: all 0.6s ease-out; }
-        .kpi-card:nth-child(odd) { transform: translateY(-30px); }
-        .kpi-card:nth-child(even) { transform: translateY(30px); }
-        .kpi-card.visible { opacity: 1; transform: translateY(0); }
-        .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
-        .chart-container-small { position: relative; width: 100%; height: 320px; }
+        .kpi-card { background-color: white; border-radius: 0.75rem; padding: 1.5rem; text-align: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); transition: transform 0.3s ease; }
+        .kpi-card:hover { transform: translateY(-5px); }
+        .chart-container-small { position: relative; width: 100%; height: 380px; }
         .timeline-item { position: relative; padding-bottom: 2rem; padding-right: 2.5rem; }
         .timeline-dot { position: absolute; right: -0.5rem; top: 0.25rem; height: 1.25rem; width: 1.25rem; background-color: #0d9488; border-radius: 9999px; border: 4px solid #f8fafc; }
         .timeline-line { position: absolute; right: 0; top: 0.25rem; bottom: -0.25rem; width: 2px; background-color: #e2e8f0; }
-        .timeline-item ul li { opacity: 0; transition: all 0.5s ease-out; transform: translateX(40px); }
-        .timeline-item ul li.visible { opacity: 1; transform: translateX(0); }
-        .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
-        .collapsible-content.open { max-height: 5000px; overflow: visible; }
-        .accordion-toggle-icon { transition: transform 0.3s ease-in-out; }
-        .accordion-header.closed .accordion-toggle-icon { transform: rotate(-180deg); }
-        .publication-accordion-item { border: 1px solid #e2e8f0; border-radius: 0.5rem; }
-        .publication-accordion-header { padding: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
-        .publication-accordion-header .count-badge { background-color: #f1f5f9; color: #475569; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; }
-        .publication-accordion-header .toggle-icon { font-size: 1.5rem; font-weight: bold; color: #0d9488; transition: transform 0.3s ease-in-out; }
-        .publication-accordion-header.closed .toggle-icon { transform: rotate(0deg); }
-        .publication-accordion-content { max-height: 0; overflow-y: auto; transition: max-height 0.4s ease-in-out; padding: 0 1rem; }
-        .publication-accordion-content.open { max-height: 500px; padding: 1rem; padding-top: 0; }
+        .collapsible-content { overflow: hidden; transition: max-height 0.5s ease-in-out; }
+        .collapsible-content.closed { max-height: 0; }
+        .collapsible-content.open { max-height: 8000px; overflow: visible; }
+        .publication-accordion-item { border: 1px solid #e2e8f0; border-radius: 0.5rem; margin-bottom: 0.5rem; }
+        .publication-accordion-header { padding: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; background-color: white; border-radius: 0.5rem; }
+        .publication-accordion-header:hover { background-color: #f1f5f9; }
+        .count-badge { background-color: #f1f5f9; color: #475569; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; }
+        .toggle-icon { font-size: 1.5rem; font-weight: bold; color: #0d9488; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background-color: #f1f5f9; padding: 1rem; text-align: right; font-weight: 600; color: #334155; }
+        td { padding: 1rem; border-bottom: 1px solid #e2e8f0; }
+        tr:hover { background-color: #f8fafc; }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav class="sticky top-0 bg-white/90 backdrop-blur-sm shadow-sm z-50">
+    <nav class="sticky top-0 bg-white/90 backdrop-blur-sm shadow-sm z-50 border-b border-slate-100">
         <div class="container mx-auto flex justify-center items-center p-4 space-x-6 space-x-reverse overflow-x-auto">
-            <a href="#kpis" class="text-slate-600 hover:text-teal-600 font-semibold transition-colors duration-200 whitespace-nowrap">شاخص‌ها</a>
-            <a href="#full-list-section" class="text-slate-600 hover:text-teal-600 font-semibold transition-colors duration-200 whitespace-nowrap">لیست کامل</a>
-            <a href="#charts-section" class="text-slate-600 hover:text-teal-600 font-semibold transition-colors duration-200 whitespace-nowrap">نمودارها</a>
-            <a href="#publications-section" class="text-slate-600 hover:text-teal-600 font-semibold transition-colors duration-200 whitespace-nowrap">رسانه‌ها</a>
-            <a href="#timeline-section" class="text-slate-600 hover:text-teal-600 font-semibold transition-colors duration-200 whitespace-nowrap">خط زمانی</a>
-            <a href="roadmap.html" class="text-slate-600 hover:text-teal-600 font-semibold transition-colors duration-200 whitespace-nowrap">کتاب های من</a>
+            <a href="#kpis" class="text-slate-600 hover:text-teal-600 font-semibold whitespace-nowrap">شاخص‌ها</a>
+            <a href="#full-list-section" class="text-slate-600 hover:text-teal-600 font-semibold whitespace-nowrap">لیست کامل</a>
+            <a href="#charts-section" class="text-slate-600 hover:text-teal-600 font-semibold whitespace-nowrap">نمودارها</a>
+            <a href="#publications-section" class="text-slate-600 hover:text-teal-600 font-semibold whitespace-nowrap">رسانه‌ها</a>
+            <a href="#timeline-section" class="text-slate-600 hover:text-teal-600 font-semibold whitespace-nowrap">خط زمانی</a>
+            <a href="roadmap.html" class="text-slate-600 hover:text-teal-600 font-semibold whitespace-nowrap">کتاب های من</a>
         </div>
     </nav>
 
@@ -55,63 +50,61 @@
             <p class="text-lg text-slate-600 mt-2">آرشیو جامع مقالات، یادداشت‌ها و تحلیل‌های اقتصادی و مدیریتی</p>
         </header>
 
+        <!-- KPI Cards -->
         <section id="kpis" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
-            <div class="kpi-card"><h3 class="font-semibold text-slate-500">کل مقالات</h3><p id="total-articles" class="text-4xl font-bold text-teal-600 mt-2">0</p></div>
-            <div class="kpi-card"><h3 class="font-semibold text-slate-500">تعداد رسانه‌ها</h3><p id="total-publications" class="text-4xl font-bold text-teal-600 mt-2">0</p></div>
-            <div class="kpi-card"><h3 class="font-semibold text-slate-500">مقالات فارسی</h3><p id="persian-articles" class="text-4xl font-bold text-teal-600 mt-2">0</p></div>
-            <div class="kpi-card"><h3 class="font-semibold text-slate-500">مقالات انگلیسی</h3><p id="english-articles" class="text-4xl font-bold text-teal-600 mt-2">0</p></div>
+            <div class="kpi-card"><h3 class="font-semibold text-slate-500">کل مقالات</h3><p id="total-articles" class="text-4xl font-bold text-teal-600 mt-2">...</p></div>
+            <div class="kpi-card"><h3 class="font-semibold text-slate-500">تعداد رسانه‌ها</h3><p id="total-publications" class="text-4xl font-bold text-teal-600 mt-2">...</p></div>
+            <div class="kpi-card"><h3 class="font-semibold text-slate-500">مقالات فارسی</h3><p id="persian-articles" class="text-4xl font-bold text-teal-600 mt-2">...</p></div>
+            <div class="kpi-card"><h3 class="font-semibold text-slate-500">مقالات انگلیسی</h3><p id="english-articles" class="text-4xl font-bold text-teal-600 mt-2">...</p></div>
         </section>
 
+        <!-- Full List -->
         <div id="full-list-section" class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-16">
-             <div id="main-table-accordion-header" class="accordion-header flex justify-between items-center cursor-pointer">
+             <div class="accordion-header flex justify-between items-center cursor-pointer pb-4 border-b border-slate-100" onclick="toggleSection('main-list')">
                 <h2 class="text-2xl font-bold text-slate-900">لیست کامل مقالات منتشر شده</h2>
-                <span class="accordion-toggle-icon text-3xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+                <span id="main-list-icon" class="toggle-icon">−</span>
             </div>
-            <div id="main-table-accordion-content" class="collapsible-content">
-                <div class="overflow-auto max-h-[75vh] mt-8">
+            <div id="main-list-content" class="collapsible-content open">
+                <div class="overflow-auto max-h-[75vh] mt-4">
                     <table class="w-full text-sm text-right text-slate-500">
-                        <thead class="text-xs text-slate-700 uppercase bg-slate-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-right">ردیف</th>
-                                <th scope="col" class="px-6 py-3 text-right w-2/5">عنوان مقاله</th>
-                                <th scope="col" class="px-6 py-3 text-right">رسانه</th>
-                                <th scope="col" class="px-6 py-3 text-right">تاریخ</th>
-                                <th scope="col" class="px-6 py-3 text-right">حوزه</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>ردیف</th><th class="w-2/5">عنوان مقاله</th><th>رسانه</th><th>تاریخ</th><th>حوزه</th></tr></thead>
                         <tbody id="articles-table-body"></tbody>
                     </table>
                 </div>
              </div>
         </div>
         
+        <!-- Charts -->
         <div id="charts-section" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
-            <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">فراوانی انتشار در رسانه‌ها</h3><div class="chart-container-small"><canvas id="publicationsChart"></canvas></div></div>
-            <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">تحلیل موضوعات کلیدی مقالات</h3><div class="chart-container-small"><canvas id="thematicAnalysisChart"></canvas></div></div>
-            <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">تعداد مقالات در هر ماه</h3><div class="chart-container-small"><canvas id="monthlyProductionChart"></canvas></div></div>
+            <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">فراوانی انتشار</h3><div class="chart-container-small"><canvas id="publicationsChart"></canvas></div></div>
+            <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">موضوعات کلیدی</h3><div class="chart-container-small"><canvas id="thematicAnalysisChart"></canvas></div></div>
+            <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">روند ماهانه</h3><div class="chart-container-small"><canvas id="monthlyProductionChart"></canvas></div></div>
             <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">تفکیک حوزه‌های موضوعی</h3><div class="chart-container-small flex items-center justify-center"><canvas id="categorySplitChart"></canvas></div></div>
         </div>
         
+        <!-- Media List -->
         <div id="publications-section" class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-16">
-            <div id="publications-main-accordion-header" class="accordion-header flex justify-between items-center cursor-pointer">
+            <div class="accordion-header flex justify-between items-center cursor-pointer pb-4 border-b border-slate-100" onclick="toggleSection('pub-list')">
                 <h2 class="text-2xl font-bold text-slate-900">لیست مقالات بر اساس رسانه</h2>
-                <span class="accordion-toggle-icon text-3xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+                <span id="pub-list-icon" class="toggle-icon">+</span>
             </div>
-            <div id="publications-main-accordion-content" class="collapsible-content">
-                <div id="publications-accordion-container" class="space-y-2 mt-8 overflow-auto max-h-[75vh]"></div>
+            <div id="pub-list-content" class="collapsible-content closed">
+                <div id="publications-accordion-container" class="space-y-2 mt-4 overflow-auto max-h-[75vh]"></div>
             </div>
         </div>
         
+        <!-- Category List -->
         <div id="category-section" class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-16">
-             <div id="category-main-accordion-header" class="accordion-header flex justify-between items-center cursor-pointer">
-                <h2 class="text-2xl font-bold text-slate-900">لیست مقالات بر اساس حوزه موضوعی</h2>
-                <span class="accordion-toggle-icon text-3xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+             <div class="accordion-header flex justify-between items-center cursor-pointer pb-4 border-b border-slate-100" onclick="toggleSection('cat-list')">
+                <h2 class="text-2xl font-bold text-slate-900">لیست مقالات بر اساس حوزه</h2>
+                <span id="cat-list-icon" class="toggle-icon">+</span>
             </div>
-            <div id="category-main-accordion-content" class="collapsible-content">
-                <div id="category-accordion-container" class="space-y-2 mt-8 overflow-auto max-h-[75vh]"></div>
+            <div id="cat-list-content" class="collapsible-content closed">
+                <div id="category-accordion-container" class="space-y-2 mt-4 overflow-auto max-h-[75vh]"></div>
             </div>
         </div>
 
+        <!-- Timeline -->
         <div id="timeline-section" class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-16">
             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">خط زمانی انتشار مقالات</h2>
             <div id="timeline-container" class="relative max-w-3xl mx-auto"></div>
@@ -123,656 +116,385 @@
         <p class="text-slate-500">تهیه شده توسط امیررضا اعطاسی</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-
     <script>
         const articlesData = [
-             { id: -29, title: 'شریان‌های دیجیتال و قلب تپنده اقتصاد', publication: 'روزنامه جهان صنعت', date: '1404/11/04', language: 'فارسی', link: 'https://jahanesanat.ir/?p=601519', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'تورم'] },
-             { id: -27, title: 'آناتومی تباهی در حاشیه شهر', publication: 'روزنامه جهان صنعت', date: '1404/11/02', language: 'فارسی', link: 'https://jahanesanat.ir/?p=601107', category: 'اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'نقد کتاب'] },
-             { id: -28, title: 'چرا مسکن با دلار و طلا همراهی نکرد', publication: 'روزنامه شرق', date: '1404/10/30', language: 'فارسی', link: '#', category: 'اقتصادی', keywords: ['مسکن', 'طلا', 'ارز', 'تورم', 'ایران'] },
-             { id: -26, title: 'پيشنهادي براي مديران', publication: 'روزنامه اعتماد', date: '1404/10/30', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/243997/%D9%BE%DB%8C%D8%B4%D9%86%D9%87%D8%A7%D8%AF%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D9%85%D8%AF%DB%8C%D8%B1%D8%A7%D9%86', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تورم', 'تحریم'] },
-             { id: -25, title: 'بیداریِ غولِ کاراکاس؛', publication: 'روزنامه دنیای اقتصاد', date: '1404/10/18', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4243633', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'نفت', 'اقتصاد جهانی'] },
-             { id: -24, title: 'چك‌هاي برگشتي در كاراكاس', publication: 'روزنامه اعتماد', date: '1404/10/18', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/243641/%DA%86%D9%83%E2%80%8C%D9%87%D8%A7%DB%8C-%D8%A8%D8%B1%DA%AF%D8%B4%D8%AA%DB%8C-%D8%AF%D8%B1-%D9%83%D8%A7%D8%B1%D8%A7%D9%83%D8%A7%D8%B3', category: 'اقتصادی', keywords: ['ایران', 'آمریکا', 'نفت', 'تحریم', 'تورم', 'اقتصاد جهانی', 'ارز', 'انرژی'] },
-             { id: -23, title: 'Iran 2026: Isolated in a Turbulent Ocean', publication: 'Asia Sentinel', date: '2026/01/06', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-2026-isolated-turbulent-ocean', category: 'اقتصادی/بین‌الملل', keywords: ['ایران', 'تحریم', 'انزوا', 'اقتصاد جهانی'] },
-             { id: -22, title: 'شریان‌های مسدود', publication: 'روزنامه شرق', date: '1404/10/17', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1080237', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تحریم', 'تورم', 'نفت'] },
-             { id: -21, title: 'انجماد در نقطه جوش', publication: 'روزنامه اعتماد', date: '1404/10/15', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/243474/%D8%A7%D9%86%D8%AC%D9%85%D8%A7%D8%AF-%D8%AF%D8%B1-%D9%86%D9%82%D8%B7%D9%87-%D8%AC%D9%88%D8%B4', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت'] },
-             { id: -20, title: 'داستان یک خودکشی اقتصادی', publication: 'روزنامه شرق', date: '1404/10/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1080191', category: 'اقتصادی/بین‌الملل', keywords: ['اقتصاد جهانی', 'آمریکا', 'صنعت', 'آسیا', 'انرژی'] },
-             { id: -19, title: 'تحلیل استراتژیک سرمایه‌گذاری مسکن در لحظه «واگرایی»', publication: 'روزنامه جهان صنعت', date: '1404/10/14', language: 'فارسی', link: 'https://jahanesanat.ir/?p=596661', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت', 'طلا', 'ارز'] },
-             { id: -18, title: 'واکاوی پدیدارشناسانه و نقد ساختارگرایانه بر «عزاداران بَیَل» اثر غلامحسین ساعدی', publication: 'روزنامه هنرمند', date: '1404/10/09', language: 'فارسی', link: 'https://www.honarmandnews.ir/?p=96265', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: -17, title: '۱۴۰۵؛ سالِ انتخاب‌های دشوار میانِ «نان» و «نشان» ؛', publication: 'روزنامه هنرمند', date: '1404/10/14', language: 'فارسی', link: 'https://www.honarmandnews.ir/?p=96270', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم', 'جامعه شناسی'] },
-             { id: -16, title: 'Anatomy of an economic suicide: Venezuela under Maduro', publication: 'Asia Times', date: '2026/01/04', language: 'انگلیسی', link: 'https://asiatimes.com/2026/01/anatomy-of-an-economic-suicide-venezuela-under-maduro/', category: 'اقتصادی/بین‌الملل', keywords: ['ونزوئلا', 'اقتصاد جهانی', 'تورم'] },
-             { id: -15, title: 'تحلیل شکاف میان «رویاهای درآمدی» و «واقعیت‏‏‌های فرسودگی»', publication: 'روزنامه دنیای اقتصاد', date: '1404/10/14', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4242527', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تحریم', 'تورم', 'نفت'] },
-             { id: -14, title: 'ضحاک آینه‌ای فرازمانی، پژواکی در هزارتوهای تاریخ', publication: 'روزنامه شرق', date: '1404/10/11', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1079398', category: 'اجتماعی', keywords: ['جامعه شناسی ایرانی', 'نقد کتاب'] },
-             { id: -13, title: 'لبه‌های تیز قیچی ارزی', publication: 'روزنامه جهان صنعت', date: '1404/10/10', language: 'فارسی', link: 'https://jahanesanat.ir/?p=594325', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'ارز', 'طلا'] },
-             { id: -12, title: 'گذار پارادايمي از اقتصاد يارانه‌اي به واقع‌گرايي انقباضي', publication: 'روزنامه اعتماد', date: '1404/10/09', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/243216/%DA%AF%D8%B0%D8%A7%D8%B1-%D9%BE%D8%A7%D8%B1%D8%A7%D8%AF%D8%A7%DB%8C%D9%85%DB%8C-%D8%A7%D8%B2-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF-%DB%8C%D8%A7%D8%B1%D8%A7%D9%86%D9%87%E2%80%8C%D8%A7%DB%8C-%D8%A8%D9%87-%D9%88%D8%A7%D9%82%D8%B9%E2%80%8C%DA%AF%D8%B1%D8%A7%DB%8C%DB%8C-%D8%A7%D9%86%D9%82%D8%A8%D8%A7%D8%B6%DB%8C', category: 'اقتصادی', keywords: ['تورم', 'تحریم', 'ایران', 'انرژی', 'ارز', 'طلا'] },
-             { id: -11, title: 'محاصره فاندامنتال: قیچی «عرضه آمریکا» و «تقاضای چین» بر گردن نفت', publication: 'روزنامه دنیای اقتصاد', date: '1404/10/07', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4240402', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تحریم', 'تورم', 'نفت', 'آمریکا', 'چین'] },
-             { id: -9, title: 'ماتريس بازي در ايران', publication: 'روزنامه اعتماد', date: '1404/10/05', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242989/%D9%85%D8%A7%D8%AA%D8%B1%DB%8C%D8%B3-%D8%A8%D8%A7%D8%B2%DB%8C-%D8%AF%D8%B1-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم'] },
-             { id: -8, title: 'تحلیل جامع اقتصاد کلان', publication: 'روزنامه جهان صنعت', date: '1404/10/03', language: 'فارسی', link: 'https://jahanesanat.ir/?p=592542', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم'] },
-             { id: -10, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش چهارم)', publication: 'روزنامه هنرمند', date: '1404/10/02', language: 'فارسی', link: 'https://honarmandonline.ir/', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: -7, title: 'همگامی هنر و فقر؟', publication: 'روزنامه دنیای اقتصاد', date: '1404/09/30', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4238797', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم', 'جامعه شناسی'] },
-             { id: -3, title: 'بانکدار در قفس', publication: 'اقتصاد آنلاین', date: '1404/09/29', language: 'فارسی', link: 'https://www.eghtesadonline.com/008qIs', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'رمز ارز'] },
-             { id: -2, title: 'پشت پرده «خودروي ملي»', publication: 'روزنامه اعتماد', date: '1404/09/27', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242668/%D9%BE%D8%B4%D8%AA-%D9%BE%D8%B1%D8%AF%D9%87-%D8%AE%D9%88%D8%AF%D8%B1%D9%88%DB%8C-%D9%85%D9%84%DB%8C', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'صنعت'] },
-             { id: -1, title: 'بنزین و سفره مردم', publication: 'روزنامه جهان صنعت', date: '1404/09/26', language: 'فارسی', link: 'https://jahanesanat.ir/?p=589491', category: 'اقتصادی', keywords: ['ایران', 'نفت', 'تورم', 'تحریم'] },
-             { id: 1, title: 'زایش ناترازي در خانه ما', publication: 'روزنامه اعتماد', date: '1404/09/24', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242432/%D8%B2%D8%A7%DB%8C%D8%B4-%D9%86%D8%A7%D8%AA%D8%B1%D8%A7%D8%B2%DB%8C-%D8%AF%D8%B1-%D8%AE%D8%A7%D9%86%D9%87-%D9%85%D8%A7', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تورم', 'تحریم', 'انرژی (آب و برق)'] },
-             { id: 2, title: 'پارادوکس بزرگ ۲۰۲۵', publication: 'روزنامه دنیای اقتصاد', date: '1404/09/25', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4237597', category: 'اقتصادی / انرژی', keywords: ['ایران', 'آمریکا', 'نفت', 'تحریم', 'تورم'] },
-             { id: 3, title: 'محاصره ژئواکونومیک؛ از «تخریب خلاق» ترامپ تا «جاده ترامپ» در قفقاز', publication: 'اقتصاد آنلاین', date: '1404/09/22', language: 'فارسی', link: 'https://www.eghtesadonline.com/008ptI', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'ایران', 'تحریم', 'تورم'] },
-             { id: 4, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش سوم)', publication: 'هنرمند آنلاین', date: '1404/09/22', language: 'فارسی', link: 'https://honarmandonline.ir/?p=2342', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: 5, title: 'جدال بشكه و باتري', publication: 'روزنامه اعتماد', date: '1404/09/20', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242291/%D8%AC%D8%AF%D8%A7%D9%84-%D8%A8%D8%B4%D9%83%D9%87-%D9%88-%D8%A8%D8%A7%D8%AA%D8%B1%DB%8C', category: 'اقتصادی / انرژی', keywords: ['ایران', 'نفت', 'انرژی (آب و برق)'] },
-             { id: 6, title: 'هیجانات ارزی فروکش می‌کند؛ خریداران، بهای ترس را می‌پردازند', publication: 'ایبِنا (رسانه بانک مرکزی)', date: '1404/09/18', language: 'فارسی', link: 'https://www.ibena.ir/000koG', category: 'اقتصادی', keywords: ['ایران', 'ارز', 'تحریم', 'تورم', 'مصاحبه'] },
-             { id: 7, title: 'هیجانات ارزی فروکش می‌کند؛ خریداران، بهای ترس را می‌پردازند', publication: 'خبرگزاری مهر', date: '1404/09/18', language: 'فارسی', link: 'https://mehrnews.com/x39Phv', category: 'اقتصادی', keywords: ['ایران', 'ارز', 'تحریم', 'تورم', 'مصاحبه'] },
-             { id: 8, title: 'برندگان و بازندگان بنزین ۳نرخی', publication: 'روزنامه جهان صنعت', date: '1404/09/17', language: 'فارسی', link: 'https://jahanesanat.ir/?p=586311', category: 'اقتصادی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: 9, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش دوم)', publication: 'هنرمند آنلاین', date: '1404/09/17', language: 'فارسی', link: 'https://honarmandonline.ir/', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: 10, title: 'غيبت خودروسازان بزرگ در سامانه يكپارچه واردات', publication: 'روزنامه اعتماد', date: '1404/09/15', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242004/%D8%BA%DB%8C%D8%A8%D8%AA-%D8%AE%D9%88%D8%AF%D8%B1%D9%88%D8%B3%D8%A7%D8%B2%D8%A7%D9%86-%D8%A8%D8%B2%D8%B1%DA%AF-%D8%AF%D8%B1-%D8%B3%D8%A7%D9%85%D8%A7%D9%86%D9%87-%DB%8C%D9%83%D9%BE%D8%A7%D8%B1%DA%86%D9%87-%D9%88%D8%A7%D8%B1%D8%AF%D8%A7%D8%AA', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'ایران', 'تحریم'] },
-             { id: 11, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش اول)', publication: 'هنرمند آنلاین', date: '1404/09/15', language: 'فارسی', link: 'https://honarmandonline.ir/?p=2342', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: 12, title: 'ترازنامه ملی صنعت خودروسازی ایران: دارایی استراتژیک یا هزینه ساختاری', publication: 'روزنامه اعتماد', date: '1404/09/12', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/241831/%D8%AF%D8%A7%D8%B1%D8%A7%DB%8C%DB%8C-%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AA%DA%98%DB%8C%D9%83-%DB%8C%D8%A7-%D9%87%D8%B2%DB%8C%D9%86%D9%87-%D8%B3%D8%A7%D8%AE%D8%AA%D8%A7%D8%B1%DB%8C', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'ایران', 'تحریم'] },
-             { id: 13, title: 'اثر دومینویی واردات خودرو بر دلار؟', publication: 'روزنامه اعتماد', date: '1404/09/08', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/241641/%D8%A7%D8%AB%D8%B1-%D8%AF%D9%88%D9%85%DB%8C%D9%86%D9%88%DB%8C%DB%8C-%D9%88%D8%A7%D8%B1%D8%AF%D8%A7%D8%AA-%D8%AE%D9%88%D8%AF%D8%B1%D9%88-%D8%A8%D8%B1-%D8%AF%D9%84%D8%A7%D8%B1', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'ایران', 'تحریم'] },
-             { id: 14, title: 'تحلیل اقتصادی صنعت نشر', publication: 'روزنامه جهان صنعت', date: '1404/09/01', language: 'فارسی', link: 'https://jahanesanat.ir/?p=579582', category: 'اقتصادی', keywords: ['ایران', 'تورم', 'تحریم'] },
-             { id: 15, title: 'طلا (لنگر ترس) در برابر بیت‌کوین (شاخص طمع)', publication: 'روزنامه شرق', date: '1404/08/28', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1068033', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'اقتصاد جهانی', 'رمز ارز'] },
-             { id: 16, title: 'کالبدشکافی فرسایش فنی در صنعت نفت و گاز‌ - بخش دوم', publication: 'روزنامه دنیای اقتصاد', date: '1404/08/28', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4229878', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'تحریم'] },
-             { id: 17, title: '«بازار مکاره‌ی اندیشه» خیابان انقلاب: مرثیه‌ای برای فرهنگی که قاچاق شد', publication: 'اقتصاد آنلاین', date: '1404/08/26', language: 'فارسی', link: 'https://www.eghtesadonline.com/008oX0', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: 18, title: 'تراز آب ايران', publication: 'روزنامه اعتماد', date: '1404/08/26', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/241141/%D8%AA%D8%B1%D8%A7%D8%B2-%D8%A2%D8%A8-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86', category: 'اقتصادی / صنعت', keywords: ['ایران', 'انرژی (آب و برق)'] },
-             { id: 19, title: 'انقلاب هوش مصنوعی: پایان «عصر نشر» و آغاز «اقتصاد مالکیت فکری»', publication: 'اقتصاد آنلاین', date: '1404/08/25', language: 'فارسی', link: 'https://www.eghtesadonline.com/008oRr', category: 'اقتصادی', keywords: ['ایران', 'صنعت'] },
-             { id: 20, title: 'فولاد تشنه', publication: 'روزنامه اعتماد', date: '1404/08/21', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/240896/%D9%81%D9%88%D9%84%D8%A7%D8%AF-%D8%AA%D8%B4%D9%86%D9%87', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'ایران', 'انرژی (آب و برق)'] },
-             { id: 21, title: 'کالبدشکافی فرسایش فنی در صنعت نفت و گاز', publication: 'روزنامه دنیای اقتصاد', date: '1404/08/20', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4227665', category: 'اقتصادی / انرژی', keywords: ['نفت', 'تحریم', 'ایران'] },
-             { id: 22, title: 'مهاجرت اجبارى صنعت', publication: 'روزنامه جهان صنعت', date: '1404/08/18', language: 'فارسی', link: 'https://jahanesanat.ir/?p=573709', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت'] },
-             { id: 23, title: 'عنوانی بزرگ بر روایتی ناتمام', publication: 'روزنامه شرق', date: '1404/08/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1064484', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: 24, title: 'كالبدشكافي صنعت متانول', publication: 'روزنامه اعتماد', date: '1404/08/15', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/240569/%D9%83%D8%A7%D9%84%D8%A8%D8%AF%D8%B4%D9%83%D8%A7%D9%81%DB%8C-%D8%B5%D9%86%D8%B9%D8%AA-%D9%85%D8%AA%D8%A7%D9%86%D9%88%D9%84', category: 'اقتصادی / صنعت', keywords: ['ایران', 'صنعت', 'تحریم', 'تورم'] },
-             { id: 25, title: 'مارپیچ مرگ فولاد: کالبدشکافی "شوک دوگانه" تعرفه و فرسودگی فنی', publication: 'اقتصاد آنلاین', date: '1404/08/14', language: 'فارسی', link: 'https://www.eghtesadonline.com/008nov', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت'] },
-             { id: 26, title: 'كالبدشكافي يك اصلاح', publication: 'روزنامه اعتماد', date: '1404/08/11', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/240358/%D9%83%D8%A7%D9%84%D8%A8%D8%AF%D8%B4%D9%83%D8%A7%D9%81%DB%8C-%DB%8C%D9%83-%D8%A7%D8%B5%D9%84%D8%A7%D8%AD', category: 'اقتصادی', keywords: ['اقتصاد جهانی', 'رمز ارز', 'آمریکا'] },
-             { id: 27, title: 'کنترل نقدینگی به قیمت رکود؟', publication: 'روزنامه جهان صنعت', date: '1404/08/08', language: 'فارسی', link: 'https://jahanesanat.ir/?p=570705', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت'] },
-             { id: 28, title: 'شستا، غول خفته يا تله ارزش؟', publication: 'روزنامه اعتماد', date: '1404/08/07', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/240164/%D8%B4%D8%B3%D8%AA%D8%A7-%D8%BA%D9%88%D9%84-%D8%AE%D9%81%D8%AA%D9%87-%DB%8C%D8%A7-%D8%AA%D9%84%D9%87-%D8%A7%D8%B1%D8%B2%D8%B4', category: 'اقتصادی', keywords: ['ایران', 'رمز ارز'] },
-             { id: 29, title: 'کانال نزولی قدرت نفت', publication: 'روزنامه دنیای اقتصاد', date: '1404/08/05', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4223672', category: 'اقتصادی / انرژی', keywords: ['نفت', 'اقتصاد جهانی', 'آمریکا', 'چین', 'روسیه'] },
-             { id: 30, title: 'رمزگشایی از نوبل۲۰۲۵', publication: 'روزنامه جهان صنعت', date: '1404/08/03', language: 'فارسی', link: 'https://jahanesanat.ir/?p=567719', category: 'اقتصادی/بین‌الملل', keywords: ['ایران', 'آمریکا', 'چین', 'اقتصاد جهانی'] },
-             { id: 31, title: 'Iran’s Artful Cage', publication: 'Asia Sentinel', date: '2025/10/26', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-art-cage', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: 32, title: 'رونق دستوري بورس', publication: 'روزنامه اعتماد', date: '1404/07/28', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/239715/%D8%B1%D9%88%D9%86%D9%82-%D8%AF%D8%B3%D8%AA%D9%88%D8%B1%DB%8C-%D8%A8%D9%88%D8%B1%D8%B3', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'طلا', 'رمز ارز', 'مصاحبه'] },
-             { id: 33, title: 'وداع با آرمان وبری', publication: 'روزنامه دنیای اقتصاد', date: '1404/07/27', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4221510', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
-             { id: 34, title: 'چرخ‌هایی که دیگر نمی‌چرخند', publication: 'اقتصاد آنلاین', date: '1404/07/27', language: 'فارسی', link: 'https://www.eghtesadonline.com/008moQ', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'چین', 'صنعت'] },
-             { id: 35, title: 'زنگ خطر براي دهمين فولادساز جهان', publication: 'روزنامه اعتماد', date: '1404/07/26', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/239633/%DA%8۶%DA%AF%D9%88%D9%86%D9%87-%D8%ﺤ%D8%AC%D9%85-%D8%AA%D9%88%D9%84%DB%8C%D8%AF-%D9%BE%D8%A7%D8%B4%D9%86%D9%87-%D8%A۲%D8%B۴%DB%8C%D9%84-%D8%B5%D9%8۶%D8%B۹%D8%AA-%D8%B۴%D8%AF', category: 'اقتصادی / صنعت', keywords: ['ایران', 'صنعت'] },
-             { id: 36, title: 'ميراث مشترك، فرسايش ثروت ملي', publication: 'روزنامه اعتماد', date: '1404/07/24', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/239524/%D9%8۳%D۸%A۷%D۹%۸۴%D۸%A۸%D8%AF%D8%B۴%DA%A۹%D۸%A۷%D۹%8۱%DB%8C-%D۸%A۷%D۹%8۲%D8%AA%D8%B۵%D۸%A۷%D8%AF%DB%8C-%D۹%۸۵%DB%8C%D۸%A۷%D۸%AF%DB%8C%D۹%8۶-%D۹%8۷%DB%8C%D8%AF%D8%B۱%D9%88%DA%A۹%D8%B۱%D8%A۸%D۹%8۶%DB%8C-%D۸%A۷%DB%8C%D8%B۱%D۸%A۷%D۹%8۶', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'آسیا'] },
-             { id: 37, title: '۴ خطر بزرگ در کمین خریداران رمزارز/ مقررات جدید ترمز هیجان بازار را می‌کشد', publication: 'ایبِنا (رسانه بانک مرکزی)', date: '1404/07/21', language: 'فارسی', link: 'https://www.ibena.ir/000kRA', category: 'اقتصادی', keywords: ['رمز ارز', 'ایران', 'اقتصاد جهانی', 'مصاحبه'] },
-             { id: 38, title: 'چرا جهان دوباره به پناهگاه فلز زرد بازمی‌گردد؟', publication: 'اقتصاد آنلاین', date: '1404/07/21', language: 'فارسی', link: 'https://www.eghtesadonline.com/008mML', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'آمریکا', 'اقتصاد جهانی'] },
-             { id: 39, title: 'چگونه انقلاب خودروهای الکتریکی نظم نوین جهانی را تثبیت کرد', publication: 'اکو اقتصاد', date: '1404/07/20', language: 'فارسی', link: 'https://ecoeghtesad.ir/News?id=170451', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'اقتصاد جهانی', 'چین', 'آسیا'] },
-             { id: 40, title: 'نقش ميدان پازن در ماتريس انرژي ايران', publication: 'روزنامه اعتماد', date: '1404/07/20', language: 'فارسی', link: 'http://www.etemadnewspaper.ir/fa/main/detail/239349/%D۹%۸۶%D۹%۸۲%D۸%B۴-%D۹%۸۵%DB%8C%D۸%AF%D۸%A۷%D۹%۸۶-%D۹%BE%D۸%A۷%D۸%B۲%D۹%8۶-%D۸%AF%D8%B۱-%D۹%۸۵%D۸%A۷%D۸%AA%D۸%B۱%DB%8C%D8%B۳-%D۸%A۷%D۹%۸۶%D۸%B۱%DA%۹۸%DB%8C-%D۸%A۷%DB%8C%D8%B۱%D۸%A۷%D۹%۸۶', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'تحریم'] },
-             { id: 41, title: 'Iran’s Post-War Economy', publication: 'Asia Sentinel', date: '2025/10/15', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-post-war-economy', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'آمریکا', 'تورم'] },
-             { id: 42, title: 'فرسایش از درون: تحلیلی بر هزینه بقای اقتصاد ایران', publication: 'روزنامه شرق', date: '1404/07/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1056890', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'تحریم', 'ایران'] },
-             { id: 43, title: 'فنر فشرده مسکن؛ شمارش معکوس برای جهش بزرگ پس از رکود تاریخی', publication: 'اقتصاد آنلاین', date: '1404/07/14', language: 'فارسی', link: 'https://www.eghtesadonline.com/008m6C', category: 'اقتصادی', keywords: ['مسکن', 'ایران', 'تحریم'] },
-             { id: 44, title: 'کالبد شکافی یک زوال تدریجی', publication: 'روزنامه اعتماد', date: '1404/07/12', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238971/%DA%A۹%D۸%A۷%D۹%۸۴%D۸%A۸%D8%AF-%D۸%B۴%DA%A۹%D۸%A۷%D۹%8۱%DB%8C-%DB%۸C%DA%A۹-%D۸%B۲%D۹%۸۸%D۸%A۷%D۹%۸۴-%D۸%AA%D۸%AF%D۸%B۱%DB%8C%D۸%AC%DB%8C', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'تحریم'] },
-             { id: 45, title: 'ریشه‌یابی بحران در بخش کشاورزی', publication: 'روزنامه دنیای اقتصاد', date: '1404/07/12', language: 'فارسی', link: 'https://donya-e-eqtesad.com/%D8%A۸%D۸%AE%D۸%B۴-%D۸%A۸%D۸%A۷%D۸%B۴%DA%AF%D۸%A۷%D۹%8۷-%D۸%A۷%D۹%۸۲%D8%AA%D8%B۵%D۸%A۷%D8%AF%D8%AF%D۸%A۷%D۹%۸۶%D۸%A۷%D۹%8۶-۵۲/۴۲۱۷۵۶۱-%D8%B۱%DB%8C%D8%B4%D۹%87-%DB%8C%D8%A۷%D۸%A۸%DB%8C-%D8%A۸%D۸%AD%D8%B۱%D۸%A۷%D۹%۸۶-%D۸%AF%D8%B۱-%D۸%A۸%D۸%AE%D8%B۴-%DA%A۹%D8%B۴%D۸%A۷%D۹%۸۸%D8%B۱%D۸%B۲%DB%8C', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران', 'تحریم'] },
-             { id: 46, title: 'واگرایی بزرگ', publication: 'روزنامه شرق', date: '1404/07/10', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1055629', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'اقتصاد جهانی'] },
-             { id: 47, title: 'Great Fracture as 3 rival blueprints for the global economy emerge', publication: 'Asia Times', date: '2025/10/10', language: 'انگلیسی', link: 'https://asiatimes.com/2025/10/great-fracture-as-3-rival-blueprints-for-the-global-economy-emerge/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'چین', 'روسیه', 'اقتصاد جهانی'] },
-             { id: 48, title: 'Iran at the Precipice: The Economics of Endurance', publication: 'Asia Sentinel', date: '2025/10/09', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-precipice-economics-endurance', category: 'اقتصادی / اجتماعی', keywords: ['تورم', 'تحریم', 'ایران'] },
-             { id: 49, title: 'Chinese engineers vs US accountants: The real power struggle', publication: 'Asia Times', date: '2025/10/07', language: 'انگلیسی', link: 'https://asiatimes.com/2025/10/chinese-engineers-vs-us-accountants-the-real-power-struggle/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'چین', 'اقتصاد جهانی'] },
-             { id: 50, title: 'نبرد روزمره براي فروش نفت', publication: 'روزنامه اعتماد', date: '1404/07/06', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238625/%D۹%۸۶%D۸%A۸%D۸%B۱%D۸%AF-%D۸%B۱%D۹%۸۸%D۸%B۲%D۹%۸۵%D۸%B۱%D۹%۸۷-%D۸%A۸%D۸%B۱%D۸%A۷%DB%8C-%D۹%۸۱%D۸%B۱%D۹%۸۸%D8%B۴-%D۹%۸۶%D۹%۸۱%D۸%AA', category: 'اقتصادی / انرژی', keywords: ['ایران', 'نفت', 'تحریم', 'چین'] },
-             { id: 51, title: 'ضیافت در بحران', publication: 'روزنامه شرق', date: '1404/07/02', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1053398', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
-             { id: 52, title: 'گازهایی که می‌سوزند', publication: 'روزنامه دنیای اقتصاد', date: '1404/06/30', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4214075', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'چین'] },
-             { id: 53, title: 'غول تحریم‌شده', publication: 'روزنامه اعتماد', date: '1404/06/29', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238298/%D۸%BA%D۹%۸۸%D۹%۸۴-%D۸%AA%D۸%AD%D۸%B۱%DB%8C%D۹%۸۵-%E۲%۸۰%۸C%D۸%B۴%D۸%AF%D۹%۸۷', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] },
-             { id: 54, title: 'تحلیلی بر امواج شوک از تهران تا پکن و مسکو', publication: 'روزنامه شرق', date: '1404/06/26', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1051227', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران', 'چین'] },
-             { id: 55, title: 'نفرين نفت ايران', publication: 'روزنامه اعتماد', date: '1404/06/24', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238026/%D۹%۸۶%DB%8C%D۹%۸۵-%D۹%۸۲%D۸%B۱%D۹%۸۶-%D۹%۸۵%D۸%A۸%D۸%A۷%D۸%B۱%D۸%B۲%D۹%۸۷-%D۸%A۸%D۸%B۱%D۸%A۷%DB%8C-%D۸%ﺣ%D۸%A۷%D۹%۸۳%D۹%۸۵%DB%8C%D۸%AA-%D۸%A۷%D۹%۸۲%D۸%AA%D8%B۵%D۸%A۷%D۸%AF%DB%۸C', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] },
-             { id: 56, title: 'تحلیل استراتژیک سرمایه گذاری در ایران پس از مکانیسم ماشه', publication: 'روزنامه سپهر ایرانیان', date: '1404/06/23', language: 'فارسی', link: '#', category: 'اقتصادی', keywords: ['تحریم', 'ایران'] },
-             { id: 57, title: 'شاخص دلار بر لبه پرتگاه', publication: 'اکو اقتصاد', date: '1404/06/23', language: 'فارسی', link: 'https://ecoeghtesad.ir/News?id=129386', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
-             { id: 58, title: 'وحشت از رکود در آمریکا؛ چرا حرکت بعدی فدرال رزرو یک قمار پرریسک برای سرمایه‌گذاران جهانی است؟', publication: 'اقتصاد آنلاین', date: '1404/06/23', language: 'فارسی', link: 'https://www.eghtesadonline.com/008kgZ', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
-             { id: 59, title: 'Iran Feasts in Crisis', publication: 'Asia Sentinel', date: '2025/09/19', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-feasts-in-crisis?r=61lzwg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
-             { id: 60, title: 'Fed\'s expected rates cut could reshape global markets', publication: 'Asia Times', date: '2025/09/17', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/feds-expected-rates-cut-could-reshape-global-markets/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
-             { id: 61, title: 'ارزیابی نهایی اقتصاد ایران در شانگهای', publication: 'روزنامه شرق', date: '1404/06/17', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1048394', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران', 'چین'] },
-             { id: 62, title: 'سفره کوچک جامعه مقاوم', publication: 'روزنامه اعتماد', date: '1404/06/17', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/237853/%D۸%B۳%D۹%۸۱%D۸%B۱%D۹%۸۷-%DA%A۹%D۹%۸۸%DA%A۶%DA%A۹-%D۸%AC%D۸%A۷%D۹%۸۵%D۸%B۹%D۹%۸۷-%D۹%۸۵%D۹%۸۲%D۸%A۷%D۹%۸۸%D۹%۸۵', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
-             { id: 63, title: 'King Dollar at the precipice: Why currency’s reign is in jeopardy', publication: 'Asia Times', date: '2025/09/16', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/king-dollar-at-the-precipice-why-currencys-reign-is-in-jeopardy/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
-             { id: 64, title: 'اثرات مهاجرت معکوس افغان‌ها بر پروژه‌های عمرانی ایران', publication: 'ماهنامه پیام آبادگران', date: '1404/06/15', language: 'فارسی', link: 'http://payamabadgaran.ir/%D۹%۸۵%D۸%A۷%D۹%۸ah%D۹%۸۶%D۸%A۷%D۹%۸۵%D۹%۸۷-%D۹%BE%DB%۸C%D۸%A۷%D۹%۸۵-%D۸%A۲%D۸%A۸%D۸%A۷%D۸%AF%DA%AF%D۸%B۱%D۸%A۷%D۹%۸۶-%D۸%B۴%D۹%۸۵%D۸%A۷%D۸%B۱%D۹%۸۷-۴۲۵/', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
-             { id: 65, title: 'تحلیل ریسک در نقطه عطف', publication: 'روزنامه شرق', date: '1404/06/13', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1047285', category: 'اقتصادی', keywords: ['مسکن', 'ایران'] },
-             { id: 66, title: 'تصميمات ناكارآمد، زمين تشنه', publication: 'روزنامه اعتماد', date: '1404/06/12', language: 'فارسی', link: 'https://www.etemaad.ir/fa/main/detail/237637/%D۸%AA%D۸%B۵%D۹%۸۵%DB%8C%D۹%8۵%D۸%A۷%D۸%AA-%D۹%۸۶%D۸%A۷%D۹%۸۳%D۸%A۷%D۸%B۱%D۸%A۲%D۹%۸۵%D۸%AF-%D۸%B۲%D۹%۸۵%DB%8C%D۹%۸۶-%D۸%AA%D۸%B۴%D۹%۸۶%D۹%۸۷-', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران'] },
-             { id: 67, title: 'Iran’s SCO entry turning into a road to nowhere', publication: 'Asia Times', date: '2025/09/04', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/irans-sco-entry-turning-into-a-road-to-nowhere/', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران', 'چین'] },
-             { id: 68, title: 'Iran’s Snapback: A Systemic Shockwave', publication: 'Asia Sentinel', date: '2025/09/03', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-snapback-systemic-shockwave', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران'] },
-             { id: 69, title: 'Rising risk to China’s covert Iran oil lifeline', publication: 'Asia Times', date: '2025/08/28', language: 'انگلیسی', link: 'https://asiatimes.com/2025/08/rising-risk-to-chinas-covert-iran-oil-lifeline/', category: 'اقتصادی/بین‌الملل', keywords: ['نفت', 'ایران'] },
-             { id: 70, title: 'پیامدهای اقتصادی قطع صادرات برای چین', publication: 'روزنامه دنیای اقتصاد', date: '1404/06/04', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4207526', category: 'اقتصادی/بین‌الملل', keywords: ['نفت', 'ایران'] },
-             { id: 71, title: 'Asia’s energy future: Green revolution or carbon catastrophe?', publication: 'Asia Times', date: '2025/08/26', language: 'انگلیسی', link: 'https://asiatimes.com/2025/08/asias-energy-future-green-revolution-or-carbon-catastrophe/', category: 'اقتصادی / انرژی', keywords: ['برق', 'آسیا'] },
-             { id: 72, title: 'Trump Doctrine 2.0: A Half-Year Economic Autopsy', publication: 'Asia Times', date: '2025/08/25', language: 'انگلیسی', link: 'https://asiatimes.com/2025/08/trump-doctrine-2-0-a-half-year-economic-autopsy/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
-             { id: 73, title: 'زنان افغان و بازگشت معکوس', publication: 'روزنامه شرق', date: '1404/05/30', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1043222', category: 'اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
-             { id: 74, title: 'The Quiet Crisis of Return', publication: 'Asia Sentinel', date: '2025/08/20', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/quiet-crisis-return', category: 'اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
-             { id: 75, title: 'Why Iran can’t keep the lights on', publication: 'Asia Times', date: '2025/08/19', language: 'انگلیسی', link: 'https://asiatimes.com/2025/08/why-iran-cant-keep-the-lights-on/', category: 'اقتصادی / انرژی', keywords: ['برق', 'ایران'] },
-             { id: 76, title: '«مکانیسم ماشه» ابزاری برای ایجاد نااطمینانی در اقتصاد ایران', publication: 'مهر', date: '1404/05/27', language: 'فارسی', link: 'https://www.mehrnews.com/x38NFC', category: 'اقتصادی', keywords: ['تحریم', 'ایران', 'مصاحبه'] }, 
-             { id: 77, title: 'ذخایر طلای بانک مرکزی عامل مقاومت در برابر موج‌های هیجانی', publication: 'ایبِنا (رسانه بانک مرکزی)', date: '1404/05/27', language: 'فارسی', link: 'https://www.ibena.ir/000k2E', category: 'اقتصادی', keywords: ['تحریم', 'ایران', 'مصاحبه'] }, 
-             { id: 78, title: 'تاریکیِ تابستان، سوزِ زمستان', publication: 'روزنامه اعتماد', date: '1404/05/27', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/237041', category: 'اقتصادی / انرژی', keywords: ['برق', 'ایران'] },
-             { id: 79, title: 'بازار سهام در انتظار محرک قوی', publication: 'مدار اقتصادی', date: '1404/05/26', language: 'فارسی', link: 'https://www.ecc.news/fa/news/230732/bazar-sham-dr-antzar-mhrk-qwy-4-aml-jdhabyt-bazar-srmayh', category: 'اقتصادی', keywords: ['تحریم', 'ایران', 'مصاحبه'] }, 
-             { id: 80, title: 'The Paradox of Iran’s Economic Survival', publication: 'Asia Sentinel', date: '2025/08/15', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/paradox-iran-economic-survival', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
-             { id: 81, title: 'اقتصاد آمریکا زیر تیغ ترامپ', publication: 'روزنامه شرق', date: '1404/05/20', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1039609', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
-             { id: 82, title: 'Afghanistan’s Reverse Exodus', publication: 'Asia Sentinel', date: '2025/08/11', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/afghanistan-reverse-exodus-tragedy', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
-             { id: 83, title: 'بازگشت بزرگ افغان‌ها؛ زلزله جمعیتی و اثرات آن', publication: 'روزنامه سپهر ایرانیان', date: '1404/05/15', language: 'فارسی', status: 'چاپ شده', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
-             { id: 84, title: 'ایران، میزبانِ پرهزینه', publication: 'روزنامه شرق', date: '1404/05/07', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1035212', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
-             { id: 85, title: 'Costly Afghan immigration tests Iran’s neighborly hospitality', publication: 'Asia Times', date: '2025/07/24', language: 'انگلیسی', link: 'https://asiatimes.com/2025/07/costly-afghan-immigration-tests-irans-neighborly-hospitality/', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
-             { id: 86, title: 'ویروس اقتصاد ایران', publication: 'روزنامه دنیای اقتصاد', date: '1404/04/28', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4197077', category: 'اقتصادی', keywords: ['تورم', 'ایران'] },
-             { id: 87, title: 'Iran’s Nuclear Inflation: Structural Determinants…', publication: 'Pakistan Today', date: '2025/07/18', language: 'انگلیسی', link: 'https://www.pakistantoday.com.pk/2025/07/18/irans-nuclear-inflation/', category: 'اقتصادی', keywords: ['تورم', 'ایران'] },
-             { id: 88, title: 'Iran’s Inflation: Rooted in Institutional Failure', publication: 'Asia Sentinel', date: '2025/07/15', language: 'انگلیسی', link: 'http://asiasentinel.com/iran-inflation-institutional-failure', category: 'اقتصادی', keywords: ['تورم', 'ایران'] },
-             { id: 89, title: 'Global Gold at the Crossroads of Crisis', publication: 'Pakistan Today', date: '2025/07/14', language: 'انگلیسی', link: 'https://www.pakistantoday.com.pk/2025/07/14/global-gold-at-the-crossroads-of-crisis/', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'اقتصاد جهانی'] },
-             { id: 90, title: 'Global Gold at the Crossroads of Crisis', publication: 'Tehran Times', date: '2025/07/12', language: 'انگلیسی', link: 'https://www.tehrantimes.com/news/515477/Global-Gold-at-the-Crossroads-of-Crisis', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'اقتصاد جهانی'] },
-             { id: 91, title: 'طلای جهانی در بزنگاه بحران خاورمیانه', publication: 'روزنامه شرق', date: '1404/04/11', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1026385', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'ایران'] },
-             { id: 92, title: 'مهندسی توفان نفتی خاورمیانه', publication: 'روزنامه دنیای اقتصاد', date: '1404/04/08', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4191872', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] },
-             { id: 93, title: 'قیمت نفت در دستان ایران', publication: 'روزنامه دنیای اقتصاد', date: '1404/04/04', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4190944', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] }
+             // جدیدترین (Newest Added)
+             { id: 111, title: 'بوروکراسی و مرگ؛ بررسی پرونده ایوان ایلیچ', publication: 'ایبنا', date: '1404/11/10', language: 'فارسی', link: 'https://ibna.ir/x6Fyb', category: 'نقد کتاب', keywords: ['ایران', 'نقد کتاب'] },
+             { id: 110, title: 'اثر پروانه‌ای تحریم', publication: 'روزنامه جهان صنعت', date: '1404/11/09', language: 'فارسی', link: 'https://jahanesanat.ir/?p=602675', category: 'اقتصادی/بین‌الملل', keywords: ['ایران', 'آمریکا', 'چین', 'تحریم', 'تورم', 'طلا'] },
+             { id: 109, title: 'محاصره دیوار بزرگ', publication: 'روزنامه جهان صنعت', date: '1404/11/05', language: 'فارسی', link: 'https://jahanesanat.ir/?p=601793', category: 'اقتصادی/بین‌الملل', keywords: ['ایران', 'آمریکا', 'تحریم', 'تورم', 'اقتصاد جهانی', 'چین'] },
+             { id: 108, title: 'شریان‌های دیجیتال و قلب تپنده اقتصاد', publication: 'روزنامه جهان صنعت', date: '1404/11/04', language: 'فارسی', link: 'https://jahanesanat.ir/?p=601519', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'تورم'] },
+             // اصلاح دسته‌بندی مقالات زیر
+             { id: 107, title: 'آناتومی تباهی در حاشیه شهر', publication: 'روزنامه جهان صنعت', date: '1404/11/02', language: 'فارسی', link: 'https://jahanesanat.ir/?p=601107', category: 'اجتماعی / نقد کتاب', keywords: ['جامعه شناسی', 'ایران', 'نقد کتاب'] },
+             { id: 106, title: 'چرا مسکن با دلار و طلا همراهی نکرد', publication: 'روزنامه شرق', date: '1404/10/30', language: 'فارسی', link: '#', category: 'اقتصادی', keywords: ['مسکن', 'طلا', 'ارز', 'تورم', 'ایران'] },
+             { id: 105, title: 'پيشنهادي براي مديران', publication: 'روزنامه اعتماد', date: '1404/10/30', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/243997/%D9%BE%DB%8C%D8%B4%D9%86%D9%87%D8%A7%D8%AF%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D9%85%D8%AF%DB%8C%D8%B1%D8%A7%D9%86', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تورم', 'تحریم'] },
+             { id: 104, title: 'بیداریِ غولِ کاراکاس؛', publication: 'روزنامه دنیای اقتصاد', date: '1404/10/18', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4243633', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'نفت', 'اقتصاد جهانی'] },
+             { id: 103, title: 'چك‌هاي برگشتي در كاراكاس', publication: 'روزنامه اعتماد', date: '1404/10/18', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/243641/%DA%86%D9%83%E2%80%8C%D9%87%D8%A7%DB%8C-%D8%A8%D8%B1%DA%AF%D8%B4%D8%AA%DB%8C-%D8%AF%D8%B1-%D9%83%D8%A7%D8%B1%D8%A7%D9%83%D8%A7%D8%B3', category: 'اقتصادی', keywords: ['ایران', 'آمریکا', 'نفت', 'تحریم', 'تورم', 'اقتصاد جهانی', 'ارز', 'انرژی'] },
+             { id: 102, title: 'شریان‌های مسدود', publication: 'روزنامه شرق', date: '1404/10/17', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1080237', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تحریم', 'تورم', 'نفت'] },
+             { id: 101, title: 'Iran 2026: Isolated in a Turbulent Ocean', publication: 'Asia Sentinel', date: '1404/10/16', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-2026-isolated-turbulent-ocean', category: 'اقتصادی/بین‌الملل', keywords: ['ایران', 'تحریم', 'انزوا', 'اقتصاد جهانی'] },
+             { id: 100, title: 'انجماد در نقطه جوش', publication: 'روزنامه اعتماد', date: '1404/10/15', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/243474/%D8%A7%D9%86%D8%AC%D9%85%D8%A7%D8%AF-%D8%AF%D8%B1-%D9%86%D9%82%D8%B7%D9%87-%D8%AC%D9%88%D8%B4', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت'] },
+             { id: 99, title: 'داستان یک خودکشی اقتصادی', publication: 'روزنامه شرق', date: '1404/10/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1080191', category: 'اقتصادی/بین‌الملل', keywords: ['اقتصاد جهانی', 'آمریکا', 'صنعت', 'آسیا', 'انرژی'] },
+             { id: 98, title: 'تحلیل استراتژیک سرمایه‌گذاری مسکن در لحظه «واگرایی»', publication: 'روزنامه جهان صنعت', date: '1404/10/14', language: 'فارسی', link: 'https://jahanesanat.ir/?p=596661', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت', 'طلا', 'ارز'] },
+             // اصلاح دسته‌بندی نقد کتاب
+             { id: 97, title: 'واکاوی پدیدارشناسانه و نقد ساختارگرایانه بر «عزاداران بَیَل»', publication: 'روزنامه هنرمند', date: '1404/10/14', language: 'فارسی', link: 'https://www.honarmandnews.ir/?p=96265', category: 'اجتماعی / نقد کتاب', keywords: ['ایران', 'جامعه شناسی', 'نقد کتاب'] },
+             { id: 96, title: '۱۴۰۵؛ سالِ انتخاب‌های دشوار میانِ «نان» و «نشان»', publication: 'روزنامه هنرمند', date: '1404/10/14', language: 'فارسی', link: 'https://www.honarmandnews.ir/?p=96270', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم', 'جامعه شناسی'] },
+             { id: 95, title: 'Anatomy of an economic suicide: Venezuela under Maduro', publication: 'Asia Times', date: '1404/10/14', language: 'انگلیسی', link: 'https://asiatimes.com/2026/01/anatomy-of-an-economic-suicide-venezuela-under-maduro/', category: 'اقتصادی/بین‌الملل', keywords: ['ونزوئلا', 'اقتصاد جهانی', 'تورم'] },
+             { id: 94, title: 'تحلیل شکاف میان «رویاهای درآمدی» و «واقعیت‏‏‌های فرسودگی»', publication: 'روزنامه دنیای اقتصاد', date: '1404/10/14', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4242527', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تحریم', 'تورم', 'نفت'] },
+             // اصلاح دسته‌بندی نقد کتاب
+             { id: 93, title: 'ضحاک آینه‌ای فرازمانی، پژواکی در هزارتوهای تاریخ', publication: 'روزنامه شرق', date: '1404/10/11', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1079398', category: 'اجتماعی / نقد کتاب', keywords: ['جامعه شناسی ایرانی', 'نقد کتاب'] },
+             { id: 92, title: 'لبه‌های تیز قیچی ارزی', publication: 'روزنامه جهان صنعت', date: '1404/10/10', language: 'فارسی', link: 'https://jahanesanat.ir/?p=594325', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'ارز', 'طلا'] },
+             { id: 91, title: 'گذار پارادايمي از اقتصاد يارانه‌اي به واقع‌گرايي انقباضي', publication: 'روزنامه اعتماد', date: '1404/10/09', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/243216/%DA%AF%D8%B0%D8%A7%D8%B1-%D9%BE%D8%A7%D8%B1%D8%A7%D8%AF%D8%A7%DB%8C%D9%85%DB%8C-%D8%A7%D8%B2-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF-%DB%8C%D8%A7%D8%B1%D8%A7%D9%86%D9%87%E2%80%8C%D8%A7%DB%8C-%D8%A8%D9%87-%D9%88%D8%A7%D9%82%D8%B9%E2%80%8C%DA%AF%D8%B1%D8%A7%DB%8C%DB%8C-%D8%A7%D9%86%D9%82%D8%A8%D8%A7%D8%B6%DB%8C', category: 'اقتصادی', keywords: ['تورم', 'تحریم', 'ایران', 'انرژی', 'ارز', 'طلا'] },
+             { id: 90, title: 'محاصره فاندامنتال: قیچی «عرضه آمریکا» و «تقاضای چین» بر گردن نفت', publication: 'روزنامه دنیای اقتصاد', date: '1404/10/07', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4240402', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تحریم', 'تورم', 'نفت', 'آمریکا', 'چین'] },
+             { id: 89, title: 'ماتريس بازي در ايران', publication: 'روزنامه اعتماد', date: '1404/10/05', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242989/%D9%85%D8%A7%D8%AA%D8%B1%DB%8C%D8%B3-%D8%A8%D8%A7%D8%B2%DB%8C-%D8%AF%D8%B1-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم'] },
+             { id: 88, title: 'تحلیل جامع اقتصاد کلان', publication: 'روزنامه جهان صنعت', date: '1404/10/03', language: 'فارسی', link: 'https://jahanesanat.ir/?p=592542', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم'] },
+             { id: 87, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش چهارم)', publication: 'روزنامه هنرمند', date: '1404/10/02', language: 'فارسی', link: 'https://honarmandonline.ir/', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
+             { id: 86, title: 'همگامی هنر و فقر؟', publication: 'روزنامه دنیای اقتصاد', date: '1404/09/30', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4238797', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'تحریم', 'تورم', 'جامعه شناسی'] },
+             { id: 85, title: 'بانکدار در قفس', publication: 'اقتصاد آنلاین', date: '1404/09/29', language: 'فارسی', link: 'https://www.eghtesadonline.com/008qIs', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'رمز ارز'] },
+             { id: 84, title: 'پشت پرده «خودروي ملي»', publication: 'روزنامه اعتماد', date: '1404/09/27', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242668/%D9%BE%D8%B4%D8%AA-%D9%BE%D8%B1%D8%AF%D9%87-%D8%AE%D9%88%D8%AF%D8%B1%D9%88%DB%8C-%D9%85%D9%84%DB%8C', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'صنعت'] },
+             { id: 83, title: 'بنزین و سفره مردم', publication: 'روزنامه جهان صنعت', date: '1404/09/26', language: 'فارسی', link: 'https://jahanesanat.ir/?p=589491', category: 'اقتصادی', keywords: ['ایران', 'نفت', 'تورم', 'تحریم'] },
+             { id: 82, title: 'زایش ناترازي در خانه ما', publication: 'روزنامه اعتماد', date: '1404/09/24', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242432/%D8%B2%D8%A7%DB%8C%D8%B4-%D9%86%D8%A7%D8%AA%D8%B1%D8%A7%D8%B2%DB%8C-%D8%AF%D8%B1-%D8%AE%D8%A7%D9%86%D9%87-%D9%85%D8%A7', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تورم', 'تحریم', 'انرژی (آب و برق)'] },
+             { id: 81, title: 'پارادوکس بزرگ ۲۰۲۵', publication: 'روزنامه دنیای اقتصاد', date: '1404/09/25', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4237597', category: 'اقتصادی / انرژی', keywords: ['ایران', 'آمریکا', 'نفت', 'تحریم', 'تورم'] },
+             { id: 80, title: 'محاصره ژئواکونومیک؛ از «تخریب خلاق» ترامپ تا «جاده ترامپ» در قفقاز', publication: 'اقتصاد آنلاین', date: '1404/09/22', language: 'فارسی', link: 'https://www.eghtesadonline.com/008ptI', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'ایران', 'تحریم', 'تورم'] },
+             { id: 79, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش سوم)', publication: 'هنرمند آنلاین', date: '1404/09/22', language: 'فارسی', link: 'https://honarmandonline.ir/?p=2342', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
+             { id: 78, title: 'جدال بشكه و باتري', publication: 'روزنامه اعتماد', date: '1404/09/20', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242291/%D8%AC%D8%AF%D8%A7%D9%84-%D8%A8%D8%B4%D9%83%D9%87-%D9%88-%D8%A8%D8%A7%D8%AA%D8%B1%DB%8C', category: 'اقتصادی / انرژی', keywords: ['ایران', 'نفت', 'انرژی (آب و برق)'] },
+             { id: 77, title: 'هیجانات ارزی فروکش می‌کند؛ خریداران، بهای ترس را می‌پردازند', publication: 'ایبِنا (رسانه بانک مرکزی)', date: '1404/09/18', language: 'فارسی', link: 'https://www.ibena.ir/000koG', category: 'اقتصادی', keywords: ['ایران', 'ارز', 'تحریم', 'تورم', 'مصاحبه'] },
+             { id: 76, title: 'هیجانات ارزی فروکش می‌کند؛ خریداران، بهای ترس را می‌پردازند', publication: 'خبرگزاری مهر', date: '1404/09/18', language: 'فارسی', link: 'https://mehrnews.com/x39Phv', category: 'اقتصادی', keywords: ['ایران', 'ارز', 'تحریم', 'تورم', 'مصاحبه'] },
+             { id: 75, title: 'برندگان و بازندگان بنزین ۳نرخی', publication: 'روزنامه جهان صنعت', date: '1404/09/17', language: 'فارسی', link: 'https://jahanesanat.ir/?p=586311', category: 'اقتصادی', keywords: ['ایران', 'جامعه شناسی'] },
+             { id: 74, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش دوم)', publication: 'هنرمند آنلاین', date: '1404/09/17', language: 'فارسی', link: 'https://honarmandonline.ir/', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
+             { id: 73, title: 'غيبت خودروسازان بزرگ در سامانه يكپارچه واردات', publication: 'روزنامه اعتماد', date: '1404/09/15', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/242004/%D8%BA%DB%8C%D8%A8%D8%AA-%D8%AE%D9%88%D8%AF%D8%B1%D9%88%D8%B3%D8%A7%D8%B2%D8%A7%D9%86-%D8%A8%D8%B2%D8%B1%DA%AF-%D8%AF%D8%B1-%D8%B3%D8%A7%D9%85%D8%A7%D9%86%D9%87-%DB%8C%D9%83%D9%BE%D8%A7%D8%B1%DA%86%D9%87-%D9%88%D8%A7%D8%B1%D8%AF%D8%A7%D8%AA', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'ایران', 'تحریم'] },
+             { id: 72, title: 'کالبدشکافی یک قرن گسست و افول فرهنگی در ایران (بخش اول)', publication: 'هنرمند آنلاین', date: '1404/09/15', language: 'فارسی', link: 'https://honarmandonline.ir/?p=2342', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
+             { id: 71, title: 'ترازنامه ملی صنعت خودروسازی ایران: دارایی استراتژیک یا هزینه ساختاری', publication: 'روزنامه اعتماد', date: '1404/09/12', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/241831/%D8%AF%D8%A7%D8%B1%D8%A7%DB%8C%DB%8C-%D8%A7%D8%B3%D8%AA%D8%B1%D8%A7%D8%AA%DA%98%DB%8C%D9%83-%DB%8C%D8%A7-%D9%87%D8%B2%DB%8C%D9%86%D9%87-%D8%B3%D8%A7%D8%AE%D8%AA%D8%A7%D8%B1%DB%8C', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'ایران', 'تحریم'] },
+             { id: 70, title: 'اثر دومینویی واردات خودرو بر دلار؟', publication: 'روزنامه اعتماد', date: '1404/09/08', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/241641/%D8%A7%D8%AB%D8%B1-%D8%AF%D9%88%D9%85%DB%8C%D9%86%D9%88%DB%8C%DB%8C-%D9%88%D8%A7%D8%B1%D8%AF%D8%A7%D8%AA-%D8%AE%D9%88%D8%AF%D8%B1%D9%88-%D8%A8%D8%B1-%D8%AF%D9%84%D8%A7%D8%B1', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'ایران', 'تحریم'] },
+             { id: 69, title: 'تحلیل اقتصادی صنعت نشر', publication: 'روزنامه جهان صنعت', date: '1404/09/01', language: 'فارسی', link: 'https://jahanesanat.ir/?p=579582', category: 'اقتصادی', keywords: ['ایران', 'تورم', 'تحریم'] },
+             { id: 68, title: 'طلا (لنگر ترس) در برابر بیت‌کوین (شاخص طمع)', publication: 'روزنامه شرق', date: '1404/08/28', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1068033', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'اقتصاد جهانی', 'رمز ارز'] },
+             { id: 67, title: 'کالبدشکافی فرسایش فنی در صنعت نفت و گاز‌ - بخش دوم', publication: 'روزنامه دنیای اقتصاد', date: '1404/08/28', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4229878', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'تحریم'] },
+             { id: 66, title: '«بازار مکاره‌ی اندیشه» خیابان انقلاب: مرثیه‌ای برای فرهنگی که قاچاق شد', publication: 'اقتصاد آنلاین', date: '1404/08/26', language: 'فارسی', link: 'https://www.eghtesadonline.com/008oX0', category: 'اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
+             { id: 65, title: 'تراز آب ايران', publication: 'روزنامه اعتماد', date: '1404/08/26', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/241141/%D8%AA%D8%B1%D8%A7%D8%B2-%D8%A2%D8%A8-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86', category: 'اقتصادی / صنعت', keywords: ['ایران', 'انرژی (آب و برق)'] },
+             { id: 64, title: 'انقلاب هوش مصنوعی: پایان «عصر نشر» و آغاز «اقتصاد مالکیت فکری»', publication: 'اقتصاد آنلاین', date: '1404/08/25', language: 'فارسی', link: 'https://www.eghtesadonline.com/008oRr', category: 'اقتصادی', keywords: ['ایران', 'صنعت'] },
+             { id: 63, title: 'فولاد تشنه', publication: 'روزنامه اعتماد', date: '1404/08/21', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/240896/%D9%81%D9%88%D9%84%D8%A7%D8%AF-%D8%AA%D8%B4%D9%86%D9%87', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'ایران', 'انرژی (آب و برق)'] },
+             { id: 62, title: 'کالبدشکافی فرسایش فنی در صنعت نفت و گاز', publication: 'روزنامه دنیای اقتصاد', date: '1404/08/20', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4227665', category: 'اقتصادی / انرژی', keywords: ['نفت', 'تحریم', 'ایران'] },
+             { id: 61, title: 'مهاجرت اجبارى صنعت', publication: 'روزنامه جهان صنعت', date: '1404/08/18', language: 'فارسی', link: 'https://jahanesanat.ir/?p=573709', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت'] },
+             // اصلاح دسته‌بندی نقد کتاب
+             { id: 60, title: 'عنوانی بزرگ بر روایتی ناتمام', publication: 'روزنامه شرق', date: '1404/08/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1064484', category: 'اجتماعی / نقد کتاب', keywords: ['ایران', 'جامعه شناسی', 'نقد کتاب'] },
+             { id: 59, title: 'كالبدشكافي صنعت متانول', publication: 'روزنامه اعتماد', date: '1404/08/15', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/240569/%D9%83%D8%A7%D9%84%D8%A8%D8%AF%D8%B4%D9%83%D8%A7%D9%81%DB%8C-%D8%B5%D9%86%D8%B9%D8%AA-%D9%85%D8%AA%D8%A7%D9%86%D9%88%D9%84', category: 'اقتصادی / صنعت', keywords: ['ایران', 'صنعت', 'تحریم', 'تورم'] },
+             { id: 58, title: 'مارپیچ مرگ فولاد: کالبدشکافی "شوک دوگانه" تعرفه و فرسودگی فنی', publication: 'اقتصاد آنلاین', date: '1404/08/14', language: 'فارسی', link: 'https://www.eghtesadonline.com/008nov', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت'] },
+             { id: 57, title: 'كالبدشكافي يك اصلاح', publication: 'روزنامه اعتماد', date: '1404/08/11', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/240358/%D9%83%D8%A7%D9%84%D8%A8%D8%AF%D8%B4%D9%83%D8%A7%D9%81%DB%8C-%DB%8C%D9%83-%D8%A7%D8%B5%D9%84%D8%A7%D8%AD', category: 'اقتصادی', keywords: ['اقتصاد جهانی', 'رمز ارز', 'آمریکا'] },
+             { id: 56, title: 'کنترل نقدینگی به قیمت رکود؟', publication: 'روزنامه جهان صنعت', date: '1404/08/08', language: 'فارسی', link: 'https://jahanesanat.ir/?p=570705', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'صنعت'] },
+             { id: 55, title: 'شستا، غول خفته يا تله ارزش؟', publication: 'روزنامه اعتماد', date: '1404/08/07', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/240164/%D8%B4%D8%B3%D8%AA%D8%A7-%D8%BA%D9%88%D9%84-%D8%AE%D9%81%D8%AA%D9%87-%DB%8C%D8%A7-%D8%AA%D9%84%D9%87-%D8%A7%D8%B1%D8%B2%D8%B4', category: 'اقتصادی', keywords: ['ایران', 'رمز ارز'] },
+             { id: 54, title: 'کانال نزولی قدرت نفت', publication: 'روزنامه دنیای اقتصاد', date: '1404/08/05', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4223672', category: 'اقتصادی / انرژی', keywords: ['نفت', 'اقتصاد جهانی', 'آمریکا', 'چین', 'روسیه'] },
+             { id: 53, title: 'رمزگشایی از نوبل۲۰۲۵', publication: 'روزنامه جهان صنعت', date: '1404/08/03', language: 'فارسی', link: 'https://jahanesanat.ir/?p=567719', category: 'اقتصادی/بین‌الملل', keywords: ['ایران', 'آمریکا', 'چین', 'اقتصاد جهانی'] },
+             { id: 52, title: 'Iran’s Artful Cage', publication: 'Asia Sentinel', date: '1404/08/04', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-art-cage', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
+             { id: 51, title: 'رونق دستوري بورس', publication: 'روزنامه اعتماد', date: '1404/07/28', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/239715/%D8%B1%D9%88%D9%86%D9%82-%D8%AF%D8%B3%D8%AA%D9%88%D8%B1%DB%8C-%D8%A8%D9%88%D8%B1%D8%B3', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم', 'طلا', 'رمز ارز', 'مصاحبه'] },
+             { id: 50, title: 'وداع با آرمان وبری', publication: 'روزنامه دنیای اقتصاد', date: '1404/07/27', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4221510', category: 'اقتصادی / اجتماعی', keywords: ['ایران', 'جامعه شناسی'] },
+             { id: 49, title: 'چرخ‌هایی که دیگر نمی‌چرخند', publication: 'اقتصاد آنلاین', date: '1404/07/27', language: 'فارسی', link: 'https://www.eghtesadonline.com/008moQ', category: 'اقتصادی / صنعت', keywords: ['ایران', 'تحریم', 'چین', 'صنعت'] },
+             { id: 48, title: 'زنگ خطر براي دهمين فولادساز جهان', publication: 'روزنامه اعتماد', date: '1404/07/26', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/239633/%DA%8۶%DA%AF%D9%88%D9%86%D9%87-%D8%ﺤ%D8%AC%D9%85-%D8%AA%D9%88%D9%84%DB%8C%D8%AF-%D9%BE%D8%A7%D8%B4%D9%86%D9%87-%D8%A۲%D8%B۴%DB%8C%D9%84-%D8%B5%D9%8۶%D8%B۹%D8%AA-%D8%B۴%D8%AF', category: 'اقتصادی / صنعت', keywords: ['ایران', 'صنعت'] },
+             { id: 47, title: 'ميراث مشترك، فرسايش ثروت ملي', publication: 'روزنامه اعتماد', date: '1404/07/24', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/239524/%D9%8۳%D۸%A۷%D۹%۸۴%D۸%A۸%D8%AF%D8%B۴%DA%A۹%D۸%A۷%D۹%8۱%DB%8C-%D۸%A۷%D۹%8۲%D8%AA%D8%B۵%D۸%A۷%D8%AF%DB%8C-%D۹%۸۵%DB%8C%D۸%A۷%D۸%AF%DB%8C%D۹%8۶-%D۹%8۷%DB%8C%D8%AF%D8%B۱%D9%88%DA%A۹%D8%B۱%D8%A۸%D۹%8۶%DB%8C-%D۸%A۷%DB%8C%D8%B۱%D۸%A۷%D۹%8۶', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'آسیا'] },
+             { id: 46, title: '۴ خطر بزرگ در کمین خریداران رمزارز/ مقررات جدید ترمز هیجان بازار را می‌کشد', publication: 'ایبِنا (رسانه بانک مرکزی)', date: '1404/07/21', language: 'فارسی', link: 'https://www.ibena.ir/000kRA', category: 'اقتصادی', keywords: ['رمز ارز', 'ایران', 'اقتصاد جهانی', 'مصاحبه'] },
+             { id: 45, title: 'چرا جهان دوباره به پناهگاه فلز زرد بازمی‌گردد؟', publication: 'اقتصاد آنلاین', date: '1404/07/21', language: 'فارسی', link: 'https://www.eghtesadonline.com/008mML', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'آمریکا', 'اقتصاد جهانی'] },
+             { id: 44, title: 'چگونه انقلاب خودروهای الکتریکی نظم نوین جهانی را تثبیت کرد', publication: 'اکو اقتصاد', date: '1404/07/20', language: 'فارسی', link: 'https://ecoeghtesad.ir/News?id=170451', category: 'اقتصادی / صنعت', keywords: ['صنعت', 'اقتصاد جهانی', 'چین', 'آسیا'] },
+             { id: 43, title: 'نقش ميدان پازن در ماتريس انرژي ايران', publication: 'روزنامه اعتماد', date: '1404/07/20', language: 'فارسی', link: 'http://www.etemadnewspaper.ir/fa/main/detail/239349/%D۹%۸۶%D۹%۸۲%D۸%B۴-%D۹%۸۵%DB%8C%D۸%AF%D۸%A۷%D۹%۸۶-%D۹%BE%D۸%A۷%D۸%B۲%D۹%8۶-%D۸%AF%D8%B۱-%D۹%۸۵%D۸%A۷%D۸%AA%D۸%B۱%DB%8C%D8%B۳-%D۸%A۷%D۹%۸۶%D۸%B۱%DA%۹۸%DB%8C-%D۸%A۷%DB%8C%D8%B۱%D۸%A۷%D۹%۸۶', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'تحریم'] },
+             { id: 42, title: 'Iran’s Post-War Economy', publication: 'Asia Sentinel', date: '1404/07/23', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-post-war-economy', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'آمریکا', 'تورم'] },
+             { id: 41, title: 'فرسایش از درون: تحلیلی بر هزینه بقای اقتصاد ایران', publication: 'روزنامه شرق', date: '1404/07/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1056890', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'تحریم', 'ایران'] },
+             { id: 40, title: 'فنر فشرده مسکن؛ شمارش معکوس برای جهش بزرگ پس از رکود تاریخی', publication: 'اقتصاد آنلاین', date: '1404/07/14', language: 'فارسی', link: 'https://www.eghtesadonline.com/008m6C', category: 'اقتصادی', keywords: ['مسکن', 'ایران', 'تحریم'] },
+             { id: 39, title: 'کالبد شکافی یک زوال تدریجی', publication: 'روزنامه اعتماد', date: '1404/07/12', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238971/%DA%A۹%D۸%A۷%D۹%۸۴%D۸%A۸%D8%AF-%D۸%B۴%DA%A۹%D۸%A۷%D۹%8۱%DB%8C-%DB%۸C%DA%A۹-%D۸%B۲%D۹%۸۸%D۸%A۷%D۹%۸۴-%D۸%AA%D۸%AF%D۸%B۱%DB%8C%D۸%AC%DB%8C', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'تحریم'] },
+             { id: 38, title: 'ریشه‌یابی بحران در بخش کشاورزی', publication: 'روزنامه دنیای اقتصاد', date: '1404/07/12', language: 'فارسی', link: 'https://donya-e-eqtesad.com/%D8%A۸%D۸%AE%D۸%B۴-%D۸%A۸%D۸%A۷%D۸%B۴%DA%AF%D۸%A۷%D۹%8۷-%D۸%A۷%D۹%۸۲%D8%AA%D8%B۵%D۸%A۷%D8%AF%D8%AF%D۸%A۷%D۹%۸۶%D۸%A۷%D۹%8۶-۵۲/۴۲۱۷۵۶۱-%D8%B۱%DB%8C%D8%B4%D۹%87-%DB%8C%D8%A۷%D۸%A۸%DB%8C-%D8%A۸%D۸%AD%D8%B۱%D۸%A۷%D۹%۸۶-%D۸%AF%D8%B۱-%D۸%A۸%D۸%AE%D8%B۴-%DA%A۹%D8%B۴%D۸%A۷%D۹%۸۸%D8%B۱%D۸%B۲%DB%8C', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران', 'تحریم'] },
+             { id: 37, title: 'واگرایی بزرگ', publication: 'روزنامه شرق', date: '1404/07/10', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1055629', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'اقتصاد جهانی'] },
+             { id: 36, title: 'Great Fracture as 3 rival blueprints for the global economy emerge', publication: 'Asia Times', date: '1404/07/18', language: 'انگلیسی', link: 'https://asiatimes.com/2025/10/great-fracture-as-3-rival-blueprints-for-the-global-economy-emerge/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'چین', 'روسیه', 'اقتصاد جهانی'] },
+             { id: 35, title: 'Iran at the Precipice: The Economics of Endurance', publication: 'Asia Sentinel', date: '1404/07/17', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-precipice-economics-endurance', category: 'اقتصادی / اجتماعی', keywords: ['تورم', 'تحریم', 'ایران'] },
+             { id: 34, title: 'Chinese engineers vs US accountants: The real power struggle', publication: 'Asia Times', date: '1404/07/15', language: 'انگلیسی', link: 'https://asiatimes.com/2025/10/chinese-engineers-vs-us-accountants-the-real-power-struggle/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'چین', 'اقتصاد جهانی'] },
+             { id: 33, title: 'نبرد روزمره براي فروش نفت', publication: 'روزنامه اعتماد', date: '1404/07/06', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238625/%D۹%۸۶%D۸%A۸%D۸%B۱%D۸%AF-%D۸%B۱%D۹%۸۸%D۸%B۲%D۹%۸۵%D۸%B۱%D۹%۸۷-%D۸%A۸%D۸%B۱%D۸%A۷%DB%8C-%D۹%۸۱%D۸%B۱%D۹%۸۸%D8%B۴-%D۹%۸۶%D۹%۸۱%D۸%AA', category: 'اقتصادی / انرژی', keywords: ['ایران', 'نفت', 'تحریم', 'چین'] },
+             { id: 32, title: 'ضیافت در بحران', publication: 'روزنامه شرق', date: '1404/07/02', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1053398', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
+             { id: 31, title: 'گازهایی که می‌سوزند', publication: 'روزنامه دنیای اقتصاد', date: '1404/06/30', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4214075', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'چین'] },
+             { id: 30, title: 'غول تحریم‌شده', publication: 'روزنامه اعتماد', date: '1404/06/29', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238298/%D۸%BA%D۹%۸۸%D۹%۸۴-%D۸%AA%D۸%AD%D۸%B۱%DB%8C%D۹%۸۵-%E۲%۸۰%۸C%D۸%B۴%D۸%AF%D۹%۸۷', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] },
+             { id: 29, title: 'تحلیلی بر امواج شوک از تهران تا پکن و مسکو', publication: 'روزنامه شرق', date: '1404/06/26', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1051227', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران', 'چین'] },
+             { id: 28, title: 'نفرين نفت ايران', publication: 'روزنامه اعتماد', date: '1404/06/24', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238026/%D۹%۸۶%DB%8C%D۹%۸۵-%D۹%۸۲%D۸%B۱%D۹%۸۶-%D۹%۸۵%D۸%A۸%D۸%A۷%D۸%B۱%D۸%B۲%D۹%۸۷-%D۸%A۸%D۸%B۱%D۸%A۷%DB%8C-%D۸%ﺣ%D۸%A۷%D۹%۸۳%D۹%۸۵%DB%8C%D۸%AA-%D۸%A۷%D۹%۸۲%D۸%AA%D8%B۵%D۸%A۷%D۸%AF%DB%۸C', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] },
+             { id: 27, title: 'تحلیل استراتژیک سرمایه گذاری در ایران پس از مکانیسم ماشه', publication: 'روزنامه سپهر ایرانیان', date: '1404/06/23', language: 'فارسی', link: '#', category: 'اقتصادی', keywords: ['تحریم', 'ایران'] },
+             { id: 26, title: 'شاخص دلار بر لبه پرتگاه', publication: 'اکو اقتصاد', date: '1404/06/23', language: 'فارسی', link: 'https://ecoeghtesad.ir/News?id=129386', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
+             { id: 25, title: 'وحشت از رکود در آمریکا؛ چرا حرکت بعدی فدرال رزرو یک قمار پرریسک برای سرمایه‌گذاران جهانی است؟', publication: 'اقتصاد آنلاین', date: '1404/06/23', language: 'فارسی', link: 'https://www.eghtesadonline.com/008kgZ', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
+             { id: 24, title: 'Iran Feasts in Crisis', publication: 'Asia Sentinel', date: '1404/06/28', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-feasts-in-crisis?r=61lzwg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
+             { id: 23, title: 'Fed\'s expected rates cut could reshape global markets', publication: 'Asia Times', date: '1404/06/26', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/feds-expected-rates-cut-could-reshape-global-markets/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
+             { id: 22, title: 'ارزیابی نهایی اقتصاد ایران در شانگهای', publication: 'روزنامه شرق', date: '1404/06/17', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1048394', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران', 'چین'] },
+             { id: 21, title: 'سفره کوچک جامعه مقاوم', publication: 'روزنامه اعتماد', date: '1404/06/17', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/237853/%D۸%B۳%D۹%۸۱%D۸%B۱%D۹%۸۷-%DA%A۹%D۹%۸۸%DA%A۶%DA%A۹-%D۸%AC%D۸%A۷%D۹%۸۵%D۸%B۹%D۹%۸۷-%D۹%۸۵%D۹%۸۲%D۸%A۷%D۹%۸۸%D۹%۸۵', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
+             { id: 20, title: 'King Dollar at the precipice: Why currency’s reign is in jeopardy', publication: 'Asia Times', date: '1404/06/25', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/king-dollar-at-the-precipice-why-currencys-reign-is-in-jeopardy/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
+             { id: 19, title: 'اثرات مهاجرت معکوس افغان‌ها بر پروژه‌های عمرانی ایران', publication: 'ماهنامه پیام آبادگران', date: '1404/06/15', language: 'فارسی', link: 'http://payamabadgaran.ir/%D۹%۸۵%D۸%A۷%D۹%۸ah%D۹%۸۶%D۸%A۷%D۹%۸۵%D۹%۸۷-%D۹%BE%DB%۸C%D۸%A۷%D۹%۸۵-%D۸%A۲%D۸%A۸%D۸%A۷%D۸%AF%DA%AF%D۸%B۱%D۸%A۷%D۹%۸۶-%D۸%B۴%D۹%۸۵%D۸%A۷%D۸%B۱%D۹%۸۷-۴۲۵/', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
+             { id: 18, title: 'تحلیل ریسک در نقطه عطف', publication: 'روزنامه شرق', date: '1404/06/13', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1047285', category: 'اقتصادی', keywords: ['مسکن', 'ایران'] },
+             { id: 17, title: 'تصميمات ناكارآمد، زمين تشنه', publication: 'روزنامه اعتماد', date: '1404/06/12', language: 'فارسی', link: 'https://www.etemaad.ir/fa/main/detail/237637/%D۸%AA%D۸%B۵%D۹%۸۵%DB%8C%D۹%8۵%D۸%A۷%D۸%AA-%D۹%۸۶%D۸%A۷%D۹%۸۳%D۸%A۷%D۸%B۱%D۸%A۲%D۹%۸۵%D۸%AF-%D۸%B۲%D۹%۸۵%DB%8C%D۹%۸۶-%D۸%AA%D۸%B۴%D۹%۸۶%D۹%۸۷-', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران'] },
+             { id: 16, title: 'Iran’s SCO entry turning into a road to nowhere', publication: 'Asia Times', date: '1404/06/13', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/irans-sco-entry-turning-into-a-road-to-nowhere/', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران', 'چین'] },
+             { id: 15, title: 'Iran’s Snapback: A Systemic Shockwave', publication: 'Asia Sentinel', date: '1404/06/12', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-snapback-systemic-shockwave', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران'] },
+             { id: 14, title: 'Rising risk to China’s covert Iran oil lifeline', publication: 'Asia Times', date: '1404/06/06', language: 'انگلیسی', link: 'https://asiatimes.com/2025/08/rising-risk-to-chinas-covert-iran-oil-lifeline/', category: 'اقتصادی/بین‌الملل', keywords: ['نفت', 'ایران'] },
+             { id: 13, title: 'پیامدهای اقتصادی قطع صادرات برای چین', publication: 'روزنامه دنیای اقتصاد', date: '1404/06/04', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4207526', category: 'اقتصادی/بین‌الملل', keywords: ['نفت', 'ایران'] },
+             { id: 12, title: 'Asia’s energy future: Green revolution or carbon catastrophe?', publication: 'Asia Times', date: '1404/06/04', language: 'انگلیسی', link: 'https://asiatimes.com/2025/08/asias-energy-future-green-revolution-or-carbon-catastrophe/', category: 'اقتصادی / انرژی', keywords: ['برق', 'آسیا'] },
+             { id: 11, title: 'Trump Doctrine 2.0: A Half-Year Economic Autopsy', publication: 'Asia Times', date: '1404/06/03', language: 'انگلیسی', link: 'https://asiatimes.com/2025/08/trump-doctrine-2-0-a-half-year-economic-autopsy/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
+             { id: 10, title: 'زنان افغان و بازگشت معکوس', publication: 'روزنامه شرق', date: '1404/05/30', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1043222', category: 'اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
+             { id: 9, title: 'The Quiet Crisis of Return', publication: 'Asia Sentinel', date: '1404/05/29', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/quiet-crisis-return', category: 'اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
+             { id: 8, title: 'Why Iran can’t keep the lights on', publication: 'Asia Times', date: '1404/05/28', language: 'انگلیسی', link: 'https://asiatimes.com/2025/08/why-iran-cant-keep-the-lights-on/', category: 'اقتصادی / انرژی', keywords: ['برق', 'ایران'] },
+             { id: 7, title: '«مکانیسم ماشه» ابزاری برای ایجاد نااطمینانی در اقتصاد ایران', publication: 'مهر', date: '1404/05/27', language: 'فارسی', link: 'https://www.mehrnews.com/x38NFC', category: 'اقتصادی', keywords: ['تحریم', 'ایران', 'مصاحبه'] }, 
+             { id: 6, title: 'ذخایر طلای بانک مرکزی عامل مقاومت در برابر موج‌های هیجانی', publication: 'ایبِنا (رسانه بانک مرکزی)', date: '1404/05/27', language: 'فارسی', link: 'https://www.ibena.ir/000k2E', category: 'اقتصادی', keywords: ['تحریم', 'ایران', 'مصاحبه'] }, 
+             { id: 5, title: 'تاریکیِ تابستان، سوزِ زمستان', publication: 'روزنامه اعتماد', date: '1404/05/27', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/237041', category: 'اقتصادی / انرژی', keywords: ['برق', 'ایران'] },
+             { id: 4, title: 'بازار سهام در انتظار محرک قوی', publication: 'مدار اقتصادی', date: '1404/05/26', language: 'فارسی', link: 'https://www.ecc.news/fa/news/230732/bazar-sham-dr-antzar-mhrk-qwy-4-aml-jdhabyt-bazar-srmayh', category: 'اقتصادی', keywords: ['تحریم', 'ایران', 'مصاحبه'] }, 
+             { id: 3, title: 'The Paradox of Iran’s Economic Survival', publication: 'Asia Sentinel', date: '1404/05/24', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/paradox-iran-economic-survival', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران'] },
+             { id: 2, title: 'اقتصاد آمریکا زیر تیغ ترامپ', publication: 'روزنامه شرق', date: '1404/05/20', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1039609', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
+             { id: 1, title: 'Afghanistan’s Reverse Exodus', publication: 'Asia Sentinel', date: '1404/05/20', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/afghanistan-reverse-exodus-tragedy', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
+             { id: 0, title: 'بازگشت بزرگ افغان‌ها؛ زلزله جمعیتی و اثرات آن', publication: 'روزنامه سپهر ایرانیان', date: '1404/05/15', language: 'فارسی', status: 'چاپ شده', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
+             { id: -1, title: 'ایران، میزبانِ پرهزینه', publication: 'روزنامه شرق', date: '1404/05/07', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1035212', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
+             { id: -2, title: 'Costly Afghan immigration tests Iran’s neighborly hospitality', publication: 'Asia Times', date: '1404/05/02', language: 'انگلیسی', link: 'https://asiatimes.com/2025/07/costly-afghan-immigration-tests-irans-neighborly-hospitality/', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
+             { id: -3, title: 'ویروس اقتصاد ایران', publication: 'روزنامه دنیای اقتصاد', date: '1404/04/28', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4197077', category: 'اقتصادی', keywords: ['تورم', 'ایران'] },
+             { id: -4, title: 'Iran’s Nuclear Inflation: Structural Determinants…', publication: 'Pakistan Today', date: '1404/04/27', language: 'انگلیسی', link: 'https://www.pakistantoday.com.pk/2025/07/18/irans-nuclear-inflation/', category: 'اقتصادی', keywords: ['تورم', 'ایران'] },
+             { id: -5, title: 'Iran’s Inflation: Rooted in Institutional Failure', publication: 'Asia Sentinel', date: '1404/04/24', language: 'انگلیسی', link: 'http://asiasentinel.com/iran-inflation-institutional-failure', category: 'اقتصادی', keywords: ['تورم', 'ایران'] },
+             { id: -6, title: 'Global Gold at the Crossroads of Crisis', publication: 'Pakistan Today', date: '1404/04/23', language: 'انگلیسی', link: 'https://www.pakistantoday.com.pk/2025/07/14/global-gold-at-the-crossroads-of-crisis/', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'اقتصاد جهانی'] },
+             { id: -7, title: 'Global Gold at the Crossroads of Crisis', publication: 'Tehran Times', date: '1404/04/21', language: 'انگلیسی', link: 'https://www.tehrantimes.com/news/515477/Global-Gold-at-the-Crossroads-of-Crisis', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'اقتصاد جهانی'] },
+             { id: -8, title: 'طلای جهانی در بزنگاه بحران خاورمیانه', publication: 'روزنامه شرق', date: '1404/04/11', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1026385', category: 'اقتصادی/بین‌الملل', keywords: ['طلا', 'ایران'] },
+             { id: -9, title: 'مهندسی توفان نفتی خاورمیانه', publication: 'روزنامه دنیای اقتصاد', date: '1404/04/08', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4191872', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] },
+             { id: -10, title: 'قیمت نفت در دستان ایران', publication: 'روزنامه دنیای اقتصاد', date: '1404/04/04', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4190944', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] }
         ];
 
-        // تابع تبدیل میلادی به شمسی
-        function gregorianToJalali(gy, gm, gd) {
-            var g_d_m, jy, jm, jd, gy2, days;
-            g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-            gy2 = (gm > 2) ? (gy + 1) : gy;
-            days = 355666 + (365 * gy) + parseInt((gy2 + 3) / 4) - parseInt((gy2 + 99) / 100) + parseInt((gy2 + 399) / 400) + gd + g_d_m[gm - 1];
-            jy = -1595 + (33 * parseInt(days / 12053));
-            days %= 12053;
-            jy += 4 * parseInt(days / 1461);
-            days %= 1461;
-            if (days > 365) {
-                jy += parseInt((days - 1) / 365);
-                days = (days - 1) % 365;
-            }
-            jm = (days < 186) ? 1 + parseInt(days / 31) : 7 + parseInt((days - 186) / 30);
-            jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
-            return [jy, jm, jd];
-        }
-
-        // تابع کمکی برای تبدیل رشته‌های تاریخ شمسی به شیء Date (جهت سورت)
-        // توجه: این تابع صرفاً برای مقایسه و سورت استفاده می‌شود و نه نمایش
-        function jalaliToGregorian(jalaliDateStr) {
-            // برای سورت دقیق، تبدیل رشته‌ای کافیست چون فرمت YYYY/MM/DD است.
-            // اما برای اطمینان از تایپ Date در کد قبلی، این تابع حفظ شده است.
-            // با توجه به اینکه تاریخ‌ها نرمالایز می‌شوند، سورت رشته‌ای هم کار می‌کند.
-            const [j_y, j_m, j_d] = jalaliDateStr.split('/').map(Number);
-            // یک تخمین ساده برای سورت، چون همه تاریخ‌ها الان شمسی هستند.
-            // سال 1404 را مبنای 2025 می‌گیریم.
-            const yearDiff = j_y - 1404;
-            const gYear = 2025 + yearDiff;
-            // ماه و روز را حدودی مپ می‌کنیم (دقیق نیست ولی برای سورت نسبی کافی است)
-            return new Date(gYear, j_m - 1, j_d);
-        }
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const kpiCards = document.querySelectorAll('#kpis .kpi-card');
-            kpiCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('visible');
-                }, 150 * (index + 1));
-            });
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const icon = document.getElementById(sectionId + '-icon');
             
-            Chart.defaults.font.family = "'Vazirmatn', sans-serif";
-            Chart.defaults.font.weight = '500';
-
-            // نرمال‌سازی تاریخ‌ها: تبدیل میلادی به شمسی
-            articlesData.forEach(article => {
-                let dateStr = article.date;
-                // اگر تاریخ میلادی است (با 20 شروع می‌شود)
-                if (dateStr.startsWith('20')) {
-                     const [g_y, g_m, g_d] = dateStr.split(/[-\/]/).map(Number);
-                     const [j_y, j_m, j_d] = gregorianToJalali(g_y, g_m, g_d);
-                     // فرمت استاندارد YYYY/MM/DD
-                     const jalaliStr = `${j_y}/${String(j_m).padStart(2, '0')}/${String(j_d).padStart(2, '0')}`;
-                     article.date = jalaliStr; // جایگزینی با تاریخ شمسی برای نمایش یکپارچه
+            if (content && icon) {
+                if (content.classList.contains('open')) {
+                    content.classList.remove('open');
+                    content.classList.add('closed');
+                    icon.textContent = '+';
+                } else {
+                    content.classList.remove('closed');
+                    content.classList.add('open');
+                    icon.textContent = '−';
                 }
-                
-                // ایجاد فیلد قابل سورت
-                // چون همه تاریخ‌ها الان فرمت شمسی YYYY/MM/DD دارند، سورت رشته‌ای هم صحیح است.
-                // اما برای سازگاری با کد قبلی، یک Date object می‌سازیم.
-                article.sortableDate = jalaliToGregorian(article.date);
-            });
+            } else {
+                console.error("Element not found for ID: " + sectionId);
+            }
+        }
 
-            // سورت نزولی بر اساس تاریخ
-            articlesData.sort((a, b) => b.date.localeCompare(a.date));
+        function initApp() {
+            try {
+                // سورت بر اساس تاریخ (رشته‌ای، چون فرمت YYYY/MM/DD است و ترتیب درستی دارد)
+                articlesData.sort((a, b) => b.date.localeCompare(a.date));
 
-            // Populate KPIs
+                updateKPIs();
+                renderMainTable();
+                createTimeline();
+                renderGroupedList('publications-accordion-container', 'publication');
+                renderGroupedList('category-accordion-container', 'category');
+                initCharts();
+                setupScrollAnimations();
+            } catch (e) {
+                console.error("Error initializing app:", e);
+            }
+        }
+
+        function updateKPIs() {
             document.getElementById('total-articles').textContent = articlesData.length;
             const publications = [...new Set(articlesData.map(a => a.publication))];
             document.getElementById('total-publications').textContent = publications.length;
-            const persianCount = articlesData.filter(a => a.language === 'فارسی').length;
-            const englishCount = articlesData.filter(a => a.language === 'انگلیسی').length;
-            document.getElementById('persian-articles').textContent = persianCount;
-            document.getElementById('english-articles').textContent = englishCount;
+            document.getElementById('persian-articles').textContent = articlesData.filter(a => a.language === 'فارسی').length;
+            document.getElementById('english-articles').textContent = articlesData.filter(a => a.language === 'انگلیسی').length;
+        }
 
-            // Populate Main Table
+        function renderMainTable() {
             const tableBody = document.getElementById('articles-table-body');
-            tableBody.innerHTML = '';
-            articlesData.forEach((article, index) => {
-                const titleLink = article.link && article.link !== '#'
-                    ? `<a href="${article.link}" target="_blank" rel="noopener noreferrer" class="hover:text-teal-600">${article.title}</a>` 
-                    : article.title;
-                const tableRow = `
-                    <tr class="bg-white border-b hover:bg-slate-50">
-                        <td class="px-6 py-4 font-medium text-slate-900">${articlesData.length - index}</td>
-                        <td class="px-6 py-4 text-right">${titleLink}</td>
-                        <td class="px-6 py-4 text-right">${article.publication}</td>
-                        <td class="px-6 py-4 text-right">${article.date}</td>
-                        <td class="px-6 py-4 text-right">${article.category}</td>
-                    </tr>`;
-                tableBody.innerHTML += tableRow;
-            });
-
-            // Initialize Accordions
-            setupMainTableAccordion();
-            setupPublicationsMainAccordion(); // Added
-            setupCategoryMainAccordion(); // Added
-            createPublicationsAccordion();
-            createCategoryAccordion(); // ADDED CALL
-
-            // Create Visualizations
-            createTimeline();
-            createCharts();
-            setupScrollAnimations();
-        });
-
-        function setupMainTableAccordion() {
-            const header = document.getElementById('main-table-accordion-header');
-            const content = document.getElementById('main-table-accordion-content');
-            const icon = header.querySelector('.accordion-toggle-icon');
-
-            header.addEventListener('click', () => {
-                content.classList.toggle('open');
-                header.classList.toggle('closed');
-                icon.textContent = content.classList.contains('open') ? '−' : '+';
-            });
+            tableBody.innerHTML = articlesData.map((article, index) => `
+                <tr class="bg-white border-b hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-slate-900">${articlesData.length - index}</td>
+                    <td class="px-6 py-4 text-right"><a href="${article.link}" target="_blank" class="hover:text-teal-600 transition-colors">${article.title}</a></td>
+                    <td class="px-6 py-4 text-right">${article.publication}</td>
+                    <td class="px-6 py-4 text-right">${article.date}</td>
+                    <td class="px-6 py-4 text-right">${article.category}</td>
+                </tr>
+            `).join('');
         }
 
-        // NEW FUNCTION for Publications Main Accordion
-        function setupPublicationsMainAccordion() {
-            const header = document.getElementById('publications-main-accordion-header');
-            const content = document.getElementById('publications-main-accordion-content');
-            const icon = header.querySelector('.accordion-toggle-icon');
-
-            header.addEventListener('click', () => {
-                content.classList.toggle('open');
-                header.classList.toggle('closed');
-                icon.textContent = content.classList.contains('open') ? '−' : '+';
-            });
+        function getMonthKey(dateStr) {
+            return dateStr.substring(0, 7); // 1404/10
         }
-
-        // NEW FUNCTION for Category Main Accordion
-        function setupCategoryMainAccordion() {
-            const header = document.getElementById('category-main-accordion-header');
-            const content = document.getElementById('category-main-accordion-content');
-            const icon = header.querySelector('.accordion-toggle-icon');
-
-            header.addEventListener('click', () => {
-                content.classList.toggle('open');
-                header.classList.toggle('closed');
-                icon.textContent = content.classList.contains('open') ? '−' : '+';
-            });
-        }
-
-        function createPublicationsAccordion() {
-            const container = document.getElementById('publications-accordion-container');
-            container.innerHTML = '';
-
-            const articlesByPublication = articlesData.reduce((acc, article) => {
-                const pub = article.publication;
-                if (!acc[pub]) acc[pub] = [];
-                acc[pub].push(article);
-                return acc;
-            }, {});
-            
-            const sortedPublications = Object.keys(articlesByPublication).sort((a, b) => {
-                return articlesByPublication[b].length - articlesByPublication[a].length;
-            });
-
-            sortedPublications.forEach(pub => {
-                const articles = articlesByPublication[pub];
-                const articlesHTML = articles.map((article, index) => {
-                    const titleLink = article.link && article.link !== '#'
-                        ? `<a href="${article.link}" target="_blank" rel="noopener noreferrer" class="hover:text-teal-600">${article.title}</a>`
-                        : article.title;
-                    const alignmentClass = article.language === 'فارسی' ? 'text-right' : 'text-left';
-                    const direction = article.language === 'فارسی' ? 'rtl' : 'ltr';
-                    return `<li class="pb-2 ${alignmentClass}" dir="${direction}">${index + 1}. ${titleLink} <span class="text-xs text-slate-400">(${article.date})</span></li>`;
-                }).join('');
-
-                const itemHTML = `
-                <div class="publication-accordion-item">
-                    <div class="publication-accordion-header">
-                        <span class="font-bold text-slate-800">${pub}</span>
-                        <div class="flex items-center gap-4">
-                            <span class="count-badge">${articles.length} مقاله</span>
-                            <span class="toggle-icon text-3xl font-bold text-teal-600">+</span>
-                        </div>
-                    </div>
-                    <div class="publication-accordion-content">
-                        <ul class="space-y-1 text-slate-600">
-                           ${articlesHTML}
-                        </ul>
-                    </div>
-                </div>`;
-                container.innerHTML += itemHTML;
-            });
-
-            document.querySelectorAll('#publications-accordion-container .publication-accordion-header').forEach(header => {
-                header.addEventListener('click', () => {
-                    const content = header.nextElementSibling;
-                    const icon = header.querySelector('.toggle-icon');
-
-                    if (content.classList.contains('open')) {
-                        content.classList.remove('open');
-                        icon.textContent = '+';
-                    } else {
-                        // Close any other open accordions in this *specific* container
-                        document.querySelectorAll('#publications-accordion-container .publication-accordion-content.open').forEach(openContent => {
-                            openContent.classList.remove('open');
-                            openContent.previousElementSibling.querySelector('.toggle-icon').textContent = '+';
-                        });
-                        content.classList.add('open');
-                        icon.textContent = '−';
-                    }
-                });
-            });
-        }
-        
-        // NEW FUNCTION for Category Accordion
-        function createCategoryAccordion() {
-            const container = document.getElementById('category-accordion-container');
-            container.innerHTML = '';
-
-            const articlesByCategory = articlesData.reduce((acc, article) => {
-                const cat = article.category || 'بدون دسته بندی'; // Fallback for undefined category
-                if (!acc[cat]) acc[cat] = [];
-                acc[cat].push(article);
-                return acc;
-            }, {});
-            
-            const sortedCategories = Object.keys(articlesByCategory).sort((a, b) => {
-                return articlesByCategory[b].length - articlesByCategory[a].length;
-            });
-
-            sortedCategories.forEach(cat => {
-                const articles = articlesByCategory[cat];
-                const articlesHTML = articles.map((article, index) => {
-                    const titleLink = article.link && article.link !== '#'
-                        ? `<a href="${article.link}" target="_blank" rel="noopener noreferrer" class="hover:text-teal-600">${article.title}</a>`
-                        : article.title;
-                    const alignmentClass = article.language === 'فارسی' ? 'text-right' : 'text-left';
-                    const direction = article.language === 'فارسی' ? 'rtl' : 'ltr';
-                    return `<li class="pb-2 ${alignmentClass}" dir="${direction}">${index + 1}. ${titleLink} <span class="text-xs text-slate-400">(${article.date})</span></li>`;
-                }).join('');
-
-                const itemHTML = `
-                <div class="publication-accordion-item">
-                    <div class="publication-accordion-header">
-                        <span class="font-bold text-slate-800">${cat}</span>
-                        <div class="flex items-center gap-4">
-                            <span class="count-badge">${articles.length} مقاله</span>
-                            <span class="toggle-icon text-3xl font-bold text-teal-600">+</span>
-                        </div>
-                    </div>
-                    <div class="publication-accordion-content">
-                        <ul class="space-y-1 text-slate-600">
-                           ${articlesHTML}
-                        </ul>
-                    </div>
-                </div>`;
-                container.innerHTML += itemHTML;
-            });
-
-            document.querySelectorAll('#category-accordion-container .publication-accordion-header').forEach(header => {
-                header.addEventListener('click', () => {
-                    const content = header.nextElementSibling;
-                    const icon = header.querySelector('.toggle-icon');
-
-                    if (content.classList.contains('open')) {
-                        content.classList.remove('open');
-                        icon.textContent = '+';
-                    } else {
-                        // Close any other open accordions in this *specific* container
-                        document.querySelectorAll('#category-accordion-container .publication-accordion-content.open').forEach(openContent => {
-                            openContent.classList.remove('open');
-                            openContent.previousElementSibling.querySelector('.toggle-icon').textContent = '+';
-                        });
-                        content.classList.add('open');
-                        icon.textContent = '−';
-                    }
-                });
-            });
-        }
-        
-        function setupScrollAnimations() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            const targets = document.querySelectorAll('.timeline-item ul li');
-            targets.forEach(target => {
-                observer.observe(target);
-            });
-        }
-        
-        // تابع ساده‌شده برای استخراج کلید ماه/سال شمسی
-        // چون همه تاریخ‌ها به شمسی تبدیل شده‌اند، فقط کافیست 7 کاراکتر اول (YYYY-MM) را برداریم
-        const getMonthYearKey = (dateStr) => {
-             const parts = dateStr.split('/');
-             // اطمینان از اینکه فرمت صحیح است (مثلاً 1404/10)
-             if (parts.length >= 2) {
-                 return `${parts[0]}-${parts[1].padStart(2, '0')}`;
-             }
-             return dateStr;
-        };
 
         function createTimeline() {
             const timelineContainer = document.getElementById('timeline-container');
-            timelineContainer.innerHTML = '';
+            const articlesByMonth = {};
             
-            const articlesByMonth = articlesData.reduce((acc, article) => {
-                const monthYearKey = getMonthYearKey(article.date);
-                if (monthYearKey) { 
-                    if (!acc[monthYearKey]) {
-                        acc[monthYearKey] = [];
-                    }
-                    acc[monthYearKey].push(article);
-                }
-                return acc;
-            }, {});
+            articlesData.forEach(article => {
+                const key = getMonthKey(article.date);
+                if (!articlesByMonth[key]) articlesByMonth[key] = [];
+                articlesByMonth[key].push(article);
+            });
 
-            // سورت کلیدها (ماه‌ها) به صورت نزولی (از جدید به قدیم)
-            const sortedMonths = Object.keys(articlesByMonth).sort().reverse();
-            
-            let timelineHTML = '<div class="timeline-line"></div>';
+            const sortedKeys = Object.keys(articlesByMonth).sort().reverse();
 
-            sortedMonths.forEach(monthKey => {
-                const monthArticles = articlesByMonth[monthKey];
-                const displayMonth = monthKey
-                    .replace('1404-04', 'تیر ۱۴۰۴')
-                    .replace('1404-05', 'مرداد ۱۴۰۴')
-                    .replace('1404-06', 'شهریور ۱۴۰۴')
-                    .replace('1404-07', 'مهر ۱۴۰۴')
-                    .replace('1404-08', 'آبان ۱۴۰۴')
-                    .replace('1404-09', 'آذر ۱۴۰۴')
-                    .replace('1404-10', 'دی ۱۴۰۴')
-                    .replace('1404-11', 'بهمن ۱۴۰۴')
-                    .replace('1404-12', 'اسفند ۱۴۰۴');
+            timelineContainer.innerHTML = '<div class="timeline-line"></div>' + sortedKeys.map(key => {
+                const monthName = key.replace('/01', ' فروردین ').replace('/02', ' اردیبهشت ').replace('/03', ' خرداد ').replace('/04', ' تیر ').replace('/05', ' مرداد ').replace('/06', ' شهریور ').replace('/07', ' مهر ').replace('/08', ' آبان ').replace('/09', ' آذر ').replace('/10', ' دی ').replace('/11', ' بهمن ').replace('/12', ' اسفند ');
+                const items = articlesByMonth[key].map(a => `
+                    <li class="mb-2">
+                        <a href="${a.link}" target="_blank" class="text-slate-700 hover:text-teal-600 font-medium">${a.title}</a>
+                        <div class="flex justify-between items-center text-xs text-slate-400">
+                             <span>${a.publication}</span>
+                             <span>${a.date}</span>
+                        </div>
+                    </li>
+                `).join('');
                 
-                let articlesHTML = monthArticles.map(article => {
-                    const titleLink = article.link && article.link !== '#'
-                        ? `<a href="${article.link || '#'}" target="_blank" class="hover:text-teal-600">${article.title}</a>`
-                        : article.title;
-                    const alignmentClass = article.language === 'فارسی' ? 'text-right' : 'text-left';
-                    const direction = article.language === 'فارسی' ? 'rtl' : 'ltr';
-                    
-                    return `<li class="${alignmentClass}" dir="${direction}">${titleLink} <span class="text-xs text-slate-400">(${article.publication} - ${article.date})</span></li>`;
-                }).join('');
-
-                timelineHTML += `
-                    <div class="timeline-item">
+                return `
+                    <div class="timeline-item border-r-2 border-slate-200 pr-6 pb-8 relative">
                         <div class="timeline-dot"></div>
-                        <h3 class="font-bold text-lg text-slate-800">${displayMonth}</h3>
-                        <p class="text-amber-600 font-semibold my-2">${monthArticles.length} مقاله منتشر شده</p>
-                        <ul class="mt-2 list-disc list-inside space-y-2 text-slate-600">
-                           ${articlesHTML}
+                        <h3 class="text-lg font-bold text-slate-800 mb-2 flex justify-between items-center">
+                            <span>${monthName}</span>
+                            <span class="text-sm font-normal text-slate-500 bg-slate-100 px-2 py-1 rounded-full">${articlesByMonth[key].length} مقاله</span>
+                        </h3>
+                        <ul class="list-disc list-inside space-y-2">
+                           ${items}
                         </ul>
                     </div>
                 `;
-            });
-            timelineContainer.innerHTML += timelineHTML;
+            }).join('');
         }
 
-        function createCharts() {
-             const tooltipTitleCallback = (tooltipItems) => {
-                const item = tooltipItems[0];
-                let label = item.chart.data.labels[item.dataIndex];
-                if (Array.isArray(label)) {
-                    return label.join(' ');
+        function renderGroupedList(containerId, key) {
+            const container = document.getElementById(containerId);
+            const groups = {};
+            articlesData.forEach(a => {
+                const groupKey = a[key] || 'سایر';
+                if (!groups[groupKey]) groups[groupKey] = [];
+                groups[groupKey].push(a);
+            });
+
+            const sortedGroups = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
+
+            container.innerHTML = sortedGroups.map(gKey => {
+                const items = groups[gKey].map((a, idx) => `
+                    <li class="text-sm py-2 border-b border-slate-100 last:border-0 hover:bg-slate-50 px-2 transition-colors rounded">
+                        <span class="text-slate-400 ml-2 font-mono">${idx + 1}.</span>
+                        <a href="${a.link}" target="_blank" class="hover:text-teal-600 font-medium">${a.title}</a>
+                        <div class="text-xs text-slate-400 mt-1 mr-6 flex gap-2">
+                            <span>${a.date}</span>
+                             ${key !== 'publication' ? `<span class="bg-slate-100 px-1 rounded">${a.publication}</span>` : ''}
+                        </div>
+                    </li>
+                `).join('');
+                
+                const uniqueId = containerId + '-' + gKey.replace(/\s+/g, '-');
+                
+                return `
+                    <div class="publication-accordion-item bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="publication-accordion-header select-none" onclick="document.getElementById('${uniqueId}').classList.toggle('hidden'); this.querySelector('.toggle-icon').textContent = document.getElementById('${uniqueId}').classList.contains('hidden') ? '+' : '−';">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-slate-700">${gKey}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="count-badge">${groups[gKey].length}</span>
+                                <span class="toggle-icon text-xl text-teal-600">+</span>
+                            </div>
+                        </div>
+                        <div id="${uniqueId}" class="hidden p-4 bg-white border-t border-slate-100"><ul>${items}</ul></div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.kpi-card').forEach(el => observer.observe(el));
+        }
+
+        function initCharts() {
+            if (typeof Chart === 'undefined') {
+                console.warn('Chart.js not loaded. Retrying in 500ms...');
+                setTimeout(initCharts, 500);
+                return;
+            }
+
+            const commonOptions = { 
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { font: { family: "'Vazirmatn', sans-serif" } } },
+                    tooltip: { titleFont: { family: "'Vazirmatn', sans-serif" }, bodyFont: { family: "'Vazirmatn', sans-serif" } }
                 }
-                return label;
             };
+            Chart.defaults.font.family = "'Vazirmatn', sans-serif";
 
-            const chartColors = ['#14b8a6', '#f59e0b', '#3b82f6', '#ef4444', '#8b5cf6', '#ec4899', '#64748b', '#0891b2', '#f97316' ];
-            const chartColorsLight = ['#a7f3d0', '#fde68a', '#bfdbfe', '#fecaca', '#ddd6fe', '#fbcfe8'];
-
-            // Chart 1: Publications Frequency
-            const pubCounts = articlesData.reduce((acc, article) => {
-                acc[article.publication] = (acc[article.publication] || 0) + 1;
-                return acc;
-            }, {});
-            const sortedPubs = Object.entries(pubCounts).sort(([, a], [, b]) => b - a);
-
-            const pubCtx = document.getElementById('publicationsChart').getContext('2d');
-            new Chart(pubCtx, {
-                type: 'bar',
-                data: {
-                    labels: sortedPubs.map(p => p[0]),
-                    datasets: [{
-                        label: 'تعداد مقالات',
-                        data: sortedPubs.map(p => p[1]),
-                        backgroundColor: chartColors[0],
-                        borderRadius: 4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    scales: { 
-                        x: { beginAtZero: true, ticks: { precision: 0 } },
-                        y: {
-                            ticks: {
-                                autoSkip: false
-                            }
+            try {
+                // 1. Publications Chart
+                const pubCounts = {};
+                articlesData.forEach(a => pubCounts[a.publication] = (pubCounts[a.publication] || 0) + 1);
+                const pubLabels = Object.keys(pubCounts).sort((a,b) => pubCounts[b] - pubCounts[a]);
+                
+                new Chart(document.getElementById('publicationsChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: pubLabels,
+                        datasets: [{ label: 'تعداد مقالات', data: pubLabels.map(l => pubCounts[l]), backgroundColor: 'rgba(13, 148, 136, 0.7)', borderColor: '#0d9488', borderWidth: 1, borderRadius: 4 }]
+                    },
+                    options: {
+                        ...commonOptions,
+                        indexAxis: 'y',
+                        scales: {
+                            y: { ticks: { autoSkip: false, font: { size: 11 } } },
+                            x: { beginAtZero: true, ticks: { stepSize: 1 } }
                         }
+                    }
+                });
+
+                // 2. Monthly Chart
+                const monthCounts = {};
+                articlesData.forEach(a => {
+                    const m = getMonthKey(a.date);
+                    monthCounts[m] = (monthCounts[m] || 0) + 1;
+                });
+                const monthLabels = Object.keys(monthCounts).sort();
+                
+                new Chart(document.getElementById('monthlyProductionChart'), {
+                    type: 'line',
+                    data: {
+                        labels: monthLabels.map(m => m.replace('/01', ' فروردین').replace('/02', ' اردیبهشت').replace('/03', ' خرداد').replace('/04', ' تیر').replace('/05', ' مرداد').replace('/06', ' شهریور').replace('/07', ' مهر').replace('/08', ' آبان').replace('/09', ' آذر').replace('/10', ' دی').replace('/11', ' بهمن').replace('/12', ' اسفند')),
+                        datasets: [{ label: 'روند انتشار', data: monthLabels.map(m => monthCounts[m]), borderColor: '#3b82f6', tension: 0.3, fill: true, backgroundColor: 'rgba(59, 130, 246, 0.1)' }]
                     },
-                    plugins: { 
-                        legend: { display: false }, 
-                        tooltip: { callbacks: { title: tooltipTitleCallback } } 
-                    }
-                }
-            });
+                    options: { ...commonOptions, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+                });
 
-            // Chart 2: Thematic Analysis
-            const allKeywords = articlesData.flatMap(a => a.keywords || []).filter(k => k);
-            const themeCounts = allKeywords.reduce((acc, keyword) => {
-                let key = keyword;
-                if (keyword === 'جهان' || keyword === 'جهانی') key = 'اقتصاد جهانی';
-                if (keyword === 'منطقه') key = 'آسیا';
-                if (keyword === 'آب' || keyword === 'برق') key = 'انرژی (آب و برق)';
-                if (keyword === 'خودرو') key = 'صنعت';
-                 acc[key] = (acc[key] || 0) + 1;
-                return acc;
-            }, {});
-            const sortedThemes = Object.entries(themeCounts)
-                .filter(([, count]) => count > 0)
-                .sort(([, a], [, b]) => b - a)
-                .slice(0, 15);
-
-            const thematicCtx = document.getElementById('thematicAnalysisChart').getContext('2d');
-            new Chart(thematicCtx, {
-                type: 'bar',
-                data: {
-                    labels: sortedThemes.map(t => t[0]),
-                    datasets: [{
-                        label: 'تکرار موضوع',
-                        data: sortedThemes.map(t => t[1]),
-                        backgroundColor: chartColors[1],
-                        borderRadius: 4,
-                    }]
-                },
-                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    scales: { 
-                        x: { beginAtZero: true, ticks: { precision: 0 } },
+                // 3. Category Chart
+                const catCounts = {};
+                articlesData.forEach(a => catCounts[a.category] = (catCounts[a.category] || 0) + 1);
+                
+                new Chart(document.getElementById('categorySplitChart'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(catCounts),
+                        datasets: [{ data: Object.values(catCounts), backgroundColor: ['#14b8a6', '#f59e0b', '#3b82f6', '#ef4444', '#8b5cf6', '#64748b', '#10b981', '#f97316'] }]
                     },
-                    plugins: { 
-                        legend: { display: false }, 
-                        tooltip: { callbacks: { title: tooltipTitleCallback } } 
-                    }
-                }
-            });
+                    options: { ...commonOptions, plugins: { legend: { position: 'right' } } }
+                });
 
-            // Chart 3: Monthly Production
-            const articlesByMonth = articlesData.reduce((acc, article) => {
-                const monthYearKey = getMonthYearKey(article.date);
-                if (monthYearKey) {
-                    acc[monthYearKey] = (acc[monthYearKey] || 0) + 1;
-                }
-                return acc;
-            }, {});
-            const sortedMonths = Object.entries(articlesByMonth).sort(([a], [b]) => a.localeCompare(b));
-
-            const monthlyCtx = document.getElementById('monthlyProductionChart').getContext('2d');
-            new Chart(monthlyCtx, {
-                type: 'line',
-                data: {
-                    labels: sortedMonths.map(([key]) => key.replace('1404-04', 'تیر').replace('1404-05', 'مرداد').replace('1404-06', 'شهریور').replace('1404-07', 'مهر').replace('1404-08', 'آبان').replace('1404-09', 'آذر').replace('1404-10', 'دی').replace('1404-11', 'بهمن').replace('1404-12', 'اسفند')),
-                    datasets: [{
-                        label: 'تعداد مقالات',
-                        data: sortedMonths.map(([, val]) => val),
-                        borderColor: chartColors[2],
-                        backgroundColor: chartColorsLight[2],
-                        fill: true,
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { display: false }
+                // 4. Thematic (Keywords) Chart
+                const kwCounts = {};
+                articlesData.flatMap(a => a.keywords).forEach(k => kwCounts[k] = (kwCounts[k] || 0) + 1);
+                const kwLabels = Object.keys(kwCounts).sort((a,b) => kwCounts[b] - kwCounts[a]).slice(0, 10);
+                
+                new Chart(document.getElementById('thematicAnalysisChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: kwLabels,
+                        datasets: [{ label: 'تکرار موضوع', data: kwLabels.map(k => kwCounts[k]), backgroundColor: 'rgba(245, 158, 11, 0.7)', borderColor: '#f59e0b', borderWidth: 1, borderRadius: 4 }]
                     },
-                    scales: {
-                        y: { beginAtZero: true, ticks: { precision: 0 } }
-                    }
-                }
-            });
+                    options: { ...commonOptions, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+                });
 
-            // Chart 4: Category Split
-            const categoryCounts = articlesData.reduce((acc, article) => {
-                const category = article.category || 'سایر';
-                acc[category] = (acc[category] || 0) + 1;
-                return acc;
-            }, {});
-            
-            const categoryCtx = document.getElementById('categorySplitChart').getContext('2d');
-            new Chart(categoryCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(categoryCounts).filter(key => categoryCounts[key] > 0),
-                    datasets: [{
-                        data: Object.values(categoryCounts).filter(val => val > 0),
-                        backgroundColor: chartColors.slice(3),
-                        borderColor: '#f8fafc',
-                        borderWidth: 4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { position: 'bottom' },
-                        tooltip: { callbacks: { title: tooltipTitleCallback } }
-                    }
-                }
-            });
+            } catch (e) {
+                console.error('Chart Error:', e);
+            }
+        }
+
+        // Run the app once DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
         }
     </script>
-
 </body>
 </html>
