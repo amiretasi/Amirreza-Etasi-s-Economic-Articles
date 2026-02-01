@@ -50,12 +50,14 @@
             padding: 1.5rem; /* p-6 */
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
         }
         
         .chart-wrapper {
             position: relative;
             height: 400px;
-            padding: 1.5rem;
+            width: 100%; /* Ensure full width */
+            padding: 1rem;
         }
 
         /* Timeline Styles */
@@ -310,6 +312,7 @@
 
     <script>
         const booksData = [
+            { id: 161, title: 'اسطوره سیزیف', author: 'آلبر کامو', translator: 'حبیبی', originalPubDate: '۱۹۴۲', readYear: '1404/11/11', genre: 'فلسفه', nationality: 'فرانسه' },
             { id: 160, title: 'اعتراف', author: 'لئو تولستوی', translator: 'آزیتا همپارتیان', originalPubDate: '۱۸۸۲', readYear: '1404/11/06', genre: 'فلسفه', nationality: 'روسیه' },
             { id: 159, title: 'سگ ولگرد', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۲۱', readYear: '1404/10/29', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 158, title: 'مرده‌خورها', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۰۹', readYear: '1404/10/29', genre: 'داستان کوتاه', nationality: 'ایران' },
@@ -487,13 +490,14 @@
         }
 
         window.addEventListener('load', function() {
-            if (typeof Chart === 'undefined') {
-                console.error('Chart.js not loaded');
+            let chartLoaded = typeof Chart !== 'undefined';
+            
+            if (!chartLoaded) {
+                console.error('Chart.js not loaded - rendering table only');
                 const chartSection = document.getElementById('charts-section');
                 if (chartSection) {
-                    chartSection.innerHTML = '<div class="p-4 bg-red-100 text-red-700 rounded-lg text-center font-bold">خطا در بارگذاری کتابخانه نمودارها (Chart.js). لطفاً اتصال اینترنت خود را بررسی کنید یا صفحه را رفرش کنید.</div>';
+                    chartSection.innerHTML = '<div class="p-4 bg-red-100 text-red-700 rounded-lg text-center font-bold">خطا در بارگذاری کتابخانه نمودارها (Chart.js). لطفاً اتصال اینترنت خود را بررسی کنید یا صفحه را رفرش کنید.<br>سایر بخش‌های داشبورد (جدول و لیست‌ها) در دسترس هستند.</div>';
                 }
-                return;
             }
 
             Chart.defaults.font.family = "'Vazirmatn', sans-serif";
@@ -513,18 +517,20 @@
                 return b.full.localeCompare(a.full); 
             });
 
+            // Always run these regardless of Chart.js status
             populateKPIs(processedData);
             populateTable(processedData);
-            
-            // Setup Accordions
             setupAccordion('main-table-accordion-header', 'main-table-accordion-content');
             setupAccordion('author-list-accordion-header', 'author-list-accordion-content');
             setupAccordion('genre-list-accordion-header', 'genre-list-accordion-content'); 
-
-            createCharts(processedData);
             createTimeline(processedData);
             createAuthorList(processedData);
             createGenreList(processedData); 
+
+            // Only run charts if loaded
+            if (chartLoaded) {
+                createCharts(processedData);
+            }
 
             setupScrollAnimations();
         });
