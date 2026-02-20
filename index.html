@@ -67,7 +67,7 @@
             <div id="main-list-content" class="collapsible-content open">
                 <div class="overflow-auto max-h-[75vh] mt-4">
                     <table class="w-full text-sm text-right text-slate-500">
-                        <thead><tr><th>ردیف</th><th class="w-2/5">عنوان مقاله</th><th>رسانه</th><th>تاریخ (نمایش)</th><th>حوزه</th></tr></thead>
+                        <thead><tr><th>ردیف</th><th class="w-2/5">عنوان مقاله</th><th>رسانه</th><th>روز</th><th>تاریخ (نمایش)</th><th>حوزه</th></tr></thead>
                         <tbody id="articles-table-body"></tbody>
                     </table>
                 </div>
@@ -75,11 +75,12 @@
         </div>
         
         <!-- Charts -->
-        <div id="charts-section" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
+        <div id="charts-section" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
             <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">فراوانی انتشار</h3><div class="chart-container-small"><canvas id="publicationsChart"></canvas></div></div>
             <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">موضوعات کلیدی</h3><div class="chart-container-small"><canvas id="thematicAnalysisChart"></canvas></div></div>
             <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">روند ماهانه</h3><div class="chart-container-small"><canvas id="monthlyProductionChart"></canvas></div></div>
             <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">تفکیک حوزه‌های موضوعی</h3><div class="chart-container-small flex items-center justify-center"><canvas id="categorySplitChart"></canvas></div></div>
+            <div class="bg-white rounded-xl shadow-md p-6 md:p-8"><h3 class="text-lg font-semibold text-center mb-4">انتشار در روزهای هفته</h3><div class="chart-container-small flex items-center justify-center"><canvas id="dayOfWeekChart"></canvas></div></div>
         </div>
         
         <!-- Media List -->
@@ -117,8 +118,10 @@
     </footer>
 
     <script>
-        // ساختار اصلی دیتابیس دقیقاً با IDها و تاریخ‌های اورجینال (میلادی برای انگلیسی و شمسی برای فارسی) بازگردانده شد.
+        // ساختار اصلی دیتابیس دقیقاً با IDها و تاریخ‌های اورجینال
         const articlesData = [
+             // جدیدترین (Newest Added) - تاریخ اصلاح شد به پنجشنبه ۳۰ بهمن
+             { id: 121, title: 'مواجهه با «پول نو» در زمینه‌ای کهنه', publication: 'روزنامه شرق', date: '1404/11/30', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1088959', category: 'اقتصادی', keywords: ['ایران', 'تحریم', 'تورم'] },
              { id: -43, title: 'سه سناریوی نفت ۲۰۲۶ در تقابل ‌تهران-واشنگتن', publication: 'روزنامه دنیای اقتصاد', date: '1404/11/30', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4253309', category: 'اقتصادی / انرژی', keywords: ['ایران', 'تحریم', 'تورم', 'نفت'] },
              { id: -42, title: 'شکاف بودجه ۱۴۰۵ در ایران', publication: 'روزنامه جهان صنعت', date: '1404/11/25', language: 'فارسی', link: 'https://jahanesanat.ir/?p=607551', category: 'اقتصادی', keywords: ['ایران', 'تورم', 'تحریم', 'بودجه'] },
              { id: -41, title: 'لویاتان در عصر سیلیکون', publication: 'روزنامه اعتماد', date: '1404/11/24', language: 'فارسی', link: 'http://www.etemadnewspaper.ir/fa/main/detail/244819/%D9%84%D9%88%DB%8C%D8%A7%D8%AA%D8%A7%D9%86-%D8%AF%D8%B1-%D8%B9%D8%B5%D8%B1-%D8%B3%DB%8C%D9%84%DB%8C%D9%83%D9%88%D9%86', category: 'اجتماعی / نقد کتاب', keywords: ['نقد کتاب', 'ایران'] },
@@ -201,7 +204,7 @@
              { id: 42, title: 'فرسایش از درون: تحلیلی بر هزینه بقای اقتصاد ایران', publication: 'روزنامه شرق', date: '1404/07/15', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1056890', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'تحریم', 'ایران'] },
              { id: 43, title: 'فنر فشرده مسکن؛ شمارش معکوس برای جهش بزرگ پس از رکود تاریخی', publication: 'اقتصاد آنلاین', date: '1404/07/14', language: 'فارسی', link: 'https://www.eghtesadonline.com/008m6C', category: 'اقتصادی', keywords: ['مسکن', 'ایران', 'تحریم'] },
              { id: 44, title: 'کالبد شکافی یک زوال تدریجی', publication: 'روزنامه اعتماد', date: '1404/07/12', language: 'فارسی', link: 'https://www.etemadnewspaper.ir/fa/main/detail/238971/%DA%A۹%D۸%A۷%D۹%۸۴%D۸%A۸%D8%AF-%D۸%B۴%DA%A۹%D۸%A۷%D۹%8۱%DB%8C-%DB%۸C%DA%A۹-%D۸%B۲%D۹%۸۸%D۸%A۷%D۹%۸۴-%D۸%AA%D۸%AF%D۸%B۱%DB%8C%D۸%AC%DB%8C', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران', 'تحریم'] },
-             { id: 45, title: 'ریشه‌یابی بحران در بخش کشاورزی', publication: 'روزنامه دنیای اقتصاد', date: '1404/07/12', language: 'فارسی', link: 'https://donya-e-eqtesad.com/%D8%A۸%D۸%AE%D۸%B۴-%D۸%A۸%D۸%A۷%D۸%B۴%DA%AF%D۸%A۷%D۹%8۷-%D۸%A۷%D۹%۸۲%D8%AA%D8%B۵%D۸%A۷%D8%AF%D8%AF%D۸%A۷%D۹%۸۶%D۸%A۷%D۹%8۶-۵۲/۴۲۱۷۵۶۱-%D8%B۱%DB%8C%D۸%B۴%D۹%87-%DB%8C%D8%A۷%D۸%A۸%DB%8C-%D8%A۸%D۸%AD%D8%B۱%D۸%A۷%D۹%۸۶-%D۸%AF%D8%B۱-%D۸%A۸%D۸%AE%D۸%B۴-%DA%A۹%D8%B۴%D۸%A۷%D۹%۸۸%D8%B۱%D۸%B۲%DB%8C', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران', 'تحریم'] },
+             { id: 45, title: 'ریشه‌یابی بحران در بخش کشاورزی', publication: 'روزنامه دنیای اقتصاد', date: '1404/07/12', language: 'فارسی', link: 'https://donya-e-eqtesad.com/%D8%A۸%D۸%AE%D۸%B۴-%D۸%A۸%D۸%A۷%D۸%B۴%DA%AF%D۸%A۷%D۹%8۷-%D۸%A۷%D۹%۸۲%D8%AA%D8%B۵%D۸%A۷%D8%AF%D8%AF%D۸%A۷%D۹%۸۶%D۸%A۷%D۹%8۶-۵۲/۴۲۱۷۵۶۱-%D8%B۱%DB%8C%D8%B۴%D۹%87-%DB%8C%D8%A۷%D۸%A۸%DB%8C-%D8%A۸%D۸%AD%D8%B۱%D۸%A۷%D۹%۸۶-%D۸%AF%D8%B۱-%D۸%A۸%D۸%AE%D8%B۴-%DA%A۹%D8%B۴%D۸%A۷%D۹%۸۸%D8%B۱%D۸%B۲%DB%8C', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران', 'تحریم'] },
              { id: 46, title: 'واگرایی بزرگ', publication: 'روزنامه شرق', date: '1404/07/10', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1055629', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'اقتصاد جهانی'] },
              { id: 47, title: 'Great Fracture as 3 rival blueprints for the global economy emerge', publication: 'Asia Times', date: '2025/10/10', language: 'انگلیسی', link: 'https://asiatimes.com/2025/10/great-fracture-as-3-rival-blueprints-for-the-global-economy-emerge/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا', 'چین', 'روسیه', 'اقتصاد جهانی'] },
              { id: 48, title: 'Iran at the Precipice: The Economics of Endurance', publication: 'Asia Sentinel', date: '2025/10/09', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-precipice-economics-endurance', category: 'اقتصادی / اجتماعی', keywords: ['تورم', 'تحریم', 'ایران'] },
@@ -222,7 +225,7 @@
              { id: 63, title: 'King Dollar at the precipice: Why currency’s reign is in jeopardy', publication: 'Asia Times', date: '2025/09/16', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/king-dollar-at-the-precipice-why-currencys-reign-is-in-jeopardy/', category: 'اقتصادی/بین‌الملل', keywords: ['آمریکا'] },
              { id: 64, title: 'اثرات مهاجرت معکوس افغان‌ها بر پروژه‌های عمرانی ایران', publication: 'ماهنامه پیام آبادگران', date: '1404/06/15', language: 'فارسی', link: 'http://payamabadgaran.ir/%D۹%۸۵%D۸%A۷%D۹%۸ah%D۹%۸۶%D۸%A۷%D۹%۸۵%D۹%۸۷-%D۹%BE%DB%۸C%D۸%A۷%D۹%۸۵-%D۸%A۲%D۸%A۸%D۸%A۷%D۸%AF%DA%AF%D۸%B۱%D۸%A۷%D۹%۸۶-%D۸%B۴%D۹%۸۵%D۸%A۷%D۸%B۱%D۹%۸۷-۴۲۵/', category: 'اقتصادی / اجتماعی', keywords: ['جامعه شناسی', 'ایران', 'آسیا'] },
              { id: 65, title: 'تحلیل ریسک در نقطه عطف', publication: 'روزنامه شرق', date: '1404/06/13', language: 'فارسی', link: 'https://www.sharghdaily.com/fa/tiny/news-1047285', category: 'اقتصادی', keywords: ['مسکن', 'ایران'] },
-             { id: 66, title: 'تصميمات ناكارآمد، زمين تشنه', publication: 'روزنامه اعتماد', date: '1404/06/12', language: 'فارسی', link: 'https://www.etemaad.ir/fa/main/detail/237637/%D۸%AA%D۸%B۵%D۹%۸۵%DB%8C%D۹%۸۵%D۸%A۷%D۸%AA-%D۹%۸۶%D۸%A۷%D۹%۸۳%D۸%A۷%D۸%B۱%D۸%A۲%D۹%۸۵%D۸%AF-%D۸%B۲%D۹%۸۵%DB%8C%D۹%۸۶-%D۸%AA%D۸%B۴%D۹%۸۶%D۹%۸۷-', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران'] },
+             { id: 66, title: 'تصميمات ناكارآمد، زمين تشنه', publication: 'روزنامه اعتماد', date: '1404/06/12', language: 'فارسی', link: 'https://www.etemaad.ir/fa/main/detail/237637/%D۸%AA%D۸%B۵%D۹%۸۵%DB%8C%D۹%8۵%D۸%A۷%D۸%AA-%D۹%۸۶%D۸%A۷%D۹%۸۳%D۸%A۷%D۸%B۱%D۸%A۲%D۹%۸۵%D۸%AF-%D۸%B۲%D۹%۸۵%DB%8C%D۹%۸۶-%D۸%AA%D۸%B۴%D۹%۸۶%D۹%۸۷-', category: 'اقتصادی / انرژی', keywords: ['آب', 'ایران'] },
              { id: 67, title: 'Iran’s SCO entry turning into a road to nowhere', publication: 'Asia Times', date: '2025/09/04', language: 'انگلیسی', link: 'https://asiatimes.com/2025/09/irans-sco-entry-turning-into-a-road-to-nowhere/', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران', 'چین'] },
              { id: 68, title: 'Iran’s Snapback: A Systemic Shockwave', publication: 'Asia Sentinel', date: '2025/09/03', language: 'انگلیسی', link: 'https://www.asiasentinel.com/p/iran-snapback-systemic-shockwave', category: 'اقتصادی/بین‌الملل', keywords: ['تحریم', 'ایران'] },
              { id: 69, title: 'Rising risk to China’s covert Iran oil lifeline', publication: 'Asia Times', date: '2025/08/28', language: 'انگلیسی', link: 'https://asiatimes.com/2025/08/rising-risk-to-chinas-covert-iran-oil-lifeline/', category: 'اقتصادی/بین‌الملل', keywords: ['نفت', 'ایران'] },
@@ -252,7 +255,7 @@
              { id: 93, title: 'قیمت نفت در دستان ایران', publication: 'روزنامه دنیای اقتصاد', date: '1404/04/04', language: 'فارسی', link: 'https://donya-e-eqtesad.com/fa/tiny/news-4190944', category: 'اقتصادی / انرژی', keywords: ['نفت', 'ایران'] }
         ];
 
-        // تابع تبدیل میلادی به شمسی که فقط موقع نمایش توی جدول کار میکنه و دیتای اصلی رو تغییر نمیده
+        // تابع تبدیل تقویم میلادی به شمسی
         function gregorianToJalali(gy, gm, gd) {
             var g_d_m, jy, jm, jd, gy2, days;
             g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
@@ -269,6 +272,60 @@
             jm = (days < 186) ? 1 + parseInt(days / 31) : 7 + parseInt((days - 186) / 30);
             jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
             return [jy, jm, jd];
+        }
+
+        // تابع تبدیل تقویم شمسی به میلادی
+        function jalaliToGregorian(j_y, j_m, j_d) {
+            var g_y, g_m, g_d;
+            var j_days_in_month = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+            var j_y_p = j_y - 979;
+            var j_day_no = 365 * j_y_p + parseInt(j_y_p / 33) * 8 + parseInt((j_y_p % 33 + 3) / 4);
+            for (var i = 0; i < j_m - 1; ++i) j_day_no += j_days_in_month[i];
+            j_day_no += j_d - 1;
+            var g_day_no = j_day_no + 79;
+            g_y = 1600 + 400 * parseInt(g_day_no / 146097);
+            g_day_no = g_day_no % 146097;
+            var leap = true;
+            if (g_day_no >= 36525) {
+                g_day_no--;
+                g_y += 100 * parseInt(g_day_no / 36524);
+                g_day_no = g_day_no % 36524;
+                if (g_day_no >= 365) g_day_no++;
+                else leap = false;
+            }
+            g_y += 4 * parseInt(g_day_no / 1461);
+            g_day_no %= 1461;
+            if (g_day_no >= 366) {
+                leap = false;
+                g_day_no--;
+                g_y += parseInt(g_day_no / 365);
+                g_day_no = g_day_no % 365;
+            }
+            var g_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            if (leap) g_days_in_month[1] = 29;
+            for (g_m = 0; g_m < 12; g_m++) {
+                if (g_day_no < g_days_in_month[g_m]) break;
+                g_day_no -= g_days_in_month[g_m];
+            }
+            g_m++;
+            g_d = g_day_no + 1;
+            return [g_y, g_m, g_d];
+        }
+
+        // تابع پیدا کردن روز هفته
+        function getDayOfWeek(dateStr) {
+            const daysMap = ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'];
+            let gy, gm, gd;
+            if (dateStr.startsWith('20')) {
+                const parts = dateStr.split(/[-\/]/).map(Number);
+                gy = parts[0]; gm = parts[1]; gd = parts[2];
+            } else {
+                const parts = dateStr.split(/[-\/]/).map(Number);
+                const gDate = jalaliToGregorian(parts[0], parts[1], parts[2]);
+                gy = gDate[0]; gm = gDate[1]; gd = gDate[2];
+            }
+            const dateObj = new Date(gy, gm - 1, gd);
+            return daysMap[dateObj.getDay()];
         }
 
         function toggleSection(sectionId) {
@@ -295,6 +352,8 @@
                 // آماده‌سازی داده‌ها برای نمایش بدون دستکاری دیتای اصلی
                 articlesData.forEach(article => {
                     let dateStr = article.date;
+                    article.dayOfWeek = getDayOfWeek(dateStr); // اضافه شدن محاسبه‌ی روز هفته
+
                     if (dateStr.startsWith('20')) {
                         const [g_y, g_m, g_d] = dateStr.split(/[-\/]/).map(Number);
                         const [j_y, j_m, j_d] = gregorianToJalali(g_y, g_m, g_d);
@@ -334,6 +393,7 @@
                     <td class="px-6 py-4 font-medium text-slate-900">${articlesData.length - index}</td>
                     <td class="px-6 py-4 text-right"><a href="${article.link}" target="_blank" class="hover:text-teal-600 transition-colors">${article.title}</a></td>
                     <td class="px-6 py-4 text-right">${article.publication}</td>
+                    <td class="px-6 py-4 text-right text-slate-500">${article.dayOfWeek}</td>
                     <td class="px-6 py-4 text-right" dir="ltr">${article.displayDate}</td>
                     <td class="px-6 py-4 text-right">${article.category}</td>
                 </tr>
@@ -515,7 +575,7 @@
                     options: { ...commonOptions, plugins: { legend: { position: 'right', labels: { font: { size: 10 } } } } }
                 });
 
-                // 4. Thematic (Keywords) Chart
+                // 4. Thematic (Keywords) Chart - Modified per request
                 const kwCounts = {};
                 articlesData.flatMap(a => a.keywords).forEach(k => kwCounts[k] = (kwCounts[k] || 0) + 1);
                 const kwLabels = Object.keys(kwCounts).sort((a,b) => kwCounts[b] - kwCounts[a]).slice(0, 15); 
@@ -539,6 +599,39 @@
                         scales: { 
                             y: { beginAtZero: true, ticks: { stepSize: 1 } },
                             x: { ticks: { font: { size: 8 }, autoSkip: false, maxRotation: 90, minRotation: 45 } }
+                        } 
+                    }
+                });
+
+                // 5. Day of Week Chart
+                const dayCounts = { 'شنبه': 0, 'یکشنبه': 0, 'دوشنبه': 0, 'سه‌شنبه': 0, 'چهارشنبه': 0, 'پنجشنبه': 0, 'جمعه': 0 };
+                articlesData.forEach(a => {
+                    if (a.dayOfWeek && dayCounts[a.dayOfWeek] !== undefined) {
+                        dayCounts[a.dayOfWeek]++;
+                    }
+                });
+                const dayLabels = Object.keys(dayCounts);
+                const dayData = Object.values(dayCounts);
+                
+                new Chart(document.getElementById('dayOfWeekChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: dayLabels,
+                        datasets: [{ 
+                            label: 'تعداد مقالات', 
+                            data: dayData, 
+                            backgroundColor: 'rgba(139, 92, 246, 0.7)', // رنگ بنفش زیبا
+                            borderColor: '#8b5cf6', 
+                            borderWidth: 1, 
+                            borderRadius: 4,
+                            barThickness: 25 
+                        }]
+                    },
+                    options: { 
+                        ...commonOptions, 
+                        scales: { 
+                            y: { beginAtZero: true, ticks: { stepSize: 1 } },
+                            x: { ticks: { font: { family: "'Vazirmatn', sans-serif" } } }
                         } 
                     }
                 });
