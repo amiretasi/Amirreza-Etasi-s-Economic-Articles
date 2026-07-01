@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Updated Title -->
     <title>کتابخانه من - امیررضا اعطاسی</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -18,21 +17,21 @@
     <style>
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 6rem; /* Adjust based on nav height */
+            scroll-padding-top: 6rem;
         }
         body {
             font-family: 'Vazirmatn', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
-            color: #334155; /* slate-700 */
+            background-color: #f8fafc;
+            color: #334155;
         }
         
         /* KPI Card Styles */
         .kpi-card {
             background-color: white;
-            border-radius: 0.75rem; /* rounded-xl */
-            padding: 1.5rem; /* p-6 */
+            border-radius: 0.75rem;
+            padding: 1.5rem;
             text-align: center;
-            border: 1px solid #e2e8f0; /* slate-200 */
+            border: 1px solid #e2e8f0;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -47,16 +46,16 @@
             width: 100%;
             background-color: white;
             border-radius: 0.75rem;
-            padding: 1.5rem; /* p-6 */
+            padding: 1.5rem;
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
+            box-sizing: border-box;
         }
         
         .chart-wrapper {
             position: relative;
             height: 400px;
-            width: 100%; /* Ensure full width */
+            width: 100%;
             padding: 1rem;
         }
 
@@ -75,9 +74,9 @@
             top: 0.25rem;
             height: 1.25rem;
             width: 1.25rem;
-            background-color: #0d9488; /* teal-600 */
+            background-color: #0d9488;
             border-radius: 9999px;
-            border: 4px solid #f8fafc; /* bg-slate-50 */
+            border: 4px solid #f8fafc;
         }
         .timeline-line {
             position: absolute;
@@ -85,7 +84,7 @@
             top: 0.25rem;
             bottom: -0.25rem;
             width: 2px;
-            background-color: #e2e8f0; /* slate-200 */
+            background-color: #e2e8f0;
         }
         
         /* Timeline Animation Styles */
@@ -98,7 +97,6 @@
             opacity: 1;
             transform: translateX(0);
         }
-
 
         /* Accordion Styles */
         .collapsible-content {
@@ -134,7 +132,6 @@
             margin-right: auto;
         }
 
-
         /* Scroll Animation Styles */
         .reveal-on-scroll {
             opacity: 0;
@@ -149,7 +146,7 @@
 
         /* --- Scrollable Table Styles --- */
         .scrollable-table-container {
-            max-height: 600px; /* Approx 10 rows height */
+            max-height: 600px;
             overflow-y: auto;
             border-radius: 0.5rem;
             border: 1px solid #e2e8f0;
@@ -175,11 +172,10 @@
         .sticky-header th {
             position: sticky;
             top: 0;
-            background-color: #f8fafc; /* bg-slate-50 */
+            background-color: #f8fafc;
             z-index: 10;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
-
     </style>
 </head>
 <body class="antialiased">
@@ -189,12 +185,12 @@
             <h1 class="text-xl font-bold text-slate-800">کتابخانه من</h1>
             <ul class="flex space-x-6 space-x-reverse font-semibold">
                 <li><a href="#kpis" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">شاخص‌ها</a></li>
+                <li><a href="#planned-books-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">برنامه مطالعه</a></li>
                 <li><a href="#full-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">لیست کامل</a></li>
                 <li><a href="#author-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">بر اساس نویسنده</a></li>
                 <li><a href="#genre-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">بر اساس ژانر</a></li>
                 <li><a href="#charts-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">نمودارها</a></li>
                 <li><a href="#timeline-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">خط زمانی</a></li>
-                <li><a href="index.html" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">مقاله های من</a></li>
             </ul>
         </div>
     </nav>
@@ -220,25 +216,25 @@
                 <p id="total-reads" class="text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
             <div class="kpi-card reveal-on-scroll">
-                <h3 class="font-semibold text-slate-500">کتاب‌های ۱۴۰۴</h3>
+                <h3 class="font-semibold text-slate-500">کتاب‌های ۱۴۰۵</h3>
                 <p id="current-year-books" class="text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
         </section>
 
+        <div id="planned-books-section" class="bg-teal-50/50 rounded-xl shadow-sm border border-teal-100 p-6 md:p-8 mb-16 reveal-on-scroll">
+             <div id="planned-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
+                  <h2 class="accordion-title text-2xl font-bold text-teal-900">آنچه باید بخوانم (برنامه مطالعه)</h2>
+                  <span class="accordion-toggle-icon text-2xl font-bold text-teal-700 transition-transform duration-300 transform">+</span>
+              </div>
+              <div id="planned-accordion-content" class="collapsible-content">
+                  <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="planned-books-container">
+                      <!-- محتوای این بخش توسط جاوااسکریپت پر می‌شود -->
+                  </div>
+               </div>
+        </div>
+
         <div id="full-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
              <div id="main-table-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
-                  <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کامل کتاب‌های مطالعه شده</h2>
-                  <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
-              </div>
-              <div id="main-table-accordion-content" class="collapsible-content">
-                  <div class="mt-8 scrollable-table-container">
-                      <table class="w-full text-sm text-right text-slate-500">
-                          <thead class="text-xs text-slate-700 uppercase bg-slate-50 sticky-header">
-                              <tr>
-                                  <th scope="col" class="px-6 py-3">ردیف</th>
-                                  <th scope="col" class="px-6 py-3 w-2/5">عنوان کتاب</th>
-                                  <th scope="col" class="px-6 py-3">نویسنده</th>
-                                  <th scope="col" class="px-6 py-3">مترجم</th>
                                   <th scope="col" class="px-6 py-3">تاریخ نگارش</th>
                                   <th scope="col" class="px-6 py-3">تاریخ مطالعه</th>
                                   <th scope="col" class="px-6 py-3">ژانر</th>
@@ -277,7 +273,7 @@
         </section>
 
         <section id="author-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
-            <div id="author-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
+            <div id="author-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed" aria-expanded="false" aria-controls="author-list-accordion-content">
                 <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس نویسنده</h2>
                 <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
             </div>
@@ -288,7 +284,7 @@
         </section>
         
         <section id="genre-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
-            <div id="genre-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
+            <div id="genre-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed" aria-expanded="false" aria-controls="genre-list-accordion-content">
                 <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس ژانر</h2>
                 <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
             </div>
@@ -312,6 +308,44 @@
 
     <script>
         const booksData = [
+            { id: 206, title: 'مسئله اسپینوزا', author: 'اروین یالوم', translator: '---', originalPubDate: '۲۰۱۲', readYear: '1405/03/31', genre: 'رمان روان‌شناختی', nationality: 'آمریکا' },
+            { id: 205, title: 'غروب بت‌ها', author: 'فریدریش نیچه', translator: '---', originalPubDate: '۱۸۸۹', readYear: '1405/03/22', genre: 'فلسفه', nationality: 'آلمان' },
+            { id: 204, title: 'نیه‌توچکا نِزوانُوا', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۴۹', readYear: '1405/03/19', genre: 'رمان', nationality: 'روسیه' },
+            { id: 203, title: 'سونات کرویتزر', author: 'لئو تولستوی', translator: '---', originalPubDate: '۱۸۸۹', readYear: '1405/03/16', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 202, title: 'خاطرات خانه مردگان', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۲', readYear: '1405/03/16', genre: 'رمان', nationality: 'روسیه' },
+            { id: 201, title: 'تحقیرشدگان و توهین‌شدگان', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۱', readYear: '1405/03/06', genre: 'رمان', nationality: 'روسیه' },
+            { id: 200, title: 'بیچارگان', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۴۶', readYear: '1405/02/24', genre: 'رمان', nationality: 'روسیه' },
+            { id: 199, title: 'رویای عمو جان', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۵۹', readYear: '1405/02/18', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 198, title: 'جوان خام', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۷۵', readYear: '1405/02/16', genre: 'رمان', nationality: 'روسیه' },
+            { id: 197, title: 'تسخیرشدگان (جن‌زدگان)', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۷۲', readYear: '1405/02/01', genre: 'رمان', nationality: 'روسیه' },
+            { id: 196, title: 'همیشه شوهر', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۷۰', readYear: '1405/01/24', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 195, title: 'یک اتفاق مسخره', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۲', readYear: '1405/01/21', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 194, title: 'برادران کارامازوف', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۸۰', readYear: '1405/01/21', genre: 'رمان', nationality: 'روسیه' },
+            { id: 193, title: 'ابله', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۹', readYear: '1405/01/15', genre: 'رمان', nationality: 'روسیه' },
+            { id: 192, title: 'جنایت و مکافات', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۶', readYear: '1405/01/11', genre: 'رمان', nationality: 'روسیه' },
+            { id: 191, title: 'وقتی نیچه گریست', author: 'اروین یالوم', translator: '---', originalPubDate: '۱۹۹۲', readYear: '1405/01/09', genre: 'رمان روان‌شناختی', nationality: 'آمریکا' },
+            { id: 190, title: 'یادداشت‌های زیرزمینی (بار دوم)', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۴', readYear: '1405/01/07', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 189, title: 'شنل', author: 'نیکلای گوگول', translator: '---', originalPubDate: '۱۸۴۲', readYear: '1405/01/07', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 188, title: 'چشم‌هایش', author: 'بزرگ علوی', translator: '---', originalPubDate: '۱۳۳۱', readYear: '1405/01/05', genre: 'رمان', nationality: 'ایران' },
+            { id: 187, title: 'گیله‌مرد', author: 'بزرگ علوی', translator: '---', originalPubDate: '۱۳۲۶', readYear: '1405/01/02', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 186, title: 'یادداشت‌های یک دیوانه', author: 'نیکلای گوگول', translator: '---', originalPubDate: '۱۸۳۵', readYear: '1404/12/26', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 185, title: 'زنده‌به‌گور', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۰۹', readYear: '1404/12/25', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 184, title: 'قمارباز', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۶', readYear: '1404/12/24', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 183, title: 'استنطاق', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: 'نامشخص', readYear: '1404/12/23', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 182, title: 'یادداشت‌های زیرزمینی', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۴', readYear: '1404/12/22', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 181, title: 'بخش شماره ۶ (بار دوم)', author: 'آنتون چخوف', translator: '---', originalPubDate: '۱۸۹۲', readYear: '1404/12/22', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 180, title: 'قانون عشق و قانون خشونت (بار دوم)', author: 'لئو تولستوی', translator: '---', originalPubDate: '۱۹۰۸', readYear: '1404/12/19', genre: 'فلسفه', nationality: 'روسیه' },
+            { id: 179, title: 'بخش شماره ۶ (بار اول)', author: 'آنتون چخوف', translator: '---', originalPubDate: '۱۸۹۲', readYear: '1404/12/19', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 178, title: 'قانون عشق و قانون خشونت', author: 'لئو تولستوی', translator: '---', originalPubDate: '۱۹۰۸', readYear: '1404/12/15', genre: 'فلسفه', nationality: 'روسیه' },
+            { id: 177, title: 'پولیکوشکا', author: 'لئو تولستوی', translator: '---', originalPubDate: '۱۸۶۳', readYear: '1404/12/13', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 176, title: 'مرتد', author: 'آلبر کامو', translator: '---', originalPubDate: '۱۹۵۷', readYear: '1404/12/13', genre: 'داستان کوتاه', nationality: 'فرانسه' },
+            { id: 175, title: 'تمساح', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۵', readYear: '1404/12/12', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 174, title: 'انقلاب', author: 'هانا آرنت', translator: '---', originalPubDate: '۱۹۶۳', readYear: '1404/12/12', genre: 'فلسفه سیاسی', nationality: 'آلمان' },
+            { id: 173, title: 'قلب ضعیف و بوبوک', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۴۸', readYear: '1404/12/11', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 172, title: 'آبجی خانم', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۰۹', readYear: '1404/12/10', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 171, title: 'شب‌های ورامین', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۲۱', readYear: '1404/12/10', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 170, title: 'شب‌های روشن', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۴۸', readYear: '1404/12/10', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 169, title: 'آیشمن در اورشلیم', author: 'هانا آرنت', translator: '---', originalPubDate: '۱۹۶۳', readYear: '1404/12/09', genre: 'فلسفه سیاسی', nationality: 'آلمان' },
             { id: 168, title: 'کوپن جعلی', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۹۱۱', readYear: '1404/11/23', genre: 'رمان کوتاه', nationality: 'روسیه' },
             { id: 167, title: 'سعادت زناشویی', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۸۵۹', readYear: '1404/11/22', genre: 'رمان', nationality: 'روسیه' },
             { id: 166, title: 'سونات کرویتسر', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۸۸۹', readYear: '1404/11/22', genre: 'رمان کوتاه', nationality: 'روسیه' },
@@ -425,7 +459,7 @@
             { id: 69, title: 'عرفان و منطق', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۲۹۷', readYear: '1383', genre: 'فلسفه', nationality: 'انگلیس' },
             { id: 70, title: 'مثنوی معنوی', author: 'مولانا', translator: 'تصحیح نیکلسون', originalPubDate: 'قرن ۷', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
             { id: 71, title: 'عقل سرخ', author: 'سهروردی', translator: 'تصحیح هانری کربن', originalPubDate: 'قرن ۶', readYear: '1383', genre: 'فلسفه', nationality: 'ایران' },
-            { id: 72, title: 'مسخ', author: 'فرانتس کافکا', translator: 'صادق هدایت', originalPubDate: '۱۲۹۴', readYear: '1383', genre: 'رمان فلسفی', nationality: 'atریش' },
+            { id: 72, title: 'مسخ', author: 'فرانتس کافکا', translator: 'صادق هدایت', originalPubDate: '۱۲۹۴', readYear: '1383', genre: 'رمان فلسفی', nationality: 'اتریش' },
             { id: 73, title: 'استخوان خوک و دست‌های جذامی', author: 'مصطفی مستور', translator: 'تألیفی', originalPubDate: '۱۳۸۳', readYear: '1383', genre: 'رمان فلسفی', nationality: 'ایران' },
             { id: 74, title: 'آناکارنینا', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۲۵۶', readYear: '1383', genre: 'رمان فلسفی', nationality: 'روسیه' },
             { id: 75, title: 'آخر شاهنامه', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۸', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
@@ -455,7 +489,7 @@
             { id: 98, title: '۱۹۸۴', author: 'جورج اورول', translator: 'صالح حسینی', originalPubDate: '۱۳۲۸', readYear: '1381', genre: 'رمان فلسفی', nationality: 'انگلیس' },
             { id: 99, title: 'ارغنون', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۰', readYear: '1381', genre: 'شعر', nationality: 'ایران' },
             { id: 100, title: 'سیر حکمت در اروپا', author: 'محمدعلی فروغی', translator: 'تألیفی', originalPubDate: '۱۳۱۰', readYear: '1381', genre: 'فلسفه', nationality: 'ایران' },
-            { id: 101, title: 'سفر به دیگر سو', author: 'کارلوس کاستاندا', translator: 'mهران کندری', originalPubDate: '۱۳۵۰', readYear: '1381', genre: 'عرفان', nationality: 'پرو' },
+            { id: 101, title: 'سفر به دیگر سو', author: 'کارلوس کاستاندا', translator: 'مهران کندری', originalPubDate: '۱۳۵۰', readYear: '1381', genre: 'عرفان', nationality: 'پرو' },
             { id: 102, title: 'دیوان پروین اعتصامی', author: 'پروین اعتصامی', translator: 'تألیفی', originalPubDate: '۱۳۱۴', readYear: '1381', genre: 'شعر', nationality: 'ایران' },
             { id: 103, title: 'کویر', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: '۱۳۴۸', readYear: '1380', genre: 'فلسفه دینی', nationality: 'ایران' },
             { id: 104, title: 'اسلام‌شناسی (درس‌های ارشاد)', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1380', genre: 'فلسفه دینی', nationality: 'ایران' },
@@ -482,6 +516,24 @@
             { id: 125, title: 'کباب غاز', author: 'محمدعلی جمال‌زاده', translator: 'تألیفی', originalPubDate: '۱۳۰۰', readYear: '1375', genre: 'داستان کوتاه', nationality: 'ایران' }
         ];
 
+        const plannedBooksData = [
+            { title: 'شوهر حسود', author: 'فئودور داستایوفسکی' },
+            { title: 'زن صاحبخانه', author: 'فئودور داستایوفسکی' },
+            { title: 'ناشناس', author: 'فئودور داستایوفسکی' },
+            { title: 'همزاد', author: 'فئودور داستایوفسکی' },
+            { title: 'انسان و سمبول‌هایش', author: 'کارل گوستاو یونگ' },
+            { title: 'جمهوری', author: 'افلاطون' },
+            { title: 'تاراس بولبا', author: 'نیکلای گوگول' },
+            { title: 'نفوس مرده', author: 'نیکلای گوگول' },
+            { title: 'دختر سروان', author: 'الکساندر پوشکین' },
+            { title: 'جنگ و صلح', author: 'لئو تولستوی' },
+            { title: 'رستاخیز', author: 'لئو تولستوی' },
+            { title: 'دوئل', author: 'آنتون چخوف' },
+            { title: 'صد سال تنهایی', author: 'گابریل گارسیا مارکز' },
+            { title: 'خشم و هیاهو', author: 'ویلیام فاکنر' },
+            { title: 'اسطوره سیزیف', author: 'آلبر کامو' },
+            { title: 'کالیگولا', author: 'آلبر کامو' }
+        ];
         
         const JALALI_MONTHS = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
 
@@ -505,14 +557,14 @@
                 if (chartSection) {
                     chartSection.innerHTML = '<div class="p-4 bg-red-100 text-red-700 rounded-lg text-center font-bold">خطا در بارگذاری کتابخانه نمودارها (Chart.js). لطفاً اتصال اینترنت خود را بررسی کنید یا صفحه را رفرش کنید.<br>سایر بخش‌های داشبورد (جدول و لیست‌ها) در دسترس هستند.</div>';
                 }
+            } else {
+                Chart.defaults.font.family = "'Vazirmatn', sans-serif";
+                Chart.defaults.font.weight = '500';
+                Chart.defaults.plugins.tooltip.direction = 'rtl';
+                Chart.defaults.plugins.tooltip.titleFont = { weight: 'bold', size: 14 };
+                Chart.defaults.plugins.tooltip.bodyFont = { size: 12 };
+                Chart.defaults.plugins.tooltip.padding = 10;
             }
-
-            Chart.defaults.font.family = "'Vazirmatn', sans-serif";
-            Chart.defaults.font.weight = '500';
-            Chart.defaults.plugins.tooltip.direction = 'rtl';
-            Chart.defaults.plugins.tooltip.titleFont = { weight: 'bold', size: 14 };
-            Chart.defaults.plugins.tooltip.bodyFont = { size: 12 };
-            Chart.defaults.plugins.tooltip.padding = 10;
 
             const processedData = booksData.map(book => {
                 const dateInfo = parseReadDate(book.readYear);
@@ -527,6 +579,8 @@
             // Always run these regardless of Chart.js status
             populateKPIs(processedData);
             populateTable(processedData);
+            populatePlannedBooks(plannedBooksData);
+            setupAccordion('planned-accordion-header', 'planned-accordion-content');
             setupAccordion('main-table-accordion-header', 'main-table-accordion-content');
             setupAccordion('author-list-accordion-header', 'author-list-accordion-content');
             setupAccordion('genre-list-accordion-header', 'genre-list-accordion-content'); 
@@ -551,8 +605,29 @@
 
             document.getElementById('total-reads').textContent = data.length;
 
-            const currentYearBooks = data.filter(b => b.year === '1404').length;
+            const currentYearBooks = data.filter(b => b.year === '1405').length;
             document.getElementById('current-year-books').textContent = currentYearBooks;
+        }
+
+        function populatePlannedBooks(data) {
+            const container = document.getElementById('planned-books-container');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            data.forEach((book, index) => {
+                const card = `
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100 flex items-center justify-between hover:border-teal-300 hover:shadow-md transition-all">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-slate-800 text-sm md:text-base">${book.title}</h4>
+                            <p class="text-xs md:text-sm text-slate-500 mt-1">${book.author}</p>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center text-teal-600 font-bold border border-teal-100 flex-shrink-0">
+                            ${index + 1}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
         }
 
         function populateTable(data) {
@@ -562,7 +637,6 @@
             const totalBooks = data.length; 
             data.forEach((book, index) => {
                 const rowNum = totalBooks - index; 
-                // --- MODIFIED: Un-Mirrored Table ---
                 const tableRow = `
                     <tr class="bg-white border-b hover:bg-slate-50">
                         <td class="px-6 py-4 font-medium text-slate-900">${rowNum}</td>
@@ -588,6 +662,7 @@
             header.addEventListener('click', () => {
                 const isOpen = content.classList.toggle('open');
                 header.classList.toggle('closed', !isOpen);
+                header.setAttribute('aria-expanded', isOpen);
                 if (icon) {
                     icon.textContent = isOpen ? '−' : '+';
                 }
@@ -599,40 +674,42 @@
             if (!timelineContainer) return; 
             timelineContainer.innerHTML = ''; 
 
-            const booksByYear = data.reduce((acc, book) => {
+            const booksByYearAndMonth = data.reduce((acc, book) => {
                 const year = book.year;
                 if (year === 'نامشخص') return acc; 
-                if (!acc[year]) acc[year] = [];
-                acc[year].push(book);
-                return acc;
-            }, {});
-
-            const booksByMonth1404 = data.reduce((acc, book) => {
-                if (book.year === '1404' && book.month) {
-                    if (!acc[book.month]) acc[book.month] = [];
-                    acc[book.month].push(book);
+                
+                if (!acc[year]) acc[year] = { books: [], months: {} };
+                acc[year].books.push(book);
+                
+                if (book.month) {
+                    if (!acc[year].months[book.month]) acc[year].months[book.month] = [];
+                    acc[year].months[book.month].push(book);
                 }
+                
                 return acc;
             }, {});
 
-            const sortedYears = Object.keys(booksByYear).sort((a, b) => b.localeCompare(a));
+            const sortedYears = Object.keys(booksByYearAndMonth).sort((a, b) => b.localeCompare(a));
             
             let timelineHTML = '<div class="timeline-line"></div>';
 
             sortedYears.forEach(year => {
                 let booksHTML = '';
-                if (year === '1404') {
-                    const sortedMonths1404 = Object.keys(booksByMonth1404).sort((a, b) => b.localeCompare(a));
+                const yearData = booksByYearAndMonth[year];
+                const hasDetailedMonths = Object.keys(yearData.months).length > 0 && (year === '1404' || year === '1405');
+
+                if (hasDetailedMonths) {
+                    const sortedMonths = Object.keys(yearData.months).sort((a, b) => b.localeCompare(a));
                     
-                    sortedMonths1404.forEach(monthKey => {
+                    sortedMonths.forEach(monthKey => {
                         const monthName = JALALI_MONTHS[parseInt(monthKey, 10) - 1];
-                        const books = booksByMonth1404[monthKey];
-                        const yearMonthTitle = `${monthName} ۱۴۰۴ <span class="text-teal-600 text-sm md:text-base font-semibold">(${books.length} کتاب)</span>`;
+                        const books = yearData.months[monthKey];
+                        const yearMonthTitle = `${monthName} ${year} <span class="text-teal-600 text-sm md:text-base font-semibold">(${books.length} کتاب)</span>`;
                         
                         books.sort((a, b) => b.full.localeCompare(a.full));
                         
                         let monthBooksHTML = books.map(book => {
-                            const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی'].includes(book.translator)) ? ` - ${book.translator}` : '';
+                            const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی', '---'].includes(book.translator)) ? ` - ${book.translator}` : '';
                             return `<li class="text-slate-700 text-right"><strong>${book.title}</strong> - ${book.author}${translatorText} <span class="text-xs text-slate-500">(${book.readYear})</span></li>`;
                         }).join('');
 
@@ -647,9 +724,11 @@
                     });
 
                 } else {
-                    const books = booksByYear[year];
+                    const books = yearData.books;
+                    books.sort((a, b) => b.full.localeCompare(a.full));
+                    
                     let yearBooksHTML = books.map(book => {
-                        const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی'].includes(book.translator)) ? ` - ${book.translator}` : '';
+                        const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی', '---'].includes(book.translator)) ? ` - ${book.translator}` : '';
                         return `<li class="text-slate-700 text-right"><strong>${book.title}</strong> - ${book.author}${translatorText} <span class="text-xs text-slate-500">(${book.readYear})</span></li>`;
                     }).join('');
 
@@ -731,7 +810,7 @@
 
                 html += `
                     <div class="border border-slate-200 rounded-lg overflow-hidden">
-                        <div id="${headerId}" class="author-accordion-header accordion-header accordion-header-rtl bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 closed">
+                        <div id="${headerId}" class="author-accordion-header accordion-header accordion-header-rtl bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 closed" aria-expanded="false" aria-controls="${contentId}">
                             <h3 class="accordion-title font-bold text-lg text-slate-800">
                                 ${author} 
                                 <span class="text-sm font-medium text-slate-600 mr-2">(${Object.keys(booksByTitle).length} کتاب / ${books.length} بار خوانش)</span>
@@ -802,7 +881,7 @@
 
                 html += `
                     <div class="border border-slate-200 rounded-lg overflow-hidden">
-                        <div id="${headerId}" class="genre-accordion-header accordion-header accordion-header-rtl bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 closed">
+                        <div id="${headerId}" class="genre-accordion-header accordion-header accordion-header-rtl bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 closed" aria-expanded="false" aria-controls="${contentId}">
                             <h3 class="accordion-title font-bold text-lg text-slate-800">
                                 ${genre} 
                                 <span class="text-sm font-medium text-slate-600 mr-2">(${Object.keys(booksByTitle).length} کتاب / ${books.length} بار خوانش)</span>
@@ -831,6 +910,7 @@
                     
                     const isOpen = content.classList.toggle('open');
                     header.classList.toggle('closed', !isOpen);
+                    header.setAttribute('aria-expanded', isOpen);
                     if (icon) {
                         icon.textContent = isOpen ? '−' : '+';
                     }
