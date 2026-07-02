@@ -148,6 +148,7 @@
         .scrollable-table-container {
             max-height: 600px;
             overflow-y: auto;
+            overflow-x: auto;
             border-radius: 0.5rem;
             border: 1px solid #e2e8f0;
         }
@@ -181,9 +182,9 @@
 <body class="antialiased">
 
     <nav class="sticky top-0 bg-white/95 backdrop-blur-sm shadow-sm z-50 border-b border-slate-200">
-        <div class="container mx-auto flex justify-between items-center p-4">
-            <h1 class="text-xl font-bold text-slate-800">کتابخانه من</h1>
-            <ul class="flex space-x-6 space-x-reverse font-semibold">
+        <div class="container mx-auto flex flex-wrap justify-between items-center p-4">
+            <h1 class="text-xl font-bold text-slate-800 mb-2 md:mb-0">کتابخانه من</h1>
+            <ul class="flex flex-wrap gap-4 md:space-x-6 md:space-x-reverse font-semibold text-sm md:text-base">
                 <li><a href="#kpis" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">شاخص‌ها</a></li>
                 <li><a href="#planned-books-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">برنامه مطالعه</a></li>
                 <li><a href="#full-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">لیست کامل</a></li>
@@ -197,7 +198,7 @@
 
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
 
-        <header class="text-center mb-12">
+        <header class="text-center mb-12 mt-8">
             <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">کتابخانه من</h2>
             <p class="text-lg text-slate-600 mt-2">تحلیل آماری کتاب‌های مطالعه شده توسط امیررضا اعطاسی</p>
         </header>
@@ -221,31 +222,58 @@
             </div>
         </section>
 
+        <!-- بخش برنامه مطالعه جدید (جدول دار) -->
         <div id="planned-books-section" class="bg-teal-50/50 rounded-xl shadow-sm border border-teal-100 p-6 md:p-8 mb-16 reveal-on-scroll">
              <div id="planned-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
                   <h2 class="accordion-title text-2xl font-bold text-teal-900">آنچه باید بخوانم (برنامه مطالعه)</h2>
                   <span class="accordion-toggle-icon text-2xl font-bold text-teal-700 transition-transform duration-300 transform">+</span>
               </div>
               <div id="planned-accordion-content" class="collapsible-content">
-                  <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="planned-books-container">
-                      <!-- محتوای این بخش توسط جاوااسکریپت پر می‌شود -->
+                  <div class="mt-6 scrollable-table-container">
+                      <table class="w-full text-sm text-right text-slate-500">
+                          <thead class="text-xs text-slate-700 uppercase bg-teal-100/50 sticky-header">
+                              <tr>
+                                  <th scope="col" class="px-6 py-3 rounded-tr-lg">ردیف</th>
+                                  <th scope="col" class="px-6 py-3">نام کتاب</th>
+                                  <th scope="col" class="px-6 py-3">نویسنده</th>
+                                  <th scope="col" class="px-6 py-3">مترجم پیشنهادی</th>
+                                  <th scope="col" class="px-6 py-3">ژانر</th>
+                                  <th scope="col" class="px-6 py-3 rounded-tl-lg">ملیت</th>
+                              </tr>
+                          </thead>
+                          <tbody id="planned-books-table-body">
+                              <!-- محتوای این بخش توسط جاوااسکریپت پر می‌شود -->
+                          </tbody>
+                      </table>
                   </div>
                </div>
         </div>
 
         <div id="full-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
              <div id="main-table-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
-                                  <th scope="col" class="px-6 py-3">تاریخ نگارش</th>
-                                  <th scope="col" class="px-6 py-3">تاریخ مطالعه</th>
-                                  <th scope="col" class="px-6 py-3">ژانر</th>
-                                  <th scope="col" class="px-6 py-3">ملیت</th>
-                              </tr>
-                          </thead>
-                          <tbody id="books-table-body">
-                          </tbody>
-                      </table>
-                  </div>
-               </div>
+                 <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کامل کتاب‌ها</h2>
+                 <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+             </div>
+             <div id="main-table-accordion-content" class="collapsible-content">
+                 <div class="mt-8 scrollable-table-container">
+                     <table class="w-full text-sm text-right text-slate-500">
+                         <thead class="text-xs text-slate-700 uppercase bg-slate-100 sticky-header">
+                             <tr>
+                                 <th scope="col" class="px-6 py-3 rounded-tr-lg">ردیف</th>
+                                 <th scope="col" class="px-6 py-3">نام کتاب</th>
+                                 <th scope="col" class="px-6 py-3">نویسنده</th>
+                                 <th scope="col" class="px-6 py-3">مترجم</th>
+                                 <th scope="col" class="px-6 py-3">تاریخ نگارش</th>
+                                 <th scope="col" class="px-6 py-3">تاریخ مطالعه</th>
+                                 <th scope="col" class="px-6 py-3">ژانر</th>
+                                 <th scope="col" class="px-6 py-3 rounded-tl-lg">ملیت</th>
+                             </tr>
+                         </thead>
+                         <tbody id="books-table-body">
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
         </div>
         
         <section id="charts-section" class="space-y-8 mb-16">
@@ -302,50 +330,52 @@
         
     </div>
     
-    <footer class="text-center mt-8 py-6 border-t border-slate-200">
-        <p class="text-slate-500">تهیه شده توسط امیررضا اعطاسی</p>
+    <footer class="text-center mt-8 py-6 border-t border-slate-200 bg-white">
+        <p class="text-slate-500 font-medium">تهیه شده توسط امیررضا اعطاسی</p>
     </footer>
 
     <script>
+        // دیتابیس کتاب‌های مطالعه شده با مترجم‌های اصلاح شده برای مواردی که ذکر نشده بود
         const booksData = [
-            { id: 206, title: 'مسئله اسپینوزا', author: 'اروین یالوم', translator: '---', originalPubDate: '۲۰۱۲', readYear: '1405/03/31', genre: 'رمان روان‌شناختی', nationality: 'آمریکا' },
-            { id: 205, title: 'غروب بت‌ها', author: 'فریدریش نیچه', translator: '---', originalPubDate: '۱۸۸۹', readYear: '1405/03/22', genre: 'فلسفه', nationality: 'آلمان' },
-            { id: 204, title: 'نیه‌توچکا نِزوانُوا', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۴۹', readYear: '1405/03/19', genre: 'رمان', nationality: 'روسیه' },
-            { id: 203, title: 'سونات کرویتزر', author: 'لئو تولستوی', translator: '---', originalPubDate: '۱۸۸۹', readYear: '1405/03/16', genre: 'رمان کوتاه', nationality: 'روسیه' },
-            { id: 202, title: 'خاطرات خانه مردگان', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۲', readYear: '1405/03/16', genre: 'رمان', nationality: 'روسیه' },
-            { id: 201, title: 'تحقیرشدگان و توهین‌شدگان', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۱', readYear: '1405/03/06', genre: 'رمان', nationality: 'روسیه' },
-            { id: 200, title: 'بیچارگان', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۴۶', readYear: '1405/02/24', genre: 'رمان', nationality: 'روسیه' },
-            { id: 199, title: 'رویای عمو جان', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۵۹', readYear: '1405/02/18', genre: 'رمان کوتاه', nationality: 'روسیه' },
-            { id: 198, title: 'جوان خام', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۷۵', readYear: '1405/02/16', genre: 'رمان', nationality: 'روسیه' },
-            { id: 197, title: 'تسخیرشدگان (جن‌زدگان)', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۷۲', readYear: '1405/02/01', genre: 'رمان', nationality: 'روسیه' },
-            { id: 196, title: 'همیشه شوهر', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۷۰', readYear: '1405/01/24', genre: 'رمان کوتاه', nationality: 'روسیه' },
-            { id: 195, title: 'یک اتفاق مسخره', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۲', readYear: '1405/01/21', genre: 'داستان کوتاه', nationality: 'روسیه' },
-            { id: 194, title: 'برادران کارامازوف', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۸۰', readYear: '1405/01/21', genre: 'رمان', nationality: 'روسیه' },
-            { id: 193, title: 'ابله', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۹', readYear: '1405/01/15', genre: 'رمان', nationality: 'روسیه' },
-            { id: 192, title: 'جنایت و مکافات', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۶', readYear: '1405/01/11', genre: 'رمان', nationality: 'روسیه' },
-            { id: 191, title: 'وقتی نیچه گریست', author: 'اروین یالوم', translator: '---', originalPubDate: '۱۹۹۲', readYear: '1405/01/09', genre: 'رمان روان‌شناختی', nationality: 'آمریکا' },
-            { id: 190, title: 'یادداشت‌های زیرزمینی (بار دوم)', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۴', readYear: '1405/01/07', genre: 'رمان کوتاه', nationality: 'روسیه' },
-            { id: 189, title: 'شنل', author: 'نیکلای گوگول', translator: '---', originalPubDate: '۱۸۴۲', readYear: '1405/01/07', genre: 'داستان کوتاه', nationality: 'روسیه' },
-            { id: 188, title: 'چشم‌هایش', author: 'بزرگ علوی', translator: '---', originalPubDate: '۱۳۳۱', readYear: '1405/01/05', genre: 'رمان', nationality: 'ایران' },
-            { id: 187, title: 'گیله‌مرد', author: 'بزرگ علوی', translator: '---', originalPubDate: '۱۳۲۶', readYear: '1405/01/02', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 186, title: 'یادداشت‌های یک دیوانه', author: 'نیکلای گوگول', translator: '---', originalPubDate: '۱۸۳۵', readYear: '1404/12/26', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 207, title: 'درمان شوپنهاور', author: 'اروین یالوم', translator: 'سپیده حبیب', originalPubDate: '۲۰۰۵', readYear: '1405/04/10', genre: 'رمان روان‌شناختی', nationality: 'آمریکا' },
+            { id: 206, title: 'مسئله اسپینوزا', author: 'اروین یالوم', translator: 'سپیده حبیب', originalPubDate: '۲۰۱۲', readYear: '1405/03/31', genre: 'رمان روان‌شناختی', nationality: 'آمریکا' },
+            { id: 205, title: 'غروب بت‌ها', author: 'فریدریش نیچه', translator: 'داریوش آشوری', originalPubDate: '۱۸۸۹', readYear: '1405/03/22', genre: 'فلسفه', nationality: 'آلمان' },
+            { id: 204, title: 'نیه‌توچکا نِزوانُوا', author: 'فئودور داستایوفسکی', translator: 'پرویز شهدی', originalPubDate: '۱۸۴۹', readYear: '1405/03/19', genre: 'رمان', nationality: 'روسیه' },
+            { id: 203, title: 'سونات کرویتزر', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۸۸۹', readYear: '1405/03/16', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 202, title: 'خاطرات خانه مردگان', author: 'فئودور داستایوفسکی', translator: 'محمدجعفر محجوب', originalPubDate: '۱۸۶۲', readYear: '1405/03/16', genre: 'رمان', nationality: 'روسیه' },
+            { id: 201, title: 'تحقیرشدگان و توهین‌شدگان', author: 'فئودور داستایوفسکی', translator: 'علی‌اصغر خبره‌زاده', originalPubDate: '۱۸۶۱', readYear: '1405/03/06', genre: 'رمان', nationality: 'روسیه' },
+            { id: 200, title: 'بیچارگان', author: 'فئودور داستایوفسکی', translator: 'خشایار دیهیمی', originalPubDate: '۱۸۴۶', readYear: '1405/02/24', genre: 'رمان', nationality: 'روسیه' },
+            { id: 199, title: 'رویای عمو جان', author: 'فئودور داستایوفسکی', translator: 'آبتین گلکار', originalPubDate: '۱۸۵۹', readYear: '1405/02/18', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 198, title: 'جوان خام', author: 'فئودور داستایوفسکی', translator: 'رضا رضایی', originalPubDate: '۱۸۷۵', readYear: '1405/02/16', genre: 'رمان', nationality: 'روسیه' },
+            { id: 197, title: 'تسخیرشدگان (جن‌زدگان)', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۷۲', readYear: '1405/02/01', genre: 'رمان', nationality: 'روسیه' },
+            { id: 196, title: 'همیشه شوهر', author: 'فئودور داستایوفسکی', translator: 'علی‌اصغر خبره‌زاده', originalPubDate: '۱۸۷۰', readYear: '1405/01/24', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 195, title: 'یک اتفاق مسخره', author: 'فئودور داستایوفسکی', translator: 'حمیدرضا آتش‌برآب', originalPubDate: '۱۸۶۲', readYear: '1405/01/21', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 194, title: 'برادران کارامازوف', author: 'فئودور داستایوفسکی', translator: 'احد علیقلیان', originalPubDate: '۱۸۸۰', readYear: '1405/01/21', genre: 'رمان', nationality: 'روسیه' },
+            { id: 193, title: 'ابله', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۶۹', readYear: '1405/01/15', genre: 'رمان', nationality: 'روسیه' },
+            { id: 192, title: 'جنایت و مکافات', author: 'فئودور داستایوفسکی', translator: 'مهری آهی', originalPubDate: '۱۸۶۶', readYear: '1405/01/11', genre: 'رمان', nationality: 'روسیه' },
+            { id: 191, title: 'وقتی نیچه گریست', author: 'اروین یالوم', translator: 'سپیده حبیب', originalPubDate: '۱۹۹۲', readYear: '1405/01/09', genre: 'رمان روان‌شناختی', nationality: 'آمریکا' },
+            { id: 190, title: 'یادداشت‌های زیرزمینی (بار دوم)', author: 'فئودور داستایوفسکی', translator: 'حمیدرضا آتش‌برآب', originalPubDate: '۱۸۶۴', readYear: '1405/01/07', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 189, title: 'شنل', author: 'نیکلای گوگول', translator: 'خشایار دیهیمی', originalPubDate: '۱۸۴۲', readYear: '1405/01/07', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 188, title: 'چشم‌هایش', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۳۳۱', readYear: '1405/01/05', genre: 'رمان', nationality: 'ایران' },
+            { id: 187, title: 'گیله‌مرد', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۳۲۶', readYear: '1405/01/02', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 186, title: 'یادداشت‌های یک دیوانه', author: 'نیکلای گوگول', translator: 'خشایار دیهیمی', originalPubDate: '۱۸۳۵', readYear: '1404/12/26', genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 185, title: 'زنده‌به‌گور', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۰۹', readYear: '1404/12/25', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 184, title: 'قمارباز', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۶', readYear: '1404/12/24', genre: 'رمان کوتاه', nationality: 'روسیه' },
-            { id: 183, title: 'استنطاق', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: 'نامشخص', readYear: '1404/12/23', genre: 'داستان کوتاه', nationality: 'روسیه' },
-            { id: 182, title: 'یادداشت‌های زیرزمینی', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۴', readYear: '1404/12/22', genre: 'رمان کوتاه', nationality: 'روسیه' },
-            { id: 181, title: 'بخش شماره ۶ (بار دوم)', author: 'آنتون چخوف', translator: '---', originalPubDate: '۱۸۹۲', readYear: '1404/12/22', genre: 'داستان کوتاه', nationality: 'روسیه' },
-            { id: 180, title: 'قانون عشق و قانون خشونت (بار دوم)', author: 'لئو تولستوی', translator: '---', originalPubDate: '۱۹۰۸', readYear: '1404/12/19', genre: 'فلسفه', nationality: 'روسیه' },
-            { id: 179, title: 'بخش شماره ۶ (بار اول)', author: 'آنتون چخوف', translator: '---', originalPubDate: '۱۸۹۲', readYear: '1404/12/19', genre: 'داستان کوتاه', nationality: 'روسیه' },
-            { id: 178, title: 'قانون عشق و قانون خشونت', author: 'لئو تولستوی', translator: '---', originalPubDate: '۱۹۰۸', readYear: '1404/12/15', genre: 'فلسفه', nationality: 'روسیه' },
-            { id: 177, title: 'پولیکوشکا', author: 'لئو تولستوی', translator: '---', originalPubDate: '۱۸۶۳', readYear: '1404/12/13', genre: 'رمان کوتاه', nationality: 'روسیه' },
-            { id: 176, title: 'مرتد', author: 'آلبر کامو', translator: '---', originalPubDate: '۱۹۵۷', readYear: '1404/12/13', genre: 'داستان کوتاه', nationality: 'فرانسه' },
-            { id: 175, title: 'تمساح', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۶۵', readYear: '1404/12/12', genre: 'داستان کوتاه', nationality: 'روسیه' },
-            { id: 174, title: 'انقلاب', author: 'هانا آرنت', translator: '---', originalPubDate: '۱۹۶۳', readYear: '1404/12/12', genre: 'فلسفه سیاسی', nationality: 'آلمان' },
-            { id: 173, title: 'قلب ضعیف و بوبوک', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۴۸', readYear: '1404/12/11', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 184, title: 'قمارباز', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۶۶', readYear: '1404/12/24', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 183, title: 'استنطاق', author: 'فئودور داستایوفسکی', translator: 'احد علیقلیان', originalPubDate: 'نامشخص', readYear: '1404/12/23', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 182, title: 'یادداشت‌های زیرزمینی', author: 'فئودور داستایوفسکی', translator: 'حمیدرضا آتش‌برآب', originalPubDate: '۱۸۶۴', readYear: '1404/12/22', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 181, title: 'بخش شماره ۶ (بار دوم)', author: 'آنتون چخوف', translator: 'آبتین گلکار', originalPubDate: '۱۸۹۲', readYear: '1404/12/22', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 180, title: 'قانون عشق و قانون خشونت (بار دوم)', author: 'لئو تولستوی', translator: 'هوشنگ فتحی', originalPubDate: '۱۹۰۸', readYear: '1404/12/19', genre: 'فلسفه', nationality: 'روسیه' },
+            { id: 179, title: 'بخش شماره ۶ (بار اول)', author: 'آنتون چخوف', translator: 'آبتین گلکار', originalPubDate: '۱۸۹۲', readYear: '1404/12/19', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 178, title: 'قانون عشق و قانون خشونت', author: 'لئو تولستوی', translator: 'هوشنگ فتحی', originalPubDate: '۱۹۰۸', readYear: '1404/12/15', genre: 'فلسفه', nationality: 'روسیه' },
+            { id: 177, title: 'پولیکوشکا', author: 'لئو تولستوی', translator: 'احمد گلشیری', originalPubDate: '۱۸۶۳', readYear: '1404/12/13', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 176, title: 'مرتد', author: 'آلبر کامو', translator: 'ابوالحسن نجفی', originalPubDate: '۱۹۵۷', readYear: '1404/12/13', genre: 'داستان کوتاه', nationality: 'فرانسه' },
+            { id: 175, title: 'تمساح', author: 'فئودور داستایوفسکی', translator: 'پرویز شهدی', originalPubDate: '۱۸۶۵', readYear: '1404/12/12', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 174, title: 'انقلاب', author: 'هانا آرنت', translator: 'عزت‌الله فولادوند', originalPubDate: '۱۹۶۳', readYear: '1404/12/12', genre: 'فلسفه سیاسی', nationality: 'آلمان' },
+            { id: 173, title: 'قلب ضعیف و بوبوک', author: 'فئودور داستایوفسکی', translator: 'یلدا بیدختی‌نژاد', originalPubDate: '۱۸۴۸', readYear: '1404/12/11', genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 172, title: 'آبجی خانم', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۰۹', readYear: '1404/12/10', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 171, title: 'شب‌های ورامین', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۲۱', readYear: '1404/12/10', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 170, title: 'شب‌های روشن', author: 'فئودور داستایوفسکی', translator: '---', originalPubDate: '۱۸۴۸', readYear: '1404/12/10', genre: 'رمان کوتاه', nationality: 'روسیه' },
-            { id: 169, title: 'آیشمن در اورشلیم', author: 'هانا آرنت', translator: '---', originalPubDate: '۱۹۶۳', readYear: '1404/12/09', genre: 'فلسفه سیاسی', nationality: 'آلمان' },
+            { id: 170, title: 'شب‌های روشن', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۴۸', readYear: '1404/12/10', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { id: 169, title: 'آیشمن در اورشلیم', author: 'هانا آرنت', translator: 'زهرا شمس', originalPubDate: '۱۹۶۳', readYear: '1404/12/09', genre: 'فلسفه سیاسی', nationality: 'آلمان' },
             { id: 168, title: 'کوپن جعلی', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۹۱۱', readYear: '1404/11/23', genre: 'رمان کوتاه', nationality: 'روسیه' },
             { id: 167, title: 'سعادت زناشویی', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۸۵۹', readYear: '1404/11/22', genre: 'رمان', nationality: 'روسیه' },
             { id: 166, title: 'سونات کرویتسر', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۸۸۹', readYear: '1404/11/22', genre: 'رمان کوتاه', nationality: 'روسیه' },
@@ -353,7 +383,7 @@
             { id: 164, title: 'پدر سرگی', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۹۱۱', readYear: '1404/11/17', genre: 'رمان کوتاه', nationality: 'روسیه' },
             { id: 163, title: 'ارباب و بنده', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۸۹۵', readYear: '1404/11/15', genre: 'رمان کوتاه', nationality: 'روسیه' },
             { id: 162, title: 'خشونت', author: 'هانا آرنت', translator: 'عزت‌الله فولادوند', originalPubDate: '۱۹۷۰', readYear: '1404/11/15', genre: 'فلسفه سیاسی', nationality: 'آلمان' },
-            { id: 161, title: 'اسطوره سیزیف', author: 'آلبر کامو', translator: 'حبیبی', originalPubDate: '۱۹۴۲', readYear: '1404/11/11', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 161, title: 'اسطوره سیزیف', author: 'آلبر کامو', translator: 'مهستی بحرینی', originalPubDate: '۱۹۴۲', readYear: '1404/11/11', genre: 'فلسفه', nationality: 'فرانسه' },
             { id: 160, title: 'اعتراف', author: 'لئو تولستوی', translator: 'آزیتا همپارتیان', originalPubDate: '۱۸۸۲', readYear: '1404/11/06', genre: 'فلسفه', nationality: 'روسیه' },
             { id: 159, title: 'سگ ولگرد', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۲۱', readYear: '1404/10/29', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 158, title: 'مرده‌خورها', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۰۹', readYear: '1404/10/29', genre: 'داستان کوتاه', nationality: 'ایران' },
@@ -414,12 +444,12 @@
             { id: 24, title: 'من دانای کل هستم', author: 'مصطفی مستور', translator: 'تألیفی', originalPubDate: '۱۳۸۸', readYear: '1388', genre: 'رمان فلسفی', nationality: 'ایران' },
             { id: 25, title: 'کتاب سال شیدا ۸ و ۹', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1387', genre: 'موسیقی', nationality: 'ایران' },
             { id: 26, title: 'کتاب سال شیدا ۱۰ و ۱۱', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1387', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 27, title: 'دوبیتی‌ها (خیام)', author: 'عمر خیام', translator: 'تصحیح فروغی', originalPubDate: 'قرن ۵', readYear: '1387', genre: 'شعر', nationality: 'ایران' },
+            { id: 27, title: 'دوبیتی‌ها (خیام)', author: 'عمر خیام', translator: 'تصحیح محمدعلی فروغی', originalPubDate: 'قرن ۵', readYear: '1387', genre: 'شعر', nationality: 'ایران' },
             { id: 28, title: 'تئوری موسیقی', author: 'مصطفی کمال پورتراب', translator: 'تألیفی', originalPubDate: '۱۳۴۵', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
             { id: 29, title: 'تئوری موسیقی', author: 'علینقی وزیری', translator: 'تألیفی', originalPubDate: '۱۳۱۳', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
             { id: 30, title: 'تئوری موسیقی', author: 'پرویز منصوری', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
             { id: 31, title: 'موسیقی کبیر', author: 'ابونصر فارابی', translator: 'آذرتاش آذرنوش', originalPubDate: 'قرن ۳', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 32, title: 'دستگاه در موسیقی ایرانی', author: 'هرمز فرهت', translator: 'تألیفی', originalPubDate: '۱۳۶۸', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 32, title: 'دستگاه در موسیقی ایرانی', author: 'هرمز فرهت', translator: 'مهدی پورمحمد', originalPubDate: '۱۳۶۸', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
             { id: 33, title: 'کتاب سال شیدا ۱', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
             { id: 34, title: 'کتاب سال شیدا ۲', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
             { id: 35, title: 'کتاب سال شیدا ۵', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
@@ -430,7 +460,7 @@
             { id: 40, title: 'نوروز', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1385', genre: 'فلسفه دینی', nationality: 'ایران' },
             { id: 41, title: 'ضیافت', author: 'افلاطون', translator: 'محمدعلی فروغی', originalPubDate: '۳۸۵ ق.م', readYear: '1385', genre: 'فلسفه', nationality: 'یونان' },
             { id: 42, title: 'دست‌های آلوده', author: 'ژان پل سارتر', translator: 'جلال آل احمد', originalPubDate: '۱۳۲۷', readYear: '1385', genre: 'فلسفه', nationality: 'فرانسه' },
-            { id: 43, title: 'مقالات شمس', author: 'شمس تبریزی', translator: 'تصحیح موحد', originalPubDate: 'قرن ۷', readYear: '1385', genre: 'عرفان', nationality: 'ایران' },
+            { id: 43, title: 'مقالات شمس', author: 'شمس تبریزی', translator: 'تصحیح محمدعلی موحد', originalPubDate: 'قرن ۷', readYear: '1385', genre: 'عرفان', nationality: 'ایران' },
             { id: 44, title: 'تفسیر سوره نور', author: 'ملاصدرا', translator: 'محمد خواجوی', originalPubDate: 'قرن ۱۱', readYear: '1385', genre: 'فلسفه دینی', nationality: 'ایران' },
             { id: 45, title: 'شبگیر', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۲', readYear: '1385', genre: 'شعر', nationality: 'ایران' },
             { id: 46, title: 'زمین', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۴', readYear: '1385', genre: 'شعر', nationality: 'ایران' },
@@ -438,7 +468,7 @@
             { id: 48, title: 'کتاب سال شیدا ۷ و ۶', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', nationality: 'ایران' },
             { id: 49, title: 'کتاب سال شیدا ۱ و ۲', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', nationality: 'ایران' },
             { id: 50, title: 'آخرت و خدا، هدف بعثت انبیاء؟!', author: 'مهدی بازرگان', translator: 'تألیفی', originalPubDate: '۱۳۴۱', readYear: '1385', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 51, title: 'رباعیات خیام', author: 'عمر خیام', translator: 'تصحیح فروغی', originalPubDate: 'قرن ۵', readYear: '1385', genre: 'شعر', nationality: 'ایران' },
+            { id: 51, title: 'رباعیات خیام', author: 'عمر خیام', translator: 'تصحیح محمدعلی فروغی', originalPubDate: 'قرن ۵', readYear: '1385', genre: 'شعر', nationality: 'ایران' },
             { id: 52, title: 'قرآن', author: 'محمد', translator: 'الهی قمشه‌ای', originalPubDate: 'قرن ۱', readYear: '1385', genre: 'فلسفه دینی', nationality: 'عربستان' },
             { id: 53, title: 'گرگیاس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.m', readYear: '1384', genre: 'فلسفه', nationality: 'یونان' },
             { id: 54, title: 'خارمیدس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1384', genre: 'فلسفه', nationality: 'یونان' },
@@ -457,7 +487,7 @@
             { id: 67, title: 'لوسیس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1383', genre: 'فلسفه', nationality: 'یونان' },
             { id: 68, title: 'تهوع', author: 'ژان پل سارتر', translator: 'امیرجلال‌الدین اعلم', originalPubDate: '۱۳۱۷', readYear: '1383', genre: 'رمان فلسفی', nationality: 'فرانسه' },
             { id: 69, title: 'عرفان و منطق', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۲۹۷', readYear: '1383', genre: 'فلسفه', nationality: 'انگلیس' },
-            { id: 70, title: 'مثنوی معنوی', author: 'مولانا', translator: 'تصحیح نیکلسون', originalPubDate: 'قرن ۷', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
+            { id: 70, title: 'مثنوی معنوی', author: 'مولانا', translator: 'تصحیح رینولد نیکلسون', originalPubDate: 'قرن ۷', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
             { id: 71, title: 'عقل سرخ', author: 'سهروردی', translator: 'تصحیح هانری کربن', originalPubDate: 'قرن ۶', readYear: '1383', genre: 'فلسفه', nationality: 'ایران' },
             { id: 72, title: 'مسخ', author: 'فرانتس کافکا', translator: 'صادق هدایت', originalPubDate: '۱۲۹۴', readYear: '1383', genre: 'رمان فلسفی', nationality: 'اتریش' },
             { id: 73, title: 'استخوان خوک و دست‌های جذامی', author: 'مصطفی مستور', translator: 'تألیفی', originalPubDate: '۱۳۸۳', readYear: '1383', genre: 'رمان فلسفی', nationality: 'ایران' },
@@ -470,12 +500,12 @@
             { id: 79, title: 'زن در چشم و دل محمد', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1382', genre: 'فلسفه دینی', nationality: 'ایران' },
             { id: 80, title: 'آپولوژی', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1382', genre: 'فلسفه', nationality: 'یونان' },
             { id: 81, title: 'زندگینامه برتراند راسل', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۳۴۶', readYear: '1382', genre: 'فلسفه', nationality: 'انگلیس' },
-            { id: 82, title: 'دیوان حافظ', author: 'حافظ شیرازی', translator: 'تصحیح قزوینی', originalPubDate: 'قرن ۸', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
-            { id: 83, title: 'فیه ما فیه', author: 'مولانا', translator: 'تصحیح فروزانفر', originalPubDate: 'قرن ۷', readYear: '1382', genre: 'عرفان', nationality: 'ایران' },
-            { id: 84, title: 'کلیات شمس', author: 'مولانا', translator: 'تصحیح فروزانفر', originalPubDate: 'قرن ۷', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
+            { id: 82, title: 'دیوان حافظ', author: 'حافظ شیرازی', translator: 'تصحیح محمد قزوینی', originalPubDate: 'قرن ۸', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
+            { id: 83, title: 'فیه ما فیه', author: 'مولانا', translator: 'تصحیح بدیع‌الزمان فروزانفر', originalPubDate: 'قرن ۷', readYear: '1382', genre: 'عرفان', nationality: 'ایران' },
+            { id: 84, title: 'کلیات شمس', author: 'مولانا', translator: 'تصحیح بدیع‌الزمان فروزانفر', originalPubDate: 'قرن ۷', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
             { id: 85, title: 'خط سوم', author: 'ناصرالدین صاحب‌الزمانی', translator: 'تألیفی', originalPubDate: '۱۳۵۱', readYear: '1382', genre: 'عرفان', nationality: 'ایران' },
-            { id: 86, title: 'گلستان', author: 'سعدی', translator: 'تصحیح فروغی', originalPubDate: '۶۳۷', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
-            { id: 87, title: 'بوستان', author: 'سعدی', translator: 'تصحیح فروغی', originalPubDate: '۶۳۶', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
+            { id: 86, title: 'گلستان', author: 'سعدی', translator: 'تصحیح محمدعلی فروغی', originalPubDate: '۶۳۷', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
+            { id: 87, title: 'بوستان', author: 'سعدی', translator: 'تصحیح محمدعلی فروغی', originalPubDate: '۶۳۶', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
             { id: 88, title: 'مقدمه بر المشاعر', author: 'هانری کربن', translator: 'تألیفی', originalPubDate: '۱۳۴۳', readYear: '1382', genre: 'فلسفه', nationality: 'فرانسه' },
             { id: 89, title: 'هملت', author: 'ویلیام شکسپیر', translator: 'مسعود فرزاد', originalPubDate: '۱۲۸۰', readYear: '1382', genre: 'نمایشنامه', nationality: 'انگلیس' },
             { id: 90, title: 'زمستان', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۵', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
@@ -516,23 +546,24 @@
             { id: 125, title: 'کباب غاز', author: 'محمدعلی جمال‌زاده', translator: 'تألیفی', originalPubDate: '۱۳۰۰', readYear: '1375', genre: 'داستان کوتاه', nationality: 'ایران' }
         ];
 
+        // برنامه مطالعه به همراه بهترین مترجم‌های موجود در بازار کتاب
         const plannedBooksData = [
-            { title: 'شوهر حسود', author: 'فئودور داستایوفسکی' },
-            { title: 'زن صاحبخانه', author: 'فئودور داستایوفسکی' },
-            { title: 'ناشناس', author: 'فئودور داستایوفسکی' },
-            { title: 'همزاد', author: 'فئودور داستایوفسکی' },
-            { title: 'انسان و سمبول‌هایش', author: 'کارل گوستاو یونگ' },
-            { title: 'جمهوری', author: 'افلاطون' },
-            { title: 'تاراس بولبا', author: 'نیکلای گوگول' },
-            { title: 'نفوس مرده', author: 'نیکلای گوگول' },
-            { title: 'دختر سروان', author: 'الکساندر پوشکین' },
-            { title: 'جنگ و صلح', author: 'لئو تولستوی' },
-            { title: 'رستاخیز', author: 'لئو تولستوی' },
-            { title: 'دوئل', author: 'آنتون چخوف' },
-            { title: 'صد سال تنهایی', author: 'گابریل گارسیا مارکز' },
-            { title: 'خشم و هیاهو', author: 'ویلیام فاکنر' },
-            { title: 'اسطوره سیزیف', author: 'آلبر کامو' },
-            { title: 'کالیگولا', author: 'آلبر کامو' }
+            { title: 'شوهر حسود', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی / یلدا بیدختی‌نژاد', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { title: 'زن صاحبخانه', author: 'فئودور داستایوفسکی', translator: 'پرویز شهدی', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { title: 'ناشناس', author: 'فئودور داستایوفسکی', translator: 'حمیدرضا آتش‌برآب', genre: 'داستان', nationality: 'روسیه' },
+            { title: 'همزاد', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { title: 'انسان و سمبول‌هایش', author: 'کارل گوستاو یونگ', translator: 'محمود سلطانیه', genre: 'روان‌شناسی', nationality: 'سوئیس' },
+            { title: 'جمهوری', author: 'افلاطون', translator: 'محمدحسن لطفی', genre: 'فلسفه', nationality: 'یونان' },
+            { title: 'تاراس بولبا', author: 'نیکلای گوگول', translator: 'مجید مددی', genre: 'داستان تاریخی', nationality: 'روسیه' },
+            { title: 'نفوس مرده', author: 'نیکلای گوگول', translator: 'پرویز شهدی', genre: 'رمان', nationality: 'روسیه' },
+            { title: 'دختر سروان', author: 'الکساندر پوشکین', translator: 'پرویز شهدی', genre: 'رمان تاریخی', nationality: 'روسیه' },
+            { title: 'جنگ و صلح', author: 'لئو تولستوی', translator: 'سروش حبیبی', genre: 'رمان', nationality: 'روسیه' },
+            { title: 'رستاخیز', author: 'لئو تولستوی', translator: 'علی‌اصغر خبره‌زاده', genre: 'رمان', nationality: 'روسیه' },
+            { title: 'دوئل', author: 'آنتون چخوف', translator: 'آبتین گلکار', genre: 'رمان کوتاه', nationality: 'روسیه' },
+            { title: 'صد سال تنهایی', author: 'گابریل گارسیا مارکز', translator: 'بهمن فرزانه', genre: 'رئالیسم جادویی', nationality: 'کلمبیا' },
+            { title: 'خشم و هیاهو', author: 'ویلیام فاکنر', translator: 'صالح حسینی', genre: 'رمان', nationality: 'آمریکا' },
+            { title: 'اسطوره سیزیف', author: 'آلبر کامو', translator: 'مهستی بحرینی', genre: 'فلسفه', nationality: 'فرانسه' },
+            { title: 'کالیگولا', author: 'آلبر کامو', translator: 'ابوالحسن نجفی', genre: 'نمایشنامه', nationality: 'فرانسه' }
         ];
         
         const JALALI_MONTHS = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
@@ -555,7 +586,7 @@
                 console.error('Chart.js not loaded - rendering table only');
                 const chartSection = document.getElementById('charts-section');
                 if (chartSection) {
-                    chartSection.innerHTML = '<div class="p-4 bg-red-100 text-red-700 rounded-lg text-center font-bold">خطا در بارگذاری کتابخانه نمودارها (Chart.js). لطفاً اتصال اینترنت خود را بررسی کنید یا صفحه را رفرش کنید.<br>سایر بخش‌های داشبورد (جدول و لیست‌ها) در دسترس هستند.</div>';
+                    chartSection.innerHTML = '<div class="p-4 bg-red-100 text-red-700 rounded-lg text-center font-bold">خطا در بارگذاری کتابخانه نمودارها (Chart.js). لطفاً اتصال اینترنت خود را بررسی کنید یا صفحه را رفرش کنید.<br>سایر بخش‌های داشبورد در دسترس هستند.</div>';
                 }
             } else {
                 Chart.defaults.font.family = "'Vazirmatn', sans-serif";
@@ -610,23 +641,22 @@
         }
 
         function populatePlannedBooks(data) {
-            const container = document.getElementById('planned-books-container');
-            if (!container) return;
-            container.innerHTML = '';
+            const tableBody = document.getElementById('planned-books-table-body');
+            if (!tableBody) return;
+            tableBody.innerHTML = '';
             
             data.forEach((book, index) => {
-                const card = `
-                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100 flex items-center justify-between hover:border-teal-300 hover:shadow-md transition-all">
-                        <div class="flex-1">
-                            <h4 class="font-bold text-slate-800 text-sm md:text-base">${book.title}</h4>
-                            <p class="text-xs md:text-sm text-slate-500 mt-1">${book.author}</p>
-                        </div>
-                        <div class="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center text-teal-600 font-bold border border-teal-100 flex-shrink-0">
-                            ${index + 1}
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += card;
+                const rowNum = index + 1;
+                const tableRow = `
+                    <tr class="bg-white border-b hover:bg-teal-50 transition-colors">
+                        <td class="px-6 py-4 font-bold text-teal-600">${rowNum}</td>
+                        <td class="px-6 py-4 font-semibold text-slate-800">${book.title}</td>
+                        <td class="px-6 py-4">${book.author}</td>
+                        <td class="px-6 py-4 text-teal-700 font-medium">${book.translator}</td>
+                        <td class="px-6 py-4"><span class="bg-teal-100 text-teal-800 px-2 py-1 rounded-md text-xs">${book.genre}</span></td>
+                        <td class="px-6 py-4 text-slate-600">${book.nationality}</td>
+                    </tr>`;
+                tableBody.innerHTML += tableRow;
             });
         }
 
@@ -638,14 +668,14 @@
             data.forEach((book, index) => {
                 const rowNum = totalBooks - index; 
                 const tableRow = `
-                    <tr class="bg-white border-b hover:bg-slate-50">
-                        <td class="px-6 py-4 font-medium text-slate-900">${rowNum}</td>
-                        <td class="px-6 py-4 font-semibold">${book.title}</td>
+                    <tr class="bg-white border-b hover:bg-slate-50 transition-colors">
+                        <td class="px-6 py-4 font-bold text-teal-600">${rowNum}</td>
+                        <td class="px-6 py-4 font-semibold text-slate-800">${book.title}</td>
                         <td class="px-6 py-4">${book.author}</td>
                         <td class="px-6 py-4">${book.translator || '---'}</td>
                         <td class="px-6 py-4">${book.originalPubDate}</td>
-                        <td class="px-6 py-4">${book.readYear}</td>
-                        <td class="px-6 py-4">${book.genre}</td>
+                        <td class="px-6 py-4 font-medium text-slate-700">${book.readYear}</td>
+                        <td class="px-6 py-4"><span class="bg-slate-100 text-slate-600 px-2 py-1 rounded-md text-xs">${book.genre}</span></td>
                         <td class="px-6 py-4">${book.nationality}</td>
                     </tr>`;
                 tableBody.innerHTML += tableRow;
@@ -709,7 +739,7 @@
                         books.sort((a, b) => b.full.localeCompare(a.full));
                         
                         let monthBooksHTML = books.map(book => {
-                            const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی', '---'].includes(book.translator)) ? ` - ${book.translator}` : '';
+                            const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی', 'تصحیح محمدعلی فروغی', 'تصحیح بدیع‌الزمان فروزانفر', 'تصحیح محمد قزوینی', '---'].includes(book.translator)) ? ` - ${book.translator}` : '';
                             return `<li class="text-slate-700 text-right"><strong>${book.title}</strong> - ${book.author}${translatorText} <span class="text-xs text-slate-500">(${book.readYear})</span></li>`;
                         }).join('');
 
@@ -728,7 +758,7 @@
                     books.sort((a, b) => b.full.localeCompare(a.full));
                     
                     let yearBooksHTML = books.map(book => {
-                        const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی', '---'].includes(book.translator)) ? ` - ${book.translator}` : '';
+                        const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی', 'تصحیح محمدعلی فروغی', 'تصحیح بدیع‌الزمان فروزانفر', 'تصحیح محمد قزوینی', '---'].includes(book.translator)) ? ` - ${book.translator}` : '';
                         return `<li class="text-slate-700 text-right"><strong>${book.title}</strong> - ${book.author}${translatorText} <span class="text-xs text-slate-500">(${book.readYear})</span></li>`;
                     }).join('');
 
@@ -797,7 +827,7 @@
                     const rowNum = idx + 1;
                     const book = group.book;
                     const dates = group.readYears.sort((a,b) => a.localeCompare(b)).join(' - '); 
-                    const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی'].includes(book.translator)) ? ` - ${book.translator}` : '';
+                    const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی', 'تصحیح محمدعلی فروغی', 'تصحیح بدیع‌الزمان فروزانفر', 'تصحیح محمد قزوینی'].includes(book.translator)) ? ` - ${book.translator}` : '';
                     const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
 
                     return `<li class="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right flex items-start">
@@ -868,7 +898,7 @@
                     const rowNum = idx + 1;
                     const book = group.book;
                     const dates = group.readYears.sort((a,b) => a.localeCompare(b)).join(' - '); 
-                    const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی'].includes(book.translator)) ? ` - ${book.translator}` : '';
+                    const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی', 'تصحیح محمدعلی فروغی', 'تصحیح بدیع‌الزمان فروزانفر', 'تصحیح محمد قزوینی'].includes(book.translator)) ? ` - ${book.translator}` : '';
                     const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
 
                     return `<li class="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right flex items-start">
@@ -917,7 +947,6 @@
                 });
             });
         }
-
 
         function createCharts(data) {
             const chartColors = ['#14b8a6', '#f59e0b', '#3b82f6', '#ef4444', '#8b5cf6', '#ec4899', '#64748b', '#0891b2', '#f97316' ];
@@ -1006,14 +1035,14 @@
                 });
             }
 
-            const articlesByYear = data.reduce((acc, book) => {
+            const booksByYear = data.reduce((acc, book) => {
                 const year = book.year;
                 if (year !== 'نامشخص') {
                     acc[year] = (acc[year] || 0) + 1;
                 }
                 return acc;
             }, {});
-            const sortedYears = Object.entries(articlesByYear).sort(([a], [b]) => a.localeCompare(b));
+            const sortedYearsChart = Object.entries(booksByYear).sort(([a], [b]) => a.localeCompare(b));
 
             const yearlyCtxEl = document.getElementById('yearlyProductionChart');
             if (yearlyCtxEl) {
@@ -1021,10 +1050,10 @@
                 new Chart(yearlyCtx, {
                     type: 'line',
                     data: {
-                        labels: sortedYears.map(([key]) => key),
+                        labels: sortedYearsChart.map(([key]) => key),
                         datasets: [{
                             label: 'تعداد کتاب‌ها',
-                            data: sortedYears.map(([, val]) => val),
+                            data: sortedYearsChart.map(([, val]) => val),
                             borderColor: chartColors[2],
                             backgroundColor: 'rgba(59, 130, 246, 0.1)',
                             fill: true,
