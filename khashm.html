@@ -63,206 +63,184 @@
         }
 
         /* استایل اسکرول‌بار */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="p-4 md:p-8 lg:p-12">
+<body class="p-4 md:p-8 lg:p-12 overflow-x-hidden">
 
-    <div class="max-w-6xl mx-auto bg-white p-6 md:p-10 rounded-2xl shadow-xl border border-slate-100 animate-fade-in">
+    <div class="max-w-7xl mx-auto bg-white p-4 md:p-10 rounded-3xl shadow-2xl border border-slate-100 animate-fade-in">
         
-        <header class="text-center mb-16 relative">
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-30 -z-10"></div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">شجره‌نامه شخصیت‌های «خشم و هیاهو»</h1>
-            <p class="text-lg text-slate-500 max-w-2xl mx-auto">نگاهی جامع به ساختار پیچیده خانواده‌های کامپسون و گیبسون در شاهکار ویلیام فاکنر</p>
-            <div class="w-24 h-1 bg-blue-500 mx-auto mt-6 rounded-full"></div>
+        <header class="text-center mb-12 md:mb-16 relative">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 md:w-64 h-48 md:h-64 bg-blue-50 rounded-full blur-3xl opacity-50 -z-10"></div>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">شجره‌نامه «خشم و هیاهو»</h1>
+            <p class="text-sm md:text-lg text-slate-500 max-w-2xl mx-auto px-4">نمای یکپارچه و مدرن از خانواده‌های کامپسون و گیبسون</p>
+            <div class="w-16 md:w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto mt-6 rounded-full"></div>
         </header>
 
-        <section class="mb-24 overflow-x-auto pb-8">
-            <h2 class="text-3xl font-bold text-slate-800 mb-12 flex items-center gap-3 animate-fade-in-up">
-                <span class="bg-blue-100 text-blue-700 p-2 rounded-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg></span>
-                ۱. خانواده اشرافی کامپسون (The Compsons)
+        <section class="mb-20 pb-4">
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-12 flex items-center justify-center md:justify-start gap-3 animate-fade-in-up">
+                <span class="bg-blue-100 text-blue-700 p-2 rounded-xl shadow-sm"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg></span>
+                ۱. خانواده اشرافی کامپسون
             </h2>
             
-            <div class="flex flex-col items-center min-w-[900px] animate-fade-in-up delay-100">
-                <!-- نسل اول: دامادی -->
-                <div class="character-card bg-slate-50 border border-slate-200 shadow-md rounded-xl p-4 text-center w-64 z-10 relative">
-                    <span class="absolute -top-3 right-1/2 transform translate-x-1/2 bg-slate-700 text-white text-[10px] px-3 py-1 rounded-full whitespace-nowrap">نسل اول</span>
+            <div class="flex flex-col items-center w-full animate-fade-in-up delay-100">
+                <!-- نسل اول -->
+                <div class="character-card bg-slate-50 border border-slate-200 shadow-md rounded-2xl p-5 text-center w-64 z-10 relative ring-4 ring-white">
+                    <span class="absolute -top-3 right-1/2 transform translate-x-1/2 bg-slate-800 text-white text-[10px] px-4 py-1 rounded-full whitespace-nowrap shadow-sm">نسل اول</span>
                     <h3 class="font-bold text-slate-800 mt-2 text-lg">مادربزرگ (دامادی)</h3>
-                    <p class="text-sm text-slate-500 mt-1">مرگ در ۱۸۹۸ (نقطه عطف کودکی)</p>
+                    <p class="text-sm text-slate-500 mt-1">مرگ در ۱۸۹۸</p>
                 </div>
 
-                <div class="tree-line h-10 w-0.5 bg-slate-300"></div>
+                <div class="w-1 h-8 md:h-12 bg-gradient-to-b from-slate-200 to-slate-400 rounded-full my-2"></div>
 
-                <!-- نسل دوم: جیسون سوم، کارولین، موری -->
-                <div class="w-full max-w-4xl tree-border relative border-slate-300">
-                    <div class="absolute top-0 left-[16%] w-0.5 h-10 bg-slate-300"></div>
-                    <div class="absolute top-0 left-[50%] w-0.5 h-10 bg-slate-300"></div>
-                    <div class="absolute top-0 right-[16%] w-0.5 h-10 bg-slate-300"></div>
+                <!-- نسل دوم -->
+                <div class="w-full max-w-5xl">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative px-4 md:px-0">
+                        <div class="hidden md:block absolute top-0 left-[16%] right-[16%] h-1 bg-slate-300 rounded-full -mt-4"></div>
+                        <div class="hidden md:block absolute top-0 left-[16%] w-1 h-4 bg-slate-300 -mt-4"></div>
+                        <div class="hidden md:block absolute top-0 left-[50%] w-1 h-4 bg-slate-300 -mt-4"></div>
+                        <div class="hidden md:block absolute top-0 right-[16%] w-1 h-4 bg-slate-300 -mt-4"></div>
 
-                    <div class="flex justify-between pt-10 gap-6 px-4">
                         <!-- جیسون سوم -->
-                        <div class="character-card bg-white border border-blue-100 shadow-md rounded-xl p-5 text-center w-1/3 relative">
-                            <span class="text-xs text-blue-600 font-bold bg-blue-50 px-2 py-1 rounded-md">پدر خانواده</span>
-                            <h3 class="font-bold text-slate-800 mt-2 text-lg">جیسون کامپسون سوم</h3>
-                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">وکیل کلبی‌مسلک، الکلی و نیهیلیست. القا کننده نگاه پوچ به فرزندان.</p>
+                        <div class="character-card bg-white border border-blue-100 shadow-lg hover:shadow-xl rounded-2xl p-6 text-center relative flex flex-col justify-center items-center">
+                            <span class="text-xs text-blue-700 font-extrabold bg-blue-100 px-3 py-1 rounded-lg mb-3">پدر خانواده</span>
+                            <h3 class="font-bold text-slate-800 text-xl">جیسون کامپسون سوم</h3>
+                            <p class="text-sm text-slate-600 mt-3 leading-relaxed">وکیل کلبی‌مسلک، الکلی و نیهیلیست.</p>
                         </div>
                         <!-- کارولین -->
-                        <div class="character-card bg-white border border-rose-100 shadow-md rounded-xl p-5 text-center w-1/3 relative">
-                            <span class="text-xs text-rose-600 font-bold bg-rose-50 px-2 py-1 rounded-md">مادر خانواده</span>
-                            <h3 class="font-bold text-slate-800 mt-2 text-lg">کارولین بسکام</h3>
-                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">خودبیمارانگار، مغرور به اصالت خانواده بسکام، فاقد مهر مادری.</p>
+                        <div class="character-card bg-white border border-rose-100 shadow-lg hover:shadow-xl rounded-2xl p-6 text-center relative flex flex-col justify-center items-center">
+                            <span class="text-xs text-rose-700 font-extrabold bg-rose-100 px-3 py-1 rounded-lg mb-3">مادر خانواده</span>
+                            <h3 class="font-bold text-slate-800 text-xl">کارولین بسکام</h3>
+                            <p class="text-sm text-slate-600 mt-3 leading-relaxed">خودبیمارانگار و فاقد مهر مادری.</p>
                         </div>
                         <!-- موری -->
-                        <div class="character-card bg-white border border-amber-100 shadow-md rounded-xl p-5 text-center w-1/3 relative">
-                            <span class="text-xs text-amber-600 font-bold bg-amber-50 px-2 py-1 rounded-md">برادر کارولین</span>
-                            <h3 class="font-bold text-slate-800 mt-2 text-lg">موری بسکام</h3>
-                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">مفت‌خور، بی‌مسئولیت و زنباره. نام اولیه بنجی از او گرفته شده بود.</p>
+                        <div class="character-card bg-white border border-amber-100 shadow-lg hover:shadow-xl rounded-2xl p-6 text-center relative flex flex-col justify-center items-center">
+                            <span class="text-xs text-amber-700 font-extrabold bg-amber-100 px-3 py-1 rounded-lg mb-3">برادر کارولین</span>
+                            <h3 class="font-bold text-slate-800 text-xl">موری بسکام</h3>
+                            <p class="text-sm text-slate-600 mt-3 leading-relaxed">بی‌مسئولیت. نام اولیه بنجی از او بود.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="tree-line h-10 w-0.5 bg-slate-300"></div>
+                <div class="w-1 h-8 md:h-12 bg-gradient-to-b from-slate-200 to-slate-400 rounded-full my-2"></div>
 
                 <!-- نسل سوم: فرزندان -->
-                <div class="w-full tree-border relative border-slate-300">
-                    <div class="absolute top-0 left-[12.5%] w-0.5 h-10 bg-slate-300"></div>
-                    <div class="absolute top-0 left-[37.5%] w-0.5 h-10 bg-slate-300"></div>
-                    <div class="absolute top-0 right-[37.5%] w-0.5 h-10 bg-slate-300"></div>
-                    <div class="absolute top-0 right-[12.5%] w-0.5 h-10 bg-slate-300"></div>
+                <div class="w-full max-w-6xl">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative px-4 md:px-0">
+                        <div class="hidden lg:block absolute top-0 left-[12%] right-[12%] h-1 bg-slate-300 rounded-full -mt-4"></div>
+                        <div class="hidden lg:block absolute top-0 left-[12%] w-1 h-4 bg-slate-300 -mt-4"></div>
+                        <div class="hidden lg:block absolute top-0 left-[37.5%] w-1 h-4 bg-slate-300 -mt-4"></div>
+                        <div class="hidden lg:block absolute top-0 right-[37.5%] w-1 h-4 bg-slate-300 -mt-4"></div>
+                        <div class="hidden lg:block absolute top-0 right-[12%] w-1 h-4 bg-slate-300 -mt-4"></div>
 
-                    <div class="grid grid-cols-4 gap-4 pt-10">
                         <!-- کوانتین -->
-                        <div class="character-card bg-gradient-to-b from-indigo-50 to-white border-t-4 border-indigo-500 rounded-xl p-5 text-center shadow-lg relative">
-                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 text-[10px] bg-indigo-500 text-white px-3 py-1 rounded-full whitespace-nowrap shadow-sm">فرزند اول</span>
-                            <h3 class="font-bold text-slate-800 mt-2 text-lg">کوانتین کامپسون</h3>
-                            <p class="text-xs text-slate-600 mt-3 leading-relaxed text-justify">روان‌رنجور، درگیر وسواس شرافت و بکارت خواهرش. ناتوان در تطبیق با زمان حال. (خودکشی در ۱۹۱۰)</p>
+                        <div class="character-card bg-gradient-to-b from-indigo-50 to-white border border-indigo-100 border-t-4 border-t-indigo-500 rounded-2xl p-6 text-center shadow-lg relative flex flex-col">
+                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 text-[10px] bg-indigo-500 text-white px-3 py-1 rounded-full shadow-sm">فرزند اول</span>
+                            <h3 class="font-bold text-slate-800 mt-3 text-lg">کوانتین کامپسون</h3>
+                            <p class="text-sm text-slate-600 mt-3 leading-relaxed flex-grow">روان‌رنجور، درگیر وسواس شرافت. (خودکشی ۱۹۱۰)</p>
                         </div>
 
                         <!-- کدی -->
-                        <div class="character-card bg-gradient-to-b from-rose-50 to-white border-t-4 border-rose-500 rounded-xl p-5 text-center shadow-lg relative">
-                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 text-[10px] bg-rose-500 text-white px-3 py-1 rounded-full whitespace-nowrap shadow-sm">فرزند دوم (تنها دختر)</span>
-                            <h3 class="font-bold text-slate-800 mt-2 text-lg">کدی (کندیس)</h3>
-                            <p class="text-xs text-slate-600 mt-3 leading-relaxed text-justify">محور عاطفی داستان. عصیانگر، طردشده از خانواده پس از بارداری نامشروع.</p>
+                        <div class="character-card bg-gradient-to-b from-rose-50 to-white border border-rose-100 border-t-4 border-t-rose-500 rounded-2xl p-6 text-center shadow-lg relative flex flex-col">
+                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 text-[10px] bg-rose-500 text-white px-3 py-1 rounded-full shadow-sm">تنها دختر</span>
+                            <h3 class="font-bold text-slate-800 mt-3 text-lg">کدی (کندیس)</h3>
+                            <p class="text-sm text-slate-600 mt-3 leading-relaxed flex-grow">عصیانگر، طردشده از خانواده.</p>
                             
-                            <!-- ارتباطات کدی (دالتون و سیدنی) -->
-                            <div class="absolute top-1/2 -right-[15%] transform -translate-y-1/2 flex items-center hidden lg:flex">
-                                <div class="w-6 h-px bg-rose-300 border-dashed border-t"></div>
-                                <div class="text-[9px] bg-white border border-rose-200 text-rose-700 p-1 rounded w-20 shadow-sm">
-                                    <strong>دالتون ایمز</strong> (عاشق)<br>
-                                    <strong>سیدنی هد</strong> (همسر)
-                                </div>
-                            </div>
-
                             <!-- دختر کدی -->
-                            <div class="absolute -bottom-32 left-1/2 transform -translate-x-1/2 w-48">
-                                <div class="w-0.5 h-10 bg-slate-300 mx-auto"></div>
-                                <div class="character-card bg-white border-2 border-rose-200 rounded-xl p-3 text-center shadow-md relative z-10">
-                                    <span class="text-[10px] bg-rose-100 text-rose-600 px-2 py-0.5 rounded-full font-bold">نسل چهارم</span>
-                                    <h4 class="font-bold text-md text-slate-800 mt-2">کوانتین (کوچک)</h4>
-                                    <p class="text-[10px] text-slate-500 mt-1">دختر نامشروع کدی. فراری از خانه با پول‌های جیسون.</p>
+                            <div class="mt-4 pt-4 border-t border-rose-200">
+                                <div class="bg-white border border-rose-200 rounded-xl p-3 shadow-sm text-center">
+                                    <span class="text-[10px] bg-rose-100 text-rose-700 px-2 py-0.5 rounded-md font-bold mb-1 inline-block">نسل چهارم</span>
+                                    <h4 class="font-bold text-sm text-slate-800">کوانتین (کوچک)</h4>
                                 </div>
                             </div>
                         </div>
 
                         <!-- جیسون چهارم -->
-                        <div class="character-card bg-gradient-to-b from-amber-50 to-white border-t-4 border-amber-500 rounded-xl p-5 text-center shadow-lg relative">
-                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 text-[10px] bg-amber-500 text-white px-3 py-1 rounded-full whitespace-nowrap shadow-sm">فرزند سوم</span>
-                            <h3 class="font-bold text-slate-800 mt-2 text-lg">جیسون چهارم</h3>
-                            <p class="text-xs text-slate-600 mt-3 leading-relaxed text-justify">کاسب‌کار، بی‌رحم، کینه‌توز و منطقی به خشن‌ترین شکل. سرپرست خانواده در بخش آخر کتاب.</p>
+                        <div class="character-card bg-gradient-to-b from-amber-50 to-white border border-amber-100 border-t-4 border-t-amber-500 rounded-2xl p-6 text-center shadow-lg relative flex flex-col">
+                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 text-[10px] bg-amber-500 text-white px-3 py-1 rounded-full shadow-sm">فرزند سوم</span>
+                            <h3 class="font-bold text-slate-800 mt-3 text-lg">جیسون چهارم</h3>
+                            <p class="text-sm text-slate-600 mt-3 leading-relaxed flex-grow">کاسب‌کار، بی‌رحم، کینه‌توز و منطقی.</p>
                         </div>
 
                         <!-- بنجی -->
-                        <div class="character-card bg-gradient-to-b from-cyan-50 to-white border-t-4 border-cyan-500 rounded-xl p-5 text-center shadow-lg relative">
-                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 text-[10px] bg-cyan-500 text-white px-3 py-1 rounded-full whitespace-nowrap shadow-sm">فرزند چهارم</span>
-                            <h3 class="font-bold text-slate-800 mt-2 text-lg">بنجی (بنجامین)</h3>
-                            <p class="text-xs text-slate-600 mt-3 leading-relaxed text-justify">معلول ذهنی ۳۳ ساله (نام اولیه: موری). زمان برایش خطی نیست و گذشته و حال را با هم می‌بیند.</p>
+                        <div class="character-card bg-gradient-to-b from-cyan-50 to-white border border-cyan-100 border-t-4 border-t-cyan-500 rounded-2xl p-6 text-center shadow-lg relative flex flex-col">
+                            <span class="absolute -top-3 right-1/2 transform translate-x-1/2 text-[10px] bg-cyan-500 text-white px-3 py-1 rounded-full shadow-sm">فرزند چهارم</span>
+                            <h3 class="font-bold text-slate-800 mt-3 text-lg">بنجی (بنجامین)</h3>
+                            <p class="text-sm text-slate-600 mt-3 leading-relaxed flex-grow">معلول ذهنی ۳۳ ساله. زمان برایش خطی نیست.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="h-16"></div>
+        <div class="w-full h-px bg-slate-200 my-12"></div>
 
-        <section class="mb-16 overflow-x-auto pb-8 animate-fade-in-up delay-200">
-            <h2 class="text-3xl font-bold text-slate-800 mb-12 flex items-center gap-3">
-                <span class="bg-emerald-100 text-emerald-700 p-2 rounded-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></span>
+        <section class="mb-20 pb-4 animate-fade-in-up delay-200">
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-12 flex items-center justify-center md:justify-start gap-3">
+                <span class="bg-emerald-100 text-emerald-700 p-2 rounded-xl shadow-sm"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></span>
                 ۲. خانواده گیبسون (خدمتکاران)
             </h2>
             
-            <div class="flex flex-col items-center min-w-[800px]">
+            <div class="flex flex-col items-center w-full">
                 <!-- پدر و مادر گیبسون -->
-                <div class="flex gap-8 z-10 relative">
-                    <div class="character-card bg-emerald-50 border border-emerald-200 shadow-md rounded-xl p-5 text-center w-64">
-                        <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md font-bold">ستون اخلاقی خانه</span>
-                        <h3 class="font-bold text-slate-800 text-xl mt-3">دیلسی گیبسون</h3>
-                        <p class="text-xs text-slate-600 mt-2">تنها شخصیتی که با عشق و فداکاری خانواده را کنار هم نگه می‌دارد.</p>
+                <div class="flex flex-col md:flex-row gap-6 md:gap-12 z-10 relative px-4 md:px-0 w-full md:w-auto justify-center">
+                    <div class="character-card bg-emerald-50 border border-emerald-200 shadow-lg rounded-2xl p-6 text-center md:w-72 relative">
+                        <span class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1 rounded-lg font-bold mb-2 inline-block">ستون اخلاقی خانه</span>
+                        <h3 class="font-bold text-slate-800 text-xl">دیلسی گیبسون</h3>
+                        <p class="text-sm text-slate-600 mt-2">تنها فداکاری که خانواده را نگه می‌دارد.</p>
                     </div>
                     
-                    <!-- خط اتصال ازدواج -->
-                    <div class="absolute top-1/2 left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-8 h-0.5 bg-emerald-300"></div>
-                    <div class="absolute top-1/2 left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-emerald-400 rounded-full"></div>
+                    <div class="hidden md:block absolute top-1/2 left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-12 h-1 bg-emerald-200 rounded-full"></div>
 
-                    <div class="character-card bg-slate-50 border border-slate-200 shadow-md rounded-xl p-5 text-center w-48">
-                        <span class="text-xs text-slate-500 font-bold block mb-1">همسر دیلسی</span>
-                        <h3 class="font-bold text-slate-800 text-lg">روسکوس</h3>
-                        <p class="text-xs text-slate-500 mt-2">مبتلا به روماتیسم، باور به نفرین شدن خانواده کامپسون.</p>
+                    <div class="character-card bg-slate-50 border border-slate-200 shadow-lg rounded-2xl p-6 text-center md:w-64">
+                        <span class="text-xs text-slate-500 font-bold bg-slate-200 px-3 py-1 rounded-lg mb-2 inline-block">همسر دیلسی</span>
+                        <h3 class="font-bold text-slate-800 text-xl">روسکوس</h3>
+                        <p class="text-sm text-slate-500 mt-2">باور به نفرین شدن خانواده.</p>
                     </div>
                 </div>
 
-                <div class="tree-line h-10 w-0.5 bg-slate-300"></div>
+                <div class="w-1 h-8 md:h-12 bg-gradient-to-b from-slate-200 to-slate-400 rounded-full my-2"></div>
 
-                <div class="w-full max-w-4xl tree-border relative border-slate-300">
-                    <div class="absolute top-0 left-[16.6%] w-0.5 h-10 bg-slate-300"></div>
-                    <div class="absolute top-0 left-[50%] w-0.5 h-10 bg-slate-300"></div>
-                    <div class="absolute top-0 right-[16.6%] w-0.5 h-10 bg-slate-300"></div>
+                <div class="w-full max-w-4xl relative">
+                    <div class="hidden md:block absolute top-0 left-[16.6%] right-[16.6%] h-1 bg-slate-300 rounded-full -mt-4"></div>
+                    <div class="hidden md:block absolute top-0 left-[16.6%] w-1 h-4 bg-slate-300 -mt-4"></div>
+                    <div class="hidden md:block absolute top-0 left-[50%] w-1 h-4 bg-slate-300 -mt-4"></div>
+                    <div class="hidden md:block absolute top-0 right-[16.6%] w-1 h-4 bg-slate-300 -mt-4"></div>
 
-                    <div class="grid grid-cols-3 gap-6 pt-10 px-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0">
                         <!-- ورش -->
-                        <div class="character-card bg-white border border-slate-200 rounded-xl p-5 text-center shadow-sm">
-                            <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded-full font-bold mb-2 inline-block">پسر اول</span>
-                            <h3 class="font-bold text-slate-800 text-lg">ورش (Versh)</h3>
-                            <div class="mt-4 pt-3 border-t border-slate-100 text-right">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
-                                    <span class="text-xs text-emerald-700 font-bold">مراقب بنجی در:</span>
-                                </div>
-                                <p class="text-xs text-slate-600 pr-4">کودکی بنجی (حول و حوش ۱۸۹۸)</p>
+                        <div class="character-card bg-white border border-slate-200 rounded-2xl p-6 text-center shadow-md hover:shadow-lg">
+                            <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-lg font-bold mb-3 inline-block">پسر اول</span>
+                            <h3 class="font-bold text-slate-800 text-xl">ورش (Versh)</h3>
+                            <div class="mt-4 pt-4 border-t border-slate-100 bg-slate-50 rounded-xl p-3">
+                                <span class="text-xs text-emerald-700 font-bold block mb-1">مراقب بنجی در:</span>
+                                <p class="text-sm text-slate-600 font-medium">کودکی (۱۸۹۸)</p>
                             </div>
                         </div>
 
                         <!-- تی. پی. -->
-                        <div class="character-card bg-white border border-slate-200 rounded-xl p-5 text-center shadow-sm">
-                            <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded-full font-bold mb-2 inline-block">پسر دوم</span>
-                            <h3 class="font-bold text-slate-800 text-lg">تی. پی. (T.P.)</h3>
-                            <div class="mt-4 pt-3 border-t border-slate-100 text-right">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
-                                    <span class="text-xs text-emerald-700 font-bold">مراقب بنجی در:</span>
-                                </div>
-                                <p class="text-xs text-slate-600 pr-4">نوجوانی بنجی و عروسی کدی (۱۹۱۰)</p>
+                        <div class="character-card bg-white border border-slate-200 rounded-2xl p-6 text-center shadow-md hover:shadow-lg">
+                            <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-lg font-bold mb-3 inline-block">پسر دوم</span>
+                            <h3 class="font-bold text-slate-800 text-xl">تی. پی. (T.P.)</h3>
+                            <div class="mt-4 pt-4 border-t border-slate-100 bg-slate-50 rounded-xl p-3">
+                                <span class="text-xs text-emerald-700 font-bold block mb-1">مراقب بنجی در:</span>
+                                <p class="text-sm text-slate-600 font-medium">نوجوانی (۱۹۱۰)</p>
                             </div>
                         </div>
 
                         <!-- فرونی و لاستر -->
-                        <div class="character-card bg-white border border-slate-200 rounded-xl p-5 text-center shadow-sm relative">
-                            <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded-full font-bold mb-2 inline-block">دختر خانواده</span>
-                            <h3 class="font-bold text-slate-800 text-lg">فرونی (Frony)</h3>
+                        <div class="character-card bg-white border border-slate-200 rounded-2xl p-6 text-center shadow-md hover:shadow-lg relative">
+                            <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-lg font-bold mb-3 inline-block">دختر خانواده</span>
+                            <h3 class="font-bold text-slate-800 text-xl">فرونی (Frony)</h3>
                             
-                            <div class="w-0.5 h-6 bg-slate-300 mx-auto my-2"></div>
-                            
-                            <div class="bg-slate-50 border border-emerald-100 rounded-lg p-3">
-                                <span class="text-[10px] text-emerald-600 font-bold">پسر فرونی (نوه دیلسی)</span>
-                                <h4 class="font-bold text-slate-800 text-md mt-1">لاستر (Luster)</h4>
-                                <div class="mt-2 text-right">
-                                    <div class="flex items-center gap-1">
-                                        <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
-                                        <span class="text-[10px] text-emerald-700 font-bold">مراقب بنجی در:</span>
-                                    </div>
-                                    <p class="text-[10px] text-slate-600 pr-3 mt-1">زمان حال رمان (۱۹۲۸)</p>
+                            <div class="mt-4 pt-4 border-t border-slate-100">
+                                <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-3">
+                                    <span class="text-xs text-emerald-700 font-bold block mb-1">پسر فرونی (نوه):</span>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-2">لاستر (Luster)</h4>
+                                    <p class="text-xs text-slate-600">مراقب بنجی در زمان حال (۱۹۲۸)</p>
                                 </div>
                             </div>
                         </div>
@@ -271,108 +249,136 @@
             </div>
         </section>
 
-        <section class="mt-20 pt-10 border-t border-slate-200 animate-fade-in-up delay-300">
-            <h2 class="text-3xl font-bold text-slate-800 mb-8 flex items-center gap-3">
-                <span class="bg-purple-100 text-purple-700 p-2 rounded-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span>
+        <section class="mt-16 pt-12 border-t border-slate-200 animate-fade-in-up delay-300">
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-8 md:mb-12 flex items-center justify-center md:justify-start gap-3">
+                <span class="bg-purple-100 text-purple-700 p-2 rounded-xl shadow-sm"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></span>
                 فرهنگ‌نامه جامع شخصیت‌ها
             </h2>
 
-            <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
-                <table class="w-full text-right text-sm text-slate-600">
-                    <thead class="text-xs text-slate-700 bg-slate-50 border-b border-slate-200">
-                        <tr>
-                            <th scope="col" class="px-6 py-4 font-bold text-base w-1/5">نام شخصیت</th>
-                            <th scope="col" class="px-6 py-4 font-bold text-base w-1/6">وابستگی / نقش</th>
-                            <th scope="col" class="px-6 py-4 font-bold text-base w-2/5">توضیحات کلیدی در رمان</th>
-                            <th scope="col" class="px-6 py-4 font-bold text-base">ویژگی بارز</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-200 bg-white">
-                        
-                        <!-- کامپسون‌ها -->
-                        <tr class="hover:bg-indigo-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">کوانتین کامپسون</td>
-                            <td class="px-6 py-4"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">خانواده کامپسون</span></td>
-                            <td class="px-6 py-4 leading-relaxed">پسر ارشد. راوی بخش دوم کتاب (۱۹۱۰). دانشجوی هاروارد. به شدت درگیر مفهوم انتزاعی شرافت جنوب و بکارت خواهرش کدی است.</td>
-                            <td class="px-6 py-4 text-xs">وسواس ذهنی، خودکشی</td>
-                        </tr>
-                        <tr class="hover:bg-rose-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">کدی (کندیس) کامپسون</td>
-                            <td class="px-6 py-4"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">خانواده کامپسون</span></td>
-                            <td class="px-6 py-4 leading-relaxed">تنها دختر خانواده. راوی هیچ بخشی نیست اما قلب تپنده داستان است. بوی درختان سیب می‌دهد. تنها کسی که به بنجی محبت می‌کند.</td>
-                            <td class="px-6 py-4 text-xs">عصیان، عشق خواهرانه</td>
-                        </tr>
-                        <tr class="hover:bg-amber-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">جیسون کامپسون (چهارم)</td>
-                            <td class="px-6 py-4"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">خانواده کامپسون</span></td>
-                            <td class="px-6 py-4 leading-relaxed">راوی بخش سوم (۱۹۲۸). فردی مادی‌گرا، تلخ و بی‌رحم. پول‌های خواهرزاده‌اش را می‌دزدد. نماینده زوال ارزش‌های قدیم جنوب به سمت سرمایه‌داری خشن.</td>
-                            <td class="px-6 py-4 text-xs">کینه، مادی‌گرایی</td>
-                        </tr>
-                        <tr class="hover:bg-cyan-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">بنجی (بنجامین) کامپسون</td>
-                            <td class="px-6 py-4"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">خانواده کامپسون</span></td>
-                            <td class="px-6 py-4 leading-relaxed">پسر کوچک، راوی بخش اول (۱۹۲۸). ذهنی معلول دارد. گذشته و حال را بدون ترتیب زمانی تجربه می‌کند.</td>
-                            <td class="px-6 py-4 text-xs">معصومیت، بی‌زمانی</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">دوشیزه کوانتین (کوچک)</td>
-                            <td class="px-6 py-4"><span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded">خانواده کامپسون</span></td>
-                            <td class="px-6 py-4 leading-relaxed">دختر نامشروع کدی. بزرگ شده در خانه کامپسون‌ها زیر دست جیسون و کارولین. در نهایت با پول‌های دزدی جیسون فرار می‌کند.</td>
-                            <td class="px-6 py-4 text-xs">عصیان نسل جدید</td>
-                        </tr>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- کارت کوانتین -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 group-hover:text-indigo-600 transition-colors">کوانتین کامپسون</h3>
+                        <span class="bg-indigo-50 text-indigo-700 text-xs px-3 py-1 rounded-lg font-bold">کامپسون‌ها</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed flex-grow">پسر ارشد. راوی بخش دوم (۱۹۱۰). دانشجوی هاروارد. درگیر مفهوم انتزاعی شرافت جنوب و بکارت خواهرش.</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                        <span class="text-xs text-slate-500">ویژگی: <strong class="text-slate-700">وسواس ذهنی، خودکشی</strong></span>
+                    </div>
+                </div>
 
-                        <!-- گیبسون‌ها -->
-                        <tr class="hover:bg-emerald-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">دیلسی گیبسون</td>
-                            <td class="px-6 py-4"><span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-1 rounded">خانواده گیبسون</span></td>
-                            <td class="px-6 py-4 leading-relaxed">خدمتکار سیاه‌پوست. تنها نقطه اتکا و نظم در خانه در حال فروپاشی کامپسون‌ها. بخش چهارم کتاب با محوریت اوست.</td>
-                            <td class="px-6 py-4 text-xs">استقامت، ایمان</td>
-                        </tr>
-                        <tr class="hover:bg-emerald-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">لاستر</td>
-                            <td class="px-6 py-4"><span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-1 rounded">خانواده گیبسون</span></td>
-                            <td class="px-6 py-4 leading-relaxed">نوه دیلسی. پسر جوانی که در زمان حال داستان (۱۹۲۸) وظیفه مراقبت از بنجی ۳۳ ساله را بر عهده دارد.</td>
-                            <td class="px-6 py-4 text-xs">شیطنت، مراقبت</td>
-                        </tr>
+                <!-- کارت کدی -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 group-hover:text-rose-600 transition-colors">کدی کامپسون</h3>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-3 py-1 rounded-lg font-bold">کامپسون‌ها</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed flex-grow">قلب تپنده داستان. بوی درختان سیب می‌دهد. تنها کسی که به بنجی محبت و توجه واقعی می‌کند.</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-rose-400"></div>
+                        <span class="text-xs text-slate-500">ویژگی: <strong class="text-slate-700">عصیان، عشق خواهرانه</strong></span>
+                    </div>
+                </div>
 
-                        <!-- سایر شخصیت‌ها -->
-                        <tr class="hover:bg-purple-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">شریو مک‌کنزی (Shreve)</td>
-                            <td class="px-6 py-4"><span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded">دوست / هم‌اتاقی</span></td>
-                            <td class="px-6 py-4 leading-relaxed">هم‌اتاقی کانادایی کوانتین در هاروارد. شنونده اصلی و عقل سلیم در برابر دیوانگی‌های کوانتین.</td>
-                            <td class="px-6 py-4 text-xs">منطق، بیگانگی با جنوب</td>
-                        </tr>
-                        <tr class="hover:bg-purple-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">دالتون ایمز (Dalton Ames)</td>
-                            <td class="px-6 py-4"><span class="bg-rose-100 text-rose-700 text-xs px-2 py-1 rounded">عاشق کدی</span></td>
-                            <td class="px-6 py-4 leading-relaxed">مردی که کدی با او رابطه دارد و احتمالاً پدر دوشیزه کوانتین است. کوانتین به شدت از او متنفر است.</td>
-                            <td class="px-6 py-4 text-xs">مردانگی فیزیکی</td>
-                        </tr>
-                        <tr class="hover:bg-purple-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">سیدنی هربرت هد</td>
-                            <td class="px-6 py-4"><span class="bg-rose-100 text-rose-700 text-xs px-2 py-1 rounded">همسر موقت کدی</span></td>
-                            <td class="px-6 py-4 leading-relaxed">بانکداری که کدی برای پنهان کردن بارداری‌اش با او ازدواج می‌کند. پس از فهمیدن ماجرا، کدی را طرد می‌کند.</td>
-                            <td class="px-6 py-4 text-xs">ریاکاری</td>
-                        </tr>
-                        <tr class="hover:bg-purple-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">ارل (Earl)</td>
-                            <td class="px-6 py-4"><span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">کارفرما</span></td>
-                            <td class="px-6 py-4 leading-relaxed">صاحب فروشگاهی که جیسون در آن کار می‌کند. با وجود اخلاق بد جیسون، او را تحمل می‌کند.</td>
-                            <td class="px-6 py-4 text-xs">مدارا</td>
-                        </tr>
-                        <tr class="hover:bg-purple-50 transition-colors duration-200">
-                            <td class="px-6 py-4 font-bold text-slate-800">کشیش شگوگ (Rev. Shegog)</td>
-                            <td class="px-6 py-4"><span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">روحانی مهمان</span></td>
-                            <td class="px-6 py-4 leading-relaxed">کشیش سیاه‌پوستی که در روز عید پاک خطبه‌ای بسیار تاثیرگذار می‌خواند که دیلسی را به گریه می‌اندازد.</td>
-                            <td class="px-6 py-4 text-xs">الهام‌بخشی روحانی</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- کارت جیسون -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 group-hover:text-amber-600 transition-colors">جیسون کامپسون</h3>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-3 py-1 rounded-lg font-bold">کامپسون‌ها</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed flex-grow">راوی بخش سوم (۱۹۲۸). مادی‌گرا و تلخ. نماینده زوال ارزش‌های قدیم جنوب به سمت سرمایه‌داری خشن.</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+                        <span class="text-xs text-slate-500">ویژگی: <strong class="text-slate-700">کینه، مادی‌گرایی خشن</strong></span>
+                    </div>
+                </div>
+
+                <!-- کارت بنجی -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 group-hover:text-cyan-600 transition-colors">بنجامین (بنجی)</h3>
+                        <span class="bg-cyan-50 text-cyan-700 text-xs px-3 py-1 rounded-lg font-bold">کامپسون‌ها</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed flex-grow">پسر کوچک، راوی بخش اول. ذهنی معلول دارد و گذشته و حال را بدون ترتیب زمانی تجربه می‌کند.</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+                        <span class="text-xs text-slate-500">ویژگی: <strong class="text-slate-700">معصومیت، بی‌زمانی</strong></span>
+                    </div>
+                </div>
+
+                <!-- کارت دیلسی -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 group-hover:text-emerald-600 transition-colors">دیلسی گیبسون</h3>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-3 py-1 rounded-lg font-bold">گیبسون‌ها</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed flex-grow">خدمتکار سیاه‌پوست. تنها نقطه اتکا و نظم در خانه در حال فروپاشی کامپسون‌ها.</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+                        <span class="text-xs text-slate-500">ویژگی: <strong class="text-slate-700">استقامت، ایمان، فداکاری</strong></span>
+                    </div>
+                </div>
+
+                <!-- کارت کوانتین کوچک -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 group-hover:text-rose-400 transition-colors">دوشیزه کوانتین</h3>
+                        <span class="bg-rose-50 text-rose-700 text-xs px-3 py-1 rounded-lg font-bold">نسل جدید</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed flex-grow">دختر نامشروع کدی. بزرگ شده در خانه‌ای پر از نفرت. در نهایت با پول‌های دزدی جیسون فرار می‌کند.</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-slate-400"></div>
+                        <span class="text-xs text-slate-500">ویژگی: <strong class="text-slate-700">عصیان و فرار</strong></span>
+                    </div>
+                </div>
+
+                <!-- کارت شریو -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 group-hover:text-purple-600 transition-colors">شریو مک‌کنزی</h3>
+                        <span class="bg-purple-50 text-purple-700 text-xs px-3 py-1 rounded-lg font-bold">دوست</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed flex-grow">هم‌اتاقی کانادایی کوانتین در هاروارد. شنونده منطقی و نماد عقل سلیم در برابر دیوانگی‌های او.</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-purple-400"></div>
+                        <span class="text-xs text-slate-500">ویژگی: <strong class="text-slate-700">منطق، بیگانگی با جنوب</strong></span>
+                    </div>
+                </div>
+
+                <!-- کارت دالتون -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 group-hover:text-gray-600 transition-colors">دالتون ایمز</h3>
+                        <span class="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-lg font-bold">سایر</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed flex-grow">مردی که کدی با او رابطه دارد و احتمالاً پدر دوشیزه کوانتین است. مورد نفرت شدید کوانتین.</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-gray-400"></div>
+                        <span class="text-xs text-slate-500">ویژگی: <strong class="text-slate-700">مردانگی فیزیکی</strong></span>
+                    </div>
+                </div>
+                
+                <!-- کارت کشیش شگوگ -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 group-hover:text-gray-600 transition-colors">کشیش شگوگ</h3>
+                        <span class="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-lg font-bold">سایر</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed flex-grow">کشیش سیاه‌پوستی که در روز عید پاک خطبه‌ای الهام‌بخش می‌خواند که دیلسی را عمیقاً تحت تاثیر قرار می‌دهد.</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-gray-400"></div>
+                        <span class="text-xs text-slate-500">ویژگی: <strong class="text-slate-700">الهام‌بخشی روحانی</strong></span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <footer class="mt-12 text-center text-sm text-slate-400 border-t border-slate-100 pt-6">
-            طراحی شده برای تحلیل و درک بهتر شاهکار ویلیام فاکنر
+        <footer class="mt-16 text-center text-sm text-slate-400 border-t border-slate-100 pt-8 pb-4">
+            طراحی مدرن و واکنش‌گرا - مناسب برای نمایش در تمامی دستگاه‌ها
         </footer>
     </div>
 
