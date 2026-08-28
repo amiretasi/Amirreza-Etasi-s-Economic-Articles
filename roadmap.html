@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -264,6 +265,28 @@
                </div>
         </div>
         
+        <section id="author-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+            <div id="author-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
+                <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس نویسنده</h2>
+                <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+            </div>
+            <div id="author-list-accordion-content" class="collapsible-content">
+                <div id="author-accordion-container" class="space-y-4 mt-8">
+                </div>
+            </div>
+        </section>
+        
+        <section id="genre-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+            <div id="genre-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
+                <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس ژانر</h2>
+                <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+            </div>
+            <div id="genre-list-accordion-content" class="collapsible-content">
+                <div id="genre-accordion-container" class="space-y-4 mt-8">
+                </div>
+            </div>
+        </section>
+        
         <section id="charts-section" class="space-y-8 mb-16">
             <div class="chart-container reveal-on-scroll">
                 <h3 class="text-lg font-semibold text-center mb-4">فراوانی کتاب‌ها (بر اساس مطالعه) بر اساس نویسنده</h3>
@@ -288,28 +311,6 @@
             </div>
         </section>
 
-        <section id="author-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
-            <div id="author-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
-                <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس نویسنده</h2>
-                <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
-            </div>
-            <div id="author-list-accordion-content" class="collapsible-content">
-                <div id="author-accordion-container" class="space-y-4 mt-8">
-                </div>
-            </div>
-        </section>
-        
-        <section id="genre-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
-            <div id="genre-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
-                <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس ژانر</h2>
-                <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
-            </div>
-            <div id="genre-list-accordion-content" class="collapsible-content">
-                <div id="genre-accordion-container" class="space-y-4 mt-8">
-                </div>
-            </div>
-        </section>
-
         <section id="timeline-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">خط زمانی مطالعه کتاب‌ها</h2>
             <div id="timeline-container" class="relative max-w-3xl mx-auto">
@@ -323,14 +324,15 @@
     </footer>
 
     <script>
-        // داده‌های کتاب‌های خوانده شده (شامل کتاب جدید)
+        // داده‌های کتاب‌های خوانده شده
         const booksData = [
+            { id: 221, title: 'جامعه باز و دشمنان آن', author: 'کارل پوپر', translator: 'عزت‌الله فولادوند', originalPubDate: '۱۹۴۵', readYear: '1405/06/06', genre: 'فلسفه سیاسی', nationality: 'اتریش' },
             { id: 220, title: 'جمهور', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۷۵ ق.م', readYear: '1405/05/22', genre: 'فلسفه سیاسی', nationality: 'یونان' },
             { id: 219, title: 'خشم و هیاهو', author: 'ویلیام فاکنر', translator: 'صالح حسینی', originalPubDate: '۱۹۲۹', readYear: '1405/05/18', genre: 'رمان', nationality: 'آمریکا' },
             { id: 218, title: 'بوبوک (بار دوم)', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۷۳', readYear: '1405/05/13', genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 217, title: 'قلب ضعیف (بار دوم)', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۴۸', readYear: '1405/05/13', genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 216, title: 'رمانی در نه نامه (بار دوم)', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۴۷', readYear: '1405/05/13', genre: 'داستان کوتاه', nationality: 'روسیه' },
-            { id: 215, title: 'رمانی در نه نامه (بار اول)', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۴۷', readYear: '1405/05/13', genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 215, title: 'رمانی در نه نامه', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۴۷', readYear: '1405/05/13', genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 214, title: 'شوهر حسود', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', originalPubDate: '۱۸۴۸', readYear: '1405/05/12', genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 213, title: 'ضمیر پنهان', author: 'کارل گوستاو یونگ', translator: 'ابوالقاسم اسماعیل‌پور', originalPubDate: '۱۹۵۷', readYear: '1405/05/10', genre: 'روان‌شناسی', nationality: 'سوئیس' },
             { id: 212, title: 'خشونت: پنج نگاه زیرچشمی', author: 'اسلاوی ژیژک', translator: 'علی معظمی', originalPubDate: '۲۰۰۸', readYear: '1405/05/05', genre: 'فلسفه سیاسی', nationality: 'اسلوونی' },
@@ -384,7 +386,7 @@
             { id: 164, title: 'پدر سرگی', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۹۱۱', readYear: '1404/11/17', genre: 'رمان', nationality: 'روسیه' },
             { id: 163, title: 'ارباب و بنده', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۸۹۵', readYear: '1404/11/15', genre: 'رمان', nationality: 'روسیه' },
             { id: 162, title: 'خشونت', author: 'هانا آرنت', translator: 'عزت‌الله فولادوند', originalPubDate: '۱۹۷۰', readYear: '1404/11/15', genre: 'فلسفه سیاسی', nationality: 'آلمان' },
-            { id: 161, title: 'اسطوره سیزیف', author: 'آلبر کامو', translator: 'حبیبی', originalPubDate: '۱۹۴۲', readYear: '1404/11/11', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 161, title: 'اسطوره سیزیف', author: 'آلبر کامو', translator: 'سروش حبیبی', originalPubDate: '۱۹۴۲', readYear: '1404/11/11', genre: 'فلسفه', nationality: 'فرانسه' },
             { id: 160, title: 'اعتراف', author: 'لئو تولستوی', translator: 'آزیتا همپارتیان', originalPubDate: '۱۸۸۲', readYear: '1404/11/06', genre: 'فلسفه', nationality: 'روسیه' },
             { id: 159, title: 'سگ ولگرد', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۲۱', readYear: '1404/10/29', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 158, title: 'مرده‌خورها', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۰۹', readYear: '1404/10/29', genre: 'داستان کوتاه', nationality: 'ایران' },
@@ -397,7 +399,7 @@
             { id: 151, title: 'شهریار', author: 'نیکولو ماکیاولی', translator: 'داریوش آشوری', originalPubDate: '۱۵۳۲', readYear: '1404/10/14', genre: 'فلسفه سیاسی', nationality: 'ایتالیا' },
             { id: 150, title: 'قدرت', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۹۳۸', readYear: '1404/10/13', genre: 'فلسفه سیاسی', nationality: 'انگلیس' },
             { id: 149, title: 'آشفته حالان بیدار بخت', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۷۷', readYear: '1404/10/02', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 148, title: 'در جستجوی جامعه بلندمدت', author: 'محمدعلی همایون کاتوزیان', translator: 'کریم ارغنده‌پور', originalPubDate: '۱۳۹۱', readYear: '1404/09/28', genre: 'جامعه‌شناسی سیاسی', nationality: 'ایران' },
+            { id: 148, title: 'در جستجوی جامعه بلندمدت', author: 'محمدعلی همایون کاتوزیان', translator: 'کریم ارغنده‌پور', originalPubDate: '۱۳۹۱', readYear: '1404/09/28', genre: 'جامعه‌شناسی', nationality: 'ایران' },
             { id: 147, title: 'غریبه در شهر', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۵۵', readYear: '1404/09/24', genre: 'رمان', nationality: 'ایران' },
             { id: 146, title: 'آشغالدونی', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۴۵', readYear: '1404/09/16', genre: 'رمان', nationality: 'ایران' },
             { id: 145, title: 'دو برادر', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۴۶', readYear: '1404/09/07', genre: 'داستان کوتاه', nationality: 'ایران' },
@@ -405,147 +407,146 @@
             { id: 143, title: 'کاروان اسلام', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۱۲', readYear: '1404/09/03', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 142, title: 'توپ', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۴۸', readYear: '1404/09/03', genre: 'رمان', nationality: 'ایران' },
             { id: 141, title: 'ترس و لرز', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۴۶', readYear: '1404/09/03', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 140, title: 'ایران، جامعه کوتاه مدت', author: 'محمدعلی همایون کاتوزیان', translator: 'عبدالله کوثری', originalPubDate: '۱۳۹۰', readYear: '1404/09/02', genre: 'جامعه‌شناسی سیاسی', nationality: 'ایران' },
-            { id: 139, title: 'ایران، جامعه کوتاه مدت', author: 'محمدعلی همایون کاتوزیان', translator: 'عبدالله کوثری', originalPubDate: '۱۳۹۰', readYear: '1404/09/02', genre: 'جامعه‌شناسی سیاسی', nationality: 'ایران' },
+            { id: 140, title: 'ایران، جامعه کوتاه مدت', author: 'محمدعلی همایون کاتوزیان', translator: 'عبدالله کوثری', originalPubDate: '۱۳۹۰', readYear: '1404/09/02', genre: 'جامعه‌شناسی', nationality: 'ایران' },
+            { id: 139, title: 'ایران، جامعه کوتاه مدت', author: 'محمدعلی همایون کاتوزیان', translator: 'عبدالله کوثری', originalPubDate: '۱۳۹۰', readYear: '1404/09/02', genre: 'جامعه‌شناسی', nationality: 'ایران' },
             { id: 138, title: 'دو قرن سکوت', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۳۰', readYear: '1404/09/02', genre: 'تاریخ تحلیلی', nationality: 'ایران' },
             { id: 137, title: 'هنر همیشه بر حق بودن', author: 'آرتور شوپنهاور', translator: 'علی عبداللهی', originalPubDate: '۱۸۶۴', readYear: '1404/08/25', genre: 'فلسفه', nationality: 'آلمان' },
             { id: 136, title: 'شب‌نشینی باشکوه', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۳۹', readYear: '1404/08/30', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 135, title: 'عزاداران بیل', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۴۳', readYear: '1404/08/30', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 134, title: 'زوال کلنل', author: 'محمود دولت‌آبادی', translator: 'تألیفی', originalPubDate: '1387', readYear: '1404/08/24', genre: 'رمان فلسفی', nationality: 'ایران' },
-            { id: 133, title: 'گدا (عزاداران بیل)', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '1343', readYear: '1404/08/22', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 132, title: 'گدا (عزاداران بیل)', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '1343', readYear: '1404/08/22', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 131, title: 'چنین گفت زرتشت', author: 'فردریش نیچه', translator: 'داریوش آشوری', originalPubDate: '۱۲۶۲', readYear: '1383', genre: 'فلسفه', nationality: 'آلمان' },
-            { id: 130, title: 'بیچاره اسفندیار', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1369', readYear: '1404/08/21', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 129, title: 'داش آکل', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '1311', readYear: '1404/08/21', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 128, title: 'انتر تریاکی', author: 'احمد محمود', translator: 'تألیفی', originalPubDate: '1350', readYear: '1404/08/21', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 127, title: 'ضحاک ماردوش', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1354', readYear: '1404/08/18', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 126, title: 'در آستین مرقع', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1360', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 125, title: 'کباب غاز', author: 'محمدعلی جمال‌زاده', translator: 'تألیفی', originalPubDate: '۱۳۰۰', readYear: '1375', genre: 'داستان کوتاه', nationality: 'ایران' },
-            { id: 124, title: 'خشم فرشتگان', author: 'سیدنی شلدون', translator: 'هادی عادل پور', originalPubDate: '۱۳۶۱', readYear: '1375', genre: 'رمان', nationality: 'آمریکا' },
-            { id: 123, title: 'دوبیتی‌های باباطاهر', author: 'باباطاهر', translator: 'تألیفی', originalPubDate: 'قرن ۵', readYear: '1376', genre: 'شعر', nationality: 'ایران' },
-            { id: 122, title: 'گاو (عزاداران بیل)', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۴۳', readYear: '1377', genre: 'رمان', nationality: 'ایران' },
-            { id: 121, title: 'تاریخ ادیان', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1378', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 120, title: 'روی ماه خداوند را ببوس', author: 'مصطفی مستور', translator: 'تألیفی', originalPubDate: '۱۳۷۹', readYear: '1379', genre: 'رمان فلسفی', nationality: 'ایران' },
-            { id: 119, title: 'شهادت', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1379', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 118, title: 'چه باید کرد؟', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1379', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 117, title: 'دیوان اشعار وحشی بافقی', author: 'وحشی بافقی', translator: 'تألیفی', originalPubDate: 'قرن ۱۰', readYear: '1380', genre: 'شعر', nationality: 'ایران' },
-            { id: 116, title: 'مائده‌های زمینی', author: 'آندره ژید', translator: 'جلال آل احمد', originalPubDate: '۱۲۷۶', readYear: '1380', genre: 'رمان فلسفی', nationality: 'فرانسه' },
-            { id: 115, title: 'کمدی الهی', author: 'دانته آلیگیری', translator: 'شجاع‌الدین شفا', originalPubDate: '۱۰۰۱', readYear: '1380', genre: 'فلسفه', nationality: 'ایتالیا' },
-            { id: 114, title: 'شازده کوچولو', author: 'آنتوان دو سنت اگزوپری', translator: 'احمد شاملو', originalPubDate: '۱۳۲۲', readYear: '1380', genre: 'رمان فلسفی', nationality: 'فرانسه' },
-            { id: 113, title: 'قلعه حیوانات', author: 'جورج اورول', translator: 'امیر امیرشاهی', originalPubDate: '۱۳۲۴', readYear: '1380', genre: 'رمان فلسفی', nationality: 'انگلیس' },
-            { id: 112, title: 'خمسه (لیلی و مجنون)', author: 'نظامی گنجوی', translator: 'تصحیح وحید دستگردی', originalPubDate: 'قرن ۶', readYear: '1380', genre: 'شعر', nationality: 'ایران' },
-            { id: 111, title: 'خط سوم', author: 'ناصرالدین صاحب‌الزمانی', translator: 'تألیفی', originalPubDate: '۱۳۵۱', readYear: '1380', genre: 'عرفان', nationality: 'ایران' },
-            { id: 110, title: 'بوف کور', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۱۵', readYear: '1380', genre: 'رمان فلسفی', nationality: 'ایران' },
-            { id: 109, title: 'ضیافت', author: 'افلاطون', translator: 'محمدعلی فروغی', originalPubDate: '۳۸۵ ق.م', readYear: '1380', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 108, title: 'علی حقیقتی بر گونه اساطیر', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1380', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 107, title: 'حسین وارث آدم', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1380', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 106, title: 'آری، اینچنین بود برادر', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1380', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 105, title: 'فاطمه، فاطمه است', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: '۱۳۴۸', readYear: '1380', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 104, title: 'اسلام‌شناسی (درس‌های ارشاد)', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1380', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 103, title: 'کویر', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: '۱۳۴۸', readYear: '1380', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 102, title: 'دیوان پروین اعتصامی', author: 'پروین اعتصامی', translator: 'تألیفی', originalPubDate: '۱۳۱۴', readYear: '1381', genre: 'شعر', nationality: 'ایران' },
-            { id: 101, title: 'سفر به دیگر سو', author: 'کارلوس کاستاندا', translator: 'مهران کندری', originalPubDate: '۱۳۵۰', readYear: '1381', genre: 'عرفان', nationality: 'پرو' },
-            { id: 100, title: 'سیر حکمت در اروپا', author: 'محمدعلی فروغی', translator: 'تألیفی', originalPubDate: '۱۳۱۰', readYear: '1381', genre: 'فلسفه', nationality: 'ایران' },
-            { id: 99, title: 'ارغنون', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۰', readYear: '1381', genre: 'شعر', nationality: 'ایران' },
-            { id: 98, title: '۱۹۸۴', author: 'جورج اورول', translator: 'صالح حسینی', originalPubDate: '۱۳۲۸', readYear: '1381', genre: 'رمان فلسفی', nationality: 'انگلیس' },
-            { id: 97, title: 'منطق‌الطیر', author: 'عطار نیشابوری', translator: 'تصحیح شفیعی کدکنی', originalPubDate: 'قرن ۶', readYear: '1381', genre: 'عرفان', nationality: 'ایران' },
-            { id: 96, title: 'اگزیستانسیالیسم و اصالت بشر', author: 'ژان پل سارتر', translator: 'مصطفی رحیمی', originalPubDate: '۱۳۲۵', readYear: '1381', genre: 'فلسفه', nationality: 'فرانسه' },
-            { id: 95, title: 'ضیافت', author: 'افلاطون', translator: 'محمدعلی فروغی', originalPubDate: '۳۸۵ ق.م', readYear: '1381', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 94, title: 'پدر، مادر، ما متهمیم', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1381', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 93, title: 'هبوط', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1381', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 92, title: 'بتهوون', author: 'رومن رولان', translator: 'محمد مجلسی', originalPubDate: '۱۲۸۲', readYear: '1382', genre: 'زندگی‌نامه', nationality: 'فرانسه' },
-            { id: 91, title: 'چند برگ از یلدا', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۴۴', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
-            { id: 90, title: 'زمستان', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۵', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
-            { id: 89, title: 'هملت', author: 'ویلیام شکسپیر', translator: 'مسعود فرزاد', originalPubDate: '۱۲۸۰', readYear: '1382', genre: 'نمایشنامه', nationality: 'انگلیس' },
-            { id: 88, title: 'مقدمه بر المشاعر', author: 'هانری کربن', translator: 'تألیفی', originalPubDate: '۱۳۴۳', readYear: '1382', genre: 'فلسفه', nationality: 'فرانسه' },
-            { id: 87, title: 'بوستان', author: 'سعدی', translator: 'تصحیح فروغی', originalPubDate: '۶۳۶', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
-            { id: 86, title: 'گلستان', author: 'سعدی', translator: 'تصحیح فروغی', originalPubDate: '۶۳۷', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
-            { id: 85, title: 'خط سوم', author: 'ناصرالدین صاحب‌الزمانی', translator: 'تألیفی', originalPubDate: '۱۳۵۱', readYear: '1382', genre: 'عرفان', nationality: 'ایران' },
-            { id: 84, title: 'کلیات شمس', author: 'مولانا', translator: 'تصحیح فروزانفر', originalPubDate: 'قرن ۷', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
-            { id: 83, title: 'فیه ما فیه', author: 'مولانا', translator: 'تصحیح فروزانفر', originalPubDate: 'قرن ۷', readYear: '1382', genre: 'عرفان', nationality: 'ایران' },
-            { id: 82, title: 'دیوان حافظ', author: 'حافظ شیرازی', translator: 'تصحیح قزوینی', originalPubDate: 'قرن ۸', readYear: '1382', genre: 'شعر', nationality: 'ایران' },
-            { id: 81, title: 'زندگینامه برتراند راسل', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۳۴۶', readYear: '1382', genre: 'فلسفه', nationality: 'انگلیس' },
-            { id: 80, title: 'آپولوژی', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1382', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 79, title: 'زن در چشم و دل محمد', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1382', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 78, title: 'قمار عاشقانه', author: 'عبدالکریم سروش', translator: 'تألیفی', originalPubDate: '۱۳۷۵', readYear: '1383', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 77, title: 'سیاه‌مشق', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۲', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
-            { id: 76, title: 'از این اوستا', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۴۴', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
-            { id: 75, title: 'آخر شاهنامه', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۸', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
-            { id: 74, title: 'آناکارنینا', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۲۵۶', readYear: '1383', genre: 'رمان فلسفی', nationality: 'روسیه' },
-            { id: 73, title: 'استخوان خوک و دست‌های جذامی', author: 'مصطفی مستور', translator: 'تألیفی', originalPubDate: '۱۳۸۳', readYear: '1383', genre: 'رمان فلسفی', nationality: 'ایران' },
-            { id: 72, title: 'مسخ', author: 'فرانتس کافکا', translator: 'صادق هدایت', originalPubDate: '۱۲۹۴', readYear: '1383', genre: 'رمان فلسفی', nationality: 'atریش' },
-            { id: 71, title: 'عقل سرخ', author: 'سهروردی', translator: 'تصحیح هانری کربن', originalPubDate: 'قرن ۶', readYear: '1383', genre: 'فلسفه', nationality: 'ایران' },
-            { id: 70, title: 'مثنوی معنوی', author: 'مولانا', translator: 'تصحیح نیکلسون', originalPubDate: 'قرن ۷', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
-            { id: 69, title: 'عرفان و منطق', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۲۹۷', readYear: '1383', genre: 'فلسفه', nationality: 'انگلیس' },
-            { id: 68, title: 'تهوع', author: 'ژان پل سارتر', translator: 'امیرجلال‌الدین اعلم', originalPubDate: '۱۳۱۷', readYear: '1383', genre: 'رمان فلسفی', nationality: 'فرانسه' },
-            { id: 67, title: 'لوسیس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1383', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 66, title: 'کریتون', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1383', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 65, title: 'حج', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1383', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 64, title: 'نیایش', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1383', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 63, title: 'سراب', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۰', readYear: '1384', genre: 'شعر', nationality: 'ایران' },
-            { id: 62, title: 'بحر در کوزه', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۶۶', readYear: '1384', genre: 'عرفان', nationality: 'ایران' },
-            { id: 61, title: 'پله‌پله تا ملاقات خدا', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۷۰', readYear: '1384', genre: 'عرفان', nationality: 'ایران' },
-            { id: 60, title: 'سرّ نی', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۶۴', readYear: '1384', genre: 'عرفان', nationality: 'ایران' },
-            { id: 59, title: 'اخبار حلاج', author: 'لوئی ماسینیون', translator: 'حمید حمید', originalPubDate: '۱۳۰۱', readYear: '1384', genre: 'عرفان', nationality: 'فرانسه' },
-            { id: 58, title: 'اسفار اربعه', author: 'ملاصدرا', translator: 'محمد خواجوی', originalPubDate: 'قرن ۱۱', readYear: '1384', genre: 'فلسفه', nationality: 'ایران' },
-            { id: 57, title: 'در دفاع از روشنفکران', author: 'ژان پل سارتر', translator: 'رضا سیدحسینی', originalPubDate: '۱۳۴۴', readYear: '1384', genre: 'فلسفه', nationality: 'فرانسه' },
-            { id: 56, title: 'مگس‌ها', author: 'ژان پل سارتر', translator: 'صادق هدایت', originalPubDate: '۱۳۲۲', readYear: '1384', genre: 'فلسفه', nationality: 'فرانسه' },
-            { id: 55, title: 'شیطان و خدا', author: 'ژان پل سارتر', translator: 'امیرجلال‌الدین اعلم', originalPubDate: '۱۳۳۰', readYear: '1384', genre: 'فلسفه', nationality: 'فرانسه' },
-            { id: 54, title: 'خارمیدس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1384', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 53, title: 'گرگیاس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.m', readYear: '1384', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 52, title: 'قرآن', author: 'محمد', translator: 'الهی قمشه‌ای', originalPubDate: 'قرن ۱', readYear: '1385', genre: 'فلسفه دینی', nationality: 'عربستان' },
-            { id: 51, title: 'رباعیات خیام', author: 'عمر خیام', translator: 'تصحیح فروغی', originalPubDate: 'قرن ۵', readYear: '1385', genre: 'شعر', nationality: 'ایران' },
-            { id: 50, title: 'آخرت و خدا، هدف بعثت انبیاء؟!', author: 'مهدی بازرگان', translator: 'تألیفی', originalPubDate: '۱۳۴۱', readYear: '1385', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 49, title: 'کتاب سال شیدا ۱ و ۲', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 48, title: 'کتاب سال شیدا ۷ و ۶', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 47, title: 'کتاب سال شیدا ۳ و ۴', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1385', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 46, title: 'زمین', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۴', readYear: '1385', genre: 'شعر', nationality: 'ایران' },
-            { id: 45, title: 'شبگیر', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۲', readYear: '1385', genre: 'شعر', nationality: 'ایران' },
-            { id: 44, title: 'تفسیر سوره نور', author: 'ملاصدرا', translator: 'محمد خواجوی', originalPubDate: 'قرن ۱۱', readYear: '1385', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 43, title: 'مقالات شمس', author: 'شمس تبریزی', translator: 'تصحیح موحد', originalPubDate: 'قرن ۷', readYear: '1385', genre: 'عرفان', nationality: 'ایران' },
-            { id: 42, title: 'دست‌های آلوده', author: 'ژان پل سارتر', translator: 'جلال آل احمد', originalPubDate: '۱۳۲۷', readYear: '1385', genre: 'فلسفه', nationality: 'فرانسه' },
-            { id: 41, title: 'ضیافت', author: 'افلاطون', translator: 'محمدعلی فروغی', originalPubDate: '۳۸۵ ق.م', readYear: '1385', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 40, title: 'نوروز', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1385', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 39, title: 'مذهب علیه مذهب', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1385', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 38, title: 'نگرشی نو به تئوری موسیقی ایرانی', author: 'داریوش طلایی', translator: 'تألیفی', originalPubDate: '۱۳۷۲', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 37, title: 'هفت دستگاه موسیقی ایرانی', author: 'مجید کیانی', translator: 'تألیفی', originalPubDate: '۱۳۷۱', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 36, title: 'ارکستراسیون', author: 'کنت کنان', translator: 'هوشنگ کامکار', originalPubDate: '۱۳۳۷', readYear: '1386', genre: 'موسیقی', nationality: 'آمریکا' },
-            { id: 35, title: 'کتاب سال شیدا ۵', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 34, title: 'کتاب سال شیدا ۲', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 33, title: 'کتاب سال شیدا ۱', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 32, title: 'دستگاه در موسیقی ایرانی', author: 'هرمز فرهت', translator: 'تألیفی', originalPubDate: '۱۳۶۸', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 31, title: 'موسیقی کبیر', author: 'ابونصر فارابی', translator: 'آذرتاش آذرنوش', originalPubDate: 'قرن ۳', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 30, title: 'تئوری موسیقی', author: 'پرویز منصوری', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 29, title: 'تئوری موسیقی', author: 'علینقی وزیری', translator: 'تألیفی', originalPubDate: '۱۳۱۳', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 28, title: 'تئوری موسیقی', author: 'مصطفی کمال پورتراب', translator: 'تألیفی', originalPubDate: '۱۳۴۵', readYear: '1386', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 27, title: 'دوبیتی‌ها (خیام)', author: 'عمر خیام', translator: 'تصحیح فروغی', originalPubDate: 'قرن ۵', readYear: '1387', genre: 'شعر', nationality: 'ایران' },
-            { id: 26, title: 'کتاب سال شیدا ۱۰ و ۱۱', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1387', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 25, title: 'کتاب سال شیدا ۸ و ۹', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1387', genre: 'موسیقی', nationality: 'ایران' },
-            { id: 24, title: 'من دانای کل هستم', author: 'مصطفی مستور', translator: 'تألیفی', originalPubDate: '۱۳۸۸', readYear: '1388', genre: 'رمان فلسفی', nationality: 'ایران' },
-            { id: 23, title: 'مصائب حلاج', author: 'لوئی ماسینیون', translator: 'ضیاءالدین دهشیری', originalPubDate: '۱۳۰۱', readYear: '1388', genre: 'عرفان', nationality: 'فرانسه' },
-            { id: 22, title: 'انسان بی‌خود', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1388', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 21, title: 'ایمان و آزادی', author: 'مجتهد شبستری', translator: 'تألیفی', originalPubDate: '۱۳۷۶', readYear: '1389', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 20, title: 'آپولوژی', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1392', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 19, title: 'آپولوژی', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1397', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 18, title: 'پروتاگراس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.م', readYear: '1399', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 17, title: 'چرا مسیحی نیستم', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۳۳۶', readYear: '1400', genre: 'فلسفه', nationality: 'انگلیس' },
-            { id: 16, title: 'برزخ', author: 'ژان پل سارتر', translator: 'حمید سمندریان', originalPubDate: '۱۳۲۳', readYear: '1402', genre: 'فلسفه', nationality: 'فرانسه' },
-            { id: 15, title: 'جامعه‌شناسی خودکامگی', author: 'علی رضاقلی', translator: 'تألیفی', originalPubDate: '۱۳۶۳', readYear: '1404/04/08', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 14, title: 'هیپیاس کوچک', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/06/20', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 13, title: 'هیپیاس بزرگ', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/06/20', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 12, title: 'جامعه‌شناسی نخبه‌کشی', author: 'علی رضاقلی', translator: 'تألیفی', originalPubDate: '۱۳۷۷', readYear: '1404/07/26', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 11, title: 'جامعه‌شناسی خودکامگی', author: 'علی رضاقلی', translator: 'تألیفی', originalPubDate: '۱۳۶۳', readYear: '1404/08/07', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 10, title: 'بیگانه', author: 'آلبر کامو', translator: 'جلال آل احمد', originalPubDate: '۱۳۲۱', readYear: '1404/08/08', genre: 'رمان فلسفی', nationality: 'فرانسه' },
-            { id: 9, title: 'دیوار', author: 'ژان پل سارتر', translator: 'صادق هدایت', originalPubDate: '۱۳۱۸', readYear: '1404/08/08', genre: 'رمان فلسفی', nationality: 'فرانسه' },
-            { id: 8, title: 'سقوط', author: 'آلبر کامو', translator: 'پرویز شهدی', originalPubDate: '۱۳۳۵', readYear: '1404/08/09', genre: 'رمان فلسفی', nationality: 'فرانسه' },
-            { id: 7, title: 'لوسیس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/10', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 6, title: 'پروتاگراس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.م', readYear: '1404/08/10', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 5, title: 'لاخس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/11', genre: 'فلسفه', nationality: 'یونان' },
-            { id: 4, title: 'ضحاک ماردوش', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1354', readYear: '1404/08/12', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 3, title: 'سیمای دو زن', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1369', readYear: '1404/08/13', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 2, title: 'ای کوته آستینان', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1370', readYear: '1404/08/14', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 126, title: 'در آستین مرقع', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1360', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
-            { id: 1, title: 'شیخ صنعان', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1357', readYear: '1404/08/16', genre: 'جامعه شناسی', nationality: 'ایران' }
+            { id: 134, title: 'زوال کلنل', author: 'محمود دولت‌آبادی', translator: 'تألیفی', originalPubDate: '۱۳۸۷', readYear: '1404/08/24', genre: 'رمان فلسفی', nationality: 'ایران' },
+            { id: 133, title: 'گدا (عزاداران بیل)', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۴۳', readYear: '1404/08/22', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 132, title: 'گدا (عزاداران بیل)', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۴۳', readYear: '1404/08/22', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 131, title: 'چنین گفت زرتشت', author: 'فریدریش نیچه', translator: 'داریوش آشوری', originalPubDate: '۱۸۸۳', readYear: '1404/08/22', genre: 'فلسفه', nationality: 'آلمان' },
+            { id: 130, title: 'بیچاره اسفندیار', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '۱۳۶۹', readYear: '1404/08/21', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 129, title: 'داش آکل', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۱۱', readYear: '1404/08/21', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 128, title: 'انتر تریاکی', author: 'صادق چوبک', translator: 'تألیفی', originalPubDate: '۱۳۲۸', readYear: '1404/08/21', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 127, title: 'ضحاک ماردوش', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '۱۳۵۴', readYear: '1404/08/18', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 126, title: 'در آستین مرقع', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '۱۳۶۰', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 125, title: 'کباب غاز', author: 'محمدعلی جمال‌زاده', translator: 'تألیفی', originalPubDate: '۱۳۰۰', readYear: '1404/08/15', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 124, title: 'خشم فرشتگان', author: 'سیدنی شلدون', translator: 'هادی عادل‌پور', originalPubDate: '۱۹۸۰', readYear: '1404/08/15', genre: 'رمان', nationality: 'آمریکا' },
+            { id: 123, title: 'دوبیتی‌های باباطاهر', author: 'باباطاهر', translator: 'تألیفی', originalPubDate: 'قرن ۵', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 122, title: 'گاو (عزاداران بیل)', author: 'غلامحسین ساعدی', translator: 'تألیفی', originalPubDate: '۱۳۴۳', readYear: '1404/08/15', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 121, title: 'تاریخ ادیان', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 120, title: 'روی ماه خداوند را ببوس', author: 'مصطفی مستور', translator: 'تألیفی', originalPubDate: '۱۳۷۹', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'ایران' },
+            { id: 119, title: 'شهادت', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 118, title: 'چه باید کرد؟', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 117, title: 'دیوان اشعار وحشی بافقی', author: 'وحشی بافقی', translator: 'تألیفی', originalPubDate: 'قرن ۱۰', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 116, title: 'مائده‌های زمینی', author: 'آندره ژید', translator: 'جلال آل احمد', originalPubDate: '۱۸۹۷', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'فرانسه' },
+            { id: 115, title: 'کمدی الهی', author: 'دانته آلیگیری', translator: 'شجاع‌الدین شفا', originalPubDate: '۱۳۲۰', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'ایتالیا' },
+            { id: 114, title: 'شازده کوچولو', author: 'آنتوان دو سنت اگزوپری', translator: 'احمد شاملو', originalPubDate: '۱۹۴۳', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'فرانسه' },
+            { id: 113, title: 'قلعه حیوانات', author: 'جورج اورول', translator: 'امیر امیرشاهی', originalPubDate: '۱۹۴۵', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'انگلیس' },
+            { id: 112, title: 'خمسه (لیلی و مجنون)', author: 'نظامی گنجوی', translator: 'تصحیح وحید دستگردی', originalPubDate: 'قرن ۶', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 111, title: 'خط سوم', author: 'ناصرالدین صاحب‌الزمانی', translator: 'تألیفی', originalPubDate: '۱۳۵۱', readYear: '1404/08/15', genre: 'عرفان', nationality: 'ایران' },
+            { id: 110, title: 'بوف کور', author: 'صادق هدایت', translator: 'تألیفی', originalPubDate: '۱۳۱۵', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'ایران' },
+            { id: 109, title: 'ضیافت', author: 'افلاطون', translator: 'محمدعلی فروغی', originalPubDate: '۳۸۵ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 108, title: 'علی حقیقتی بر گونه اساطیر', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 107, title: 'حسین وارث آدم', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 106, title: 'آری، اینچنین بود برادر', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 105, title: 'فاطمه، فاطمه است', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: '۱۳۴۸', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 104, title: 'اسلام‌شناسی (درس‌های ارشاد)', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 103, title: 'کویر', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: '۱۳۴۸', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 102, title: 'دیوان پروین اعتصامی', author: 'پروین اعتصامی', translator: 'تألیفی', originalPubDate: '۱۳۱۴', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 101, title: 'سفر به دیگر سو', author: 'کارلوس کاستاندا', translator: 'مهران کندری', originalPubDate: '۱۹۷۱', readYear: '1404/08/15', genre: 'عرفان', nationality: 'آمریکا' },
+            { id: 100, title: 'سیر حکمت در اروپا', author: 'محمدعلی فروغی', translator: 'تألیفی', originalPubDate: '۱۳۱۰', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'ایران' },
+            { id: 99, title: 'ارغنون', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۰', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 98, title: '۱۹۸۴', author: 'جورج اورول', translator: 'صالح حسینی', originalPubDate: '۱۹۴۹', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'انگلیس' },
+            { id: 97, title: 'منطق‌الطیر', author: 'عطار نیشابوری', translator: 'تصحیح شفیعی کدکنی', originalPubDate: 'قرن ۶', readYear: '1404/08/15', genre: 'عرفان', nationality: 'ایران' },
+            { id: 96, title: 'اگزیستانسیالیسم و اصالت بشر', author: 'ژان پل سارتر', translator: 'مصطفی رحیمی', originalPubDate: '۱۹۴۶', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 95, title: 'ضیافت', author: 'افلاطون', translator: 'محمدعلی فروغی', originalPubDate: '۳۸۵ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 94, title: 'پدر، مادر، ما متهمیم', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 93, title: 'هبوط', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 92, title: 'بتهوون', author: 'رومن رولان', translator: 'محمد مجلسی', originalPubDate: '۱۹۰۳', readYear: '1404/08/15', genre: 'زندگی‌نامه', nationality: 'فرانسه' },
+            { id: 91, title: 'چند برگ از یلدا', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۴۴', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 90, title: 'زمستان', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۵', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 89, title: 'هملت', author: 'ویلیام شکسپیر', translator: 'مسعود فرزاد', originalPubDate: '۱۶۰۳', readYear: '1404/08/15', genre: 'نمایشنامه', nationality: 'انگلیس' },
+            { id: 88, title: 'مقدمه بر المشاعر', author: 'هانری کربن', translator: 'تألیفی', originalPubDate: '۱۳۴۳', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 87, title: 'بوستان', author: 'سعدی', translator: 'تصحیح فروغی', originalPubDate: '۶۳۶', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 86, title: 'گلستان', author: 'سعدی', translator: 'تصحیح فروغی', originalPubDate: '۶۳۷', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 85, title: 'خط سوم', author: 'ناصرالدین صاحب‌الزمانی', translator: 'تألیفی', originalPubDate: '۱۳۵۱', readYear: '1404/08/15', genre: 'عرفان', nationality: 'ایران' },
+            { id: 84, title: 'کلیات شمس', author: 'مولانا', translator: 'تصحیح فروزانفر', originalPubDate: 'قرن ۷', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 83, title: 'فیه ما فیه', author: 'مولانا', translator: 'تصحیح فروزانفر', originalPubDate: 'قرن ۷', readYear: '1404/08/15', genre: 'عرفان', nationality: 'ایران' },
+            { id: 82, title: 'دیوان حافظ', author: 'حافظ شیرازی', translator: 'تصحیح قزوینی', originalPubDate: 'قرن ۸', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 81, title: 'زندگینامه برتراند راسل', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۹۶۷', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'انگلیس' },
+            { id: 80, title: 'آپولوژی', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 79, title: 'زن در چشم و دل محمد', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 78, title: 'قمار عاشقانه', author: 'عبدالکریم سروش', translator: 'تألیفی', originalPubDate: '۱۳۷۵', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 77, title: 'سیاه‌مشق', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۲', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 76, title: 'از این اوستا', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۴۴', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 75, title: 'آخر شاهنامه', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۸', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 74, title: 'آناکارنینا', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۸۷۷', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'روسیه' },
+            { id: 73, title: 'استخوان خوک و دست‌های جذامی', author: 'مصطفی مستور', translator: 'تألیفی', originalPubDate: '۱۳۸۳', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'ایران' },
+            { id: 72, title: 'مسخ', author: 'فرانتس کافکا', translator: 'صادق هدایت', originalPubDate: '۱۹۱۵', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'اتریش' },
+            { id: 71, title: 'عقل سرخ', author: 'سهروردی', translator: 'تصحیح هانری کربن', originalPubDate: 'قرن ۶', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'ایران' },
+            { id: 70, title: 'مثنوی معنوی', author: 'مولانا', translator: 'تصحیح نیکلسون', originalPubDate: 'قرن ۷', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 69, title: 'عرفان و منطق', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۹۱۷', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'انگلیس' },
+            { id: 68, title: 'تهوع', author: 'ژان پل سارتر', translator: 'امیرجلال‌الدین اعلم', originalPubDate: '۱۹۳۸', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'فرانسه' },
+            { id: 67, title: 'لوسیس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 66, title: 'کریتون', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 65, title: 'حج', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 64, title: 'نیایش', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 63, title: 'سراب', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۰', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 62, title: 'بحر در کوزه', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۶۶', readYear: '1404/08/15', genre: 'عرفان', nationality: 'ایران' },
+            { id: 61, title: 'پله‌پله تا ملاقات خدا', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۷۰', readYear: '1404/08/15', genre: 'عرفان', nationality: 'ایران' },
+            { id: 60, title: 'سرّ نی', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۶۴', readYear: '1404/08/15', genre: 'عرفان', nationality: 'ایران' },
+            { id: 59, title: 'اخبار حلاج', author: 'لوئی ماسینیون', translator: 'حمید حمید', originalPubDate: '۱۹۲۲', readYear: '1404/08/15', genre: 'عرفان', nationality: 'فرانسه' },
+            { id: 58, title: 'اسفار اربعه', author: 'ملاصدرا', translator: 'محمد خواجوی', originalPubDate: 'قرن ۱۱', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'ایران' },
+            { id: 57, title: 'در دفاع از روشنفکران', author: 'ژان پل سارتر', translator: 'رضا سیدحسینی', originalPubDate: '۱۹۶۵', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 56, title: 'مگس‌ها', author: 'ژان پل سارتر', translator: 'صادق هدایت', originalPubDate: '۱۹۴۳', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 55, title: 'شیطان و خدا', author: 'ژان پل سارتر', translator: 'امیرجلال‌الدین اعلم', originalPubDate: '۱۹۵۱', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 54, title: 'خارمیدس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 53, title: 'گرگیاس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 52, title: 'قرآن', author: 'محمد', translator: 'الهی قمشه‌ای', originalPubDate: 'قرن ۱', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'عربستان' },
+            { id: 51, title: 'رباعیات خیام', author: 'عمر خیام', translator: 'تصحیح فروغی', originalPubDate: 'قرن ۵', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 50, title: 'آخرت و خدا، هدف بعثت انبیاء؟!', author: 'مهدی بازرگان', translator: 'تألیفی', originalPubDate: '۱۳۴۱', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 49, title: 'کتاب سال شیدا ۱ و ۲', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 48, title: 'کتاب سال شیدا ۷ و ۶', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 47, title: 'کتاب سال شیدا ۳ و ۴', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 46, title: 'زمین', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۴', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 45, title: 'شبگیر', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۲', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 44, title: 'تفسیر سوره نور', author: 'ملاصدرا', translator: 'محمد خواجوی', originalPubDate: 'قرن ۱۱', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 43, title: 'مقالات شمس', author: 'شمس تبریزی', translator: 'تصحیح موحد', originalPubDate: 'قرن ۷', readYear: '1404/08/15', genre: 'عرفان', nationality: 'ایران' },
+            { id: 42, title: 'دست‌های آلوده', author: 'ژان پل سارتر', translator: 'جلال آل احمد', originalPubDate: '۱۹۴۸', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 41, title: 'ضیافت', author: 'افلاطون', translator: 'محمدعلی فروغی', originalPubDate: '۳۸۵ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 40, title: 'نوروز', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 39, title: 'مذهب علیه مذهب', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 38, title: 'نگرشی نو به تئوری موسیقی ایرانی', author: 'داریوش طلایی', translator: 'تألیفی', originalPubDate: '۱۳۷۲', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 37, title: 'هفت دستگاه موسیقی ایرانی', author: 'مجید کیانی', translator: 'تألیفی', originalPubDate: '۱۳۷۱', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 36, title: 'ارکستراسیون', author: 'کنت کنان', translator: 'هوشنگ کامکار', originalPubDate: '۱۹۵۲', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'آمریکا' },
+            { id: 35, title: 'کتاب سال شیدا ۵', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 34, title: 'کتاب سال شیدا ۲', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 33, title: 'کتاب سال شیدا ۱', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 32, title: 'دستگاه در موسیقی ایرانی', author: 'هرمز فرهت', translator: 'تألیفی', originalPubDate: '۱۹۹۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 31, title: 'موسیقی کبیر', author: 'ابونصر فارابی', translator: 'آذرتاش آذرنوش', originalPubDate: 'قرن ۳', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 30, title: 'تئوری موسیقی', author: 'پرویز منصوری', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 29, title: 'تئوری موسیقی', author: 'علینقی وزیری', translator: 'تألیفی', originalPubDate: '۱۳۱۳', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 28, title: 'تئوری موسیقی', author: 'مصطفی کمال پورتراب', translator: 'تألیفی', originalPubDate: '۱۳۴۵', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 27, title: 'دوبیتی‌ها (خیام)', author: 'عمر خیام', translator: 'تصحیح فروغی', originalPubDate: 'قرن ۵', readYear: '1404/08/15', genre: 'شعر', nationality: 'ایران' },
+            { id: 26, title: 'کتاب سال شیدا ۱۰ و ۱۱', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 25, title: 'کتاب سال شیدا ۸ و ۹', author: 'محمدرضا لطفی', translator: 'تألیفی', originalPubDate: 'دهه ۷۰', readYear: '1404/08/15', genre: 'موسیقی', nationality: 'ایران' },
+            { id: 24, title: 'من دانای کل هستم', author: 'مصطفی مستور', translator: 'تألیفی', originalPubDate: '۱۳۸۸', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'ایران' },
+            { id: 23, title: 'مصائب حلاج', author: 'لوئی ماسینیون', translator: 'ضیاءالدین دهشیری', originalPubDate: '۱۹۲۲', readYear: '1404/08/15', genre: 'عرفان', nationality: 'فرانسه' },
+            { id: 22, title: 'انسان بی‌خود', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 21, title: 'ایمان و آزادی', author: 'مجتهد شبستری', translator: 'تألیفی', originalPubDate: '۱۳۷۶', readYear: '1404/08/15', genre: 'فلسفه دینی', nationality: 'ایران' },
+            { id: 20, title: 'آپولوژی', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 19, title: 'آپولوژی', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 18, title: 'پروتاگراس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 17, title: 'چرا مسیحی نیستم', author: 'برتراند راسل', translator: 'نجف دریابندری', originalPubDate: '۱۹۲۷', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'انگلیس' },
+            { id: 16, title: 'برزخ', author: 'ژان پل سارتر', translator: 'حمید سمندریان', originalPubDate: '۱۹۴۴', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 15, title: 'جامعه‌شناسی خودکامگی', author: 'علی رضاقلی', translator: 'تألیفی', originalPubDate: '۱۳۶۳', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 14, title: 'هیپیاس کوچک', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 13, title: 'هیپیاس بزرگ', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 12, title: 'جامعه‌شناسی نخبه‌کشی', author: 'علی رضاقلی', translator: 'تألیفی', originalPubDate: '۱۳۷۷', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 11, title: 'جامعه‌شناسی خودکامگی', author: 'علی رضاقلی', translator: 'تألیفی', originalPubDate: '۱۳۶۳', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 10, title: 'بیگانه', author: 'آلبر کامو', translator: 'جلال آل احمد', originalPubDate: '۱۹۴۲', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'فرانسه' },
+            { id: 9, title: 'دیوار', author: 'ژان پل سارتر', translator: 'صادق هدایت', originalPubDate: '۱۹۳۹', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'فرانسه' },
+            { id: 8, title: 'سقوط', author: 'آلبر کامو', translator: 'پرویز شهدی', originalPubDate: '۱۹۵۶', readYear: '1404/08/15', genre: 'رمان فلسفی', nationality: 'فرانسه' },
+            { id: 7, title: 'لوسیس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 6, title: 'پروتاگراس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۸۰ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 5, title: 'لاخس', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: 'قرن ۴ ق.م', readYear: '1404/08/15', genre: 'فلسفه', nationality: 'یونان' },
+            { id: 4, title: 'ضحاک ماردوش', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '۱۳۵۴', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 3, title: 'سیمای دو زن', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '۱۳۶۹', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 2, title: 'ای کوته آستینان', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '۱۳۷۰', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' },
+            { id: 1, title: 'شیخ صنعان', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '۱۳۵۷', readYear: '1404/08/15', genre: 'جامعه شناسی', nationality: 'ایران' }
         ];
 
         // داده‌های کتاب‌های برنامه (آنچه باید بخوانم)
@@ -553,7 +554,6 @@
             { id: 2, title: 'زن صاحبخانه', author: 'فئودور داستایوفسکی', genre: 'رمان', nationality: 'روسیه' },
             { id: 3, title: 'ناشناس', author: 'فئودور داستایوفسکی', genre: 'رمان', nationality: 'روسیه' },
             { id: 4, title: 'همزاد', author: 'فئودور داستایوفسکی', genre: 'رمان', nationality: 'روسیه' },
-            { id: 5, title: 'جامعه باز و دشمنان آن', author: 'کارل پوپر', genre: 'فلسفه سیاسی', nationality: 'اتریش' },
             { id: 7, title: 'تاراس بولبا', author: 'نیکلای گوگول', genre: 'رمان', nationality: 'روسیه' },
             { id: 8, title: 'نفوس مرده', author: 'نیکلای گوگول', genre: 'رمان', nationality: 'روسیه' },
             { id: 9, title: 'دختر سروان', author: 'الکساندر پوشکین', genre: 'رمان', nationality: 'روسیه' },
@@ -606,14 +606,15 @@
             populateMustReadTable(mustReadBooksData);
             populateTable(processedData);
             
+            createAuthorAccordion(processedData);
+            createGenreAccordion(processedData);
+            
             setupAccordion('must-read-accordion-header', 'must-read-accordion-content');
             setupAccordion('main-table-accordion-header', 'main-table-accordion-content');
             setupAccordion('author-list-accordion-header', 'author-list-accordion-content');
             setupAccordion('genre-list-accordion-header', 'genre-list-accordion-content');
 
             createTimeline(processedData);
-            createAuthorList(processedData);
-            createGenreList(processedData);
 
             if (chartLoaded) {
                 createCharts(processedData);
@@ -631,7 +632,6 @@
 
             document.getElementById('total-reads').textContent = data.length;
 
-            // تشخیص بالاترین سال شمسی (سال جاری)
             const validYears = data.map(b => parseInt(b.year)).filter(y => !isNaN(y));
             const latestYear = validYears.length > 0 ? Math.max(...validYears).toString() : '1405';
             
@@ -679,6 +679,89 @@
             });
         }
 
+        function createAuthorAccordion(data) {
+            const container = document.getElementById('author-accordion-container');
+            if (!container) return;
+            
+            const authorData = data.reduce((acc, book) => {
+                if (!acc[book.author]) acc[book.author] = [];
+                acc[book.author].push(book);
+                return acc;
+            }, {});
+
+            const sortedAuthors = Object.keys(authorData).sort((a, b) => authorData[b].length - authorData[a].length);
+
+            let html = '';
+            sortedAuthors.forEach((author, index) => {
+                const books = authorData[author];
+                const headerId = `author-header-${index}`;
+                const contentId = `author-content-${index}`;
+                
+                let booksListHtml = books.map(b => `<li class="py-2 border-b border-slate-100 last:border-0 text-slate-700 pr-4"><strong>${b.title}</strong> <span class="text-xs text-slate-500">(${b.readYear})</span></li>`).join('');
+
+                html += `
+                    <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
+                        <div id="${headerId}" class="accordion-header accordion-header-rtl flex justify-between items-center p-4 cursor-pointer bg-white hover:bg-slate-50 transition-colors closed">
+                            <h3 class="font-bold text-slate-800">${author} <span class="text-teal-600 text-sm">(${books.length} کتاب)</span></h3>
+                            <span class="accordion-toggle-icon text-slate-400 font-bold transition-transform duration-300">+</span>
+                        </div>
+                        <div id="${contentId}" class="collapsible-content bg-white px-4">
+                            <ul class="py-2 list-disc list-inside">
+                                ${booksListHtml}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            sortedAuthors.forEach((_, index) => {
+                setupAccordion(`author-header-${index}`, `author-content-${index}`);
+            });
+        }
+
+        function createGenreAccordion(data) {
+            const container = document.getElementById('genre-accordion-container');
+            if (!container) return;
+            
+            const genreData = data.reduce((acc, book) => {
+                const g = book.genre || 'نامشخص';
+                if (!acc[g]) acc[g] = [];
+                acc[g].push(book);
+                return acc;
+            }, {});
+
+            const sortedGenres = Object.keys(genreData).sort((a, b) => genreData[b].length - genreData[a].length);
+
+            let html = '';
+            sortedGenres.forEach((genre, index) => {
+                const books = genreData[genre];
+                const headerId = `genre-header-${index}`;
+                const contentId = `genre-content-${index}`;
+                
+                let booksListHtml = books.map(b => `<li class="py-2 border-b border-slate-100 last:border-0 text-slate-700 pr-4"><strong>${b.title}</strong> - ${b.author} <span class="text-xs text-slate-500">(${b.readYear})</span></li>`).join('');
+
+                html += `
+                    <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
+                        <div id="${headerId}" class="accordion-header accordion-header-rtl flex justify-between items-center p-4 cursor-pointer bg-white hover:bg-slate-50 transition-colors closed">
+                            <h3 class="font-bold text-slate-800">${genre} <span class="text-teal-600 text-sm">(${books.length} کتاب)</span></h3>
+                            <span class="accordion-toggle-icon text-slate-400 font-bold transition-transform duration-300">+</span>
+                        </div>
+                        <div id="${contentId}" class="collapsible-content bg-white px-4">
+                            <ul class="py-2 list-disc list-inside">
+                                ${booksListHtml}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            sortedGenres.forEach((_, index) => {
+                setupAccordion(`genre-header-${index}`, `genre-content-${index}`);
+            });
+        }
+
         function setupAccordion(headerId, contentId) {
             const header = document.getElementById(headerId);
             if (!header) return;
@@ -718,7 +801,6 @@
                     return acc;
                 }, {});
 
-                // مرتب‌سازی ماه‌ها نزولی
                 const sortedMonths = Object.keys(booksByMonth).sort((a, b) => {
                     if (a === 'نامشخص') return 1;
                     if (b === 'نامشخص') return -1;
@@ -734,7 +816,7 @@
                     books.sort((a, b) => b.full.localeCompare(a.full));
                     
                     let monthBooksHTML = books.map(book => {
-                        const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی'].includes(book.translator)) ? ` - ${book.translator}` : '';
+                        const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی', 'تصحیح قزوینی', 'تصحیح نیکلسون', 'تصحیح فروزانفر', 'تصحیح موحد', 'تصحیح وحید دستگردی', 'تصحیح هانری کربن', 'تصحیح فروغی'].includes(book.translator)) ? ` - ${book.translator}` : '';
                         return `<li class="text-slate-700 text-right py-1 border-b border-slate-100 last:border-0"><strong class="text-slate-800">${book.title}</strong> - ${book.author}${translatorText} <span class="text-xs text-slate-400 mr-2">(${book.readYear})</span></li>`;
                     }).join('');
 
@@ -755,168 +837,13 @@
             setupTimelineScrollAnimations();
         }
 
-        function createAuthorList(data) {
-            const container = document.getElementById('author-accordion-container');
-            if (!container) return;
-
-            const groupedByAuthor = data.reduce((acc, book) => {
-                const author = book.author || 'نامشخص';
-                if (!acc[author]) acc[author] = [];
-                acc[author].push(book);
-                return acc;
-            }, {});
-
-            const sortedAuthors = Object.keys(groupedByAuthor).sort((a, b) => {
-                 const uniqueTitlesA = new Set(groupedByAuthor[a].map(b => b.title)).size;
-                 const uniqueTitlesB = new Set(groupedByAuthor[b].map(b => b.title)).size;
-                 if (uniqueTitlesB !== uniqueTitlesA) {
-                    return uniqueTitlesB - uniqueTitlesA;
-                 }
-                 return groupedByAuthor[b].length - groupedByAuthor[a].length;
-            });
-
-            let html = '';
-            sortedAuthors.forEach((author, index) => {
-                const books = groupedByAuthor[author];
-                books.sort((a, b) => b.full.localeCompare(a.full));
-                
-                const booksByTitle = books.reduce((acc, book) => {
-                    if (!acc[book.title]) {
-                        acc[book.title] = { book: book, readYears: [] };
-                    }
-                    acc[book.title].readYears.push(book.readYear);
-                    return acc;
-                }, {});
-
-                const headerId = `author-header-${index}`;
-                const contentId = `author-content-${index}`;
-
-                let booksHTML = Object.values(booksByTitle).map((group, idx) => {
-                    const rowNum = idx + 1;
-                    const book = group.book;
-                    const dates = group.readYears.sort((a,b) => a.localeCompare(b)).join(' - '); 
-                    const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی'].includes(book.translator)) ? ` - ${book.translator}` : '';
-                    const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
-
-                    return `<li class="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right flex items-start">
-                                <span class="ml-2 text-teal-600 font-bold min-w-[20px]">${rowNum}.</span>
-                                <div>
-                                    <strong>${book.title}</strong>${translatorText} - ${datesText}
-                                </div>
-                            </li>`;
-                }).join('');
-
-                html += `
-                    <div class="border border-slate-200 rounded-lg overflow-hidden">
-                        <div id="${headerId}" class="author-accordion-header accordion-header accordion-header-rtl bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 closed">
-                            <h3 class="accordion-title font-bold text-lg text-slate-800">
-                                ${author} 
-                                <span class="text-sm font-medium text-slate-600 mr-2">(${Object.keys(booksByTitle).length} کتاب / ${books.length} بار خوانش)</span>
-                            </h3>
-                            <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
-                        </div>
-                        <div id="${contentId}" class="author-collapsible-content collapsible-content bg-white">
-                            <ul class="space-y-1 p-4">
-                                ${booksHTML}
-                            </ul>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-            setupDynamicAccordions('.author-accordion-header');
-        }
-
-        function createGenreList(data) {
-            const container = document.getElementById('genre-accordion-container');
-            if (!container) return;
-
-            const groupedByGenre = data.reduce((acc, book) => {
-                const genre = book.genre || 'نامشخص';
-                if (!acc[genre]) acc[genre] = [];
-                acc[genre].push(book);
-                return acc;
-            }, {});
-
-            const sortedGenres = Object.keys(groupedByGenre).sort((a, b) => {
-                return groupedByGenre[b].length - groupedByGenre[a].length;
-            });
-
-            let html = '';
-            sortedGenres.forEach((genre, index) => {
-                const books = groupedByGenre[genre];
-                books.sort((a, b) => b.full.localeCompare(a.full));
-                
-                const booksByTitle = books.reduce((acc, book) => {
-                    if (!acc[book.title]) {
-                        acc[book.title] = { book: book, readYears: [] };
-                    }
-                    acc[book.title].readYears.push(book.readYear);
-                    return acc;
-                }, {});
-
-                const headerId = `genre-header-${index}`;
-                const contentId = `genre-content-${index}`;
-
-                let booksHTML = Object.values(booksByTitle).map((group, idx) => {
-                    const rowNum = idx + 1;
-                    const book = group.book;
-                    const dates = group.readYears.sort((a,b) => a.localeCompare(b)).join(' - '); 
-                    const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی'].includes(book.translator)) ? ` - ${book.translator}` : '';
-                    const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
-
-                    return `<li class="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right flex items-start">
-                                <span class="ml-2 text-teal-600 font-bold min-w-[20px]">${rowNum}.</span>
-                                <div>
-                                    <strong>${book.title}</strong> (نویسنده: ${book.author})${translatorText} - ${datesText}
-                                </div>
-                            </li>`;
-                }).join('');
-
-                html += `
-                    <div class="border border-slate-200 rounded-lg overflow-hidden">
-                        <div id="${headerId}" class="genre-accordion-header accordion-header accordion-header-rtl bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 closed">
-                            <h3 class="accordion-title font-bold text-lg text-slate-800">
-                                ${genre} 
-                                <span class="text-sm font-medium text-slate-600 mr-2">(${Object.keys(booksByTitle).length} کتاب / ${books.length} بار خوانش)</span>
-                            </h3>
-                            <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
-                        </div>
-                        <div id="${contentId}" class="genre-collapsible-content collapsible-content bg-white">
-                            <ul class="space-y-1 p-4">
-                                ${booksHTML}
-                            </ul>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-            setupDynamicAccordions('.genre-accordion-header');
-        }
-
-        function setupDynamicAccordions(selector) {
-            const headers = document.querySelectorAll(selector);
-            headers.forEach(header => {
-                header.addEventListener('click', () => {
-                    const content = header.nextElementSibling; 
-                    const icon = header.querySelector('.accordion-toggle-icon');
-                    const isOpen = content.classList.toggle('open');
-                    header.classList.toggle('closed', !isOpen);
-                    if (icon) icon.textContent = isOpen ? '−' : '+';
-                });
-            });
-        }
-
         function createCharts(data) {
-            const chartColors = ['#14b8a6', '#f59e0b', '#3b82f6', '#ef4444', '#8b5cf6', '#ec4899', '#64748b', '#0891b2', '#f97316' ];
             
-            // 1. Author Chart
             const authorCounts = data.reduce((acc, book) => {
                 acc[book.author] = (acc[book.author] || 0) + 1;
                 return acc;
             }, {});
-            
-            // فیلتر ۱۵ تایی حذف شد تا تمام نویسندگان نمایش داده شوند
+            // بدون محدودیت ۱۵ تایی برای نمایش کامل
             const sortedAuthors = Object.entries(authorCounts).sort(([, a], [, b]) => b - a); 
 
             const authorCtx = document.getElementById('authorChart')?.getContext('2d');
@@ -938,20 +865,19 @@
                         plugins: { legend: { display: false } },
                         scales: { 
                             y: { beginAtZero: true, ticks: { stepSize: 1 } },
-                            x: {
-                                ticks: {
+                            x: { 
+                                ticks: { 
                                     autoSkip: false,
-                                    maxRotation: 60,
-                                    minRotation: 0,
+                                    maxRotation: 90, 
+                                    minRotation: 45,
                                     font: { size: 10 }
-                                }
+                                } 
                             }
                         }
                     }
                 });
             }
 
-            // 2. Genre Chart (VERTICAL now, as requested)
             const genreCounts = data.reduce((acc, book) => {
                 let g = book.genre ? book.genre.trim() : 'نامشخص';
                 acc[g] = (acc[g] || 0) + 1;
@@ -962,7 +888,7 @@
             const genreCtx = document.getElementById('genreChart')?.getContext('2d');
             if (genreCtx) {
                 new Chart(genreCtx, {
-                    type: 'bar', // Changed to vertical bar
+                    type: 'bar', 
                     data: {
                         labels: sortedGenres.map(t => t[0]),
                         datasets: [{
@@ -975,14 +901,14 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        indexAxis: 'x', // Vertical columns
+                        indexAxis: 'x', 
                         plugins: { legend: { display: false } },
                         scales: { 
                             y: { beginAtZero: true, ticks: { stepSize: 1 } },
                             x: { 
                                 ticks: { 
                                     autoSkip: false,
-                                    maxRotation: 45, // Rotated for better readability
+                                    maxRotation: 45, 
                                     minRotation: 45,
                                     font: { size: 11 }
                                 } 
@@ -992,7 +918,6 @@
                 });
             }
 
-            // 3. Yearly Chart
             const articlesByYear = data.reduce((acc, book) => {
                 const year = book.year;
                 if (year !== 'نامشخص') acc[year] = (acc[year] || 0) + 1;
@@ -1057,3 +982,4 @@
     </script>
 </body>
 </html>
+```
