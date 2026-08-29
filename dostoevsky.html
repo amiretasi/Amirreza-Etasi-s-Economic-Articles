@@ -15,18 +15,18 @@
                 extend: {
                     fontFamily: {
                         sans: ['Vazirmatn', 'sans-serif'],
-                        serif: ['Vazirmatn', 'serif'], // Using Vazirmatn as primary for clean UI
+                        serif: ['Vazirmatn', 'serif'],
                     },
                     colors: {
-                        paper: '#Fdfbf7', // Classic off-white paper color
+                        paper: '#Fdfbf7',
                         ink: {
-                            DEFAULT: '#1c1917', // stone-900
-                            light: '#44403c', // stone-700
-                            muted: '#78716c', // stone-500
+                            DEFAULT: '#1c1917',
+                            light: '#44403c',
+                            muted: '#78716c',
                         },
                         gold: {
-                            DEFAULT: '#b45309', // amber-700
-                            light: '#fef3c7', // amber-100
+                            DEFAULT: '#b45309',
+                            light: '#fef3c7',
                         }
                     }
                 }
@@ -42,7 +42,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Editorial Table Styles */
+        /* Editorial Table Styles (Kept as requested) */
         .editorial-table {
             width: 100%;
             border-collapse: separate;
@@ -67,144 +67,175 @@
             background-color: rgba(0, 0, 0, 0.02);
         }
 
-        /* Timeline Styles */
-        .timeline-container {
-            position: relative;
-            padding: 4rem 0;
-        }
-        .timeline-line {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 1px;
-            background-color: theme('colors.ink.muted');
-            transform: translateX(-50%);
-            opacity: 0.3;
-        }
-        .timeline-item {
-            position: relative;
-            width: 50%;
-            padding: 2rem 3rem;
-            box-sizing: border-box;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            text-align: left;
-            direction: ltr; /* Keeps layout alignment */
-        }
-        .timeline-item:nth-child(odd) > div {
-            direction: rtl; /* Reverts text direction inside card */
-            text-align: right;
-            margin-right: 0;
-            margin-left: auto;
-        }
-        .timeline-item:nth-child(even) {
-            left: 50%;
-            text-align: right;
-        }
-        
-        .timeline-dot {
-            position: absolute;
-            top: 50%;
-            width: 12px;
-            height: 12px;
-            background-color: theme('colors.paper');
-            border: 2px solid theme('colors.ink.DEFAULT');
-            border-radius: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            transition: all 0.3s ease;
-        }
-        .timeline-item:nth-child(odd) .timeline-dot { right: -6px; }
-        .timeline-item:nth-child(even) .timeline-dot { left: -6px; }
-
-        /* Life Event Card - Dark & Dramatic */
-        .card-event {
-            background-color: theme('colors.ink.DEFAULT');
-            color: theme('colors.paper');
-            padding: 1.5rem;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
-            border-right: 3px solid theme('colors.gold.DEFAULT');
-        }
-        .card-event .timeline-dot {
-            background-color: theme('colors.gold.DEFAULT');
-            border-color: theme('colors.ink.DEFAULT');
-        }
-
-        /* Publication Card - Clean & Minimal */
-        .card-book {
-            background-color: white;
-            padding: 1.5rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 4px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-book:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
-            border-color: #d1d5db;
-        }
-
         .badge-read {
             background-color: #ecfdf5;
             color: #047857;
             border: 1px solid #a7f3d0;
         }
 
-        /* Mobile Adjustments */
+        .river-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem 0;
+            display: grid;
+            grid-template-columns: 1fr 4px 1fr;
+            gap: 1.5rem 0;
+        }
+
+        .river-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(180deg, theme('colors.paper') 0%, theme('colors.gold.DEFAULT') 5%, theme('colors.ink.light') 50%, theme('colors.gold.DEFAULT') 95%, theme('colors.paper') 100%);
+            transform: translateX(-50%);
+            border-radius: 4px;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(180, 83, 9, 0.2);
+        }
+
+        .river-dot {
+            width: 16px;
+            height: 16px;
+            background-color: theme('colors.paper');
+            border: 3px solid theme('colors.gold.DEFAULT');
+            border-radius: 50%;
+            position: relative;
+            z-index: 10;
+            margin: 0 auto;
+            box-shadow: 0 0 0 4px rgba(253, 251, 247, 0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .river-item:hover .river-dot {
+            transform: scale(1.3);
+            background-color: theme('colors.gold.DEFAULT');
+        }
+
+        .river-card-wrapper {
+            opacity: 0;
+            transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Right side (Col 1 in RTL) slides from right */
+        .river-item-right .river-card-wrapper {
+            transform: translateX(40px) translateY(15px);
+        }
+        
+        /* Left side (Col 3 in RTL) slides from left */
+        .river-item-left .river-card-wrapper {
+            transform: translateX(-40px) translateY(15px);
+        }
+
+        .river-item.visible .river-card-wrapper {
+            opacity: 1;
+            transform: translateX(0) translateY(0);
+        }
+
+        /* Connectors pointing to the center */
+        .connector-right, .connector-left {
+            position: absolute;
+            top: 2rem;
+            width: 1rem;
+            height: 2px;
+            background-color: theme('colors.gold.DEFAULT');
+            opacity: 0.5;
+        }
+        .connector-right { left: -1rem; }
+        .connector-left { right: -1rem; }
+
+        /* Card Styles */
+        .card-event {
+            background: linear-gradient(135deg, theme('colors.ink.DEFAULT'), theme('colors.ink.light'));
+            color: theme('colors.paper');
+            padding: 1.25rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+            border-right: 4px solid theme('colors.gold.DEFAULT');
+            position: relative;
+        }
+        
+        .card-book {
+            background-color: white;
+            padding: 1rem 1.25rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            border-color: #d1d5db;
+        }
+
         @media (max-width: 768px) {
-            .timeline-line { left: 20px; }
-            .timeline-item { width: 100%; left: 0 !important; padding: 2rem 20px 2rem 50px !important; }
-            .timeline-item:nth-child(odd) > div { margin: 0; }
-            .timeline-dot { left: 14px !important; right: auto !important; }
+            .river-timeline {
+                grid-template-columns: 20px 1fr;
+                gap: 1rem;
+                padding-right: 10px;
+            }
+            .river-line {
+                left: auto;
+                right: 20px;
+                transform: none;
+            }
+            .river-item-right, .river-item-left {
+                grid-column: 2 / 3 !important;
+                justify-content: flex-start !important;
+            }
+            .river-dot-container {
+                grid-column: 1 / 2 !important;
+            }
+            .river-item-right .river-card-wrapper, .river-item-left .river-card-wrapper {
+                transform: translateY(20px) !important;
+                width: 100%;
+            }
+            .connector-right, .connector-left { display: none; }
         }
     </style>
 </head>
 <body class="selection:bg-gold-light selection:text-ink">
 
-    <header class="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center border-b border-gray-200">
-        <div class="inline-block mb-4 p-3 border border-gray-300 rounded-full">
-            <i class="ph ph-feather text-3xl text-ink-light"></i>
+    <header class="max-w-6xl mx-auto px-6 pt-8 pb-8 text-center border-b border-gray-200">
+        <div class="inline-block mb-3 p-2.5 border border-gray-300 rounded-full">
+            <i class="ph ph-feather text-2xl text-ink-light"></i>
         </div>
-        <h1 class="text-4xl md:text-6xl font-black text-ink mb-6 tracking-tight">فئودور داستایوسکی</h1>
-        <p class="text-lg md:text-xl text-ink-muted max-w-3xl mx-auto leading-relaxed">
-            پرونده‌ی جامع مطالعاتی، بررسی بهترین ترجمه‌ها و سیر تطور افکار خالق «جنایت و مکافات» در گذر از رنج‌ها و تبعید.
+        <h1 class="text-3xl md:text-5xl font-black text-ink mb-4 tracking-tight">فئودور داستایوسکی</h1>
+        <p class="text-base md:text-lg text-ink-muted max-w-3xl mx-auto leading-relaxed">
+            پرونده‌ی جامع مطالعاتی و خط سیر رودخانه‌ای حیات و آثار خالق «جنایت و مکافات»
         </p>
-        <div class="mt-8 flex items-center justify-center gap-6 text-sm font-bold text-ink-light">
+        <div class="mt-6 flex items-center justify-center gap-6 text-sm font-bold text-ink-light">
             <div class="flex flex-col items-center">
-                <span class="text-3xl text-ink mb-1" id="stat-total-books">0</span>
-                <span class="uppercase tracking-widest text-xs text-ink-muted">کل آثار</span>
+                <span class="text-2xl text-ink mb-0.5" id="stat-total-books">0</span>
+                <span class="uppercase tracking-widest text-[10px] text-ink-muted">کل آثار</span>
             </div>
-            <div class="h-10 w-px bg-gray-300"></div>
+            <div class="h-8 w-px bg-gray-300"></div>
             <div class="flex flex-col items-center">
-                <span class="text-3xl text-emerald-700 mb-1" id="stat-read-books">0</span>
-                <span class="uppercase tracking-widest text-xs text-ink-muted">خوانده شده</span>
+                <span class="text-2xl text-emerald-700 mb-0.5" id="stat-read-books">0</span>
+                <span class="uppercase tracking-widest text-[10px] text-ink-muted">خوانده شده</span>
             </div>
-            <div class="h-10 w-px bg-gray-300"></div>
+            <div class="h-8 w-px bg-gray-300"></div>
             <div class="flex flex-col items-center">
-                <span class="text-3xl text-gold mb-1" id="stat-total-reads">0</span>
-                <span class="uppercase tracking-widest text-xs text-ink-muted">دفعات مطالعه</span>
+                <span class="text-2xl text-gold mb-0.5" id="stat-total-reads">0</span>
+                <span class="uppercase tracking-widest text-[10px] text-ink-muted">دفعات مطالعه</span>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 md:px-8 py-16">
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-10">
         
-        <section class="mb-32">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <section class="mb-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
                 <div>
-                    <h2 class="text-2xl font-bold text-ink mb-2">۱. کارنامه‌ی جامع آثار</h2>
-                    <p class="text-ink-muted text-sm">فهرست تمامی نوشته‌ها همراه با معرفی برترین ترجمه‌های موجود و سوابق مطالعه‌ی شما.</p>
+                    <h2 class="text-2xl font-bold text-ink mb-1 flex items-center gap-2">
+                        <i class="ph-duotone ph-table text-gold"></i>
+                        ۱. کارنامه‌ی جامع آثار
+                    </h2>
+                    <p class="text-ink-muted text-sm">فهرست ۳۷ اثر اصلی همراه با ترجمه‌ها و سوابق مطالعه‌ی شما.</p>
                 </div>
             </div>
             
@@ -212,99 +243,110 @@
                 <table class="editorial-table min-w-[1100px]">
                     <thead>
                         <tr>
-                            <th class="text-center w-12">#</th>
+                            <th class="text-center w-10">#</th>
                             <th class="w-1/5">عنوان اثر</th>
-                            <th class="w-24 text-center">سال</th>
+                            <th class="w-16 text-center">سال</th>
                             <th class="w-24">ژانر</th>
-                            <th class="w-1/4">بهترین ترجمه‌های پیشنهادی</th>
-                            <th>مترجم مطالعه شده</th>
+                            <th class="w-1/4">بهترین ترجمه‌ها</th>
+                            <th>مترجم شما</th>
                             <th class="text-center">دفعات</th>
-                            <th class="text-center">تاریخ مطالعه</th>
-                            <th class="text-center">وضعیت</th>
+                            <th class="text-center w-24">تاریخ مطالعه</th>
+                            <th class="text-center w-28">وضعیت</th>
                         </tr>
                     </thead>
                     <tbody id="books-table-body">
-                        <!-- Rows will be populated by JavaScript -->
+                        <!-- Rows populated by JS -->
                     </tbody>
                 </table>
             </div>
         </section>
 
         <section>
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-ink mb-4">۲. خط سیر حیات و نگارش</h2>
-                <p class="text-ink-muted text-lg max-w-2xl mx-auto">
-                    چگونه زندان، اعدام نمایشی و فقر، جهان‌بینی داستایوسکی را دگرگون کرد؟ بررسی روند خلق آثار در بستر رویدادهای ملتهب زندگی‌اش.
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-ink mb-3 flex items-center justify-center gap-2">
+                    <i class="ph-duotone ph-path text-gold"></i>
+                    ۲. رودخانه‌ی حیات و نگارش
+                </h2>
+                <p class="text-ink-muted text-base max-w-2xl mx-auto">
+                    چگونه اعدام، سیبری و فقر، جهان‌بینی او را دگرگون کرد؟ تماشای تولد شاهکارها در بستر اتفاقات تلخ زندگی.
                 </p>
             </div>
 
-            <div class="timeline-container" id="timeline-container">
-                <div class="timeline-line"></div>
-                <!-- Timeline items will be populated by JavaScript -->
+            <div class="river-timeline" id="river-timeline-container">
+                <div class="river-line"></div>
+                <!-- Timeline items populated by JS -->
             </div>
         </section>
     </main>
 
-    <footer class="text-center py-10 border-t border-gray-200 mt-20">
-        <p class="text-ink-muted font-medium text-sm">طراحی و تدوین اختصاصی برای <span class="font-bold text-ink">امیررضا اعطاسی</span></p>
+    <footer class="text-center py-8 border-t border-gray-200 mt-10">
+        <p class="text-ink-muted font-medium text-sm">طراحی اختصاصی مستند برای <span class="font-bold text-ink">امیررضا اعطاسی</span></p>
     </footer>
 
     <script>
-        // Combined Data Array: Books & Life Events
         const dostoevskyData = [
-            // --- Life Events ---
-            { type: 'event', year: 1821, title: 'تولد در مسکو', desc: 'فئودور میخایلوویچ داستایوسکی در ۱۱ نوامبر در مسکو چشم به جهان گشود. پدرش پزشک بیمارستان فقرا بود.' },
-            { type: 'event', year: 1839, title: 'مرگ مشکوک پدر', desc: 'پدرش که مردی مستبد بود، به طرز مشکوکی (احتمالاً توسط رعایای خودش) به قتل رسید. این حادثه اولین جرقه‌های حملات صرع را در فئودور ایجاد کرد.' },
-            { type: 'event', year: 1844, title: 'استعفا از ارتش', desc: 'برای وقف کامل خود به ادبیات و نویسندگی، از شغل مهندسی نظامی استعفا داد و زندگی فقیرانه‌ای را آغاز کرد.' },
-            { type: 'event', year: 1849, title: 'دستگیری و اعدام نمایشی', desc: 'به جرم عضویت در محفل روشنفکری پتراشفسکی (که کتاب‌های ممنوعه می‌خواندند) دستگیر و به اعدام محکوم شد. در آخرین لحظه و در مقابل جوخه آتش، حکم به ۴ سال کار اجباری در سیبری تقلیل یافت. این رویداد، جهان‌بینی او را برای همیشه تغییر داد.' },
-            { type: 'event', year: 1850, title: 'تبعید و کار اجباری در سیبری', desc: 'آغاز دوران سخت زندان اومسک. در این دوران تنها کتابی که اجازه داشت بخواند «عهد جدید» (انجیل) بود که تأثیر عمیقی بر گرایش‌های مذهبی و خلق شخصیت‌های بعدی‌اش گذاشت.' },
-            { type: 'event', year: 1857, title: 'ازدواج اول', desc: 'با ماریا دیمیتریونا (بیوه‌ای بیمار و فقیر) ازدواج کرد. ازدواجی که بیشتر بر پایه ترحم بود تا عشق و پر از تلاطم شد.' },
-            { type: 'event', year: 1864, title: 'سال فاجعه و بدهی', desc: 'همسرش ماریا و اندکی بعد برادر محبوبش (میخائیل) از دنیا رفتند. او مسئولیت مالی خانواده برادرش را برعهده گرفت و به شدت مقروض شد.' },
-            { type: 'event', year: 1867, title: 'ازدواج با آنا و فرار به اروپا', desc: 'برای فرار از دست طلبکاران و با کمک تندنویس جوانش (آنا گریگوریونا) که به تازگی با او ازدواج کرده بود، به اروپا گریخت. در اروپا گرفتار اعتیاد شدید به قمار (رولت) شد.' },
-            { type: 'event', year: 1871, title: 'بازگشت به روسیه و ترک قمار', desc: 'پس از سال‌ها فقر و دربه‌دری در اروپا، با کمک همسرش آنا (که مدیریت مالی او را برعهده گرفت) به روسیه بازگشت و قمار را برای همیشه ترک کرد.' },
-            { type: 'event', year: 1881, title: 'درگذشت', desc: 'در ۹ فوریه بر اثر خونریزی ریوی درگذشت. ده‌ها هزار نفر از مردم روسیه در مراسم تشییع جنازه او شرکت کردند.' },
+            // --- Life Events (Comprehensive) ---
+            { type: 'event', year: 1821, title: 'تولد در مسکو', desc: '۱۱ نوامبر، تولد در بیمارستان فقرا. بستری دردناک که بعدها الهام‌بخش درک او از رنج انسانی شد.' },
+            { type: 'event', year: 1839, title: 'قتل پدر', desc: 'پدر مستبدش توسط رعایا به قتل می‌رسد. اولین جرقه‌های جدی صرع عصبی در فئودور نمایان می‌شود.' },
+            { type: 'event', year: 1844, title: 'استعفا از ارتش', desc: 'ترک شغل مهندسی نظامی برای وقف کامل به ادبیات؛ آغاز زندگی فقیرانه و بدهی‌های پی‌درپی.' },
+            { type: 'event', year: 1849, title: 'دستگیری و جوخه اعدام', desc: 'به جرم عضویت در حلقه روشنفکری پتراشفسکی دستگیر و در لحظه آخر مقابل جوخه آتش، بخشیده می‌شود.' },
+            { type: 'event', year: 1850, title: 'زندان اومسک (سیبری)', desc: 'آغاز ۴ سال اعمال شاقه در غل و زنجیر. هم‌نشینی با قاتلان و خواندن مداوم انجیل، او را دگرگون کرد.' },
+            { type: 'event', year: 1854, title: 'آزادی از زندان', desc: 'پایان حبس با اعمال شاقه و آغاز خدمت اجباری نظامی به عنوان سرباز ساده در سمی‌پالاتینسک.' },
+            { type: 'event', year: 1857, title: 'ازدواج اول', desc: 'ازدواج با ماریا دیمیتریونا، بیوه‌ای بیمار. رابطه‌ای پر تلاطم و استخوان‌سوز.' },
+            { type: 'event', year: 1859, title: 'بازگشت به پایتخت', desc: 'اجازه بازگشت به سن‌پترزبورگ و از سرگیری فعالیت‌های ادبی پس از ده سال تبعید.' },
+            { type: 'event', year: 1864, title: 'سال فاجعه', desc: 'مرگ همسرش ماریا و برادر محبوبش میخائیل. ورشکستگی مجله و افتادن در دام بدهی‌های سنگین.' },
+            { type: 'event', year: 1867, title: 'ازدواج دوم و فرار', desc: 'ازدواج با تندنویس جوانش، آنا گریگوریونا. فرار به اروپا برای گریز از طلبکاران و گرفتاری در قمار.' },
+            { type: 'event', year: 1871, title: 'ترک قمار و بازگشت', desc: 'پایان دربه‌دری در اروپا، تولد فرزندان، ترک ابدی قمار و آغاز دوران ثبات با مدیریت مالی آنا.' },
+            { type: 'event', year: 1880, title: 'خطابه پوشکین', desc: 'سخنرانی تاریخی درباره پوشکین که او را به اوج شهرت و محبوبیت ملی در روسیه رساند.' },
+            { type: 'event', year: 1881, title: 'مرگ', desc: '۹ فوریه، درگذشت بر اثر خونریزی ریه. ده‌ها هزار نفر در تشییع جنازه او در سن‌پترزبورگ شرکت کردند.' },
 
-            // --- Books (With exact user data & best translators) ---
+            // --- Books (All 37 Works + User Read Data) ---
             { type: 'book', year: 1846, titleFa: 'بیچارگان', titleEn: 'Poor Folk', genre: 'رمان کوتاه', bestTrans: 'خشایار دیهیمی، کاظم انصاری', userTrans: 'خشایار دیهیمی', isRead: true, reads: 1, dates: ['1405/02/24'] },
             { type: 'book', year: 1846, titleFa: 'همزاد', titleEn: 'The Double', genre: 'رمان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/06/06'] },
-            { type: 'book', year: 1846, titleFa: 'آقای پروخارچین', titleEn: 'Mr. Prokharchin', genre: 'داستان کوتاه', bestTrans: 'پرویز شهدی، مجید روئین‌تن', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', year: 1846, titleFa: 'آقای پروخارچین', titleEn: 'Mr. Prokharchin', genre: 'داستان کوتاه', bestTrans: 'پرویز شهدی', userTrans: null, isRead: false, reads: 0, dates: [] },
             { type: 'book', year: 1847, titleFa: 'رمان در نه نامه', titleEn: 'Novel in Nine Letters', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1405/05/13', '1405/05/13'] },
-            { type: 'book', year: 1847, titleFa: 'بانوی میزبان (زن صاحبخانه)', titleEn: 'The Landlady', genre: 'رمان کوتاه', bestTrans: 'پرویز شهدی، سروش حبیبی', userTrans: 'پرویز شهدی', isRead: true, reads: 1, dates: ['1405/06/07'] },
+            { type: 'book', year: 1847, titleFa: 'بانوی میزبان', titleEn: 'The Landlady', genre: 'رمان کوتاه', bestTrans: 'پرویز شهدی', userTrans: 'پرویز شهدی', isRead: true, reads: 1, dates: ['1405/06/07'] },
             { type: 'book', year: 1848, titleFa: 'شوهر حسود', titleEn: 'The Jealous Husband', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/05/12'] },
             { type: 'book', year: 1848, titleFa: 'همسر مردی دیگر', titleEn: 'Another Man\'s Wife', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', year: 1848, titleFa: 'همسر مردی دیگر و شوهر زیر تخت', titleEn: 'Wife and Husband under the Bed', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: null, isRead: false, reads: 0, dates: [] },
             { type: 'book', year: 1848, titleFa: 'نازک‌دل (قلب ضعیف)', titleEn: 'A Weak Heart', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1404/12/11', '1405/05/13'] },
+            { type: 'book', year: 1848, titleFa: 'پولزونکوف', titleEn: 'Polzunkov', genre: 'داستان کوتاه', bestTrans: 'پرویز شهدی', userTrans: null, isRead: false, reads: 0, dates: [] },
             { type: 'book', year: 1848, titleFa: 'دزد شرافتمند', titleEn: 'An Honest Thief', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/06/07'] },
+            { type: 'book', year: 1848, titleFa: 'درخت کریسمس و ازدواج', titleEn: 'A Christmas Tree and a Wedding', genre: 'داستان کوتاه', bestTrans: 'پرویز شهدی', userTrans: null, isRead: false, reads: 0, dates: [] },
             { type: 'book', year: 1848, titleFa: 'شب‌های روشن', titleEn: 'White Nights', genre: 'رمان کوتاه', bestTrans: 'سروش حبیبی، قاسم صنعوی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/10'] },
-            { type: 'book', year: 1849, titleFa: 'نیه‌توچکا نِزوانُوا', titleEn: 'Netochka Nezvanova', genre: 'رمان (ناتمام)', bestTrans: 'محمدجعفر محجوب، حمیدرضا آتش‌برآب', userTrans: 'محمدجعفر محجوب', isRead: true, reads: 1, dates: ['1405/03/19'] },
             { type: 'book', year: 1849, titleFa: 'دلاور خردسال', titleEn: 'A Little Hero', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/06/07'] },
-            { type: 'book', year: 1859, titleFa: 'رؤیای عموجان', titleEn: 'Uncle\'s Dream', genre: 'رمان کوتاه', bestTrans: 'آرزو مهران، یلدا بیدختی‌نژاد', userTrans: 'آرزو مهران', isRead: true, reads: 1, dates: ['1405/02/18'] },
-            { type: 'book', year: 1859, titleFa: 'روستای استپانچیکو', titleEn: 'Village of Stepanchikovo', genre: 'رمان', bestTrans: 'پرویز شهدی، مهرداد مهرین', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1861, titleFa: 'آزردگان (تحقیرشدگان...)', titleEn: 'Humiliated and Insulted', genre: 'رمان', bestTrans: 'یلدا بیدختی‌نژاد، علی‌اصغر خبره‌زاده', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/03/06'] },
-            { type: 'book', year: 1862, titleFa: 'خاطرات خانه‌ی مردگان', titleEn: 'House of the Dead', genre: 'رمان (زندگینامه)', bestTrans: 'محمدجعفر محجوب، پرویز شهدی', userTrans: 'محمدجعفر محجوب', isRead: true, reads: 1, dates: ['1405/03/16'] },
+            { type: 'book', year: 1849, titleFa: 'نیه‌توچکا نِزوانُوا', titleEn: 'Netochka Nezvanova', genre: 'رمان (ناتمام)', bestTrans: 'محمدجعفر محجوب، آتش‌برآب', userTrans: 'محمدجعفر محجوب', isRead: true, reads: 1, dates: ['1405/03/19'] },
+            { type: 'book', year: 1859, titleFa: 'رؤیای عموجان', titleEn: 'Uncle\'s Dream', genre: 'رمان کوتاه', bestTrans: 'آرزو مهران', userTrans: 'آرزو مهران', isRead: true, reads: 1, dates: ['1405/02/18'] },
+            { type: 'book', year: 1859, titleFa: 'روستای استپانچیکو', titleEn: 'Village of Stepanchikovo', genre: 'رمان', bestTrans: 'پرویز شهدی', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', year: 1861, titleFa: 'آزردگان', titleEn: 'Humiliated and Insulted', genre: 'رمان', bestTrans: 'علی‌اصغر خبره‌زاده', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/03/06'] },
+            { type: 'book', year: 1862, titleFa: 'خاطرات خانه‌ی مردگان', titleEn: 'House of the Dead', genre: 'رمان (مستند)', bestTrans: 'محمدجعفر محجوب', userTrans: 'محمدجعفر محجوب', isRead: true, reads: 1, dates: ['1405/03/16'] },
             { type: 'book', year: 1862, titleFa: 'قصه‌ای ناپسند', titleEn: 'A Nasty Story', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/01/21'] },
-            { type: 'book', year: 1863, titleFa: 'یادداشت‌های زمستانی...', titleEn: 'Winter Notes...', genre: 'سفرنامه / مقاله', bestTrans: 'مهدی سمسار', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1864, titleFa: 'یادداشت‌های زیرزمینی', titleEn: 'Notes from Underground', genre: 'رمان کوتاه', bestTrans: 'حمیدرضا آتش‌برآب، پرویز شهدی', userTrans: 'حمیدرضا آتش‌برآب', isRead: true, reads: 2, dates: ['1404/12/22', '1405/01/07'] },
+            { type: 'book', year: 1863, titleFa: 'یادداشت‌های زمستانی...', titleEn: 'Winter Notes...', genre: 'سفرنامه', bestTrans: 'مهدی سمسار', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', year: 1864, titleFa: 'یادداشت‌های زیرزمینی', titleEn: 'Notes from Underground', genre: 'رمان کوتاه', bestTrans: 'حمیدرضا آتش‌برآب', userTrans: 'حمیدرضا آتش‌برآب', isRead: true, reads: 2, dates: ['1404/12/22', '1405/01/07'] },
             { type: 'book', year: 1865, titleFa: 'کروکودیل (تمساح)', titleEn: 'The Crocodile', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/12'] },
             { type: 'book', year: 1865, titleFa: 'استنطاق', titleEn: 'The Inquisitor (Excerpt)', genre: 'داستان کوتاه', bestTrans: 'پرویز شهدی', userTrans: 'پرویز شهدی', isRead: true, reads: 1, dates: ['1404/12/23'] },
-            { type: 'book', year: 1866, titleFa: 'جنایت و مکافات', titleEn: 'Crime and Punishment', genre: 'رمان', bestTrans: 'مهری آهی، اصغر رستگار، حمیدرضا آتش‌برآب', userTrans: 'مهری آهی', isRead: true, reads: 1, dates: ['1405/01/11'] },
+            { type: 'book', year: 1866, titleFa: 'جنایت و مکافات', titleEn: 'Crime and Punishment', genre: 'رمان', bestTrans: 'مهری آهی، اصغر رستگار', userTrans: 'مهری آهی', isRead: true, reads: 1, dates: ['1405/01/11'] },
             { type: 'book', year: 1867, titleFa: 'قمارباز', titleEn: 'The Gambler', genre: 'رمان', bestTrans: 'سروش حبیبی، صالح حسینی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/24'] },
             { type: 'book', year: 1869, titleFa: 'ابله', titleEn: 'The Idiot', genre: 'رمان', bestTrans: 'سروش حبیبی، مهری آهی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/01/15'] },
-            { type: 'book', year: 1869, titleFa: 'همیشه شوهر', titleEn: 'The Eternal Husband', genre: 'رمان کوتاه', bestTrans: 'سروش حبیبی، علی‌اصغر خبره‌زاده', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/01/24'] },
-            { type: 'book', year: 1872, titleFa: 'جن‌زدگان (شیاطین)', titleEn: 'Demons', genre: 'رمان', bestTrans: 'سروش حبیبی، علی‌اصغر خبره‌زاده', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/02/01'] },
+            { type: 'book', year: 1869, titleFa: 'همیشه شوهر', titleEn: 'The Eternal Husband', genre: 'رمان کوتاه', bestTrans: 'علی‌اصغر خبره‌زاده', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/01/24'] },
+            { type: 'book', year: 1872, titleFa: 'جن‌زدگان (شیاطین)', titleEn: 'Demons', genre: 'رمان', bestTrans: 'سروش حبیبی، خبره‌زاده', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/02/01'] },
+            { type: 'book', year: 1873, titleFa: 'یادداشت‌های روزانه یک نویسنده', titleEn: 'A Writer\'s Diary', genre: 'مقاله', bestTrans: '---', userTrans: null, isRead: false, reads: 0, dates: [] },
             { type: 'book', year: 1873, titleFa: 'بوبوک', titleEn: 'Bobok', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1404/12/11', '1405/05/13'] },
-            { type: 'book', year: 1875, titleFa: 'جوان خام', titleEn: 'The Adolescent', genre: 'رمان', bestTrans: 'رضا رضایی، عبدالمجید احمدی', userTrans: 'رضا رضایی', isRead: true, reads: 1, dates: ['1405/02/16'] },
+            { type: 'book', year: 1875, titleFa: 'جوان خام', titleEn: 'The Adolescent', genre: 'رمان', bestTrans: 'رضا رضایی', userTrans: 'رضا رضایی', isRead: true, reads: 1, dates: ['1405/02/16'] },
+            { type: 'book', year: 1876, titleFa: 'مرد دهقان مارئی', titleEn: 'The Peasant Marey', genre: 'داستان کوتاه', bestTrans: '---', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', year: 1876, titleFa: 'رخت کریسمس بچه‌های فقیر', titleEn: 'The Heavenly Christmas Tree', genre: 'داستان کوتاه', bestTrans: '---', userTrans: null, isRead: false, reads: 0, dates: [] },
             { type: 'book', year: 1876, titleFa: 'نازنین', titleEn: 'A Gentle Creature', genre: 'داستان کوتاه', bestTrans: 'یلدا بیدختی‌نژاد', userTrans: 'یلدا بیدختی‌نژاد', isRead: true, reads: 2, dates: ['1404/10/28', '1404/11/18'] },
-            { type: 'book', year: 1877, titleFa: 'رؤیای آدم مضحک', titleEn: 'Dream of a Ridiculous Man', genre: 'داستان کوتاه', bestTrans: 'قاسم روبین، یلدا بیدختی‌نژاد', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', year: 1877, titleFa: 'رؤیای آدم مضحک', titleEn: 'Dream of a Ridiculous Man', genre: 'داستان کوتاه', bestTrans: 'یلدا بیدختی‌نژاد', userTrans: null, isRead: false, reads: 0, dates: [] },
             { type: 'book', year: 1880, titleFa: 'برادران کارامازوف', titleEn: 'The Brothers Karamazov', genre: 'رمان', bestTrans: 'صالح حسینی، احد علیقلیان', userTrans: 'صالح حسینی', isRead: true, reads: 1, dates: ['1405/01/21'] },
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Sort data chronologically
+            // Sort chronologically (Events and Books mixed)
             dostoevskyData.sort((a, b) => a.year - b.year);
             
             renderStats();
             renderTable();
-            renderTimeline();
+            renderRiverTimeline();
             setupIntersectionObserver();
         });
 
@@ -325,8 +367,8 @@
 
             books.forEach((book, index) => {
                 const statusHtml = book.isRead 
-                    ? `<span class="badge-read px-3 py-1 rounded text-xs font-bold flex items-center justify-center gap-1"><i class="ph-bold ph-check"></i> خوانده شده</span>`
-                    : `<span class="bg-gray-100 text-gray-500 border border-gray-200 px-3 py-1 rounded text-xs font-bold flex items-center justify-center gap-1"><i class="ph-bold ph-hourglass"></i> مانده</span>`;
+                    ? `<span class="badge-read px-2 py-1 rounded text-xs font-bold flex items-center justify-center gap-1"><i class="ph-bold ph-check"></i> خوانده شده</span>`
+                    : `<span class="bg-gray-100 text-gray-500 border border-gray-200 px-2 py-1 rounded text-xs font-bold flex items-center justify-center gap-1"><i class="ph-bold ph-hourglass"></i> مانده</span>`;
                 
                 const datesStr = book.isRead ? book.dates.join('<br>') : '<span class="text-gray-300">-</span>';
                 const userTransStr = book.isRead ? `<span class="font-bold text-ink">${book.userTrans}</span>` : '<span class="text-gray-300">-</span>';
@@ -344,89 +386,123 @@
                             <span class="text-xs text-gray-400 font-sans block dir-ltr text-left mt-0.5">${book.titleEn}</span>
                         </td>
                         <td class="text-center font-bold text-ink-light">${book.year}</td>
-                        <td class="text-ink-muted text-sm">${book.genre}</td>
-                        <td class="text-ink-light text-sm leading-relaxed">${book.bestTrans}</td>
-                        <td class="text-sm">${userTransStr}</td>
+                        <td class="text-ink-muted text-[13px]">${book.genre}</td>
+                        <td class="text-ink-light text-[13px] leading-relaxed">${book.bestTrans}</td>
+                        <td class="text-[13px]">${userTransStr}</td>
                         <td class="text-center">${readsBadge}</td>
                         <td class="text-ink-muted text-xs font-medium dir-ltr text-right">${datesStr}</td>
                         <td class="text-center">${statusHtml}</td>
                     </tr>
                 `;
             });
-
             tbody.innerHTML = html;
         }
 
-        function renderTimeline() {
-            const container = document.getElementById('timeline-container');
-            let html = '<div class="timeline-line"></div>';
-
+        function renderRiverTimeline() {
+            const container = document.getElementById('river-timeline-container');
+            let itemsHtml = '';
+            
+            // Generate items alternating left and right in the CSS Grid
             dostoevskyData.forEach((item, index) => {
+                const isRightCol = index % 2 === 0; // Col 1 in RTL is right
+                
+                // Determine placement classes
+                const wrapperClass = isRightCol ? 'river-item-right' : 'river-item-left';
+                const colPlacement = isRightCol 
+                    ? `col-start-1 col-end-2 flex justify-end` 
+                    : `col-start-3 col-end-4 flex justify-start`;
+                
+                const emptyCol = isRightCol ? `<div class="col-start-3 col-end-4 hidden md:block"></div>` : `<div class="col-start-1 col-end-2 hidden md:block"></div>`;
+                const connectorClass = isRightCol ? 'connector-right' : 'connector-left';
+
+                let cardContent = '';
+
                 if (item.type === 'event') {
-                    html += `
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="card-event">
-                                <div class="flex items-center gap-3 mb-3">
-                                    <span class="text-gold font-black text-2xl tracking-widest font-sans">${item.year}</span>
-                                    <h3 class="text-lg font-bold">${item.title}</h3>
-                                </div>
-                                <p class="text-gray-300 text-sm leading-relaxed opacity-90">${item.desc}</p>
+                    cardContent = `
+                        <div class="card-event w-full md:w-11/12 text-right">
+                            <div class="${connectorClass} hidden md:block"></div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-gold font-black text-xl tracking-widest font-sans">${item.year}</span>
+                                <h3 class="text-lg font-bold">${item.title}</h3>
                             </div>
+                            <p class="text-gray-300 text-[13px] leading-relaxed opacity-90">${item.desc}</p>
                         </div>
                     `;
                 } else if (item.type === 'book') {
                     const statusIcon = item.isRead 
                         ? '<i class="ph-fill ph-check-circle text-emerald-600 text-lg"></i>' 
                         : '<i class="ph-duotone ph-book-open text-gray-300 text-lg"></i>';
-                    
                     const titleClass = item.isRead ? "font-bold text-ink" : "font-medium text-ink-muted";
                     
-                    html += `
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="card-book">
-                                <div class="flex items-start justify-between mb-2">
-                                    <div class="flex items-center gap-2">
-                                        ${statusIcon}
-                                        <h3 class="${titleClass} text-lg">${item.titleFa}</h3>
-                                    </div>
-                                    <span class="text-ink-muted font-bold font-sans bg-gray-100 px-2 py-0.5 rounded text-sm">${item.year}</span>
+                    cardContent = `
+                        <div class="card-book w-full md:w-11/12 text-right">
+                            <div class="${connectorClass} hidden md:block"></div>
+                            <div class="flex items-start justify-between mb-1">
+                                <div class="flex items-center gap-2">
+                                    ${statusIcon}
+                                    <h3 class="${titleClass} text-base">${item.titleFa}</h3>
                                 </div>
-                                <div class="flex justify-between items-center text-xs text-ink-muted mt-3 pt-3 border-t border-gray-100">
-                                    <span>${item.genre}</span>
-                                    <span class="font-sans">${item.titleEn}</span>
-                                </div>
+                                <span class="text-ink-muted font-bold font-sans bg-gray-50 px-2 py-0.5 rounded text-xs border border-gray-100">${item.year}</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px] text-ink-muted mt-2 pt-2 border-t border-gray-50">
+                                <span>${item.genre}</span>
+                                <span class="font-sans">${item.titleEn}</span>
                             </div>
                         </div>
                     `;
                 }
+
+                // Construct Grid Row
+                const rowHtml = isRightCol ? `
+                    <div class="river-item ${wrapperClass} ${colPlacement}">
+                        <div class="river-card-wrapper w-full flex justify-end">
+                            ${cardContent}
+                        </div>
+                    </div>
+                    <div class="river-dot-container col-start-2 col-end-3 flex justify-center items-center relative z-10">
+                        <div class="river-dot"></div>
+                    </div>
+                    ${emptyCol}
+                ` : `
+                    ${emptyCol}
+                    <div class="river-dot-container col-start-2 col-end-3 flex justify-center items-center relative z-10">
+                        <div class="river-dot"></div>
+                    </div>
+                    <div class="river-item ${wrapperClass} ${colPlacement}">
+                        <div class="river-card-wrapper w-full flex justify-start">
+                            ${cardContent}
+                        </div>
+                    </div>
+                `;
+
+                itemsHtml += rowHtml;
             });
 
-            container.innerHTML = html;
+            // Append items to container (keeping the river line intact)
+            container.innerHTML += itemsHtml;
         }
 
         function setupIntersectionObserver() {
             const observerOptions = {
                 root: null,
-                rootMargin: '0px',
-                threshold: 0.15
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.1
             };
 
-            const observer = new IntersectionObserver((entries, observer) => {
+            const observer = new IntersectionObserver((entries, obs) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
+                        obs.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
             setTimeout(() => {
-                document.querySelectorAll('.timeline-item').forEach(item => {
+                document.querySelectorAll('.river-item').forEach(item => {
                     observer.observe(item);
                 });
-            }, 100);
+            }, 200);
         }
     </script>
 </body>
