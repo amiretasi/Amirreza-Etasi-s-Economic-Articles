@@ -206,7 +206,7 @@
         </div>
         <h1 class="text-3xl md:text-5xl font-black text-ink mb-4 tracking-tight">فئودور داستایوسکی</h1>
         <p class="text-base md:text-lg text-ink-muted max-w-3xl mx-auto leading-relaxed">
-            پرونده‌ی جامع مطالعاتی و خط سیر رودخانه‌ای حیات و آثار خالق «جنایت و مکافات»
+            نقشه‌ی جامع فکری و خط سیر رودخانه‌ای حیات و آثار خالق «جنایت و مکافات»
         </p>
         <div class="mt-6 flex items-center justify-center gap-6 text-sm font-bold text-ink-light">
             <div class="flex flex-col items-center">
@@ -228,14 +228,27 @@
 
     <main class="max-w-7xl mx-auto px-4 md:px-8 py-10">
         
+        <section class="mb-16 bg-gold-light/20 border border-gold-light rounded-xl p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="ph-duotone ph-bookmarks text-3xl text-gold"></i>
+                <div>
+                    <h2 class="text-2xl font-bold text-ink">برنامه مطالعاتی پیش‌رو</h2>
+                    <p class="text-ink-muted text-sm mt-1">آثاری که نخوانده‌اید یا برای بازخوانی (مثل جن‌زدگان و جوان خام) در اولویت هستند.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="must-read-container">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
         <section class="mb-24">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
                 <div>
                     <h2 class="text-2xl font-bold text-ink mb-1 flex items-center gap-2">
                         <i class="ph-duotone ph-table text-gold"></i>
-                        ۱. کارنامه‌ی جامع آثار
+                        ۱. کارنامه‌ی ۳۷ اثر منتخب و اصلی
                     </h2>
-                    <p class="text-ink-muted text-sm">فهرست ۳۷ اثر اصلی همراه با ترجمه‌ها و سوابق مطالعه‌ی شما.</p>
+                    <p class="text-ink-muted text-sm">فهرست آثار همراه با زمان‌بندی دقیق نگارش، ترجمه‌ها و سوابق مطالعه‌ی شما.</p>
                 </div>
             </div>
             
@@ -245,10 +258,11 @@
                         <tr>
                             <th class="text-center w-10">#</th>
                             <th class="w-1/5">عنوان اثر</th>
-                            <th class="w-16 text-center">سال</th>
+                            <th class="text-center">آغاز نگارش</th>
+                            <th class="text-center">پایان نگارش</th>
+                            <th class="text-center font-black">انتشار</th>
                             <th class="w-24">ژانر</th>
-                            <th class="w-1/4">بهترین ترجمه‌ها</th>
-                            <th>مترجم شما</th>
+                            <th class="w-1/5">مترجم شما</th>
                             <th class="text-center">دفعات</th>
                             <th class="text-center w-24">تاریخ مطالعه</th>
                             <th class="text-center w-28">وضعیت</th>
@@ -285,66 +299,72 @@
 
     <script>
         const dostoevskyData = [
-            // --- Life Events (Comprehensive) ---
+            // --- Life Events (Comprehensive & Detailed) ---
             { type: 'event', year: 1821, title: 'تولد در مسکو', desc: '۱۱ نوامبر، تولد در بیمارستان فقرا. بستری دردناک که بعدها الهام‌بخش درک او از رنج انسانی شد.' },
-            { type: 'event', year: 1839, title: 'قتل پدر', desc: 'پدر مستبدش توسط رعایا به قتل می‌رسد. اولین جرقه‌های جدی صرع عصبی در فئودور نمایان می‌شود.' },
+            { type: 'event', year: 1839, title: 'قتل پدر', desc: 'پدر مستبدش توسط رعایا به قتل می‌رسد. اولین جرقه‌های جدی صرع عصبی نمایان می‌شود.' },
             { type: 'event', year: 1844, title: 'استعفا از ارتش', desc: 'ترک شغل مهندسی نظامی برای وقف کامل به ادبیات؛ آغاز زندگی فقیرانه و بدهی‌های پی‌درپی.' },
-            { type: 'event', year: 1849, title: 'دستگیری و جوخه اعدام', desc: 'به جرم عضویت در حلقه روشنفکری پتراشفسکی دستگیر و در لحظه آخر مقابل جوخه آتش، بخشیده می‌شود.' },
-            { type: 'event', year: 1850, title: 'زندان اومسک (سیبری)', desc: 'آغاز ۴ سال اعمال شاقه در غل و زنجیر. هم‌نشینی با قاتلان و خواندن مداوم انجیل، او را دگرگون کرد.' },
-            { type: 'event', year: 1854, title: 'آزادی از زندان', desc: 'پایان حبس با اعمال شاقه و آغاز خدمت اجباری نظامی به عنوان سرباز ساده در سمی‌پالاتینسک.' },
-            { type: 'event', year: 1857, title: 'ازدواج اول', desc: 'ازدواج با ماریا دیمیتریونا، بیوه‌ای بیمار. رابطه‌ای پر تلاطم و استخوان‌سوز.' },
-            { type: 'event', year: 1859, title: 'بازگشت به پایتخت', desc: 'اجازه بازگشت به سن‌پترزبورگ و از سرگیری فعالیت‌های ادبی پس از ده سال تبعید.' },
-            { type: 'event', year: 1864, title: 'سال فاجعه', desc: 'مرگ همسرش ماریا و برادر محبوبش میخائیل. ورشکستگی مجله و افتادن در دام بدهی‌های سنگین.' },
-            { type: 'event', year: 1867, title: 'ازدواج دوم و فرار', desc: 'ازدواج با تندنویس جوانش، آنا گریگوریونا. فرار به اروپا برای گریز از طلبکاران و گرفتاری در قمار.' },
-            { type: 'event', year: 1871, title: 'ترک قمار و بازگشت', desc: 'پایان دربه‌دری در اروپا، تولد فرزندان، ترک ابدی قمار و آغاز دوران ثبات با مدیریت مالی آنا.' },
-            { type: 'event', year: 1880, title: 'خطابه پوشکین', desc: 'سخنرانی تاریخی درباره پوشکین که او را به اوج شهرت و محبوبیت ملی در روسیه رساند.' },
-            { type: 'event', year: 1881, title: 'مرگ', desc: '۹ فوریه، درگذشت بر اثر خونریزی ریه. ده‌ها هزار نفر در تشییع جنازه او در سن‌پترزبورگ شرکت کردند.' },
+            { type: 'event', year: 1849, title: 'دستگیری و قلعه پتروپاولوفسک', desc: 'آپریل: به جرم عضویت در حلقه پتراشفسکی دستگیر و ماه‌ها در قلعه مخوف پتروپاولوفسک حبس می‌شود.' },
+            { type: 'event', year: 1849.9, title: 'جوخه اعدام صوری', desc: 'دسامبر: در لحظه آخر مقابل جوخه آتش بخشیده می‌شود. این تجربه او را از نظر اگزیستانسیال دگرگون می‌کند.' },
+            { type: 'event', year: 1850, title: 'کاتورگا (زندان اومسک)', desc: 'آغاز ۴ سال اعمال شاقه در غل و زنجیر سیبری. هم‌نشینی با قاتلان و خواندن مداوم انجیل.' },
+            { type: 'event', year: 1854, title: 'تبعید نظامی', desc: 'آزادی از اعمال شاقه و آغاز خدمت اجباری نظامی به عنوان سرباز در سمی‌پالاتینسک.' },
+            { type: 'event', year: 1857, title: 'ازدواج اول', desc: 'ازدواج با ماریا دیمیتریونا. رابطه‌ای پر تلاطم که بعدها در خلق زنان رمان‌هایش تأثیر گذاشت.' },
+            { type: 'event', year: 1859, title: 'بازگشت به پایتخت', desc: 'پایان کامل تبعید، بازگشت به سن‌پترزبورگ و از سرگیری فعالیت‌های ادبی.' },
+            { type: 'event', year: 1864, title: 'سال فاجعه', desc: 'مرگ همسر (ماریا) و برادر محبوبش (میخائیل). ورشکستگی مجله و بدهی‌های سنگین.' },
+            { type: 'event', year: 1867, title: 'ازدواج دوم و فرار', desc: 'ازدواج با آنا گریگوریونا. فرار به اروپا برای گریز از طلبکاران و گرفتاری در قمار.' },
+            { type: 'event', year: 1871, title: 'بازگشت به روسیه', desc: 'پایان دربه‌دری، تولد فرزندان، ترک ابدی قمار و آغاز دوران ثبات با مدیریت مالی آنا.' },
+            { type: 'event', year: 1880, title: 'خطابه پوشکین', desc: 'سخنرانی تاریخی که او را به اوج شهرت و محبوبیت ملی در روسیه رساند.' },
+            { type: 'event', year: 1881, title: 'مرگ', desc: '۹ فوریه، درگذشت بر اثر خونریزی ریه. ده‌ها هزار نفر در تشییع جنازه او شرکت کردند.' },
 
-            // --- Books (All 37 Works + User Read Data) ---
-            { type: 'book', year: 1846, titleFa: 'بیچارگان', titleEn: 'Poor Folk', genre: 'رمان کوتاه', bestTrans: 'خشایار دیهیمی، کاظم انصاری', userTrans: 'خشایار دیهیمی', isRead: true, reads: 1, dates: ['1405/02/24'] },
-            { type: 'book', year: 1846, titleFa: 'همزاد', titleEn: 'The Double', genre: 'رمان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/06/06'] },
-            { type: 'book', year: 1846, titleFa: 'آقای پروخارچین', titleEn: 'Mr. Prokharchin', genre: 'داستان کوتاه', bestTrans: 'پرویز شهدی', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1847, titleFa: 'رمان در نه نامه', titleEn: 'Novel in Nine Letters', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1405/05/13', '1405/05/13'] },
-            { type: 'book', year: 1847, titleFa: 'بانوی میزبان', titleEn: 'The Landlady', genre: 'رمان کوتاه', bestTrans: 'پرویز شهدی', userTrans: 'پرویز شهدی', isRead: true, reads: 1, dates: ['1405/06/07'] },
-            { type: 'book', year: 1848, titleFa: 'شوهر حسود', titleEn: 'The Jealous Husband', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/05/12'] },
-            { type: 'book', year: 1848, titleFa: 'همسر مردی دیگر', titleEn: 'Another Man\'s Wife', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1848, titleFa: 'همسر مردی دیگر و شوهر زیر تخت', titleEn: 'Wife and Husband under the Bed', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1848, titleFa: 'نازک‌دل (قلب ضعیف)', titleEn: 'A Weak Heart', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1404/12/11', '1405/05/13'] },
-            { type: 'book', year: 1848, titleFa: 'پولزونکوف', titleEn: 'Polzunkov', genre: 'داستان کوتاه', bestTrans: 'پرویز شهدی', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1848, titleFa: 'دزد شرافتمند', titleEn: 'An Honest Thief', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/06/07'] },
-            { type: 'book', year: 1848, titleFa: 'درخت کریسمس و ازدواج', titleEn: 'A Christmas Tree and a Wedding', genre: 'داستان کوتاه', bestTrans: 'پرویز شهدی', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1848, titleFa: 'شب‌های روشن', titleEn: 'White Nights', genre: 'رمان کوتاه', bestTrans: 'سروش حبیبی، قاسم صنعوی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/10'] },
-            { type: 'book', year: 1849, titleFa: 'دلاور خردسال', titleEn: 'A Little Hero', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/06/07'] },
-            { type: 'book', year: 1849, titleFa: 'نیه‌توچکا نِزوانُوا', titleEn: 'Netochka Nezvanova', genre: 'رمان (ناتمام)', bestTrans: 'محمدجعفر محجوب، آتش‌برآب', userTrans: 'محمدجعفر محجوب', isRead: true, reads: 1, dates: ['1405/03/19'] },
-            { type: 'book', year: 1859, titleFa: 'رؤیای عموجان', titleEn: 'Uncle\'s Dream', genre: 'رمان کوتاه', bestTrans: 'آرزو مهران', userTrans: 'آرزو مهران', isRead: true, reads: 1, dates: ['1405/02/18'] },
-            { type: 'book', year: 1859, titleFa: 'روستای استپانچیکو', titleEn: 'Village of Stepanchikovo', genre: 'رمان', bestTrans: 'پرویز شهدی', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1861, titleFa: 'آزردگان', titleEn: 'Humiliated and Insulted', genre: 'رمان', bestTrans: 'علی‌اصغر خبره‌زاده', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/03/06'] },
-            { type: 'book', year: 1862, titleFa: 'خاطرات خانه‌ی مردگان', titleEn: 'House of the Dead', genre: 'رمان (مستند)', bestTrans: 'محمدجعفر محجوب', userTrans: 'محمدجعفر محجوب', isRead: true, reads: 1, dates: ['1405/03/16'] },
-            { type: 'book', year: 1862, titleFa: 'قصه‌ای ناپسند', titleEn: 'A Nasty Story', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/01/21'] },
-            { type: 'book', year: 1863, titleFa: 'یادداشت‌های زمستانی...', titleEn: 'Winter Notes...', genre: 'سفرنامه', bestTrans: 'مهدی سمسار', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1864, titleFa: 'یادداشت‌های زیرزمینی', titleEn: 'Notes from Underground', genre: 'رمان کوتاه', bestTrans: 'حمیدرضا آتش‌برآب', userTrans: 'حمیدرضا آتش‌برآب', isRead: true, reads: 2, dates: ['1404/12/22', '1405/01/07'] },
-            { type: 'book', year: 1865, titleFa: 'کروکودیل (تمساح)', titleEn: 'The Crocodile', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/12'] },
-            { type: 'book', year: 1865, titleFa: 'استنطاق', titleEn: 'The Inquisitor (Excerpt)', genre: 'داستان کوتاه', bestTrans: 'پرویز شهدی', userTrans: 'پرویز شهدی', isRead: true, reads: 1, dates: ['1404/12/23'] },
-            { type: 'book', year: 1866, titleFa: 'جنایت و مکافات', titleEn: 'Crime and Punishment', genre: 'رمان', bestTrans: 'مهری آهی، اصغر رستگار', userTrans: 'مهری آهی', isRead: true, reads: 1, dates: ['1405/01/11'] },
-            { type: 'book', year: 1867, titleFa: 'قمارباز', titleEn: 'The Gambler', genre: 'رمان', bestTrans: 'سروش حبیبی، صالح حسینی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/24'] },
-            { type: 'book', year: 1869, titleFa: 'ابله', titleEn: 'The Idiot', genre: 'رمان', bestTrans: 'سروش حبیبی، مهری آهی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/01/15'] },
-            { type: 'book', year: 1869, titleFa: 'همیشه شوهر', titleEn: 'The Eternal Husband', genre: 'رمان کوتاه', bestTrans: 'علی‌اصغر خبره‌زاده', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/01/24'] },
-            { type: 'book', year: 1872, titleFa: 'جن‌زدگان (شیاطین)', titleEn: 'Demons', genre: 'رمان', bestTrans: 'سروش حبیبی، خبره‌زاده', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/02/01'] },
-            { type: 'book', year: 1873, titleFa: 'یادداشت‌های روزانه یک نویسنده', titleEn: 'A Writer\'s Diary', genre: 'مقاله', bestTrans: '---', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1873, titleFa: 'بوبوک', titleEn: 'Bobok', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1404/12/11', '1405/05/13'] },
-            { type: 'book', year: 1875, titleFa: 'جوان خام', titleEn: 'The Adolescent', genre: 'رمان', bestTrans: 'رضا رضایی', userTrans: 'رضا رضایی', isRead: true, reads: 1, dates: ['1405/02/16'] },
-            { type: 'book', year: 1876, titleFa: 'مرد دهقان مارئی', titleEn: 'The Peasant Marey', genre: 'داستان کوتاه', bestTrans: '---', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1876, titleFa: 'رخت کریسمس بچه‌های فقیر', titleEn: 'The Heavenly Christmas Tree', genre: 'داستان کوتاه', bestTrans: '---', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1876, titleFa: 'نازنین', titleEn: 'A Gentle Creature', genre: 'داستان کوتاه', bestTrans: 'یلدا بیدختی‌نژاد', userTrans: 'یلدا بیدختی‌نژاد', isRead: true, reads: 2, dates: ['1404/10/28', '1404/11/18'] },
-            { type: 'book', year: 1877, titleFa: 'رؤیای آدم مضحک', titleEn: 'Dream of a Ridiculous Man', genre: 'داستان کوتاه', bestTrans: 'یلدا بیدختی‌نژاد', userTrans: null, isRead: false, reads: 0, dates: [] },
-            { type: 'book', year: 1880, titleFa: 'برادران کارامازوف', titleEn: 'The Brothers Karamazov', genre: 'رمان', bestTrans: 'صالح حسینی، احد علیقلیان', userTrans: 'صالح حسینی', isRead: true, reads: 1, dates: ['1405/01/21'] },
+            // --- Books (37 Works with Start/End/Pub Years) ---
+            { type: 'book', startYear: '۱۸۴۴', endYear: '۱۸۴۵', pubYear: 1846, titleFa: 'بیچارگان', titleEn: 'Poor Folk', genre: 'رمان کوتاه', userTrans: 'خشایار دیهیمی', isRead: true, reads: 1, dates: ['1405/02/24'] },
+            { type: 'book', startYear: '۱۸۴۵', endYear: '۱۸۴۶', pubYear: 1846, titleFa: 'همزاد', titleEn: 'The Double', genre: 'رمان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/06/06'] },
+            { type: 'book', startYear: '۱۸۴۶', endYear: '۱۸۴۶', pubYear: 1846, titleFa: 'آقای پروخارچین', titleEn: 'Mr. Prokharchin', genre: 'داستان کوتاه', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۴۷', endYear: '۱۸۴۷', pubYear: 1847, titleFa: 'رمان در نه نامه', titleEn: 'Novel in Nine Letters', genre: 'داستان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1405/05/13', '1405/05/13'] },
+            { type: 'book', startYear: '۱۸۴۷', endYear: '۱۸۴۷', pubYear: 1847, titleFa: 'بانوی میزبان', titleEn: 'The Landlady', genre: 'رمان کوتاه', userTrans: 'پرویز شهدی', isRead: true, reads: 1, dates: ['1405/06/07'] },
+            { type: 'book', startYear: '۱۸۴۸', endYear: '۱۸۴۸', pubYear: 1848, titleFa: 'شوهر حسود', titleEn: 'The Jealous Husband', genre: 'داستان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/05/12'] },
+            { type: 'book', startYear: '۱۸۴۸', endYear: '۱۸۴۸', pubYear: 1848, titleFa: 'همسر مردی دیگر', titleEn: 'Another Man\'s Wife', genre: 'داستان کوتاه', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۴۸', endYear: '۱۸۴۸', pubYear: 1848, titleFa: 'همسر مردی دیگر و شوهر زیر تخت', titleEn: 'Another Man\'s Wife and a Husband Under the Bed', genre: 'داستان کوتاه', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۴۸', endYear: '۱۸۴۸', pubYear: 1848, titleFa: 'نازک‌دل', titleEn: 'A Weak Heart', genre: 'داستان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1404/12/11', '1405/05/13'] },
+            { type: 'book', startYear: '۱۸۴۸', endYear: '۱۸۴۸', pubYear: 1848, titleFa: 'پولزونکوف', titleEn: 'Polzunkov', genre: 'داستان کوتاه', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۴۸', endYear: '۱۸۴۸', pubYear: 1848, titleFa: 'دزد شرافتمند', titleEn: 'An Honest Thief', genre: 'داستان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/06/07'] },
+            { type: 'book', startYear: '۱۸۴۸', endYear: '۱۸۴۸', pubYear: 1848, titleFa: 'درخت کریسمس و ازدواج', titleEn: 'A Christmas Tree and a Wedding', genre: 'داستان کوتاه', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۴۸', endYear: '۱۸۴۸', pubYear: 1848, titleFa: 'شب‌های روشن', titleEn: 'White Nights', genre: 'رمان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/10'] },
+            { type: 'book', startYear: '۱۸۴۹', endYear: '۱۸۴۹', pubYear: 1849, titleFa: 'دلاور خردسال', titleEn: 'A Little Hero', genre: 'داستان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/06/07'] },
+            { type: 'book', startYear: '۱۸۴۹', endYear: '۱۸۴۹', pubYear: 1849, titleFa: 'نیه‌توچکا نِزوانُوا', titleEn: 'Netochka Nezvanova', genre: 'رمان (ناتمام)', userTrans: 'محمدجعفر محجوب', isRead: true, reads: 1, dates: ['1405/03/19'] },
+            { type: 'book', startYear: '۱۸۵۸', endYear: '۱۸۵۹', pubYear: 1859, titleFa: 'رؤیای عموجان', titleEn: 'Uncle\'s Dream', genre: 'رمان کوتاه', userTrans: 'آرزو مهران', isRead: true, reads: 1, dates: ['1405/02/18'] },
+            { type: 'book', startYear: '۱۸۵۸', endYear: '۱۸۵۹', pubYear: 1859, titleFa: 'روستای استپانچیکو', titleEn: 'Village of Stepanchikovo', genre: 'رمان', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۶۰', endYear: '۱۸۶۱', pubYear: 1861, titleFa: 'آزردگان', titleEn: 'Humiliated and Insulted', genre: 'رمان', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/03/06'] },
+            { type: 'book', startYear: '۱۸۶۰', endYear: '۱۸۶۱', pubYear: 1862, titleFa: 'خاطرات خانه‌ی مردگان', titleEn: 'House of the Dead', genre: 'رمان (مستند)', userTrans: 'محمدجعفر محجوب', isRead: true, reads: 1, dates: ['1405/03/16'] },
+            { type: 'book', startYear: '۱۸۶۲', endYear: '۱۸۶۲', pubYear: 1862, titleFa: 'قصه‌ای ناپسند', titleEn: 'A Nasty Story', genre: 'داستان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/01/21'] },
+            { type: 'book', startYear: '۱۸۶۲', endYear: '۱۸۶۳', pubYear: 1863, titleFa: 'یادداشت‌های زمستانی، برداشت‌های تابستانی', titleEn: 'Winter Notes on Summer Impressions', genre: 'سفرنامه', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۶۴', endYear: '۱۸۶۴', pubYear: 1864, titleFa: 'یادداشت‌های زیرزمینی', titleEn: 'Notes from Underground', genre: 'رمان کوتاه', userTrans: 'حمیدرضا آتش‌برآب', isRead: true, reads: 5, dates: ['1404/12/22', '1405/01/07', '...', '...', '...'] },
+            { type: 'book', startYear: '۱۸۶۴', endYear: '۱۸۶۵', pubYear: 1865, titleFa: 'کروکودیل', titleEn: 'The Crocodile', genre: 'داستان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/12'] },
+            { type: 'book', startYear: '۱۸۶۵', endYear: '۱۸۶۵', pubYear: 1865, titleFa: 'استنطاق (مفتش اعظم)', titleEn: 'The Grand Inquisitor', genre: 'داستان کوتاه', userTrans: 'پرویز شهدی', isRead: true, reads: 1, dates: ['1404/12/23'] },
+            { type: 'book', startYear: '۱۸۶۵', endYear: '۱۸۶۶', pubYear: 1866, titleFa: 'جنایت و مکافات', titleEn: 'Crime and Punishment', genre: 'رمان', userTrans: 'مهری آهی', isRead: true, reads: 1, dates: ['1405/01/11'] },
+            { type: 'book', startYear: '۱۸۶۶', endYear: '۱۸۶۷', pubYear: 1867, titleFa: 'قمارباز', titleEn: 'The Gambler', genre: 'رمان', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/24'] },
+            { type: 'book', startYear: '۱۸۶۸', endYear: '۱۸۶۹', pubYear: 1869, titleFa: 'ابله', titleEn: 'The Idiot', genre: 'رمان', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1405/01/15'] },
+            { type: 'book', startYear: '۱۸۶۹', endYear: '۱۸۶۹', pubYear: 1869, titleFa: 'همیشه شوهر', titleEn: 'The Eternal Husband', genre: 'رمان کوتاه', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/01/24'] },
+            { type: 'book', startYear: '۱۸۷۰', endYear: '۱۸۷۲', pubYear: 1872, titleFa: 'جن‌زدگان (شیاطین)', titleEn: 'Demons', genre: 'رمان', userTrans: 'علی‌اصغر خبره‌زاده', isRead: true, reads: 1, dates: ['1405/02/01'], mustRead: true },
+            { type: 'book', startYear: '۱۸۷۳', endYear: '۱۸۸۱', pubYear: 1873, titleFa: 'یادداشت‌های روزانه یک نویسنده', titleEn: 'A Writer\'s Diary', genre: 'مقاله', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۷۳', endYear: '۱۸۷۳', pubYear: 1873, titleFa: 'بوبوک', titleEn: 'Bobok', genre: 'داستان کوتاه', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1404/12/11', '1405/05/13'] },
+            { type: 'book', startYear: '۱۸۷۴', endYear: '۱۸۷۵', pubYear: 1875, titleFa: 'جوان خام', titleEn: 'The Adolescent', genre: 'رمان', userTrans: 'رضا رضایی', isRead: true, reads: 1, dates: ['1405/02/16'], mustRead: true },
+            { type: 'book', startYear: '۱۸۷۶', endYear: '۱۸۷۶', pubYear: 1876, titleFa: 'مرد دهقان مارئی', titleEn: 'The Peasant Marey', genre: 'داستان کوتاه', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۷۶', endYear: '۱۸۷۶', pubYear: 1876, titleFa: 'رخت کریسمس بچه‌های فقیر', titleEn: 'The Heavenly Christmas Tree', genre: 'داستان کوتاه', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۷۶', endYear: '۱۸۷۶', pubYear: 1876, titleFa: 'نازنین', titleEn: 'A Gentle Creature', genre: 'داستان کوتاه', userTrans: 'یلدا بیدختی‌نژاد', isRead: true, reads: 2, dates: ['1404/10/28', '1404/11/18'] },
+            { type: 'book', startYear: '۱۸۷۷', endYear: '۱۸۷۷', pubYear: 1877, titleFa: 'رؤیای آدم مضحک', titleEn: 'Dream of a Ridiculous Man', genre: 'داستان کوتاه', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۷۸', endYear: '۱۸۸۰', pubYear: 1880, titleFa: 'برادران کارامازوف', titleEn: 'The Brothers Karamazov', genre: 'رمان', userTrans: 'صالح حسینی', isRead: true, reads: 1, dates: ['1405/01/21'] },
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
             // Sort chronologically (Events and Books mixed)
-            dostoevskyData.sort((a, b) => a.year - b.year);
+            dostoevskyData.sort((a, b) => {
+                const yearA = a.pubYear || a.year;
+                const yearB = b.pubYear || b.year;
+                return yearA - yearB;
+            });
             
             renderStats();
+            renderMustRead();
             renderTable();
             renderRiverTimeline();
             setupIntersectionObserver();
@@ -360,6 +380,38 @@
             document.getElementById('stat-total-reads').textContent = totalReads;
         }
 
+        function renderMustRead() {
+            const container = document.getElementById('must-read-container');
+            if(!container) return;
+            
+            // Unread books + specifically requested ones for re-read (Demons, Adolescent)
+            const mustReadBooks = dostoevskyData.filter(b => b.type === 'book' && (!b.isRead || b.mustRead));
+            
+            let html = '';
+            mustReadBooks.forEach(book => {
+                const badgeClass = book.isRead ? "bg-gold-light text-gold-dark" : "bg-gray-100 text-gray-500";
+                const badgeText = book.isRead ? "برنامه بازخوانی" : "نخوانده";
+                const icon = book.isRead ? '<i class="ph-bold ph-arrows-clockwise mr-1"></i>' : '<i class="ph-bold ph-book-open mr-1"></i>';
+                
+                html += `
+                    <div class="bg-white p-4 rounded-lg border ${book.isRead ? 'border-gold-light' : 'border-gray-200'} shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-ink leading-snug whitespace-normal pl-2">${book.titleFa}</h3>
+                                <span class="${badgeClass} flex items-center px-2 py-0.5 rounded text-xs font-bold whitespace-nowrap shrink-0">${badgeText}</span>
+                            </div>
+                            <p class="text-[11px] text-ink-muted dir-ltr text-right font-sans leading-tight mt-1 break-words">${book.titleEn}</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center text-xs text-ink-light border-t border-gray-50 pt-2">
+                            <span>${book.genre}</span>
+                            <span class="font-bold text-ink">${book.pubYear}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
         function renderTable() {
             const tbody = document.getElementById('books-table-body');
             const books = dostoevskyData.filter(d => d.type === 'book');
@@ -371,23 +423,28 @@
                     : `<span class="bg-gray-100 text-gray-500 border border-gray-200 px-2 py-1 rounded text-xs font-bold flex items-center justify-center gap-1"><i class="ph-bold ph-hourglass"></i> مانده</span>`;
                 
                 const datesStr = book.isRead ? book.dates.join('<br>') : '<span class="text-gray-300">-</span>';
-                const userTransStr = book.isRead ? `<span class="font-bold text-ink">${book.userTrans}</span>` : '<span class="text-gray-300">-</span>';
-                const readsBadge = book.reads > 1 
-                    ? `<span class="bg-gold-light text-gold font-bold px-2 py-0.5 rounded text-xs">${book.reads} بار</span>` 
-                    : (book.reads === 1 ? `<span class="text-ink-muted text-sm font-medium">۱ بار</span>` : `<span class="text-gray-300">-</span>`);
+                const userTransStr = book.isRead && book.userTrans ? `<span class="font-bold text-ink">${book.userTrans}</span>` : '<span class="text-gray-300">-</span>';
+                
+                let readsBadge = `<span class="text-gray-300">-</span>`;
+                if (book.reads > 1) {
+                    readsBadge = `<span class="bg-gold-light text-gold-dark font-bold px-2 py-0.5 rounded text-xs text-amber-800">${book.reads} بار</span>`;
+                } else if (book.reads === 1) {
+                    readsBadge = `<span class="text-ink-muted text-sm font-medium">۱ بار</span>`;
+                }
 
                 const titleClass = book.isRead ? "text-ink font-bold" : "text-ink-muted font-medium";
 
                 html += `
                     <tr>
                         <td class="text-center text-ink-muted font-bold text-sm">${index + 1}</td>
-                        <td>
-                            <span class="${titleClass} text-base block">${book.titleFa}</span>
-                            <span class="text-xs text-gray-400 font-sans block dir-ltr text-left mt-0.5">${book.titleEn}</span>
+                        <td class="whitespace-normal min-w-[180px]">
+                            <span class="${titleClass} text-[15px] leading-snug block break-words">${book.titleFa}</span>
+                            <span class="text-[11px] text-gray-400 font-sans block dir-ltr text-left mt-1 leading-tight break-words">${book.titleEn}</span>
                         </td>
-                        <td class="text-center font-bold text-ink-light">${book.year}</td>
+                        <td class="text-center font-medium text-ink-muted text-sm">${book.startYear}</td>
+                        <td class="text-center font-medium text-ink-muted text-sm">${book.endYear}</td>
+                        <td class="text-center font-black text-ink-light">${book.pubYear}</td>
                         <td class="text-ink-muted text-[13px]">${book.genre}</td>
-                        <td class="text-ink-light text-[13px] leading-relaxed">${book.bestTrans}</td>
                         <td class="text-[13px]">${userTransStr}</td>
                         <td class="text-center">${readsBadge}</td>
                         <td class="text-ink-muted text-xs font-medium dir-ltr text-right">${datesStr}</td>
@@ -402,11 +459,9 @@
             const container = document.getElementById('river-timeline-container');
             let itemsHtml = '';
             
-            // Generate items alternating left and right in the CSS Grid
             dostoevskyData.forEach((item, index) => {
                 const isRightCol = index % 2 === 0; // Col 1 in RTL is right
                 
-                // Determine placement classes
                 const wrapperClass = isRightCol ? 'river-item-right' : 'river-item-left';
                 const colPlacement = isRightCol 
                     ? `col-start-1 col-end-2 flex justify-end` 
@@ -416,13 +471,14 @@
                 const connectorClass = isRightCol ? 'connector-right' : 'connector-left';
 
                 let cardContent = '';
+                const itemYearDisplay = item.pubYear || Math.floor(item.year);
 
                 if (item.type === 'event') {
                     cardContent = `
                         <div class="card-event w-full md:w-11/12 text-right">
                             <div class="${connectorClass} hidden md:block"></div>
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="text-gold font-black text-xl tracking-widest font-sans">${item.year}</span>
+                                <span class="text-gold font-black text-xl tracking-widest font-sans">${itemYearDisplay}</span>
                                 <h3 class="text-lg font-bold">${item.title}</h3>
                             </div>
                             <p class="text-gray-300 text-[13px] leading-relaxed opacity-90">${item.desc}</p>
@@ -430,29 +486,28 @@
                     `;
                 } else if (item.type === 'book') {
                     const statusIcon = item.isRead 
-                        ? '<i class="ph-fill ph-check-circle text-emerald-600 text-lg"></i>' 
-                        : '<i class="ph-duotone ph-book-open text-gray-300 text-lg"></i>';
+                        ? '<i class="ph-fill ph-check-circle text-emerald-600 text-lg shrink-0"></i>' 
+                        : '<i class="ph-duotone ph-book-open text-gray-300 text-lg shrink-0"></i>';
                     const titleClass = item.isRead ? "font-bold text-ink" : "font-medium text-ink-muted";
                     
                     cardContent = `
                         <div class="card-book w-full md:w-11/12 text-right">
                             <div class="${connectorClass} hidden md:block"></div>
-                            <div class="flex items-start justify-between mb-1">
-                                <div class="flex items-center gap-2">
+                            <div class="flex items-start justify-between mb-1 gap-2">
+                                <div class="flex items-start gap-2 pt-0.5">
                                     ${statusIcon}
-                                    <h3 class="${titleClass} text-base">${item.titleFa}</h3>
+                                    <h3 class="${titleClass} text-sm leading-snug whitespace-normal break-words">${item.titleFa}</h3>
                                 </div>
-                                <span class="text-ink-muted font-bold font-sans bg-gray-50 px-2 py-0.5 rounded text-xs border border-gray-100">${item.year}</span>
+                                <span class="text-ink-muted font-bold font-sans bg-gray-50 px-2 py-0.5 rounded text-xs border border-gray-100 shrink-0 mt-0.5">${itemYearDisplay}</span>
                             </div>
                             <div class="flex justify-between items-center text-[11px] text-ink-muted mt-2 pt-2 border-t border-gray-50">
                                 <span>${item.genre}</span>
-                                <span class="font-sans">${item.titleEn}</span>
+                                <span class="text-gray-500 font-medium tracking-wide">نگارش: ${item.startYear}-${item.endYear}</span>
                             </div>
                         </div>
                     `;
                 }
 
-                // Construct Grid Row
                 const rowHtml = isRightCol ? `
                     <div class="river-item ${wrapperClass} ${colPlacement}">
                         <div class="river-card-wrapper w-full flex justify-end">
@@ -478,7 +533,6 @@
                 itemsHtml += rowHtml;
             });
 
-            // Append items to container (keeping the river line intact)
             container.innerHTML += itemsHtml;
         }
 
