@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پرونده مستند لئو تولستوی | امیررضا اعطاسی</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                        serif: ['Vazirmatn', 'serif'],
+                    },
+                    colors: {
+                        paper: '#Fdfbf7', // Warm paper background
+                        ink: {
+                            DEFAULT: '#1c1917',
+                            light: '#44403c',
+                            muted: '#78716c',
+                        },
+                        forest: {
+                            DEFAULT: '#065f46', // Deep emerald green
+                            light: '#d1fae5',
+                        },
+                        earth: {
+                            DEFAULT: '#b45309', // Warm amber/earth
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: theme('colors.paper');
+            color: theme('colors.ink.DEFAULT');
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Editorial Table Styles */
+        .editorial-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            text-align: right;
+        }
+        .editorial-table th {
+            border-bottom: 2px solid theme('colors.forest.DEFAULT');
+            padding: 1rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: theme('colors.forest.DEFAULT');
+            white-space: nowrap;
+        }
+        .editorial-table td {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.25rem 0.75rem;
+            vertical-align: top;
+            font-size: 0.925rem;
+        }
+        .editorial-table tr:hover td {
+            background-color: rgba(6, 95, 70, 0.03);
+        }
+
+        .badge-read {
+            background-color: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
+
+        /* River Timeline Styles */
+        .river-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem 0;
+            display: grid;
+            grid-template-columns: 1fr 4px 1fr;
+            gap: 1.5rem 0;
+        }
+
+        .river-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(180deg, theme('colors.paper') 0%, theme('colors.forest.DEFAULT') 5%, theme('colors.earth.DEFAULT') 50%, theme('colors.forest.DEFAULT') 95%, theme('colors.paper') 100%);
+            transform: translateX(-50%);
+            border-radius: 4px;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(6, 95, 70, 0.2);
+        }
+
+        .river-dot {
+            width: 16px;
+            height: 16px;
+            background-color: theme('colors.paper');
+            border: 3px solid theme('colors.forest.DEFAULT');
+            border-radius: 50%;
+            position: relative;
+            z-index: 10;
+            margin: 0 auto;
+            box-shadow: 0 0 0 4px rgba(253, 251, 247, 0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .river-item:hover .river-dot {
+            transform: scale(1.3);
+            background-color: theme('colors.earth.DEFAULT');
+            border-color: theme('colors.earth.DEFAULT');
+        }
+
+        /* Animation & Intersections */
+        .river-card-wrapper {
+            opacity: 0;
+            transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .river-item-right .river-card-wrapper {
+            transform: translateX(40px) translateY(15px);
+        }
+        
+        .river-item-left .river-card-wrapper {
+            transform: translateX(-40px) translateY(15px);
+        }
+
+        .river-item.visible .river-card-wrapper {
+            opacity: 1;
+            transform: translateX(0) translateY(0);
+        }
+
+        /* Connectors */
+        .connector-right, .connector-left {
+            position: absolute;
+            top: 2rem;
+            width: 1rem;
+            height: 2px;
+            background-color: theme('colors.forest.DEFAULT');
+            opacity: 0.5;
+        }
+        .connector-right { left: -1rem; }
+        .connector-left { right: -1rem; }
+
+        /* Card Styles */
+        .card-event {
+            background: linear-gradient(135deg, theme('colors.forest.DEFAULT'), theme('colors.ink.light'));
+            color: theme('colors.paper');
+            padding: 1.25rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+            border-right: 4px solid theme('colors.earth.DEFAULT');
+            position: relative;
+        }
+        
+        .card-book {
+            background-color: white;
+            padding: 1rem 1.25rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(6, 95, 70, 0.1);
+            border-color: theme('colors.forest.light');
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .river-timeline {
+                grid-template-columns: 20px 1fr;
+                gap: 1rem;
+                padding-right: 10px;
+            }
+            .river-line {
+                left: auto;
+                right: 20px;
+                transform: none;
+            }
+            .river-item-right, .river-item-left {
+                grid-column: 2 / 3 !important;
+                justify-content: flex-start !important;
+            }
+            .river-dot-container {
+                grid-column: 1 / 2 !important;
+            }
+            .river-item-right .river-card-wrapper, .river-item-left .river-card-wrapper {
+                transform: translateY(20px) !important;
+                width: 100%;
+            }
+            .connector-right, .connector-left { display: none; }
+        }
+    </style>
+</head>
+<body class="selection:bg-forest-light selection:text-forest">
+
+    <header class="max-w-6xl mx-auto px-6 pt-8 pb-8 text-center border-b border-gray-200">
+        <div class="inline-block mb-3 p-2.5 border border-gray-300 rounded-full">
+            <i class="ph ph-tree-evergreen text-2xl text-forest"></i>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-ink mb-4 tracking-tight">لئو تولستوی</h1>
+        <p class="text-base md:text-lg text-ink-muted max-w-3xl mx-auto leading-relaxed">
+            نقشه‌ی جامع فکری و خط سیر رودخانه‌ای حیات و آثار خالق «جنگ و صلح»
+        </p>
+        <div class="mt-6 flex items-center justify-center gap-6 text-sm font-bold text-ink-light">
+            <div class="flex flex-col items-center">
+                <span class="text-2xl text-ink mb-0.5" id="stat-total-books">0</span>
+                <span class="uppercase tracking-widest text-[10px] text-ink-muted">کل آثار</span>
+            </div>
+            <div class="h-8 w-px bg-gray-300"></div>
+            <div class="flex flex-col items-center">
+                <span class="text-2xl text-emerald-700 mb-0.5" id="stat-read-books">0</span>
+                <span class="uppercase tracking-widest text-[10px] text-ink-muted">خوانده شده</span>
+            </div>
+            <div class="h-8 w-px bg-gray-300"></div>
+            <div class="flex flex-col items-center">
+                <span class="text-2xl text-earth mb-0.5" id="stat-total-reads">0</span>
+                <span class="uppercase tracking-widest text-[10px] text-ink-muted">دفعات مطالعه</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-10">
+        
+        <section class="mb-16 bg-forest-light/30 border border-forest-light rounded-xl p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="ph-duotone ph-book-bookmark text-3xl text-forest"></i>
+                <div>
+                    <h2 class="text-2xl font-bold text-ink">برنامه مطالعاتی پیش‌رو</h2>
+                    <p class="text-ink-muted text-sm mt-1">فهرست تمامی آثار باقی‌مانده و نخوانده از لئو تولستوی برای برنامه‌ریزی مطالعه.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="must-read-container">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <section class="mb-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-ink mb-1 flex items-center gap-2">
+                        <i class="ph-duotone ph-table text-forest"></i>
+                        ۱. کارنامه‌ی جامع آثار تولستوی
+                    </h2>
+                    <p class="text-ink-muted text-sm">فهرست کامل رمان‌ها و داستان‌ها همراه با زمان‌بندی دقیق نگارش و سوابق مطالعه‌ی شما.</p>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+                <table class="editorial-table min-w-[1200px]">
+                    <thead>
+                        <tr>
+                            <th class="text-center w-10">#</th>
+                            <th class="w-1/5">عنوان اثر</th>
+                            <th class="text-center">آغاز نگارش</th>
+                            <th class="text-center">پایان نگارش</th>
+                            <th class="text-center font-black">انتشار</th>
+                            <th class="w-24">ژانر</th>
+                            <th class="w-1/6">بهترین ترجمه (بازار)</th>
+                            <th class="w-1/6">مترجم شما</th>
+                            <th class="text-center">دفعات</th>
+                            <th class="text-center w-24">تاریخ مطالعه</th>
+                            <th class="text-center w-28">وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="books-table-body">
+                        <!-- Rows populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-ink mb-3 flex items-center justify-center gap-2">
+                    <i class="ph-duotone ph-path text-earth"></i>
+                    ۲. رودخانه‌ی حیات و اندیشه
+                </h2>
+                <p class="text-ink-muted text-base max-w-2xl mx-auto">
+                    چگونه یک اشراف‌زاده، پس از جنگ و نگارش حماسه‌های بزرگ، دچار بحران روحی شد و به دهقانان پیوست؟ 
+                </p>
+            </div>
+
+            <div class="river-timeline" id="river-timeline-container">
+                <div class="river-line"></div>
+                <!-- Timeline items populated by JS -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8 border-t border-gray-200 mt-10">
+        <p class="text-ink-muted font-medium text-sm">طراحی اختصاصی مستند برای <span class="font-bold text-ink">امیررضا اعطاسی</span></p>
+    </footer>
+
+    <script>
+        const tolstoyData = [
+            // --- Life Events ---
+            { type: 'event', year: 1828, title: 'تولد در یاسنایا پولیانا', desc: '۹ سپتامبر. تولد در یک خانواده اشرافی قدیمی روسیه در املاکی که بعدها مرکز فلسفه او شد.' },
+            { type: 'event', year: 1851, title: 'ارتش و قفقاز', desc: 'پیوستن به ارتش به دلیل بدهی‌های قمار و رفتن به کوه‌های قفقاز. اولین تجربیات جدی نوشتن.' },
+            { type: 'event', year: 1854, title: 'جنگ کریمه', desc: 'حضور در محاصره خونین سواستوپول به عنوان افسر توپخانه. تجربه‌ای که از او یک صلح‌طلب ساخت.' },
+            { type: 'event', year: 1857, title: 'سفرهای اروپایی', desc: 'مشاهده اعدام با گیوتین در پاریس که باعث شد او کاملاً از تمدن و حکومت‌های غربی سرخورده شود.' },
+            { type: 'event', year: 1862, title: 'ازدواج با سوفیا', desc: 'ازدواج با سوفیا اندریونا برس که ۱۶ سال از او کوچکتر بود. سوفیا کاتب وفادار شاهکارهای او شد.' },
+            { type: 'event', year: 1878, title: 'بحران روحی و مذهبی', desc: 'پس از اتمام آنا کارنینا، دچار بحران عمیق اگزیستانسیال شد. ترک ادبیات داستانی به نفع رساله‌های اخلاقی.' },
+            { type: 'event', year: 1901, title: 'تکفیر از کلیسا', desc: 'کلیسای ارتدکس روسیه به دلیل افکار رادیکال و ضدنهادِ او در کتاب رستاخیز، او را رسماً تکفیر کرد.' },
+            { type: 'event', year: 1910, title: 'فرار و مرگ', desc: 'در ۸۲ سالگی در اعتراض به سبک زندگی اشرافی همسرش، شبانه از خانه فرار کرد و در ایستگاه قطار آستاپوفو درگذشت.' },
+
+            // --- Books (Combined with User's Read Data) ---
+            { type: 'book', startYear: '۱۸۵۲', endYear: '۱۸۵۷', pubYear: 1864, titleFa: 'کودکی، نوجوانی، جوانی', titleEn: 'Childhood, Boyhood, Youth', genre: 'رمان (سه‌گانه)', bestTrans: 'سروش حبیبی / رضا عقیلی', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۵۵', endYear: '۱۸۵۶', pubYear: 1856, titleFa: 'قصه‌های سواستوپول', titleEn: 'Sevastopol Sketches', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی / پرویز شهدی', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۵۶', endYear: '۱۸۵۶', pubYear: 1856, titleFa: 'دو هوسار', titleEn: 'Two Hussars', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: 'نامشخص', endYear: '۱۸۵۹', pubYear: 1859, titleFa: 'سعادت زناشویی', titleEn: 'Family Happiness', genre: 'نوولا', bestTrans: 'سروش حبیبی (چشمه)', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/11/22'] },
+            { type: 'book', startYear: '۱۸۶۰', endYear: '۱۸۶۱', pubYear: 1884, titleFa: 'دکابریست‌ها', titleEn: 'The Decembrists', genre: 'رمان (ناتمام)', bestTrans: '-', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۶۲', endYear: '۱۸۶۲', pubYear: 1862, titleFa: 'پولیکوشکا', titleEn: 'Polikushka', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/12/13'] },
+            { type: 'book', startYear: '۱۸۵۲', endYear: '۱۸۶۲', pubYear: 1863, titleFa: 'قزاق‌ها', titleEn: 'The Cossacks', genre: 'رمان کوتاه', bestTrans: 'عباس‌علی عزتی (نشر چشمه)', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۶۳', endYear: '۱۸۶۹', pubYear: 1869, titleFa: 'جنگ و صلح', titleEn: 'War and Peace', genre: 'رمان حماسی/تاریخی', bestTrans: 'سروش حبیبی (نیلوفر)', userTrans: null, isRead: false, reads: 0, dates: [], mustRead: true },
+            { type: 'book', startYear: '۱۸۷۲', endYear: '۱۸۷۲', pubYear: 1872, titleFa: 'اسیر قفقاز', titleEn: 'The Prisoner of the Caucasus', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی (در مجموعه)', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۷۳', endYear: '۱۸۷۷', pubYear: 1878, titleFa: 'آنا کارنینا', titleEn: 'Anna Karenina', genre: 'رمان', bestTrans: 'سروش حبیبی (نیلوفر)', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1383'] },
+            { type: 'book', startYear: '۱۸۷۹', endYear: '۱۸۸۲', pubYear: 1882, titleFa: 'اعتراف', titleEn: 'A Confession', genre: 'رساله فلسفی', bestTrans: 'آزیتا همپارتیان (نقش و نگار)', userTrans: 'آزیتا همپارتیان', isRead: true, reads: 1, dates: ['1404/11/06'] },
+            { type: 'book', startYear: '۱۸۸۴', endYear: '۱۸۸۶', pubYear: 1886, titleFa: 'مرگ ایوان ایلیچ', titleEn: 'The Death of Ivan Ilyich', genre: 'نوولا', bestTrans: 'سروش حبیبی (چشمه)', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/10/27'] },
+            { type: 'book', startYear: '۱۸۸۷', endYear: '۱۸۸۹', pubYear: 1891, titleFa: 'سونات کرویتسر', titleEn: 'The Kreutzer Sonata', genre: 'نوولا', bestTrans: 'سروش حبیبی (چشمه)', userTrans: 'سروش حبیبی', isRead: true, reads: 2, dates: ['1404/11/22', '1405/03/16'] },
+            { type: 'book', startYear: '۱۸۸۹', endYear: '۱۸۹۰', pubYear: 1891, titleFa: 'شیطان', titleEn: 'The Devil', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی (چشمه)', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/10/28'] },
+            { type: 'book', startYear: '۱۸۹۰', endYear: '۱۸۹۸', pubYear: 1911, titleFa: 'پدر سرگی', titleEn: 'Father Sergius', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی (چشمه)', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/11/17'] },
+            { type: 'book', startYear: '۱۸۹۵', endYear: '۱۸۹۵', pubYear: 1895, titleFa: 'ارباب و بنده', titleEn: 'Master and Man', genre: 'داستان کوتاه', bestTrans: 'سروش حبیبی (چشمه)', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/11/15'] },
+            { type: 'book', startYear: '۱۸۸۹', endYear: '۱۸۹۹', pubYear: 1899, titleFa: 'رستاخیز', titleEn: 'Resurrection', genre: 'رمان', bestTrans: 'علی‌اصغر خبره‌زاده (نگاه)', userTrans: null, isRead: false, reads: 0, dates: [], mustRead: true },
+            { type: 'book', startYear: '۱۸۹۶', endYear: '۱۹۰۴', pubYear: 1912, titleFa: 'حاجی مراد', titleEn: 'Hadji Murat', genre: 'نوولا', bestTrans: 'رشید مستوفی / سروش حبیبی', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', startYear: '۱۸۹۶', endYear: '۱۹۰۴', pubYear: 1911, titleFa: 'کوپن جعلی', titleEn: 'The Forged Coupon', genre: 'نوولا', bestTrans: 'سروش حبیبی (چشمه)', userTrans: 'سروش حبیبی', isRead: true, reads: 1, dates: ['1404/11/23'] },
+            { type: 'book', startYear: '۱۹۰۸', endYear: '۱۹۰۸', pubYear: 1908, titleFa: 'قانون عشق و قانون خشونت', titleEn: 'The Law of Love and the Law of Violence', genre: 'رساله فلسفی', bestTrans: 'محمود صناعی', userTrans: 'محمود صناعی', isRead: true, reads: 2, dates: ['1404/12/15', '1404/12/19'] }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sort chronologically (Events and Books mixed)
+            tolstoyData.sort((a, b) => {
+                const yearA = a.pubYear || a.year;
+                const yearB = b.pubYear || b.year;
+                return yearA - yearB;
+            });
+            
+            renderStats();
+            renderMustRead();
+            renderTable();
+            renderRiverTimeline();
+            setupIntersectionObserver();
+        });
+
+        function renderStats() {
+            const books = tolstoyData.filter(d => d.type === 'book');
+            const readBooks = books.filter(b => b.isRead);
+            const totalReads = readBooks.reduce((sum, b) => sum + b.reads, 0);
+
+            document.getElementById('stat-total-books').textContent = books.length;
+            document.getElementById('stat-read-books').textContent = readBooks.length;
+            document.getElementById('stat-total-reads').textContent = totalReads;
+        }
+
+        function renderMustRead() {
+            const container = document.getElementById('must-read-container');
+            if(!container) return;
+            
+            // All unread books + specifically requested ones for re-read
+            const mustReadBooks = tolstoyData.filter(b => b.type === 'book' && (!b.isRead || b.mustRead));
+            
+            let html = '';
+            mustReadBooks.forEach(book => {
+                const badgeClass = book.isRead ? "bg-forest-light text-forest font-bold" : "bg-white text-forest border border-forest/30";
+                const badgeText = book.isRead ? "برنامه بازخوانی" : "نخوانده";
+                const icon = book.isRead ? '<i class="ph-bold ph-arrows-clockwise mr-1"></i>' : '<i class="ph-bold ph-book-open mr-1"></i>';
+                
+                html += `
+                    <div class="bg-white p-4 rounded-lg border ${book.isRead ? 'border-forest-light' : 'border-gray-200'} shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-ink leading-snug whitespace-normal pl-2 text-lg">${book.titleFa}</h3>
+                                <span class="${badgeClass} flex items-center px-2 py-0.5 rounded text-[11px] font-bold whitespace-nowrap shrink-0">${badgeText}</span>
+                            </div>
+                            <p class="text-[11px] text-ink-muted dir-ltr text-right font-sans leading-tight mt-1 break-words">${book.titleEn}</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center text-xs text-ink-light border-t border-gray-50 pt-2">
+                            <span>${book.genre}</span>
+                            <span class="font-bold text-ink">${book.pubYear}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('books-table-body');
+            const books = tolstoyData.filter(d => d.type === 'book');
+            let html = '';
+
+            books.forEach((book, index) => {
+                const statusHtml = book.isRead 
+                    ? `<span class="badge-read px-2 py-1 rounded text-xs font-bold flex items-center justify-center gap-1"><i class="ph-bold ph-check"></i> خوانده شده</span>`
+                    : `<span class="bg-gray-100 text-gray-500 border border-gray-200 px-2 py-1 rounded text-xs font-bold flex items-center justify-center gap-1"><i class="ph-bold ph-hourglass"></i> مانده</span>`;
+                
+                const datesStr = book.isRead ? book.dates.join('<br>') : '<span class="text-gray-300">-</span>';
+                const userTransStr = book.isRead && book.userTrans && book.userTrans !== '-' ? `<span class="font-bold text-ink">${book.userTrans}</span>` : '<span class="text-gray-300">-</span>';
+                const bestTransStr = book.bestTrans && book.bestTrans !== '-' ? `<span class="text-forest font-medium text-[13px]">${book.bestTrans}</span>` : '<span class="text-gray-300">-</span>';
+                
+                let readsBadge = `<span class="text-gray-300">-</span>`;
+                if (book.reads > 1) {
+                    readsBadge = `<span class="bg-earth text-white font-bold px-2 py-0.5 rounded text-xs">${book.reads} بار</span>`;
+                } else if (book.reads === 1) {
+                    readsBadge = `<span class="text-ink-muted text-sm font-medium">۱ بار</span>`;
+                }
+
+                const titleClass = book.isRead ? "text-ink font-bold" : "text-ink-muted font-medium";
+
+                html += `
+                    <tr>
+                        <td class="text-center text-ink-muted font-bold text-sm">${index + 1}</td>
+                        <td class="whitespace-normal min-w-[180px]">
+                            <span class="${titleClass} text-[15px] leading-snug block break-words">${book.titleFa}</span>
+                            <span class="text-[11px] text-gray-400 font-sans block dir-ltr text-left mt-1 leading-tight break-words">${book.titleEn}</span>
+                        </td>
+                        <td class="text-center font-medium text-ink-muted text-sm">${book.startYear}</td>
+                        <td class="text-center font-medium text-ink-muted text-sm">${book.endYear}</td>
+                        <td class="text-center font-black text-ink-light">${book.pubYear}</td>
+                        <td class="text-ink-muted text-[13px]">${book.genre}</td>
+                        <td class="text-[13px] leading-snug whitespace-normal break-words max-w-[160px]">${bestTransStr}</td>
+                        <td class="text-[13px] leading-snug whitespace-normal break-words max-w-[140px]">${userTransStr}</td>
+                        <td class="text-center">${readsBadge}</td>
+                        <td class="text-ink-muted text-xs font-medium dir-ltr text-right">${datesStr}</td>
+                        <td class="text-center">${statusHtml}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function renderRiverTimeline() {
+            const container = document.getElementById('river-timeline-container');
+            let itemsHtml = '';
+            
+            tolstoyData.forEach((item, index) => {
+                const isRightCol = index % 2 === 0; // Col 1 in RTL is right
+                
+                const wrapperClass = isRightCol ? 'river-item-right' : 'river-item-left';
+                const colPlacement = isRightCol 
+                    ? `col-start-1 col-end-2 flex justify-end` 
+                    : `col-start-3 col-end-4 flex justify-start`;
+                
+                const emptyCol = isRightCol ? `<div class="col-start-3 col-end-4 hidden md:block"></div>` : `<div class="col-start-1 col-end-2 hidden md:block"></div>`;
+                const connectorClass = isRightCol ? 'connector-right' : 'connector-left';
+
+                let cardContent = '';
+                const itemYearDisplay = item.pubYear || Math.floor(item.year);
+
+                if (item.type === 'event') {
+                    cardContent = `
+                        <div class="card-event w-full md:w-11/12 text-right">
+                            <div class="${connectorClass} hidden md:block"></div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-earth font-black text-xl tracking-widest font-sans">${itemYearDisplay}</span>
+                                <h3 class="text-lg font-bold">${item.title}</h3>
+                            </div>
+                            <p class="text-gray-200 text-[13px] leading-relaxed opacity-90">${item.desc}</p>
+                        </div>
+                    `;
+                } else if (item.type === 'book') {
+                    const statusIcon = item.isRead 
+                        ? '<i class="ph-fill ph-check-circle text-emerald-600 text-lg shrink-0"></i>' 
+                        : '<i class="ph-duotone ph-book-open text-gray-300 text-lg shrink-0"></i>';
+                    const titleClass = item.isRead ? "font-bold text-ink" : "font-medium text-ink-muted";
+                    
+                    cardContent = `
+                        <div class="card-book w-full md:w-11/12 text-right">
+                            <div class="${connectorClass} hidden md:block"></div>
+                            <div class="flex items-start justify-between mb-1 gap-2">
+                                <div class="flex items-start gap-2 pt-0.5">
+                                    ${statusIcon}
+                                    <h3 class="${titleClass} text-sm leading-snug whitespace-normal break-words">${item.titleFa}</h3>
+                                </div>
+                                <span class="text-ink-muted font-bold font-sans bg-gray-50 px-2 py-0.5 rounded text-xs border border-gray-100 shrink-0 mt-0.5">${itemYearDisplay}</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px] text-ink-muted mt-2 pt-2 border-t border-gray-50">
+                                <span>${item.genre}</span>
+                                <span class="text-gray-500 font-medium tracking-wide">نگارش: ${item.startYear}-${item.endYear}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                const rowHtml = isRightCol ? `
+                    <div class="river-item ${wrapperClass} ${colPlacement}">
+                        <div class="river-card-wrapper w-full flex justify-end">
+                            ${cardContent}
+                        </div>
+                    </div>
+                    <div class="river-dot-container col-start-2 col-end-3 flex justify-center items-center relative z-10">
+                        <div class="river-dot"></div>
+                    </div>
+                    ${emptyCol}
+                ` : `
+                    ${emptyCol}
+                    <div class="river-dot-container col-start-2 col-end-3 flex justify-center items-center relative z-10">
+                        <div class="river-dot"></div>
+                    </div>
+                    <div class="river-item ${wrapperClass} ${colPlacement}">
+                        <div class="river-card-wrapper w-full flex justify-start">
+                            ${cardContent}
+                        </div>
+                    </div>
+                `;
+
+                itemsHtml += rowHtml;
+            });
+
+            container.innerHTML += itemsHtml;
+        }
+
+        function setupIntersectionObserver() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            setTimeout(() => {
+                document.querySelectorAll('.river-item').forEach(item => {
+                    observer.observe(item);
+                });
+            }, 200);
+        }
+    </script>
+</body>
+</html>
