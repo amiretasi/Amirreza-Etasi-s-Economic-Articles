@@ -314,6 +314,13 @@
             </div>
         </section>
 
+        <section id="publication-chart-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+            <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">توزیع تاریخی مطالعات (بر اساس دهه‌ی نگارش)</h2>
+            <div class="chart-wrapper" id="pubDecadeChartContainer">
+                <canvas id="publicationDecadeChart"></canvas>
+            </div>
+        </section>
+
         <section id="timeline-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">خط زمانی مطالعه کتاب‌ها</h2>
             <div id="timeline-container" class="relative max-w-3xl mx-auto">
@@ -329,7 +336,10 @@
     <script>
         // داده‌های کتاب‌های خوانده شده (۲۴۲ کتاب کامل)
         const booksData = [
-            { id: 2445, title: 'میرزا', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۶۸', readYear: '1405/06/21', genre: 'داستان کوتاه', nationality: 'ایران' },
+
+            { id: 247, title: 'چمدان', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۳۴', readYear: '1405/06/24', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 246, title: '53 نفر', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۵۱', readYear: '1405/06/22', genre: 'رمان', nationality: 'ایران' },
+            { id: 245, title: 'میرزا', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۶۸', readYear: '1405/06/21', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 244, title: 'ورق پاره‌های زندان', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۷۸', readYear: '1405/06/20', genre: 'رمان', nationality: 'ایران' },
             { id: 243, title: 'سالاری‌ها', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۷۸', readYear: '1405/06/19', genre: 'رمان', nationality: 'ایران' },
             { id: 242, title: 'گور به گور', author: 'ویلیام فاکنر', translator: 'نجف دریابندری', originalPubDate: '۱۹۳۶', readYear: '1405/06/18', genre: 'رمان', nationality: 'آمریکا' },
@@ -787,6 +797,7 @@
 
             if (chartLoaded) {
                 createCharts(processedData);
+                createPublicationChart(processedData);
             }
 
             setupScrollAnimations();
@@ -1236,6 +1247,137 @@
                 });
             }, { threshold: 0.01 });
             elements.forEach(el => observer.observe(el));
+        }
+
+        // تابع جدید برای ساخت هیستوگرام دهه‌های نگارش
+        function createPublicationChart(data) {
+            // الگوریتم هوشمند برای یکپارچه‌سازی و گروه‌بندی تاریخ‌های مختلف
+            function categorizePublicationDate(dateStr) {
+                if (!dateStr) return { label: 'نامشخص', sortValue: 9999 };
+                let str = String(dateStr).trim();
+
+                // تبدیل اعداد فارسی به انگلیسی برای پردازش
+                const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
+                const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+                for (let i = 0; i < 10; i++) {
+                    str = str.replace(persianNumbers[i], englishNumbers[i]);
+                }
+
+                if (str.includes('ق.م') || str.includes('پیش از میلاد')) return { label: 'دوران باستان (ق.م)', sortValue: -1000 };
+                if (str.includes('قرن')) return { label: 'قرون گذشته', sortValue: 1000 };
+                
+                let miladiDecade = null;
+
+                if (str.includes('دهه')) {
+                   let match = str.match(/\d+/);
+                   if (match) {
+                       let shamsiDecadeInput = parseInt(match[0]);
+                       if (shamsiDecadeInput < 100) shamsiDecadeInput += 1300; // مثال: دهه 50 -> 1350
+                       let approxGregorian = shamsiDecadeInput + 621;
+                       miladiDecade = Math.floor(approxGregorian / 10) * 10;
+                   }
+                } else {
+                    let yearMatch = str.match(/\d{3,4}/);
+                    if (yearMatch) {
+                        let year = parseInt(yearMatch[0]);
+                        
+                        // قرون گذشته (قبل از ۱۲۰۰ شمسی/میلادی)
+                        if (year < 1200) return { label: 'قرون گذشته', sortValue: 1000 }; 
+                        
+                        // تشخیص سال‌های شمسی (بین ۱۲۰۰ تا ۱۴۹۹)
+                        if (year >= 1200 && year <= 1499) {
+                            let approxGregorian = year + 621;
+                            miladiDecade = Math.floor(approxGregorian / 10) * 10;
+                        }
+                        
+                        // تشخیص سال‌های میلادی (۱۵۰۰ به بعد)
+                        if (year >= 1500) {
+                            miladiDecade = Math.floor(year / 10) * 10;
+                        }
+                    }
+                }
+
+                if (miladiDecade !== null) {
+                    // محاسبه تقریبی دهه شمسی برای نمایش در کنار دهه میلادی
+                    let shamsiDecade = Math.round((miladiDecade - 621) / 10) * 10;
+                    return { label: `${miladiDecade} - ${shamsiDecade}`, sortValue: miladiDecade };
+                }
+                
+                return { label: 'نامشخص', sortValue: 9999 };
+            }
+
+            const decadeCounts = {};
+            const decadeSortValues = {};
+            
+            data.forEach(book => {
+                const bucket = categorizePublicationDate(book.originalPubDate);
+                if (bucket.label === 'نامشخص') return; 
+                
+                decadeCounts[bucket.label] = (decadeCounts[bucket.label] || 0) + 1;
+                decadeSortValues[bucket.label] = bucket.sortValue;
+            });
+
+            // مرتب‌سازی کرونولوژیک (بر اساس توالی تاریخی واقعی)
+            const sortedDecades = Object.keys(decadeCounts).sort((a, b) => decadeSortValues[a] - decadeSortValues[b]);
+            const decadeData = sortedDecades.map(label => decadeCounts[label]);
+
+            const pubDecadeCtx = document.getElementById('publicationDecadeChart')?.getContext('2d');
+            if (pubDecadeCtx) {
+                // افکت گرادیانت شیک برای ستون‌ها
+                let gradient = pubDecadeCtx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(244, 63, 94, 0.85)'); // Rose-500
+                gradient.addColorStop(1, 'rgba(244, 63, 94, 0.1)');
+
+                new Chart(pubDecadeCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: sortedDecades,
+                        datasets: [{
+                            label: 'تعداد کتاب‌ها',
+                            data: decadeData,
+                            backgroundColor: gradient,
+                            borderColor: '#e11d48', // Rose-600
+                            borderWidth: 1.5,
+                            borderRadius: 6,
+                            hoverBackgroundColor: '#be123c' // Rose-700
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                                titleFont: { size: 14, family: "'Vazirmatn', sans-serif" },
+                                bodyFont: { size: 13, family: "'Vazirmatn', sans-serif" },
+                                padding: 12,
+                                cornerRadius: 8,
+                                callbacks: {
+                                    title: (context) => context[0].label,
+                                    label: (context) => ` ${context.raw} شاهکار ادبی در این برهه نوشته شده`
+                                }
+                            }
+                        },
+                        scales: { 
+                            y: { 
+                                beginAtZero: true, 
+                                ticks: { stepSize: 1, font: { family: "'Vazirmatn', sans-serif" } },
+                                grid: { color: '#f1f5f9' }
+                            },
+                            x: { 
+                                ticks: { 
+                                    autoSkip: false,
+                                    maxRotation: 45, 
+                                    minRotation: 45,
+                                    font: { size: 11, family: "'Vazirmatn', sans-serif" }
+                                },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
         }
     </script>
 </body>
