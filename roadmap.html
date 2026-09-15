@@ -225,7 +225,7 @@
                           <thead class="text-xs text-indigo-900 uppercase bg-indigo-100 sticky-header">
                               <tr>
                                   <th scope="col" class="px-4 py-3 cursor-pointer hover:bg-indigo-200 transition-colors" onclick="sortMustReadTable('id')">ردیف<span id="icon-id" class="text-[10px] ml-1 opacity-50 inline-block">&#9650;&#9660;</span></th>
-                                  <th scope="col" class="px-4 py-3 w-1/4 cursor-pointer hover:bg-indigo-200 transition-colors" onclick="sortMustReadTable('title')">عنوان کتاب<span id="icon-title" class="text-[10px] ml-1 opacity-50 inline-block">&#9650;&#9660;</span></th>
+                                  <th scope="col" class="px-4 py-3 cursor-pointer hover:bg-indigo-200 transition-colors" onclick="sortMustReadTable('title')">عنوان کتاب<span id="icon-title" class="text-[10px] ml-1 opacity-50 inline-block">&#9650;&#9660;</span></th>
                                   <th scope="col" class="px-4 py-3 cursor-pointer hover:bg-indigo-200 transition-colors" onclick="sortMustReadTable('author')">نویسنده<span id="icon-author" class="text-[10px] ml-1 opacity-50 inline-block">&#9650;&#9660;</span></th>
                                   <th scope="col" class="px-4 py-3 cursor-pointer hover:bg-indigo-200 transition-colors" onclick="sortMustReadTable('translator')">بهترین مترجم<span id="icon-translator" class="text-[10px] ml-1 opacity-50 inline-block">&#9650;&#9660;</span></th>
                                   <th scope="col" class="px-4 py-3 cursor-pointer hover:bg-indigo-200 transition-colors" onclick="sortMustReadTable('publisher')">ناشر<span id="icon-publisher" class="text-[10px] ml-1 opacity-50 inline-block">&#9650;&#9660;</span></th>
@@ -251,10 +251,10 @@
                       <table class="w-full text-sm text-right text-slate-500">
                           <thead class="text-xs text-slate-700 uppercase bg-slate-50 sticky-header">
                               <tr>
-                                  <th scope="col" class="px-6 py-3">ردیف</th>
-                                  <th scope="col" class="px-6 py-3 w-2/5">عنوان کتاب</th>
-                                  <th scope="col" class="px-6 py-3">نویسنده</th>
-                                  <th scope="col" class="px-6 py-3">مترجم</th>
+                                  <th scope="col" class="px-6 py-3 w-[5%]">ردیف</th>
+                                  <th scope="col" class="px-6 py-3 w-[28%]">عنوان کتاب</th>
+                                  <th scope="col" class="px-6 py-3 w-[18%]">نویسنده</th>
+                                  <th scope="col" class="px-6 py-3 w-[15%]">مترجم</th>
                                   <th scope="col" class="px-6 py-3">تاریخ نگارش</th>
                                   <th scope="col" class="px-6 py-3">تاریخ مطالعه</th>
                                   <th scope="col" class="px-6 py-3">ژانر</th>
@@ -334,10 +334,10 @@
     </footer>
 
     <script>
-        // داده‌های کتاب‌های خوانده شده (۲۴۲ کتاب کامل)
+        // داده‌های کتاب‌های خوانده شده (۲۴۸ کتاب کامل)
         const booksData = [
-
-            { id: 247, title: 'چمدان', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۳۴', readYear: '1405/06/24', genre: 'داستان کوتاه', nationality: 'ایران' },
+            { id: 248, title: '1984', author: 'جورج اورول', translator: 'صالح حسینی', originalPubDate: '۱۹۸۹', readYear: '1405/06/25', genre: 'رمان', nationality: 'انگلیس' },
+            { id: 247, title: 'چمدان', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۳۴', readYear: '1405/06/22', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 246, title: '53 نفر', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۵۱', readYear: '1405/06/22', genre: 'رمان', nationality: 'ایران' },
             { id: 245, title: 'میرزا', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۶۸', readYear: '1405/06/21', genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 244, title: 'ورق پاره‌های زندان', author: 'بزرگ علوی', translator: 'تألیفی', originalPubDate: '۱۹۷۸', readYear: '1405/06/20', genre: 'رمان', nationality: 'ایران' },
