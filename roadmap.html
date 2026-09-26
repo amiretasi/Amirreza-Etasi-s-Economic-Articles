@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -195,22 +196,30 @@
             <p class="text-lg text-slate-600 mt-2">تحلیل آماری و رصد استراتژیک مطالعات</p>
         </header>
 
-        <section id="kpis" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+        <section id="kpis" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 mb-16">
             <div class="kpi-card reveal-on-scroll">
-                <h3 class="font-semibold text-slate-500">کل کتاب‌ها (عناوین یکتا)</h3>
-                <p id="total-books" class="text-4xl font-bold text-teal-600 mt-2">0</p>
+                <h3 class="font-semibold text-slate-500 text-sm">کل کتاب‌ها</h3>
+                <p id="total-books" class="text-3xl font-bold text-teal-600 mt-2">0</p>
             </div>
             <div class="kpi-card reveal-on-scroll">
-                <h3 class="font-semibold text-slate-500">کل نویسندگان</h3>
-                <p id="total-authors" class="text-4xl font-bold text-teal-600 mt-2">0</p>
+                <h3 class="font-semibold text-slate-500 text-sm">کل نویسندگان</h3>
+                <p id="total-authors" class="text-3xl font-bold text-teal-600 mt-2">0</p>
             </div>
             <div class="kpi-card reveal-on-scroll">
-                <h3 class="font-semibold text-slate-500">تعداد کل مطالعه</h3>
-                <p id="total-reads" class="text-4xl font-bold text-teal-600 mt-2">0</p>
+                <h3 class="font-semibold text-slate-500 text-sm">تعداد کل مطالعه</h3>
+                <p id="total-reads" class="text-3xl font-bold text-teal-600 mt-2">0</p>
             </div>
             <div class="kpi-card reveal-on-scroll">
-                <h3 id="current-year-label" class="font-semibold text-slate-500">کتاب‌های سال جاری</h3>
-                <p id="current-year-books" class="text-4xl font-bold text-teal-600 mt-2">0</p>
+                <h3 id="current-year-label" class="font-semibold text-slate-500 text-sm">کتاب‌های سال جاری</h3>
+                <p id="current-year-books" class="text-3xl font-bold text-teal-600 mt-2">0</p>
+            </div>
+            <div class="kpi-card reveal-on-scroll border-indigo-200 bg-indigo-50">
+                <h3 class="font-semibold text-indigo-700 text-sm">کل ساعات مطالعه (امسال)</h3>
+                <p id="total-hours" class="text-3xl font-bold text-indigo-900 mt-2">0</p>
+            </div>
+            <div class="kpi-card reveal-on-scroll border-indigo-200 bg-indigo-50">
+                <h3 class="font-semibold text-indigo-700 text-sm">میانگین مطالعه (ساعت/ماه)</h3>
+                <p id="avg-hours" class="text-3xl font-bold text-indigo-900 mt-2">0</p>
             </div>
         </section>
 
@@ -314,12 +323,21 @@
             </div>
         </section>
 
-        <section id="publication-chart-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
-            <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">توزیع تاریخی مطالعات (بر اساس دهه‌ی نگارش)</h2>
-            <div class="chart-wrapper" id="pubDecadeChartContainer">
-                <canvas id="publicationDecadeChart"></canvas>
-            </div>
-        </section>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <section id="publication-chart-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 reveal-on-scroll">
+                <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">توزیع تاریخی مطالعات (دهه‌ی نگارش)</h2>
+                <div class="chart-wrapper" id="pubDecadeChartContainer">
+                    <canvas id="publicationDecadeChart"></canvas>
+                </div>
+            </section>
+            
+            <section id="hours-chart-section" class="bg-indigo-50 rounded-xl shadow-md border border-indigo-200 p-6 md:p-8 reveal-on-scroll">
+                <h2 class="text-2xl font-bold text-center mb-8 text-indigo-900">ساعت مطالعه در ماه (سال جاری)</h2>
+                <div class="chart-wrapper" id="hoursChartContainer">
+                    <canvas id="hoursChart"></canvas>
+                </div>
+            </section>
+        </div>
 
         <section id="timeline-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">خط زمانی مطالعه کتاب‌ها</h2>
@@ -334,9 +352,9 @@
     </footer>
 
     <script>
-        // داده‌های کتاب‌های خوانده شده (۲۵۱ کتاب کامل)
+        // داده‌های کتاب‌های خوانده شده (۲۵۲ کتاب کامل)
         const booksData = [
-
+            { id: 252, title: 'سیدارتا', author: 'هرمان هسه', translator: 'پرویز داریوش', originalPubDate: '۱۹۲۲', readYear: '1405/07/26', genre: 'رمان', nationality: 'آلمان' },
             { id: 251, title: 'موش‌ها و آدم‌ها', author: 'جان اشتاین بک', translator: 'سروش حبیبی', originalPubDate: '۱۹۳۷', readYear: '1405/07/04', genre: 'رمان', nationality: 'آمریکا' },
             { id: 250, title: 'شرق بهشت', author: 'جان اشتاین بک', translator: 'پرویز شهدی', originalPubDate: '۱۹۵۲', readYear: '1405/07/03', genre: 'رمان', nationality: 'آمریکا' },          
             { id: 249, title: 'خوشه‌های خشم', author: 'جان اشتاین بک', translator: 'عبدالحسین شریفیان', originalPubDate: '۱۹۳۹', readYear: '1405/06/29', genre: 'رمان', nationality: 'آمریکا' },
@@ -623,7 +641,6 @@
             { id: 24, title: 'تاراس بولبا', author: 'نیکلای گوگول', translator: 'محمود محرر خمامی', publisher: 'انتشارات نیلوفر', pages: 208, genre: 'رمان', nationality: 'روسیه' },
             { id: 25, title: 'کلیدر (جلد ۱ و ۲)', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'فرهنگ معاصر', pages: 610, genre: 'رمان', nationality: 'ایران' },
             { id: 26, title: 'گفتار در باب نابرابری', author: 'ژان ژاک روسو', translator: 'حسین خدیوجم', publisher: 'اطلاعات', pages: 144, genre: 'فلسفه سیاسی', nationality: 'سوئیس' },
-            { id: 27, title: 'شرق بهشت', author: 'جان اشتاین‌بک', translator: 'پرویز شهدی', publisher: 'نشر مجید', pages: 848, genre: 'رمان', nationality: 'آمریکا' },
             
             // ایستگاه چهارم: ویرانیِ خانواده و هویت
             { id: 28, title: 'چشم‌اندازی از پل', author: 'آرتور میلر', translator: 'منیژه محامدی', publisher: 'نشر قطره', pages: 128, genre: 'نمایشنامه', nationality: 'آمریکا' },
@@ -668,7 +685,6 @@
             { id: 61, title: 'کالسکه', author: 'نیکلای گوگول', translator: 'خشایار دیهیمی', publisher: 'نشر نی', pages: 72, genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 62, title: 'همه پسران من', author: 'آرتور میلر', translator: 'حسن ملکی', publisher: 'نشر قطره', pages: 160, genre: 'نمایشنامه', nationality: 'آمریکا' },
             { id: 63, title: 'سلوک', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'نشر چشمه', pages: 224, genre: 'رمان', nationality: 'ایران' },
-            { id: 64, title: 'موش‌ها و آدم‌ها', author: 'جان اشتاین‌بک', translator: 'سروش حبیبی', publisher: 'نشر ماهی', pages: 168, genre: 'رمان', nationality: 'آمریکا' },
             { id: 65, title: 'اینک آن انسان', author: 'فریدریش نیچه', translator: 'بهروز صفدری', publisher: 'نشر بازتاب نگار', pages: 208, genre: 'فلسفه', nationality: 'آلمان' },
 
             // ایستگاه هشتم: جهانِ بسته و هزارتوها
@@ -685,7 +701,6 @@
             { id: 74, title: 'رویاهای یک رهگذر تنها', author: 'ژان ژاک روسو', translator: 'مهستی بحرینی', publisher: 'انتشارات نیلوفر', pages: 200, genre: 'فلسفه', nationality: 'سوئیس' },
             { id: 75, title: 'زندگی کلیم سامگین', author: 'ماکسیم گورکی', translator: 'علی‌اصغر خبره‌زاده', publisher: 'انتشارات نگاه', pages: 1200, genre: 'رمان', nationality: 'روسیه' },
             { id: 76, title: 'صد سال تنهایی', author: 'گابریل گارسیا مارکز', translator: 'بهمن فرزانه', publisher: 'امیرکبیر', pages: 400, genre: 'رمان', nationality: 'کلمبیا' },
-            { id: 77, title: 'خوشه‌های خشم', author: 'جان اشتاین‌بک', translator: 'شاهرخ مسکوب', publisher: 'امیرکبیر', pages: 700, genre: 'رمان', nationality: 'آمریکا' },
             { id: 78, title: 'سور بز', author: 'ماریو بارگاس یوسا', translator: 'عبدالله کوثری', publisher: 'نشر علم', pages: 650, genre: 'رمان', nationality: 'پرو' },
             { id: 79, title: 'بینایی', author: 'ژوزه ساراماگو', translator: 'اسدالله امرایی', publisher: 'نشر مروارید', pages: 350, genre: 'رمان', nationality: 'پرتغال' },
             { id: 80, title: 'رساله الهی-سیاسی', author: 'باروخ اسپینوزا', translator: 'علی فردوسی', publisher: 'شرکت سهامی انتشار', pages: 480, genre: 'فلسفه سیاسی', nationality: 'هلند' },
@@ -698,6 +713,17 @@
             { id: 85, title: 'وضع بشر', author: 'هانا آرنت', translator: 'مسعود علیا', publisher: 'نشر ققنوس', pages: 520, genre: 'فلسفه سیاسی', nationality: 'آلمان' },
             { id: 86, title: 'مفهوم اضطراب', author: 'سورن کی‌یرکگور', translator: 'صالح نجفی', publisher: 'نشر مرکز', pages: 310, genre: 'فلسفه', nationality: 'دانمارک' }
         ];
+
+        // Hours spent reading data
+        const studyHoursData = {
+            'اسفند 1404': 65,
+            'فروردین 1405': 65,
+            'اردیبهشت 1405': 40,
+            'خرداد 1405': 48,
+            'تیر 1405': 42,
+            'مرداد 1405': 64,
+            'شهریور 1405': 55 // Assuming some hours for Shahrivar
+        };
 
         const JALALI_MONTHS = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
 
@@ -802,6 +828,7 @@
             if (chartLoaded) {
                 createCharts(processedData);
                 createPublicationChart(processedData);
+                createHoursChart();
             }
 
             setupScrollAnimations();
@@ -822,6 +849,21 @@
             document.getElementById('current-year-label').textContent = `کتاب‌های سال ${latestYear}`;
             const currentYearBooks = data.filter(b => b.year === latestYear).length;
             document.getElementById('current-year-books').textContent = currentYearBooks;
+
+            // Calculate Reading Hours
+            let totalHours = 0;
+            let monthsCount = 0;
+            for (const month in studyHoursData) {
+                if (month.includes('1405')) {
+                    totalHours += studyHoursData[month];
+                    monthsCount++;
+                }
+            }
+            
+            document.getElementById('total-hours').textContent = totalHours;
+            
+            let avgHours = monthsCount > 0 ? (totalHours / monthsCount).toFixed(1) : 0;
+            document.getElementById('avg-hours').textContent = avgHours;
         }
 
         function populateMustReadTable(data) {
@@ -1383,6 +1425,86 @@
                 });
             }
         }
+
+        // New function to create the Reading Hours Chart
+        function createHoursChart() {
+            const hoursCtx = document.getElementById('hoursChart')?.getContext('2d');
+            if (hoursCtx) {
+                // Extract months (keys) and hours (values) for current year 1405
+                const labels = [];
+                const data = [];
+                
+                // Sort chronologically using JALALI_MONTHS array
+                JALALI_MONTHS.forEach(monthName => {
+                    const key = `${monthName} 1405`;
+                    if (studyHoursData[key]) {
+                        labels.push(monthName);
+                        data.push(studyHoursData[key]);
+                    } else {
+                        // Include the month with 0 hours if it's past, or keep it empty for future. 
+                        // For a continuous line, we can push 0.
+                        labels.push(monthName);
+                        data.push(0);
+                    }
+                });
+
+                let gradient = hoursCtx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(79, 70, 229, 0.5)'); // Indigo-600 with opacity
+                gradient.addColorStop(1, 'rgba(79, 70, 229, 0.05)');
+
+                new Chart(hoursCtx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'ساعت مطالعه',
+                            data: data,
+                            borderColor: '#4f46e5', // Indigo-600
+                            backgroundColor: gradient,
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4, // Smooth curve
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: '#4f46e5',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                                titleFont: { size: 14, family: "'Vazirmatn', sans-serif" },
+                                bodyFont: { size: 13, family: "'Vazirmatn', sans-serif" },
+                                padding: 12,
+                                cornerRadius: 8,
+                                callbacks: {
+                                    label: (context) => ` ${context.raw} ساعت مطالعه در این ماه`
+                                }
+                            }
+                        },
+                        scales: { 
+                            y: { 
+                                beginAtZero: true, 
+                                ticks: { stepSize: 10, font: { family: "'Vazirmatn', sans-serif" } },
+                                grid: { color: '#e0e7ff' } // Indigo-100
+                            },
+                            x: { 
+                                ticks: { 
+                                    font: { size: 11, family: "'Vazirmatn', sans-serif" }
+                                },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>
+```
