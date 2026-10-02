@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>کتابخانه من - امیررضا اعطاسی</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" 
             onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js';"></script>
 
@@ -177,10 +177,10 @@
                 <li><a href="#kpis" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">شاخص‌ها</a></li>
                 <li><a href="#must-read-section" class="text-slate-600 hover:text-indigo-600 transition-colors duration-200">آنچه باید بخوانم</a></li>
                 <li><a href="#full-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">لیست کامل</a></li>
-                <li><a href="#author-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">بر اساس نویسنده</a></li>
-                <li><a href="#translator-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">بر اساس مترجم</a></li>
-                <li><a href="#genre-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">بر اساس ژانر</a></li>
-                <li><a href="#charts-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">نمودارها</a></li>
+                <li><a href="#author-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">نویسندگان</a></li>
+                <li><a href="#translator-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">مترجمان</a></li>
+                <li><a href="#genre-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">ژانرها</a></li>
+                <li><a href="#analytical-charts-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">نمودارها</a></li>
                 <li><a href="#timeline-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">خط زمانی</a></li>
             </ul>
         </div>
@@ -195,34 +195,34 @@
 
         <section id="kpis" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6 mb-16">
             <div class="kpi-card reveal-on-scroll">
-                <h3 class="font-semibold text-slate-500 text-sm">کل کتاب‌ها</h3>
-                <p id="total-books" class="text-3xl font-bold text-teal-600 mt-2">0</p>
+                <h3 class="font-semibold text-slate-500">کل کتاب‌ها (عناوین یکتا)</h3>
+                <p id="total-books" class="text-3xl lg:text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
             <div class="kpi-card reveal-on-scroll">
-                <h3 class="font-semibold text-slate-500 text-sm">کل نویسندگان</h3>
-                <p id="total-authors" class="text-3xl font-bold text-teal-600 mt-2">0</p>
+                <h3 class="font-semibold text-slate-500">کل نویسندگان</h3>
+                <p id="total-authors" class="text-3xl lg:text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
             <div class="kpi-card reveal-on-scroll">
-                <h3 class="font-semibold text-slate-500 text-sm">تعداد کل مطالعه</h3>
-                <p id="total-reads" class="text-3xl font-bold text-teal-600 mt-2">0</p>
+                <h3 class="font-semibold text-slate-500">تعداد کل مطالعه</h3>
+                <p id="total-reads" class="text-3xl lg:text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
             <div class="kpi-card reveal-on-scroll">
-                <h3 id="current-year-label" class="font-semibold text-slate-500 text-sm">کتاب‌های سال جاری</h3>
-                <p id="current-year-books" class="text-3xl font-bold text-teal-600 mt-2">0</p>
+                <h3 id="current-year-label" class="font-semibold text-slate-500">کتاب‌های سال جاری</h3>
+                <p id="current-year-books" class="text-3xl lg:text-4xl font-bold text-teal-600 mt-2">0</p>
             </div>
-            <div class="kpi-card reveal-on-scroll border-indigo-200 bg-indigo-50">
-                <h3 class="font-semibold text-indigo-700 text-sm">کل ساعات مطالعه (امسال)</h3>
-                <p id="total-hours" class="text-3xl font-bold text-indigo-900 mt-2">0</p>
+            <div class="kpi-card reveal-on-scroll">
+                <h3 class="font-semibold text-slate-500">کل ساعات مطالعه</h3>
+                <p id="total-hours" class="text-3xl lg:text-4xl font-bold text-indigo-600 mt-2">0</p>
             </div>
-            <div class="kpi-card reveal-on-scroll border-indigo-200 bg-indigo-50">
-                <h3 class="font-semibold text-indigo-700 text-sm">میانگین مطالعه (ساعت/ماه)</h3>
-                <p id="avg-hours" class="text-3xl font-bold text-indigo-900 mt-2">0</p>
+            <div class="kpi-card reveal-on-scroll">
+                <h3 class="font-semibold text-slate-500">متوسط روزانه (ساعت)</h3>
+                <p id="daily-avg-hours" class="text-3xl lg:text-4xl font-bold text-indigo-600 mt-2">0</p>
             </div>
         </section>
 
         <div id="must-read-section" class="bg-indigo-50 rounded-xl shadow-sm border border-indigo-200 p-6 md:p-8 mb-16 reveal-on-scroll">
              <div id="must-read-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
-                  <h2 class="accordion-title text-2xl font-bold text-indigo-900">آنچه باید بخوانم (برنامه مطالعاتی)</h2>
+                  <h2 class="accordion-title text-2xl font-bold text-indigo-900">آنچه باید بخوانم (۲۵۰ شاهکار جهانی)</h2>
                   <span class="accordion-toggle-icon text-2xl font-bold text-indigo-600 transition-transform duration-300 transform">+</span>
               </div>
               <div id="must-read-accordion-content" class="collapsible-content">
@@ -308,7 +308,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section id="translator-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
             <div id="translator-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
                 <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس مترجم</h2>
@@ -319,7 +319,7 @@
                 </div>
             </div>
         </section>
-
+        
         <section id="genre-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
             <div id="genre-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
                 <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس ژانر</h2>
@@ -331,21 +331,23 @@
             </div>
         </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-            <section id="publication-chart-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 reveal-on-scroll">
-                <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">توزیع تاریخی مطالعات (دهه‌ی نگارش)</h2>
-                <div class="chart-wrapper" id="pubDecadeChartContainer">
-                    <canvas id="publicationDecadeChart"></canvas>
+        <section id="analytical-charts-section" class="mb-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="chart-container reveal-on-scroll bg-white rounded-xl shadow-md border border-slate-200">
+                    <h2 class="text-2xl font-bold text-center mb-4 text-slate-900">توزیع تاریخی مطالعات (بر اساس دهه‌ی نگارش)</h2>
+                    <div class="chart-wrapper" id="pubDecadeChartContainer">
+                        <canvas id="publicationDecadeChart"></canvas>
+                    </div>
                 </div>
-            </section>
-            
-            <section id="hours-chart-section" class="bg-indigo-50 rounded-xl shadow-md border border-indigo-200 p-6 md:p-8 reveal-on-scroll">
-                <h2 class="text-2xl font-bold text-center mb-8 text-indigo-900">ساعت مطالعه در ماه (سال جاری)</h2>
-                <div class="chart-wrapper" id="hoursChartContainer">
-                    <canvas id="hoursChart"></canvas>
+                
+                <div class="chart-container reveal-on-scroll bg-white rounded-xl shadow-md border border-slate-200">
+                    <h2 class="text-2xl font-bold text-center mb-4 text-slate-900">ساعات مطالعه (ماهانه)</h2>
+                    <div class="chart-wrapper" id="readingHoursChartContainer">
+                        <canvas id="readingHoursChart"></canvas>
+                    </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
 
         <section id="timeline-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
             <h2 class="text-2xl font-bold text-center mb-8 text-slate-900">خط زمانی مطالعه کتاب‌ها</h2>
@@ -360,8 +362,22 @@
     </footer>
 
     <script>
-        // داده‌های کتاب‌های خوانده شده (۲۵۴ کتاب کامل)
+        const JALALI_MONTHS = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+
+        // داده‌های ساعات مطالعه بر اساس ورودی شما
+        const readingHoursData = {
+            '1404/12': 65, // اسفند 1404
+            '1405/01': 65, // فروردین 1405
+            '1405/02': 40, // اردیبهشت 1405
+            '1405/03': 48, // خرداد 1405
+            '1405/04': 42, // تیر 1405
+            '1405/05': 64  // مرداد 1405
+        };
+
         const booksData = [
+            { id: 257, title: 'مرشد و مارگاریتا', author: 'میخائیل بولگاکف', translator: 'عباس میلانی', originalPubDate: '۱۹۶۷', readYear: '1405/07/17', genre: 'رمان', nationality: 'روسیه' },
+            { id: 256, title: 'دل سگ', author: 'میخائیل بولگاکف', translator: 'آبتین گلکار', originalPubDate: '۱۹۲۵', readYear: '1405/07/12', genre: 'رمان', nationality: 'روسیه' },
+            { id: 255, title: 'یادداشت‌های یک پزشک جوان', author: 'میخائیل بولگاکف', translator: 'آبتین گلکار', originalPubDate: '۱۹۲۵', readYear: '1405/07/11', genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 254, title: 'رستاخیز', author: 'لئو تولستوی', translator: 'پرویز شهدی', originalPubDate: '۱۸۹۹', readYear: '1405/07/10', genre: 'رمان', nationality: 'روسیه' },          
             { id: 253, title: 'گروه محکومین', author: 'فرانتس کافکا', translator: 'صادق هدایت', originalPubDate: '۱۹۱۹', readYear: '1405/07/05', genre: 'داستان کوتاه', nationality: 'اتریش' },
             { id: 252, title: 'سیدارتا', author: 'هرمان هسه', translator: 'پرویز داریوش', originalPubDate: '۱۹۲۲', readYear: '1405/07/04', genre: 'رمان', nationality: 'آلمان' },
@@ -539,7 +555,7 @@
             { id: 80, title: 'آپولوژی', author: 'افلاطون', translator: 'محمدحسن لطفی', originalPubDate: '۳۹۹ ق.م', readYear: '1382', genre: 'فلسفه', nationality: 'یونان' },
             { id: 79, title: 'زن در چشم و دل محمد', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1382', genre: 'فلسفه دینی', nationality: 'ایران' },
             { id: 78, title: 'قمار عاشقانه', author: 'عبدالکریم سروش', translator: 'تألیفی', originalPubDate: '۱۳۷۵', readYear: '1383', genre: 'فلسفه دینی', nationality: 'ایران' },
-            { id: 77, title: 'سیاه‌مشق', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۲', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
+            { id: 77, title: 'سیاه‌‌مشق', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۲', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
             { id: 76, title: 'از این اوستا', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۴۴', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
             { id: 75, title: 'آخر شاهنامه', author: 'مهدی اخوان ثالث', translator: 'تألیفی', originalPubDate: '۱۳۳۸', readYear: '1383', genre: 'شعر', nationality: 'ایران' },
             { id: 74, title: 'آناکارنینا', author: 'لئو تولستوی', translator: 'سروش حبیبی', originalPubDate: '۱۲۵۶', readYear: '1383', genre: 'رمان', nationality: 'روسیه' },
@@ -555,7 +571,7 @@
             { id: 64, title: 'نیایش', author: 'علی شریعتی', translator: 'تألیفی', originalPubDate: 'دهه ۵۰', readYear: '1383', genre: 'فلسفه دینی', nationality: 'ایران' },
             { id: 63, title: 'سراب', author: 'هوشنگ ابتهاج (سایه)', translator: 'تألیفی', originalPubDate: '۱۳۳۰', readYear: '1384', genre: 'شعر', nationality: 'ایران' },
             { id: 62, title: 'بحر در کوزه', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۶۶', readYear: '1384', genre: 'عرفان', nationality: 'ایران' },
-            { id: 61, title: 'پله‌پله تا ملاقات خدا', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۷۰', readYear: '1384', genre: 'عرفان', nationality: 'ایران' },
+            { id: 61, title: 'پله‌پله تا ملاقات خدا', author: 'عبدالحسین زرین‌‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۷۰', readYear: '1384', genre: 'عرفان', nationality: 'ایران' },
             { id: 60, title: 'سرّ نی', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۶۴', readYear: '1384', genre: 'عرفان', nationality: 'ایران' },
             { id: 59, title: 'اخبار حلاج', author: 'لوئی ماسینیون', translator: 'حمید حمید', originalPubDate: '۱۳۰۱', readYear: '1384', genre: 'عرفان', nationality: 'فرانسه' },
             { id: 58, title: 'اسفار اربعه', author: 'ملاصدرا', translator: 'محمد خواجوی', originalPubDate: 'قرن ۱۱', readYear: '1384', genre: 'فلسفه', nationality: 'ایران' },
@@ -618,9 +634,7 @@
             { id: 1, title: 'شیخ صنعان', author: 'علی اکبر سعیدی سیرجانی', translator: 'تألیفی', originalPubDate: '1357', readYear: '1404/08/16', genre: 'جامعه شناسی', nationality: 'ایران' }
         ];
 
-        // داده‌های کتاب‌های برنامه (آنچه باید بخوانم) - ۸۶ کتاب فیلتر شده و بروز شده
         const mustReadBooksData = [
-            // ایستگاه اول: بیداری در برابرِ ماشینِ واقعیت
             { id: 1, title: 'محاکمه', author: 'فرانتس کافکا', translator: 'علی‌اصغر حداد', publisher: 'نشر ماهی', pages: 272, genre: 'رمان', nationality: 'اتریش' },
             { id: 2, title: 'جنگ و صلح', author: 'لئو تولستوی', translator: 'سروش حبیبی', publisher: 'انتشارات نیلوفر', pages: 1614, genre: 'رمان', nationality: 'روسیه' },
             { id: 3, title: 'حاجی آقا', author: 'صادق هدایت', translator: 'تألیفی', publisher: 'نشر مجید', pages: 136, genre: 'رمان', nationality: 'ایران' },
@@ -630,19 +644,16 @@
             { id: 7, title: 'فراسوی نیک و بد', author: 'فریدریش نیچه', translator: 'داریوش آشوری', publisher: 'انتشارات خوارزمی', pages: 376, genre: 'فلسفه', nationality: 'آلمان' },
             { id: 8, title: 'یادداشت‌های روزانه یک نویسنده', author: 'فئودور داستایوفسکی', translator: 'ابراهیم یونسی', publisher: 'نشر معین', pages: 648, genre: 'فلسفه', nationality: 'روسیه' },
             { id: 9, title: 'جای خالی سلوچ', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'نشر چشمه', pages: 501, genre: 'رمان', nationality: 'ایران' },
-            
-            // ایستگاه دوم: اضطراب، نقاب و جستجوی مقصر
             { id: 10, title: 'قصر', author: 'فرانتس کافکا', translator: 'علی‌اصغر حداد', publisher: 'نشر ماهی', pages: 412, genre: 'رمان', nationality: 'اتریش' },
             { id: 11, title: 'انسان طاغی', author: 'آلبر کامو', translator: 'مهبد ایرانی‌طلب', publisher: 'نشر قطره', pages: 448, genre: 'فلسفه سیاسی', nationality: 'فرانسه' },
             { id: 12, title: 'نفوس مرده', author: 'نیکلای گوگول', translator: 'کاظم انصاری', publisher: 'انتشارات نیلوفر', pages: 456, genre: 'رمان', nationality: 'روسیه' },
             { id: 13, title: 'اعترافات', author: 'ژان ژاک روسو', translator: 'مهستی بحرینی', publisher: 'انتشارات نیلوفر', pages: 856, genre: 'فلسفه', nationality: 'سوئیس' },
             { id: 14, title: 'بوته آزمایش', author: 'آرتور میلر', translator: 'محمود کیانوش', publisher: 'نشر قطره', pages: 200, genre: 'نمایشنامه', nationality: 'آمریکا' },
-            { id: 16, title: 'سن عقل', author: 'ژان پل سارتر', translator: 'محمود کیانوش', publisher: 'انتشارات آگاه', pages: 462, genre: 'رمان', nationality: 'فرانسه' },
-            { id: 17, title: 'توپ مروارید', author: 'صادق هدایت', translator: 'تألیفی', publisher: 'نشر چشمه (زیرزمینی)', pages: 120, genre: 'رمان', nationality: 'ایران' },
-            { id: 18, title: 'در اعماق', author: 'ماکسیم گورکی', translator: 'عبدالحسین نوشین', publisher: 'انتشارات نگاه', pages: 160, genre: 'نمایشنامه', nationality: 'روسیه' },
-            { id: 19, title: 'تبارشناسی اخلاق', author: 'فریدریش نیچه', translator: 'داریوش آشوری', publisher: 'نشر آگه', pages: 256, genre: 'فلسفه', nationality: 'آلمان' },
-
-            // ایستگاه سوم: مرزهای جنون و اراده
+            { id: 15, title: 'سن عقل', author: 'ژان پل سارتر', translator: 'محمود کیانوش', publisher: 'انتشارات آگاه', pages: 462, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 16, title: 'توپ مروارید', author: 'صادق هدایت', translator: 'تألیفی', publisher: 'نشر چشمه (زیرزمینی)', pages: 120, genre: 'رمان', nationality: 'ایران' },
+            { id: 17, title: 'در اعماق', author: 'ماکسیم گورکی', translator: 'عبدالحسین نوشین', publisher: 'انتشارات نگاه', pages: 160, genre: 'نمایشنامه', nationality: 'روسیه' },
+            { id: 18, title: 'تبارشناسی اخلاق', author: 'فریدریش نیچه', translator: 'داریوش آشوری', publisher: 'نشر آگه', pages: 256, genre: 'فلسفه', nationality: 'آلمان' },
+            { id: 19, title: 'جوان خام', author: 'فئودور داستایوفسکی', translator: 'رضا رضایی', publisher: 'نشر نی', pages: 720, genre: 'رمان', nationality: 'روسیه' },
             { id: 20, title: 'گروه محکومین', author: 'فرانتس کافکا', translator: 'علی‌اصغر حداد', publisher: 'نشر ماهی', pages: 112, genre: 'داستان کوتاه', nationality: 'اتریش' },
             { id: 21, title: 'قزاق‌ها', author: 'لئو تولستوی', translator: 'سروش حبیبی', publisher: 'انتشارات نیلوفر', pages: 264, genre: 'رمان', nationality: 'روسیه' },
             { id: 22, title: 'یوگنی اونیگین', author: 'الکساندر پوشکین', translator: 'حمیدرضا آتش‌برآب', publisher: 'نشر هرمس', pages: 420, genre: 'شعر', nationality: 'روسیه' },
@@ -651,8 +662,6 @@
             { id: 25, title: 'کلیدر (جلد ۱ و ۲)', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'فرهنگ معاصر', pages: 610, genre: 'رمان', nationality: 'ایران' },
             { id: 26, title: 'گفتار در باب نابرابری', author: 'ژان ژاک روسو', translator: 'حسین خدیوجم', publisher: 'اطلاعات', pages: 144, genre: 'فلسفه سیاسی', nationality: 'سوئیس' },
             { id: 27, title: 'شرق بهشت', author: 'جان اشتاین‌بک', translator: 'پرویز شهدی', publisher: 'نشر مجید', pages: 848, genre: 'رمان', nationality: 'آمریکا' },
-            
-            // ایستگاه چهارم: ویرانیِ خانواده و هویت
             { id: 28, title: 'چشم‌اندازی از پل', author: 'آرتور میلر', translator: 'منیژه محامدی', publisher: 'نشر قطره', pages: 128, genre: 'نمایشنامه', nationality: 'آمریکا' },
             { id: 29, title: 'روستای استپانچیکو', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', publisher: 'نشر نی', pages: 312, genre: 'رمان', nationality: 'روسیه' },
             { id: 30, title: 'بی‌بی پیک', author: 'الکساندر پوشکین', translator: 'حمیدرضا آتش‌برآب', publisher: 'نشر هرمس', pages: 154, genre: 'داستان کوتاه', nationality: 'روسیه' },
@@ -663,8 +672,6 @@
             { id: 35, title: 'دوران کودکی', author: 'ماکسیم گورکی', translator: 'کریم کشاورز', publisher: 'انتشارات نگاه', pages: 352, genre: 'زندگی‌نامه', nationality: 'روسیه' },
             { id: 36, title: 'حکمت شادان', author: 'فریدریش نیچه', translator: 'جمال آل احمد', publisher: 'نشر جامی', pages: 416, genre: 'فلسفه', nationality: 'آلمان' },
             { id: 37, title: 'کتاب خنده و فراموشی', author: 'میلان کوندرا', translator: 'فروغ پوریاوری', publisher: 'نشر روشنگران', pages: 360, genre: 'رمان', nationality: 'چک' },
-
-            // ایستگاه پنجم: سنگینیِ هستی و سقوط
             { id: 38, title: 'آمریکا', author: 'فرانتس کافکا', translator: 'علی‌اصغر حداد', publisher: 'نشر ماهی', pages: 368, genre: 'رمان', nationality: 'اتریش' },
             { id: 39, title: 'همسر مردی دیگر و شوهر زیر تخت', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', publisher: 'نشر نی', pages: 112, genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 40, title: 'قصه‌های سواستوپل', author: 'لئو تولستوی', translator: 'سروش حبیبی', publisher: 'نشر نی', pages: 184, genre: 'داستان کوتاه', nationality: 'روسیه' },
@@ -672,72 +679,213 @@
             { id: 42, title: 'دماغ', author: 'نیکلای گوگول', translator: 'خشایار دیهیمی', publisher: 'نشر نی', pages: 88, genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 43, title: 'درِ بسته', author: 'ژان پل سارتر', translator: 'حمید سمندریان', publisher: 'نشر قطره', pages: 104, genre: 'نمایشنامه', nationality: 'فرانسه' },
             { id: 44, title: 'روزگار سپری‌شده مردم سالخورده', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'نشر چشمه', pages: 1200, genre: 'رمان', nationality: 'ایران' },
-            { id: 45, title: 'مرشد و مارگاریتا', author: 'میخائیل بولگاکف', translator: 'عباس میلانی', publisher: 'نشر نو', pages: 560, genre: 'رمان', nationality: 'روسیه' },
-            { id: 46, title: 'زایش تراژدی', author: 'فریدریش نیچه', translator: 'سیدرضا ولی‌یاری', publisher: 'نشر مرکز', pages: 264, genre: 'فلسفه', nationality: 'آلمان' },
-            { id: 47, title: 'آدم اول', author: 'آلبر کامو', translator: 'منوچهر بدیعی', publisher: 'انتشارات نیلوفر', pages: 360, genre: 'رمان', nationality: 'فرانسه' },
-
-            // ایستگاه ششم: کالبدشکافیِ قدرت و جنون
+            { id: 45, title: 'زایش تراژدی', author: 'فریدریش نیچه', translator: 'سیدرضا ولی‌یاری', publisher: 'نشر مرکز', pages: 264, genre: 'فلسفه', nationality: 'آلمان' },
+            { id: 46, title: 'آدم اول', author: 'آلبر کامو', translator: 'منوچهر بدیعی', publisher: 'انتشارات نیلوفر', pages: 360, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 47, title: 'جن‌زدگان (شیاطین)', author: 'فئودور داستایوفسکی', translator: 'سروش حبیبی', publisher: 'نشر نی', pages: 900, genre: 'رمان', nationality: 'روسیه' },
             { id: 48, title: 'هنر چیست؟', author: 'لئو تولستوی', translator: 'کاوه دهگان', publisher: 'امیرکبیر', pages: 312, genre: 'فلسفه', nationality: 'روسیه' },
             { id: 49, title: 'نامه به پدر', author: 'فرانتس کافکا', translator: 'فرامرز بهزاد', publisher: 'انتشارات خوارزمی', pages: 128, genre: 'زندگی‌نامه', nationality: 'اتریش' },
             { id: 50, title: 'بوریس گودونوف', author: 'الکساندر پوشکین', translator: 'حمیدرضا آتش‌برآب', publisher: 'نشر هرمس', pages: 216, genre: 'نمایشنامه', nationality: 'روسیه' },
             { id: 51, title: 'در جستجوی نان', author: 'ماکسیم گورکی', translator: 'احمد صادق', publisher: 'انتشارات نگاه', pages: 416, genre: 'زندگی‌نامه', nationality: 'روسیه' },
-            { id: 52, title: 'امیل', author: 'ژان ژاک روسو', translator: 'غلامحسین زیرک‌زاده', publisher: 'نشر ناهید', pages: 520, genre: 'فلسفه', nationality: 'سوئیس' },
+            { id: 52, title: 'امیل', author: 'ژان ژاک روسو', translator: 'غلامحسین زیرک‌‌زاده', publisher: 'نشر ناهید', pages: 520, genre: 'فلسفه', nationality: 'سوئیس' },
             { id: 53, title: 'کوری', author: 'ژوزه ساراماگو', translator: 'مینو مشیری', publisher: 'نشر علم', pages: 360, genre: 'رمان', nationality: 'پرتغال' },
             { id: 54, title: 'پروین دختر ساسان', author: 'صادق هدایت', translator: 'تألیفی', publisher: 'نشر مجید', pages: 112, genre: 'نمایشنامه', nationality: 'ایران' },
             { id: 55, title: 'دجال', author: 'فریدریش نیچه', translator: 'عبدالعلی دستغیب', publisher: 'نشر پرسش', pages: 160, genre: 'فلسفه', nationality: 'آلمان' },
-
-            // ایستگاه هفتم: ماشینِ رنج و تقلا
             { id: 56, title: 'مرگ الیویه بکای', author: 'امیل زولا', translator: 'پرویز شهدی', publisher: 'نشر مجید', pages: 120, genre: 'داستان کوتاه', nationality: 'فرانسه' },
             { id: 57, title: 'روسپی بزرگوار', author: 'ژان پل سارتر', translator: 'عبدالحسین نوشین', publisher: 'نشر قطره', pages: 110, genre: 'نمایشنامه', nationality: 'فرانسه' },
             { id: 58, title: 'نامه‌های داستایوفسکی', author: 'فئودور داستایوفسکی', translator: 'اصغر رستگار', publisher: 'انتشارات نگاه', pages: 512, genre: 'زندگی‌نامه', nationality: 'روسیه' },
             { id: 59, title: 'ملکوت خداوند درون شماست', author: 'لئو تولستوی', translator: 'شهرام نقش‌تبریزی', publisher: 'نشر نی', pages: 360, genre: 'فلسفه دینی', nationality: 'روسیه' },
-            { id: 60, title: 'داستان‌های بلکین', author: 'الکساندر پوشکین', translator: 'حمیدرضا آتش‌برآب', publisher: 'نشر هرمس', pages: 190, genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 60, title: 'داستان‌های بلکین', author: 'الکساندر پوشکین', translator: 'حمیدرضا آتش‌‌برآب', publisher: 'نشر هرمس', pages: 190, genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 61, title: 'کالسکه', author: 'نیکلای گوگول', translator: 'خشایار دیهیمی', publisher: 'نشر نی', pages: 72, genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 62, title: 'همه پسران من', author: 'آرتور میلر', translator: 'حسن ملکی', publisher: 'نشر قطره', pages: 160, genre: 'نمایشنامه', nationality: 'آمریکا' },
             { id: 63, title: 'سلوک', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'نشر چشمه', pages: 224, genre: 'رمان', nationality: 'ایران' },
+            { id: 64, title: 'موش‌ها و آدم‌ها', author: 'جان اشتاین‌بک', translator: 'سروش حبیبی', publisher: 'نشر ماهی', pages: 168, genre: 'رمان', nationality: 'آمریکا' },
             { id: 65, title: 'اینک آن انسان', author: 'فریدریش نیچه', translator: 'بهروز صفدری', publisher: 'نشر بازتاب نگار', pages: 208, genre: 'فلسفه', nationality: 'آلمان' },
-
-            // ایستگاه هشتم: جهانِ بسته و هزارتوها
             { id: 66, title: 'سوارکار مفرغی', author: 'الکساندر پوشکین', translator: 'حمیدرضا آتش‌برآب', publisher: 'نشر هرمس', pages: 120, genre: 'شعر', nationality: 'روسیه' },
             { id: 67, title: 'وی', author: 'نیکلای گوگول', translator: 'پرویز شهدی', publisher: 'نشر مجید', pages: 96, genre: 'داستان کوتاه', nationality: 'روسیه' },
             { id: 68, title: 'دانشکده‌های من', author: 'ماکسیم گورکی', translator: 'علی مازندرانی', publisher: 'انتشارات نگاه', pages: 300, genre: 'زندگی‌نامه', nationality: 'روسیه' },
             { id: 69, title: 'پاییز پدرسالار', author: 'گابریل گارسیا مارکز', translator: 'حسین مهری', publisher: 'امیرکبیر', pages: 320, genre: 'رمان', nationality: 'کلمبیا' },
             { id: 70, title: 'ژرمینال', author: 'امیل زولا', translator: 'سروش حبیبی', publisher: 'انتشارات نیلوفر', pages: 650, genre: 'رمان', nationality: 'فرانسه' },
             { id: 71, title: 'اراده معطوف به قدرت', author: 'فریدریش نیچه', translator: 'مجید شریف', publisher: 'نشر جامی', pages: 800, genre: 'فلسفه', nationality: 'آلمان' },
-
-            // ایستگاه نهم: حقیقت، دروغ و فروپاشی نهایی
             { id: 72, title: 'گوشه‌نشینان آلتونا', author: 'ژان پل سارتر', translator: 'ابوالحسن نجفی', publisher: 'انتشارات نیلوفر', pages: 350, genre: 'نمایشنامه', nationality: 'فرانسه' },
             { id: 73, title: 'وغ‌وغ ساهاب', author: 'صادق هدایت', translator: 'تألیفی', publisher: 'نشر مجید', pages: 180, genre: 'داستان کوتاه', nationality: 'ایران' },
             { id: 74, title: 'رویاهای یک رهگذر تنها', author: 'ژان ژاک روسو', translator: 'مهستی بحرینی', publisher: 'انتشارات نیلوفر', pages: 200, genre: 'فلسفه', nationality: 'سوئیس' },
             { id: 75, title: 'زندگی کلیم سامگین', author: 'ماکسیم گورکی', translator: 'علی‌اصغر خبره‌زاده', publisher: 'انتشارات نگاه', pages: 1200, genre: 'رمان', nationality: 'روسیه' },
             { id: 76, title: 'صد سال تنهایی', author: 'گابریل گارسیا مارکز', translator: 'بهمن فرزانه', publisher: 'امیرکبیر', pages: 400, genre: 'رمان', nationality: 'کلمبیا' },
-            { id: 78, title: 'سور بز', author: 'ماریو بارگاس یوسا', translator: 'عبدالله کوثری', publisher: 'نشر علم', pages: 650, genre: 'رمان', nationality: 'پرو' },
-            { id: 79, title: 'بینایی', author: 'ژوزه ساراماگو', translator: 'اسدالله امرایی', publisher: 'نشر مروارید', pages: 350, genre: 'رمان', nationality: 'پرتغال' },
-            { id: 80, title: 'رساله الهی-سیاسی', author: 'باروخ اسپینوزا', translator: 'علی فردوسی', publisher: 'شرکت سهامی انتشار', pages: 480, genre: 'فلسفه سیاسی', nationality: 'هلند' },
-
-            // ایستگاه دهم: پایانِ سمفونیک (سنتز نهایی)
-            { id: 81, title: 'هنرمند گرسنگی', author: 'فرانتس کافکا', translator: 'علی‌اصغر حداد', publisher: 'نشر ماهی', pages: 80, genre: 'داستان کوتاه', nationality: 'اتریش' },
-            { id: 82, title: 'طریق بسمل', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'نشر چشمه', pages: 140, genre: 'رمان', nationality: 'ایران' },
-            { id: 83, title: 'موهبت آزادی', author: 'آیزایا برلین', translator: 'عزت‌الله فولادوند', publisher: 'نشر ماهی', pages: 450, genre: 'فلسفه سیاسی', nationality: 'انگلیس' },
-            { id: 84, title: 'کلیدر (جلدهای پایانی)', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'فرهنگ معاصر', pages: 2000, genre: 'رمان', nationality: 'ایران' },
-            { id: 85, title: 'وضع بشر', author: 'هانا آرنت', translator: 'مسعود علیا', publisher: 'نشر ققنوس', pages: 520, genre: 'فلسفه سیاسی', nationality: 'آلمان' },
-            { id: 86, title: 'مفهوم اضطراب', author: 'سورن کی‌یرکگور', translator: 'صالح نجفی', publisher: 'نشر مرکز', pages: 310, genre: 'فلسفه', nationality: 'دانمارک' }
+            { id: 77, title: 'سور بز', author: 'ماریو بارگاس یوسا', translator: 'عبدالله کوثری', publisher: 'نشر علم', pages: 650, genre: 'رمان', nationality: 'پرو' },
+            { id: 78, title: 'بینایی', author: 'ژوزه ساراماگو', translator: 'اسدالله امرایی', publisher: 'نشر مروارید', pages: 350, genre: 'رمان', nationality: 'پرتغال' },
+            { id: 79, title: 'رساله الهی-سیاسی', author: 'باروخ اسپینوزا', translator: 'علی فردوسی', publisher: 'شرکت سهامی انتشار', pages: 480, genre: 'فلسفه سیاسی', nationality: 'هلند' },
+            { id: 80, title: 'هنرمند گرسنگی', author: 'فرانت کافکا', translator: 'علی‌اصغر حداد', publisher: 'نشر ماهی', pages: 80, genre: 'داستان کوتاه', nationality: 'اتریش' },
+            { id: 81, title: 'طریق بسمل', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'نشر چشمه', pages: 140, genre: 'رمان', nationality: 'ایران' },
+            { id: 82, title: 'موهبت آزادی', author: 'آیزایا برلین', translator: 'عزت‌الله فولادوند', publisher: 'نشر ماهی', pages: 450, genre: 'فلسفه سیاسی', nationality: 'انگلیس' },
+            { id: 83, title: 'کلیدر (جلدهای پایانی)', author: 'محمود دولت‌آبادی', translator: 'تألیفی', publisher: 'فرهنگ معاصر', pages: 2000, genre: 'رمان', nationality: 'ایران' },
+            { id: 84, title: 'وضع بشر', author: 'هانا آرنت', translator: 'مسعود علیا', publisher: 'نشر ققنوس', pages: 520, genre: 'فلسفه سیاسی', nationality: 'آلمان' },
+            { id: 85, title: 'مفهوم اضطراب', author: 'سورن کی‌یرکگور', translator: 'صالح نجفی', publisher: 'نشر مرکز', pages: 310, genre: 'فلسفه', nationality: 'دانمارک' },
+            { id: 86, title: 'پیرمرد و دریا', author: 'ارنست همینگوی', translator: 'نجف دریابندری', publisher: 'خوارزمی', pages: 160, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 87, title: 'زنگ‌ها برای که به صدا درمی‌آیند', author: 'ارنست همینگوی', translator: 'نجف دریابندری', publisher: 'خوارزمی', pages: 540, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 88, title: 'وداع با اسلحه', author: 'ارنست همینگوی', translator: 'نجف دریابندری', publisher: 'نیلوفر', pages: 400, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 89, title: 'خورشید همچنان می‌دمد', author: 'ارنست همینگوی', translator: 'احمد کسایی‌‌‌‌پور', publisher: 'هرمس', pages: 320, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 90, title: 'برف‌های کلیمانجارو', author: 'ارنست همینگوی', translator: 'اسدالله امرایی', publisher: 'افق', pages: 210, genre: 'داستان کوتاه', nationality: 'آمریکا' },
+            { id: 91, title: 'داشتن و نداشتن', author: 'ارنست همینگوی', translator: 'پرویز داریوش', publisher: 'امیرکبیر', pages: 280, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 92, title: 'بینوایان', author: 'ویکتور هوگو', translator: 'حسینقلی مستعان', publisher: 'امیرکبیر', pages: 1650, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 93, title: 'گوژپشت نتردام', author: 'ویکتور هوگو', translator: 'جواد محیی', publisher: 'جاودان خرد', pages: 620, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 94, title: 'مردی که می‌خندد', author: 'ویکتور هوگو', translator: 'رضا فکور', publisher: 'نگاه', pages: 550, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 95, title: 'کارگران دریا', author: 'ویکتور هوگو', translator: 'محمد قاضی', publisher: 'نگاه', pages: 480, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 96, title: 'نود و سه', author: 'ویکتور هوگو', translator: 'محمد قاضی', publisher: 'نگاه', pages: 510, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 97, title: 'آرزوهای بزرگ', author: 'چارلز دیکنز', translator: 'ابراهیم یونسی', publisher: 'نیلوفر', pages: 640, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 98, title: 'دیوید کاپرفیلد', author: 'چارلز دیکنز', translator: 'مسعود رجب‌نیا', publisher: 'خوارزمی', pages: 850, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 99, title: 'داستان دو شهر', author: 'چارلز دیکنز', translator: 'ابراهیم یونسی', publisher: 'نگاه', pages: 510, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 100, title: 'اولیور توئیست', author: 'چارلز دیکنز', translator: 'محمدرضا جعفری', publisher: 'نشر نو', pages: 420, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 101, title: 'مروارید', author: 'جان اشتاین‌بک', translator: 'سروش حبیبی', publisher: 'فرهنگ معاصر', pages: 120, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 102, title: 'در نبردی مشکوک (مزدور)', author: 'جان اشتاین‌بک', translator: 'پرویز شهدی', publisher: 'نشر مجید', pages: 410, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 103, title: 'دشت بهشت', author: 'جان اشتاین‌بک', translator: 'پرویز داریوش', publisher: 'امیرکبیر', pages: 290, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 104, title: 'به خدای ناشناخته', author: 'جان اشتاین‌بک', translator: 'شهرزاد لولاچی', publisher: 'افق', pages: 350, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 105, title: 'راسته کنروسازی', author: 'جان اشتاین‌بک', translator: 'سیروس طاهباز', publisher: 'ماهی', pages: 210, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 106, title: 'تورتیلا فلت', author: 'جان اشتاین‌بک', translator: 'صفدر تقی‌زاده', publisher: 'علمی فرهنگی', pages: 280, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 107, title: 'عشق در زمان وبا', author: 'گابریل گارسیا مارکز', translator: 'بهمن فرزانه', publisher: 'ققنوس', pages: 550, genre: 'رمان', nationality: 'کلمبیا' },
+            { id: 108, title: 'دزیره', author: 'آن ماری سلینکو', translator: 'پرویز شهدی', publisher: 'نشر مجید', pages: 710, genre: 'رمان', nationality: 'اتریش' },
+            { id: 109, title: 'بلندی‌های بادگیر', author: 'امیلی برونته', translator: 'علی‌اصغر بهرام‌بیگی', publisher: 'علمی فرهنگی', pages: 430, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 110, title: 'عقاید یک دلقک', author: 'هاینریش بل', translator: 'محمد اسماعیل‌زاده', publisher: 'چشمه', pages: 340, genre: 'رمان', nationality: 'آلمان' },
+            { id: 111, title: 'خرمگس', author: 'اتل لیلیان وینیچ', translator: 'خسرو همایون‌پور', publisher: 'امیرکبیر', pages: 390, genre: 'رمان', nationality: 'ایرلند' },
+            { id: 112, title: 'دختر کشیش', author: 'جورج اورول', translator: 'غلامحسین سالمی', publisher: 'نشر مجید', pages: 380, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 113, title: 'آس و پاس در پاریس و لندن', author: 'جورج اورول', translator: 'بهمن دارالشفایی', publisher: 'ماهی', pages: 250, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 114, title: 'روزهای برمه', author: 'جورج اورول', translator: 'زهرا کریمی', publisher: 'نشر مجید', pages: 340, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 115, title: 'هوای تازه', author: 'جورج اورول', translator: 'الهه هاشمی', publisher: 'مجید', pages: 320, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 116, title: 'به سوی کاتالونیا', author: 'جورج اورول', translator: 'تورج دارایی', publisher: 'علمی فرهنگی', pages: 290, genre: 'زندگی‌نامه', nationality: 'انگلیس' },
+            { id: 117, title: 'تس دوربرویل', author: 'توماس هاردی', translator: 'ابراهیم یونسی', publisher: 'نشر نو', pages: 580, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 118, title: 'جود گمنام', author: 'توماس هاردی', translator: 'ابراهیم یونسی', publisher: 'نیلوفر', pages: 610, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 119, title: 'مادام بوواری', author: 'گوستاو فلوبر', translator: 'مهدی سحابی', publisher: 'مرکز', pages: 480, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 120, title: 'تربیت احساسات', author: 'گوستاو فلوبر', translator: 'مهدی سحابی', publisher: 'مرکز', pages: 520, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 121, title: 'بابا گوریو', author: 'انوره دو بالزاک', translator: 'م.ا. به‌آذین', publisher: 'نیلوفر', pages: 350, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 122, title: 'اوژنی گرانده', author: 'انوره دو بالزاک', translator: 'عبدالله توکل', publisher: 'ناهید', pages: 290, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 123, title: 'چرم ساغری', author: 'انوره دو بالزاک', translator: 'محمود اعتمادزاده', publisher: 'ناهید', pages: 310, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 124, title: 'سرخ و سیاه', author: 'استاندال', translator: 'مهدی سحابی', publisher: 'مرکز', pages: 720, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 125, title: 'صومعه پارم', author: 'استاندال', translator: 'اردشیر نیک‌پور', publisher: 'نیلوفر', pages: 680, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 126, title: 'کنت مونت کریستو', author: 'الکساندر دوما', translator: 'محسن فرزاد', publisher: 'افق', pages: 1200, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 127, title: 'سه تفنگدار', author: 'الکساندر دوما', translator: 'محمدطاهر میرزا', publisher: 'هرمس', pages: 1150, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 128, title: 'در جستجوی زمان از دست رفته', author: 'مارسل پروست', translator: 'مهدی سحابی', publisher: 'مرکز', pages: 3500, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 129, title: 'سفر به انتهای شب', author: 'لویی فردینان سلین', translator: 'فرهاد غبرایی', publisher: 'جامی', pages: 610, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 130, title: 'دن کیشوت', author: 'میگل د سروانتس', translator: 'محمد قاضی', publisher: 'ثالث', pages: 1300, genre: 'رمان', nationality: 'اسپانیا' },
+            { id: 131, title: 'گرگ بیابان', author: 'هرمان هسه', translator: 'قاسم کبیری', publisher: 'فردوس', pages: 320, genre: 'رمان', nationality: 'آلمان' },
+            { id: 132, title: 'دمیان', author: 'هرمان هسه', translator: 'خسرو رضایی', publisher: 'علمی فرهنگی', pages: 210, genre: 'رمان', nationality: 'آلمان' },
+            { id: 133, title: 'کوه جادو', author: 'توماس مان', translator: 'حسن نکوروح', publisher: 'نگاه', pages: 950, genre: 'رمان', nationality: 'آلمان' },
+            { id: 134, title: 'بودنبروک‌ها', author: 'توماس مان', translator: 'علی‌اصغر حداد', publisher: 'ماهی', pages: 850, genre: 'رمان', nationality: 'آلمان' },
+            { id: 135, title: 'مرگ در ونیز', author: 'توماس مان', translator: 'حسن نکوروح', publisher: 'نگاه', pages: 150, genre: 'رمان', nationality: 'آلمان' },
+            { id: 136, title: 'زوربای یونانی', author: 'نیکوس کازانتزاکیس', translator: 'محمد قاضی', publisher: 'خوارزمی', pages: 420, genre: 'رمان', nationality: 'یونان' },
+            { id: 137, title: 'مسیح باز مصلوب', author: 'نیکوس کازانتزاکیس', translator: 'محمد قاضی', publisher: 'خوارزمی', pages: 550, genre: 'رمان', nationality: 'یونان' },
+            { id: 138, title: 'آخرین وسوسه مسیح', author: 'نیکوس کازانتزاکیس', translator: 'صالح حسینی', publisher: 'نیلوفر', pages: 610, genre: 'رمان', nationality: 'یونان' },
+            { id: 139, title: 'آزادی یا مرگ', author: 'نیکوس کازانتزاکیس', translator: 'محمد قاضی', publisher: 'خوارزمی', pages: 580, genre: 'رمان', nationality: 'یونان' },
+            { id: 140, title: 'گزارش به گرکو', author: 'نیکوس کازانتزاکیس', translator: 'صالح حسینی', publisher: 'نیلوفر', pages: 670, genre: 'زندگی‌نامه', nationality: 'یونان' },
+            { id: 141, title: 'نام گل سرخ', author: 'اومبرتو اکو', translator: 'شهرام طاهری', publisher: 'شباویز', pages: 650, genre: 'رمان', nationality: 'ایتالیا' },
+            { id: 142, title: 'آونگ فوکو', author: 'اومبرتو اکو', translator: 'رضا علیزاده', publisher: 'روزنه', pages: 800, genre: 'رمان', nationality: 'ایتالیا' },
+            { id: 143, title: 'اولیس', author: 'جیمز جویس', translator: 'اکرم پدرام‌نیا', publisher: 'نیلوفر', pages: 1100, genre: 'رمان', nationality: 'ایرلند' },
+            { id: 144, title: 'دوبلینی‌ها', author: 'جیمز جویس', translator: 'صالح حسینی', publisher: 'نیلوفر', pages: 290, genre: 'داستان کوتاه', nationality: 'ایرلند' },
+            { id: 145, title: 'سیمای مرد هنرمند در جوانی', author: 'جیمز جویس', translator: 'منوچهر بدیعی', publisher: 'نیلوفر', pages: 350, genre: 'رمان', nationality: 'ایرلند' },
+            { id: 146, title: 'به سوی فانوس دریایی', author: 'ویرجینیا وولف', translator: 'صالح حسینی', publisher: 'نیلوفر', pages: 280, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 147, title: 'خانم دالووی', author: 'ویرجینیا وولف', translator: 'فرزانه طاهری', publisher: 'نیلوفر', pages: 260, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 148, title: 'اتاقی از آن خود', author: 'ویرجینیا وولف', translator: 'صفورا نوربخش', publisher: 'نیلوفر', pages: 180, genre: 'فلسفه', nationality: 'انگلیس' },
+            { id: 149, title: 'تصویر دوریان گری', author: 'اسکار وایلد', translator: 'ابوالحسن تهامی', publisher: 'نگاه', pages: 310, genre: 'رمان', nationality: 'ایرلند' },
+            { id: 150, title: 'اهمیت ارنست بودن', author: 'اسکار وایلد', translator: 'ایوب آقاخانی', publisher: 'قطره', pages: 120, genre: 'نمایشنامه', nationality: 'ایرلند' },
+            { id: 151, title: 'غرور و تعصب', author: 'جین آستن', translator: 'رضا رضایی', publisher: 'نشر نی', pages: 450, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 152, title: 'اما', author: 'جین آستن', translator: 'رضا رضایی', publisher: 'نشر نی', pages: 520, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 153, title: 'عقل و احساس', author: 'جین آستن', translator: 'رضا رضایی', publisher: 'نشر نی', pages: 410, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 154, title: 'جین ایر', author: 'شارلوت برونته', translator: 'رضا رضایی', publisher: 'نشر نی', pages: 620, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 155, title: 'موبی دیک', author: 'هرمان ملویل', translator: 'پرویز داریوش', publisher: 'امیرکبیر', pages: 850, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 156, title: 'ماجراهای هاکلبری فین', author: 'مارک تواین', translator: 'نجف دریابندری', publisher: 'خوارزمی', pages: 420, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 157, title: 'کشتن مرغ مینا', author: 'هارپر لی', translator: 'فخرالدین میررمضانی', publisher: 'امیرکبیر', pages: 380, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 158, title: 'سلاخ‌خانه شماره پنج', author: 'کورت ونه‌گوت', translator: 'علی‌اصغر بهرامی', publisher: 'روشنگران', pages: 270, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 159, title: 'گهواره گربه', author: 'کورت ونه‌گوت', translator: 'علی‌اصغر بهرامی', publisher: 'افق', pages: 290, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 160, title: 'تبصره ۲۲', author: 'جوزف هلر', translator: 'احسان نوروزی', publisher: 'چشمه', pages: 540, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 161, title: 'گفتگو در کاتدرال', author: 'ماریو بارگاس یوسا', translator: 'عبدالله کوثری', publisher: 'لوح فکر', pages: 710, genre: 'رمان', nationality: 'پرو' },
+            { id: 162, title: 'عصر قهرمان', author: 'ماریو بارگاس یوسا', translator: 'مهدی غبرایی', publisher: 'چشمه', pages: 450, genre: 'رمان', nationality: 'پرو' },
+            { id: 163, title: 'جنگ آخرالزمان', author: 'ماریو بارگاس یوسا', translator: 'عبدالله کوثری', publisher: 'آگه', pages: 850, genre: 'رمان', nationality: 'پرو' },
+            { id: 164, title: 'مرگ آرتمیو کروز', author: 'کارلوس فوئنتس', translator: 'مهدی سحابی', publisher: 'تندر', pages: 380, genre: 'رمان', nationality: 'مکزیک' },
+            { id: 165, title: 'لی‌‌لی‌بازی', author: 'خولیو کورتاسار', translator: 'کیومرث پارسای', publisher: 'آریابان', pages: 750, genre: 'رمان', nationality: 'آرژانتین' },
+            { id: 166, title: 'پدرو پارامو', author: 'خوان رولفو', translator: 'احمد گلشیری', publisher: 'آفرینگان', pages: 180, genre: 'رمان', nationality: 'مکزیک' },
+            { id: 167, title: 'خانه ارواح', author: 'ایزابل آلنده', translator: 'حشمت کامرانی', publisher: 'قطره', pages: 540, genre: 'رمان', nationality: 'شیلی' },
+            { id: 168, title: 'دنیای قشنگ نو', author: 'آلدوس هاکسلی', translator: 'سعید حمیدیان', publisher: 'نیلوفر', pages: 290, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 169, title: 'فارنهایت ۴۵۱', author: 'ری بردبری', translator: 'علی شیعه‌علی', publisher: 'سبزان', pages: 220, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 170, title: 'سرگذشت ندیمه', author: 'مارگارت اتوود', translator: 'سهیل سمی', publisher: 'ققنوس', pages: 380, genre: 'رمان', nationality: 'کانادا' },
+            { id: 171, title: 'کافکا در کرانه', author: 'هاروکی موراکامی', translator: 'مهدی غبرایی', publisher: 'نیلوفر', pages: 610, genre: 'رمان', nationality: 'ژاپن' },
+            { id: 172, title: 'جنگل نروژی', author: 'هاروکی موراکامی', translator: 'مهدی غبرایی', publisher: 'نیکا', pages: 420, genre: 'رمان', nationality: 'ژاپن' },
+            { id: 173, title: 'تعقیب گوسفند وحشی', author: 'هاروکی موراکامی', translator: 'محمود مرادی', publisher: 'ثالث', pages: 350, genre: 'رمان', nationality: 'ژاپن' },
+            { id: 174, title: 'نام من سرخ', author: 'اورهان پاموک', translator: 'عین‌له غریب', publisher: 'چشمه', pages: 580, genre: 'رمان', nationality: 'ترکیه' },
+            { id: 175, title: 'موزه معصومیت', author: 'اورهان پاموک', translator: 'مریم طباطبایی', publisher: 'پوینده', pages: 650, genre: 'رمان', nationality: 'ترکیه' },
+            { id: 176, title: 'قلعه سفید', author: 'اورهان پاموک', translator: 'ارسلان فصیحی', publisher: 'ققنوس', pages: 240, genre: 'رمان', nationality: 'ترکیه' },
+            { id: 177, title: 'بار هستی', author: 'میلان کوندرا', translator: 'پرویز همایون‌پور', publisher: 'قطره', pages: 320, genre: 'رمان', nationality: 'چک' },
+            { id: 178, title: 'شوخی', author: 'میلان کوندرا', translator: 'فروغ پوریاوری', publisher: 'روشنگران', pages: 390, genre: 'رمان', nationality: 'چک' },
+            { id: 179, title: 'جاودانگی', author: 'میلان کوندرا', translator: 'حشمت کامرانی', publisher: 'قطره', pages: 410, genre: 'رمان', nationality: 'چک' },
+            { id: 180, title: 'نانا', author: 'امیل زولا', translator: 'علی‌اکبر کسمایی', publisher: 'امیرکبیر', pages: 450, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 181, title: 'پول', author: 'امیل زولا', translator: 'علی‌اکبر معصوم‌بیگی', publisher: 'نگاه', pages: 520, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 182, title: 'شاهکار', author: 'امیل زولا', translator: 'علی‌اکبر معصوم‌بیگی', publisher: 'نگاه', pages: 490, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 183, title: 'لولیتا', author: 'ولادیمیر نابوکوف', translator: 'اکرم پدرام‌نیا', publisher: 'زریاب', pages: 420, genre: 'رمان', nationality: 'روسیه' },
+            { id: 184, title: 'دعوت به مراسم گردن‌زنی', author: 'ولادیمیر نابوکوف', translator: 'احمد اخوت', publisher: 'فردا', pages: 250, genre: 'رمان', nationality: 'روسیه' },
+            { id: 185, title: 'دفاع لوژین', author: 'ولادیمیر نابوکوف', translator: 'رضا رضایی', publisher: 'نشر نی', pages: 280, genre: 'رمان', nationality: 'روسیه' },
+            { id: 186, title: 'ابشالوم، ابشالوم!', author: 'ویلیام فاکنر', translator: 'صالح حسینی', publisher: 'نیلوفر', pages: 470, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 187, title: 'روشنایی ماه اوت', author: 'ویلیام فاکنر', translator: 'صالح حسینی', publisher: 'نیلوفر', pages: 520, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 188, title: 'حریم', author: 'ویلیام فاکنر', translator: 'فرهاد غبرایی', publisher: 'نیلوفر', pages: 340, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 189, title: 'بازمانده روز', author: 'کازوئو ایشی‌گورو', translator: 'نجف دریابندری', publisher: 'کارنامه', pages: 310, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 190, title: 'هرگز رهایم مکن', author: 'کازوئو ایشی‌گورو', translator: 'مهدی غبرایی', publisher: 'افق', pages: 350, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 191, title: 'غول مدفون', author: 'کازوئو ایشی‌گورو', translator: 'امیرمهدی حقیقت', publisher: 'چشمه', pages: 340, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 192, title: 'خداحافظ گاری کوپر', author: 'رومن گاری', translator: 'سروش حبیبی', publisher: 'نیلوفر', pages: 280, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 193, title: 'زندگی در پیش رو', author: 'رومن گاری', translator: 'لیلی گلستان', publisher: 'امیرکبیر', pages: 250, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 194, title: 'میعاد در سپیده‌دم', author: 'رومن گاری', translator: 'مهدی غبرایی', publisher: 'کتاب‌سرای تندیس', pages: 410, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 195, title: 'سیمای زنی در میان جمع', author: 'هاینریش بل', translator: 'مرتضی کلانتریان', publisher: 'آگه', pages: 450, genre: 'رمان', nationality: 'آلمان' },
+            { id: 196, title: 'قطار به موقع رسید', author: 'هاینریش بل', translator: 'کیکاووس جهانداری', publisher: 'چشمه', pages: 180, genre: 'رمان', nationality: 'آلمان' },
+            { id: 197, title: 'طبل حلبی', author: 'گونتر گراس', translator: 'عبدالرحمن صدریه', publisher: 'نیلوفر', pages: 720, genre: 'رمان', nationality: 'آلمان' },
+            { id: 198, title: 'موش و گربه', author: 'گونتر گراس', translator: 'کامران جمالی', publisher: 'نیلوفر', pages: 210, genre: 'رمان', nationality: 'آلمان' },
+            { id: 199, title: 'سال‌های سگ', author: 'گونتر گراس', translator: 'حسن نقره‌چی', publisher: 'نیلوفر', pages: 680, genre: 'رمان', nationality: 'آلمان' },
+            { id: 200, title: 'مرد بدون ویژگی‌ها', author: 'روبرت موزیل', translator: 'محمود حدادی', publisher: 'نیلوفر', pages: 1200, genre: 'رمان', nationality: 'اتریش' },
+            { id: 201, title: 'کیمیاگر', author: 'پائولو کوئیلو', translator: 'آرش حجازی', publisher: 'کاروان', pages: 220, genre: 'رمان', nationality: 'برزیل' },
+            { id: 202, title: 'ملت عشق', author: 'الیف شافاک', translator: 'ارسلان فصیحی', publisher: 'ققنوس', pages: 510, genre: 'رمان', nationality: 'ترکیه' },
+            { id: 203, title: 'دستیار', author: 'روبرت والزر', translator: 'ناصر غیاثی', publisher: 'چشمه', pages: 290, genre: 'رمان', nationality: 'سوئیس' },
+            { id: 204, title: 'بیابان تاتارها', author: 'دینو بوتزاتی', translator: 'سروش حبیبی', publisher: 'کتاب خورشید', pages: 260, genre: 'رمان', nationality: 'ایتالیا' },
+            { id: 205, title: 'شطرنج‌‌باز', author: 'اشتفان تسوایگ', translator: 'علی‌اصغر حداد', publisher: 'ماهی', pages: 110, genre: 'داستان کوتاه', nationality: 'اتریش' },
+            { id: 206, title: 'دنیای دیروز', author: 'اشتفان تسوایگ', translator: 'مهشید میرمعزی', publisher: 'ثالث', pages: 480, genre: 'زندگی‌نامه', nationality: 'اتریش' },
+            { id: 207, title: 'وجدان زنو', author: 'ایتالو اسوو', translator: 'مرتضی کلانتریان', publisher: 'آگه', pages: 510, genre: 'رمان', nationality: 'ایتالیا' },
+            { id: 208, title: 'عشق اول', author: 'ایوان تورگنیف', translator: 'سروش حبیبی', publisher: 'فرهنگ معاصر', pages: 140, genre: 'رمان', nationality: 'روسیه' },
+            { id: 209, title: 'پدران و پسران', author: 'ایوان تورگنیف', translator: 'مهری آهی', publisher: 'ناهید', pages: 320, genre: 'رمان', nationality: 'روسیه' },
+            { id: 210, title: 'آبلوموف', author: 'ایوان گنچاروف', translator: 'سروش حبیبی', publisher: 'فرهنگ معاصر', pages: 650, genre: 'رمان', nationality: 'روسیه' },
+            { id: 211, title: 'مرگ قسطی', author: 'لویی فردینان سلین', translator: 'مهدی سحابی', publisher: 'مرکز', pages: 680, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 212, title: 'گارد سفید', author: 'میخائیل بولگاکف', translator: 'پروانه فخام‌زاده', publisher: 'نشر نو', pages: 410, genre: 'رمان', nationality: 'روسیه' },
+            { id: 213, title: 'مرفین', author: 'میخائیل بولگاکف', translator: 'بابک شهاب', publisher: 'بیدگل', pages: 110, genre: 'داستان کوتاه', nationality: 'روسیه' },
+            { id: 214, title: 'انسان در جستجوی معنا', author: 'ویکتور فرانکل', translator: 'نهضت صالحیان', publisher: 'درسا', pages: 210, genre: 'روان‌شناسی', nationality: 'اتریش' },
+            { id: 215, title: 'انسان خردمند', author: 'یووال نوح هراری', translator: 'نیک گرگین', publisher: 'فرهنگ نشر نو', pages: 620, genre: 'جامعه‌شناسی', nationality: 'اسرائیل' },
+            { id: 216, title: 'تاریخ جنون', author: 'میشل فوکو', translator: 'فاطمه ولیانی', publisher: 'هرمس', pages: 410, genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 217, title: 'مراقبت و تنبیه', author: 'میشل فوکو', translator: 'نیکو سرخوش', publisher: 'نشر نی', pages: 430, genre: 'فلسفه', nationality: 'فرانسه' },
+            { id: 218, title: 'سرمایه (جلد اول)', author: 'کارل مارکس', translator: 'حسن مرتضوی', publisher: 'لاهیتا', pages: 950, genre: 'فلسفه سیاسی', nationality: 'آلمان' },
+            { id: 219, title: 'لویاتان', author: 'توماس هابز', translator: 'حسین بشیریه', publisher: 'نشر نی', pages: 710, genre: 'فلسفه سیاسی', nationality: 'انگلیس' },
+            { id: 220, title: 'تأملات', author: 'مارکوس اورلیوس', translator: 'عرفان ثابتی', publisher: 'ققنوس', pages: 220, genre: 'فلسفه', nationality: 'روم' },
+            { id: 221, title: 'درباره آزادی', author: 'جان استوارت میل', translator: 'جواد شیخ‌الاسلامی', publisher: 'علمی فرهنگی', pages: 250, genre: 'فلسفه سیاسی', nationality: 'انگلیس' },
+            { id: 222, title: 'فلسفه تاریخ', author: 'گئورگ ویلهلم فریدریش هگل', translator: 'محمود عنایت', publisher: 'شفیعی', pages: 410, genre: 'فلسفه', nationality: 'آلمان' },
+            { id: 223, title: 'هستی و زمان', author: 'مارتین هایدگر', translator: 'سیاوش جمادی', publisher: 'ققنوس', pages: 850, genre: 'فلسفه', nationality: 'آلمان' },
+            { id: 224, title: 'نقد عقل محض', author: 'ایمانوئل کانت', translator: 'بهروز نظری', publisher: 'ققنوس', pages: 920, genre: 'فلسفه', nationality: 'آلمان' },
+            { id: 225, title: 'سیاست', author: 'ارسطو', translator: 'حمید عنایت', publisher: 'خوارزمی', pages: 390, genre: 'فلسفه سیاسی', nationality: 'یونان' },
+            { id: 226, title: 'اخلاق نیکوماخوسی', author: 'ارسطو', translator: 'محمدحسن لطفی', publisher: 'طرح نو', pages: 410, genre: 'فلسفه', nationality: 'یونان' },
+            { id: 227, title: 'شاهنامه', author: 'فردوسی', translator: 'تصحیح جلال خالقی مطلق', publisher: 'دایره المعارف', pages: 3500, genre: 'شعر', nationality: 'ایران' },
+            { id: 228, title: 'هزار و یک شب', author: 'نامشخص', translator: 'عبداللطیف طسوجی', publisher: 'هرمس', pages: 1800, genre: 'داستان کوتاه', nationality: 'ایران/عربی' },
+            { id: 229, title: 'تاریخ بیهقی', author: 'ابوالفضل بیهقی', translator: 'تصحیح علی‌اکبر فیاض', publisher: 'علم', pages: 1100, genre: 'تاریخی', nationality: 'ایران' },
+            { id: 230, title: 'ما', author: 'یوگنی زامیاتین', translator: 'بابک شهاب', publisher: 'بیدگل', pages: 290, genre: 'رمان', nationality: 'روسیه' },
+            { id: 231, title: 'کوتوله', author: 'پار لاگرکویست', translator: 'حسین درویش', publisher: 'نگاه', pages: 210, genre: 'رمان', nationality: 'سوئد' },
+            { id: 232, title: 'دکتر ژیواگو', author: 'بوریس پاسترناک', translator: 'علی آخوندی', publisher: 'نگاه', pages: 710, genre: 'رمان', nationality: 'روسیه' },
+            { id: 233, title: 'دن آرام (۴ جلد)', author: 'میخائیل شولوخوف', translator: 'م.ا. به‌آذین', publisher: 'فردوس', pages: 2100, genre: 'رمان', nationality: 'روسیه' },
+            { id: 234, title: 'خاطرات یک کشیش روستا', author: 'ژرژ برنانوس', translator: 'قاسم غریفی', publisher: 'نیلوفر', pages: 340, genre: 'رمان', nationality: 'فرانسه' },
+            { id: 235, title: 'سیلماریلیون', author: 'جی. آر. آر. تالکین', translator: 'رضا علیزاده', publisher: 'روزنه', pages: 550, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 236, title: 'ارباب حلقه‌ها (۳ جلد)', author: 'جی. آر. آر. تالکین', translator: 'رضا علیزاده', publisher: 'روزنه', pages: 1400, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 237, title: 'هابیت', author: 'جی. آر. آر. تالکین', translator: 'رضا علیزاده', publisher: 'روزنه', pages: 420, genre: 'رمان', nationality: 'انگلیس' },
+            { id: 238, title: 'هنر جنگ', author: 'سون تزو', translator: 'حسن حبیبی', publisher: 'ققنوس', pages: 120, genre: 'فلسفه', nationality: 'چین' },
+            { id: 239, title: 'مکبث', author: 'ویلیام شکسپیر', translator: 'داریوش آشوری', publisher: 'آگه', pages: 180, genre: 'نمایشنامه', nationality: 'انگلیس' },
+            { id: 240, title: 'اتلو', author: 'ویلیام شکسپیر', translator: 'م.ا. به‌آذین', publisher: 'نیلوفر', pages: 190, genre: 'نمایشنامه', nationality: 'انگلیس' },
+            { id: 241, title: 'شاه لیر', author: 'ویلیام شکسپیر', translator: 'جواد پیمان', publisher: 'علمی فرهنگی', pages: 210, genre: 'نمایشنامه', nationality: 'انگلیس' },
+            { id: 242, title: 'بهشت گمشده', author: 'جان میلتون', translator: 'شجاع‌الدین شفا', publisher: 'امیرکبیر', pages: 610, genre: 'شعر', nationality: 'انگلیس' },
+            { id: 243, title: 'تنگسیر', author: 'صادق چوبک', translator: 'تألیفی', publisher: 'جاویدان', pages: 350, genre: 'رمان', nationality: 'ایران' },
+            { id: 244, title: 'سنگ صبور', author: 'صادق چوبک', translator: 'تألیفی', publisher: 'جاویدان', pages: 410, genre: 'رمان', nationality: 'ایران' },
+            { id: 245, title: 'شازده احتجاب', author: 'هوشنگ گلشیری', translator: 'تألیفی', publisher: 'نیلوفر', pages: 120, genre: 'رمان', nationality: 'ایران' },
+            { id: 246, title: 'سووشون', author: 'سیمین دانشور', translator: 'تألیفی', publisher: 'خوارزمی', pages: 310, genre: 'رمان', nationality: 'ایران' },
+            { id: 247, title: 'سمفونی مردگان', author: 'عباس معروفی', translator: 'تألیفی', publisher: 'ققنوس', pages: 350, genre: 'رمان', nationality: 'ایران' },
+            { id: 248, title: 'مدیر مدرسه', author: 'جلال آل‌احمد', translator: 'تألیفی', publisher: 'فردوس', pages: 140, genre: 'رمان', nationality: 'ایران' },
+            { id: 249, title: 'نون والقلم', author: 'جلال آل‌احمد', translator: 'تألیفی', publisher: 'فردوس', pages: 210, genre: 'رمان', nationality: 'ایران' },
+            { id: 250, title: 'زنان بدون مردان', author: 'شهرنوش پارسی‌پور', translator: 'تألیفی', publisher: 'علم', pages: 180, genre: 'رمان', nationality: 'ایران' }
         ];
-
-        // Hours spent reading data
-        const studyHoursData = {
-            'اسفند 1404': 90,
-            'فروردین 1405': 90,
-            'اردیبهشت 1405': 40,
-            'خرداد 1405': 55,
-            'تیر 1405': 62,
-            'مرداد 1405': 64,
-            'شهریور 1405': 108,
-            'مهر 1405': 50,           
-            'آبان 1405': 0 // Assuming some hours for Shahrivar
-        };
-
-        const JALALI_MONTHS = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
 
         let mustReadSortColumn = 'id';
         let mustReadSortOrder = 'asc';
@@ -841,7 +989,7 @@
             if (chartLoaded) {
                 createCharts(processedData);
                 createPublicationChart(processedData);
-                createHoursChart();
+                createReadingHoursChart();
             }
 
             setupScrollAnimations();
@@ -863,20 +1011,23 @@
             const currentYearBooks = data.filter(b => b.year === latestYear).length;
             document.getElementById('current-year-books').textContent = currentYearBooks;
 
-            // Calculate Reading Hours
+            // محاسبه ساعات مطالعه و میانگین روزانه
             let totalHours = 0;
-            let monthsCount = 0;
-            for (const month in studyHoursData) {
-                if (month.includes('1405')) {
-                    totalHours += studyHoursData[month];
-                    monthsCount++;
+            let totalMonthsWithData = 0;
+            for (const month in readingHoursData) {
+                if (readingHoursData[month] > 0) {
+                    totalHours += readingHoursData[month];
+                    totalMonthsWithData++;
                 }
             }
-            
             document.getElementById('total-hours').textContent = totalHours;
-            
-            let avgHours = monthsCount > 0 ? (totalHours / monthsCount).toFixed(1) : 0;
-            document.getElementById('avg-hours').textContent = avgHours;
+
+            // میانگین روزانه: کل ساعات تقسیم بر کل روزهای ماه‌هایی که ساعت ثبت شده دارن
+            if (totalMonthsWithData > 0) {
+                const totalDays = totalMonthsWithData * 30.4;
+                const dailyAvg = (totalHours / totalDays).toFixed(1);
+                document.getElementById('daily-avg-hours').textContent = dailyAvg.replace('.', '/');
+            }
         }
 
         function populateMustReadTable(data) {
@@ -1046,6 +1197,7 @@
                 let booksHTML = Object.values(booksByTitle).map((group, idx) => {
                     const rowNum = idx + 1;
                     const book = group.book;
+                    // Safely cast to string to prevent localeCompare crash on accidental numbers
                     const dates = group.readYears.map(y => y ? String(y) : 'نامشخص').sort((a,b) => a.localeCompare(b)).join(' - '); 
                     const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی'].includes(book.translator)) ? ` - ${book.translator}` : '';
                     const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
@@ -1184,6 +1336,7 @@
                 let booksHTML = Object.values(booksByTitle).map((group, idx) => {
                     const rowNum = idx + 1;
                     const book = group.book;
+                    // Safely cast to string to prevent localeCompare crash
                     const dates = group.readYears.map(y => y ? String(y) : 'نامشخص').sort((a,b) => a.localeCompare(b)).join(' - '); 
                     const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی'].includes(book.translator)) ? ` - ${book.translator}` : '';
                     const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
@@ -1349,34 +1502,7 @@
             }
         }
 
-        function setupScrollAnimations() {
-            const elements = document.querySelectorAll('.reveal-on-scroll');
-            if (elements.length === 0) return;
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        obs.unobserve(entry.target); 
-                    }
-                });
-            }, { threshold: 0.01 });
-            elements.forEach(el => observer.observe(el));
-        }
-        
-        function setupTimelineScrollAnimations() {
-            const elements = document.querySelectorAll('.timeline-item-content');
-            if (elements.length === 0) return;
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.01 });
-            elements.forEach(el => observer.observe(el));
-        }
-
+        // تابع برای ساخت هیستوگرام دهه‌های نگارش
         function createPublicationChart(data) {
             function categorizePublicationDate(dateStr) {
                 if (!dateStr) return { label: 'نامشخص', sortValue: 9999 };
@@ -1455,7 +1581,7 @@
                             label: 'تعداد کتاب‌ها',
                             data: decadeData,
                             backgroundColor: gradient,
-                            borderColor: '#e11d48',
+                            borderColor: '#e11d48', 
                             borderWidth: 1.5,
                             borderRadius: 6,
                             hoverBackgroundColor: '#be123c' 
@@ -1499,44 +1625,42 @@
             }
         }
 
-        function createHoursChart() {
-            const hoursCtx = document.getElementById('hoursChart')?.getContext('2d');
-            if (hoursCtx) {
-                const labels = [];
-                const data = [];
-                
-                JALALI_MONTHS.forEach(monthName => {
-                    const key = `${monthName} 1405`;
-                    if (studyHoursData[key]) {
-                        labels.push(monthName);
-                        data.push(studyHoursData[key]);
-                    } else {
-                        labels.push(monthName);
-                        data.push(0);
-                    }
-                });
+        function createReadingHoursChart() {
+            const labels = Object.keys(readingHoursData);
+            const dataValues = Object.values(readingHoursData);
 
+            const displayLabels = labels.map(key => {
+                const parts = key.split('/');
+                if (parts.length === 2) {
+                    const monthIndex = parseInt(parts[1]) - 1;
+                    return `${JALALI_MONTHS[monthIndex]} ${parts[0].substring(2)}`; 
+                }
+                return key;
+            });
+
+            const hoursCtx = document.getElementById('readingHoursChart')?.getContext('2d');
+            if (hoursCtx) {
                 let gradient = hoursCtx.createLinearGradient(0, 0, 0, 400);
-                gradient.addColorStop(0, 'rgba(79, 70, 229, 0.5)');
-                gradient.addColorStop(1, 'rgba(79, 70, 229, 0.05)');
+                gradient.addColorStop(0, 'rgba(79, 70, 229, 0.85)'); 
+                gradient.addColorStop(1, 'rgba(79, 70, 229, 0.1)');
 
                 new Chart(hoursCtx, {
-                    type: 'line',
+                    type: 'line', 
                     data: {
-                        labels: labels,
+                        labels: displayLabels,
                         datasets: [{
-                            label: 'ساعت مطالعه',
-                            data: data,
-                            borderColor: '#4f46e5',
+                            label: 'ساعات مطالعه',
+                            data: dataValues,
+                            borderColor: '#4f46e5', 
                             backgroundColor: gradient,
-                            borderWidth: 3,
+                            borderWidth: 2,
                             fill: true,
                             tension: 0.4, 
-                            pointBackgroundColor: '#fff',
-                            pointBorderColor: '#4f46e5',
+                            pointBackgroundColor: '#4f46e5',
+                            pointBorderColor: '#ffffff',
                             pointBorderWidth: 2,
-                            pointRadius: 5,
-                            pointHoverRadius: 7
+                            pointRadius: 4,
+                            pointHoverRadius: 6
                         }]
                     },
                     options: {
@@ -1551,15 +1675,15 @@
                                 padding: 12,
                                 cornerRadius: 8,
                                 callbacks: {
-                                    label: (context) => ` ${context.raw} ساعت مطالعه در این ماه`
+                                    label: (context) => ` ${context.raw} ساعت`
                                 }
                             }
                         },
                         scales: { 
                             y: { 
                                 beginAtZero: true, 
-                                ticks: { stepSize: 10, font: { family: "'Vazirmatn', sans-serif" } },
-                                grid: { color: '#e0e7ff' } 
+                                ticks: { font: { family: "'Vazirmatn', sans-serif" } },
+                                grid: { color: '#f1f5f9' }
                             },
                             x: { 
                                 ticks: { 
@@ -1571,6 +1695,34 @@
                     }
                 });
             }
+        }
+
+        function setupScrollAnimations() {
+            const elements = document.querySelectorAll('.reveal-on-scroll');
+            if (elements.length === 0) return;
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target); 
+                    }
+                });
+            }, { threshold: 0.01 });
+            elements.forEach(el => observer.observe(el));
+        }
+        
+        function setupTimelineScrollAnimations() {
+            const elements = document.querySelectorAll('.timeline-item-content');
+            if (elements.length === 0) return;
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.01 });
+            elements.forEach(el => observer.observe(el));
         }
     </script>
 </body>
