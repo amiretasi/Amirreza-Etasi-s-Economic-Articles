@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پرونده مستند افلاطون | امیررضا اعطاسی</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                        serif: ['Vazirmatn', 'serif'],
+                    },
+                    colors: {
+                        paper: '#fafaf9', // stone-50 (Marble white)
+                        ink: {
+                            DEFAULT: '#1c1917', // stone-900
+                            light: '#44403c', // stone-700
+                            muted: '#78716c', // stone-500
+                        },
+                        aegean: {
+                            DEFAULT: '#0369a1', // sky-700 (Aegean Sea Blue)
+                            light: '#e0f2fe', // sky-100
+                        },
+                        gold: {
+                            DEFAULT: '#d97706', // amber-600 (Greek Gold/Sun)
+                            light: '#fef3c7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: theme('colors.paper');
+            color: theme('colors.ink.DEFAULT');
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            background-image: radial-gradient(theme('colors.stone.200') 1px, transparent 0);
+            background-size: 40px 40px;
+            background-color: theme('colors.paper');
+        }
+
+        /* Editorial Table Styles */
+        .editorial-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            text-align: right;
+        }
+        .editorial-table th {
+            border-bottom: 2px solid theme('colors.aegean.DEFAULT');
+            padding: 1rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: theme('colors.aegean.DEFAULT');
+            white-space: nowrap;
+        }
+        .editorial-table td {
+            border-bottom: 1px solid #e7e5e4;
+            padding: 1.25rem 0.75rem;
+            vertical-align: top;
+            font-size: 0.925rem;
+        }
+        .editorial-table tr:hover td {
+            background-color: rgba(3, 105, 161, 0.03);
+        }
+
+        .badge-read {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        /* River Timeline Styles */
+        .river-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem 0;
+            display: grid;
+            grid-template-columns: 1fr 4px 1fr;
+            gap: 1.5rem 0;
+        }
+
+        .river-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(180deg, theme('colors.paper') 0%, theme('colors.aegean.DEFAULT') 5%, theme('colors.gold.DEFAULT') 50%, theme('colors.aegean.DEFAULT') 95%, theme('colors.paper') 100%);
+            transform: translateX(-50%);
+            border-radius: 4px;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(3, 105, 161, 0.2);
+        }
+
+        .river-dot {
+            width: 16px;
+            height: 16px;
+            background-color: theme('colors.paper');
+            border: 3px solid theme('colors.aegean.DEFAULT');
+            border-radius: 50%;
+            position: relative;
+            z-index: 10;
+            margin: 0 auto;
+            box-shadow: 0 0 0 4px rgba(250, 250, 249, 0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .river-item:hover .river-dot {
+            transform: scale(1.3);
+            background-color: theme('colors.gold.DEFAULT');
+            border-color: theme('colors.gold.DEFAULT');
+        }
+
+        /* Animation & Intersections */
+        .river-card-wrapper {
+            opacity: 0;
+            transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .river-item-right .river-card-wrapper { transform: translateX(40px) translateY(15px); }
+        .river-item-left .river-card-wrapper { transform: translateX(-40px) translateY(15px); }
+        
+        .river-item.visible .river-card-wrapper {
+            opacity: 1;
+            transform: translateX(0) translateY(0);
+        }
+
+        /* Connectors */
+        .connector-right, .connector-left {
+            position: absolute;
+            top: 2rem;
+            width: 1rem;
+            height: 2px;
+            background-color: theme('colors.aegean.DEFAULT');
+            opacity: 0.5;
+        }
+        .connector-right { left: -1rem; }
+        .connector-left { right: -1rem; }
+
+        /* Card Styles */
+        .card-event {
+            background: linear-gradient(135deg, theme('colors.ink.DEFAULT'), theme('colors.ink.light'));
+            color: white;
+            padding: 1.25rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+            border-right: 4px solid theme('colors.gold.DEFAULT');
+            position: relative;
+        }
+        
+        .card-book {
+            background-color: white;
+            padding: 1rem 1.25rem;
+            border: 1px solid #e7e5e4;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(3, 105, 161, 0.1);
+            border-color: theme('colors.aegean.light');
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .river-timeline {
+                grid-template-columns: 20px 1fr;
+                gap: 1rem;
+                padding-right: 10px;
+            }
+            .river-line {
+                left: auto;
+                right: 20px;
+                transform: none;
+            }
+            .river-item-right, .river-item-left {
+                grid-column: 2 / 3 !important;
+                justify-content: flex-start !important;
+            }
+            .river-dot-container { grid-column: 1 / 2 !important; }
+            .river-item-right .river-card-wrapper, .river-item-left .river-card-wrapper {
+                transform: translateY(20px) !important;
+                width: 100%;
+            }
+            .connector-right, .connector-left { display: none; }
+        }
+    </style>
+</head>
+<body class="selection:bg-aegean-light selection:text-aegean-900">
+
+    <header class="max-w-6xl mx-auto px-6 pt-10 pb-8 text-center border-b border-stone-200">
+        <div class="inline-block mb-3 p-3 border border-stone-300 rounded-full bg-white shadow-sm">
+            <i class="ph-duotone ph-columns text-3xl text-aegean"></i>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-ink mb-4 tracking-tight">افلاطون (Plato)</h1>
+        <p class="text-base md:text-lg text-ink-muted max-w-3xl mx-auto leading-relaxed">
+            بنیان‌گذار آکادمی آتن و پدر فلسفه‌ی غرب؛ نقشه‌ی جامع دیالوگ‌های سقراطی تا رساله‌های دوران پیری.
+        </p>
+        <div class="mt-6 flex items-center justify-center gap-6 text-sm font-bold text-ink-light">
+            <div class="flex flex-col items-center">
+                <span class="text-2xl text-ink mb-0.5" id="stat-total-books">0</span>
+                <span class="uppercase tracking-widest text-[10px] text-ink-muted">کل آثار بررسی‌شده</span>
+            </div>
+            <div class="h-8 w-px bg-stone-300"></div>
+            <div class="flex flex-col items-center">
+                <span class="text-2xl text-emerald-600 mb-0.5" id="stat-read-books">0</span>
+                <span class="uppercase tracking-widest text-[10px] text-ink-muted">خوانده شده</span>
+            </div>
+            <div class="h-8 w-px bg-stone-300"></div>
+            <div class="flex flex-col items-center">
+                <span class="text-2xl text-gold mb-0.5" id="stat-total-reads">0</span>
+                <span class="uppercase tracking-widest text-[10px] text-ink-muted">دفعات مطالعه</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-10">
+        
+        <section class="mb-16 bg-white border border-aegean-100 shadow-sm rounded-xl p-6 md:p-8">
+            <div class="flex items-center gap-3 mb-6">
+                <i class="ph-duotone ph-scroll text-3xl text-aegean"></i>
+                <div>
+                    <h2 class="text-2xl font-bold text-ink">برنامه مطالعاتی پیش‌رو (افلاطون)</h2>
+                    <p class="text-ink-muted text-sm mt-1">دیالوگ‌ها و رساله‌هایی که هنوز نخوانده‌اید و در اولویت قرار دارند.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="must-read-container">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <section class="mb-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-ink mb-1 flex items-center gap-2">
+                        <i class="ph-duotone ph-table text-aegean"></i>
+                        ۱. کارنامه‌ی جامع آثار (دیالوگ‌ها)
+                    </h2>
+                    <p class="text-ink-muted text-sm">فهرست کامل دیالوگ‌ها بر اساس دوره‌های فکری (جوانی، میانی، پیری) همراه با سوابق مطالعه‌ی شما.</p>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-stone-200">
+                <table class="editorial-table min-w-[1200px]">
+                    <thead>
+                        <tr>
+                            <th class="text-center w-10">#</th>
+                            <th class="w-1/5">عنوان اثر</th>
+                            <th class="text-center">دوره نگارش (تقریبی)</th>
+                            <th class="w-28">دوره فکری</th>
+                            <th class="text-center">اصالت</th>
+                            <th class="w-1/6">مترجم شما</th>
+                            <th class="text-center">دفعات</th>
+                            <th class="text-center w-28">تاریخ مطالعه</th>
+                            <th class="text-center w-28">وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="books-table-body">
+                        <!-- Rows populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-ink mb-3 flex items-center justify-center gap-2">
+                    <i class="ph-duotone ph-path text-gold"></i>
+                    ۲. رودخانه‌ی حیات و اندیشه
+                </h2>
+                <p class="text-ink-muted text-base max-w-2xl mx-auto">
+                    از شوکِ اعدام سقراط تا تأسیس آکادمی و سفرهای پرخطر به سیسیل؛ تماشای زایش فلسفه‌ی غرب.
+                </p>
+            </div>
+
+            <div class="river-timeline" id="river-timeline-container">
+                <div class="river-line"></div>
+                <!-- Timeline items populated by JS -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8 border-t border-stone-200 mt-10">
+        <p class="text-ink-muted font-medium text-sm">طراحی اختصاصی و مستندسازی برای <span class="font-bold text-ink">امیررضا اعطاسی</span></p>
+    </footer>
+
+    <script>
+        const platoData = [
+            // --- Life Events ---
+            { type: 'event', sortYear: -428, displayYear: '۴۲۸ ق.م.', title: 'تولد در آتن', desc: 'تولد در یک خانواده‌ی اشرافی و قدرتمند آتنی. نام اصلی او «آریستوکلس» بود و افلاطون (پهن‌شانه) لقب اوست.' },
+            { type: 'event', sortYear: -399, displayYear: '۳۹۹ ق.م.', title: 'اعدام سقراط', desc: 'دادگاه و اعدام سقراط (استاد افلاطون) با نوشیدن شوکران. این واقعه تأثیر ویرانگری بر او گذاشت و باعث شد سیاست عملی را رها کرده و به فلسفه روی آورد.' },
+            { type: 'event', sortYear: -398, displayYear: '۳۹۸ ق.م.', title: 'سفرهای پس از سقراط', desc: 'ترک آتن و سفر به مگارا، مصر و شحات (سیرن) برای فراگیری ریاضیات، هندسه و آموزه‌های فیثاغورثی.' },
+            { type: 'event', sortYear: -387, displayYear: '۳۸۷ ق.م.', title: 'تأسیس آکادمی آتن', desc: 'خرید باغی در خارج از آتن و تأسیس آکادمی؛ نخستین دانشگاه و مرکز پژوهشی تاریخ غرب که تا قرن‌ها پابرجا ماند.' },
+            { type: 'event', sortYear: -386, displayYear: '۳۸۷-۳۶۷ ق.م.', title: 'دوران شکوفایی آکادمی', desc: 'تمرکز بر تدریس و نوشتن شاهکارهای دوره‌ی میانی (مثل جمهوری و ضیافت). ورود ارسطو (در ۱۷ سالگی) به آکادمی.' },
+            { type: 'event', sortYear: -367, displayYear: '۳۶۷ ق.م.', title: 'سفر دوم به سیسیل', desc: 'سفر به سیراکوسا به دعوت دیون، برای تربیت حاکم جدید (دیونیزیوس دوم) و پیاده‌سازی ایده‌ی «فیلسوف-شاه». پروژه‌ای که با شکست مواجه شد.' },
+            { type: 'event', sortYear: -361, displayYear: '۳۶۱ ق.م.', title: 'بازداشت خانگی و فرار', desc: 'سومین سفر به سیسیل که به بازداشت خانگی افلاطون توسط دیونیزیوس انجامید و در نهایت با وساطت دوستان فیثاغورثی‌اش نجات یافت.' },
+            { type: 'event', sortYear: -347, displayYear: '۳۴۷ ق.م.', title: 'درگذشت در آتن', desc: 'مرگ در سن ۸۰ سالگی. او در محوطه‌ی آکادمی به خاک سپرده شد. رهبری آکادمی به برادرزاده‌اش، اسپئوسیپوس، رسید.' },
+
+            // --- Books (Socratic / Early) ---
+            { type: 'book', sortYear: -399.1, displayYear: '۳۹۹ ق.م.', titleFa: 'آپولوژی (دفاعیه سقراط)', titleEn: 'Apology (Ἀπολογία Σωκράτους)', era: 'سقراطی (جوانی)', auth: 'پذیرفته', userTrans: 'محمدحسن لطفی', isRead: true, reads: 3, dates: ['1382', '1392', '1397'] },
+            { type: 'book', sortYear: -399.2, displayYear: '۳۹۹ ق.م.', titleFa: 'کریتون', titleEn: 'Crito (Κρίτων)', era: 'سقراطی (جوانی)', auth: 'پذیرفته', userTrans: 'محمدحسن لطفی', isRead: true, reads: 1, dates: ['1383'] },
+            { type: 'book', sortYear: -399.3, displayYear: '۳۹۹ ق.م.', titleFa: 'فایدون', titleEn: 'Phaedo (Φαίδων)', era: 'انتقال / میانی', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -400, displayYear: '~۴۰۰ ق.م.', titleFa: 'اوتوفرون', titleEn: 'Euthyphro (Εὐθύφρων)', era: 'سقراطی (جوانی)', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -394, displayYear: '~۳۹۴ ق.م.', titleFa: 'ایون', titleEn: 'Ion (Ἴων)', era: 'سقراطی (جوانی)', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -392.1, displayYear: '~۳۹۲ ق.م.', titleFa: 'لوسیس', titleEn: 'Lysis (Λύσις)', era: 'سقراطی (جوانی)', auth: 'پذیرفته', userTrans: 'محمدحسن لطفی', isRead: true, reads: 2, dates: ['1383', '1404/08/10'] },
+            { type: 'book', sortYear: -392.2, displayYear: '~۳۹۲ ق.م.', titleFa: 'خارمیدس', titleEn: 'Charmides (Χαρμίδης)', era: 'سقراطی (جوانی)', auth: 'پذیرفته', userTrans: 'محمدحسن لطفی', isRead: true, reads: 1, dates: ['1384'] },
+            { type: 'book', sortYear: -392.3, displayYear: '~۳۹۲ ق.م.', titleFa: 'لاخس', titleEn: 'Laches (Λάχης)', era: 'سقراطی (جوانی)', auth: 'پذیرفته', userTrans: 'محمدحسن لطفی', isRead: true, reads: 1, dates: ['1404/08/11'] },
+            { type: 'book', sortYear: -390, displayYear: '~۳۹۰ ق.م.', titleFa: 'پروتاگراس', titleEn: 'Protagoras (Πρωταγόρας)', era: 'سقراطی (جوانی)', auth: 'پذیرفته', userTrans: 'محمدحسن لطفی', isRead: true, reads: 2, dates: ['1399', '1404/08/10'] },
+            { type: 'book', sortYear: -385.1, displayYear: '~۳۸۵ ق.م.', titleFa: 'هیپیاس کوچک', titleEn: 'Hippias Minor (Ἵππίας ὁ μικρός)', era: 'سقراطی (جوانی)', auth: 'پذیرفته', userTrans: 'محمدحسن لطفی', isRead: true, reads: 1, dates: ['1404/06/20'] },
+            { type: 'book', sortYear: -385.2, displayYear: '~۳۸۵ ق.م.', titleFa: 'هیپیاس بزرگ', titleEn: 'Hippias Major (Ἵππίας μείζων)', era: 'سقراطی (جوانی)', auth: 'مناقشه‌آمیز', userTrans: 'محمدحسن لطفی', isRead: true, reads: 1, dates: ['1404/06/20'] },
+            
+            // --- Books (Middle) ---
+            { type: 'book', sortYear: -384, displayYear: '~۳۸۴ ق.م.', titleFa: 'ضیافت (سمپوزیوم)', titleEn: 'Symposium (Συμπόσιον)', era: 'انتقال / میانی', auth: 'پذیرفته', userTrans: 'محمدعلی فروغی', isRead: true, reads: 3, dates: ['1380', '1381', '1385'] },
+            { type: 'book', sortYear: -380.1, displayYear: '~۳۸۰ ق.م.', titleFa: 'گرگیاس', titleEn: 'Gorgias (Γοργίας)', era: 'انتقال / میانی', auth: 'پذیرفته', userTrans: 'محمدحسن لطفی', isRead: true, reads: 1, dates: ['1384'] },
+            { type: 'book', sortYear: -380.2, displayYear: '~۳۸۰ ق.م.', titleFa: 'منون', titleEn: 'Meno (Μένων)', era: 'انتقال / میانی', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -375, displayYear: '~۳۷۵ ق.م.', titleFa: 'اوتیدموس', titleEn: 'Euthydemus (Εὐθύδημος)', era: 'انتقال / میانی', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -371, displayYear: '~۳۷۱ ق.م.', titleFa: 'منکسنوس', titleEn: 'Menexenus (Μενέξενος)', era: 'انتقال / میانی', auth: 'مناقشه‌آمیز', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -370, displayYear: '۳۸۷-۳۷۰ ق.م.', titleFa: 'جمهور', titleEn: 'Republic (Πολιτεία)', era: 'انتقال / میانی', auth: 'پذیرفته', userTrans: 'محمدحسن لطفی', isRead: true, reads: 1, dates: ['1405/05/22'] },
+            { type: 'book', sortYear: -368, displayYear: '~۳۶۸ ق.م.', titleFa: 'فایدروس', titleEn: 'Phaedrus (Φαῖδρος)', era: 'کمال / میانی', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            
+            // --- Books (Late) ---
+            { type: 'book', sortYear: -369, displayYear: '~۳۶۹ ق.م.', titleFa: 'تئائتتوس', titleEn: 'Theaetetus (Θεαίτητος)', era: 'اواخر (پیری)', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -360, displayYear: '~۳۶۰ ق.م.', titleFa: 'پارمنیدس', titleEn: 'Parmenides (Παρμενίδης)', era: 'اواخر (پیری)', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -356, displayYear: '~۳۵۶ ق.م.', titleFa: 'فیله‌بوس', titleEn: 'Philebus (Φίληβος)', era: 'اواخر (پیری)', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -355.1, displayYear: '~۳۵۵ ق.م.', titleFa: 'سوفیست', titleEn: 'Sophist (Σοφιστής)', era: 'اواخر (پیری)', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -355.2, displayYear: '~۳۵۵ ق.م.', titleFa: 'مرد سیاسی (سیاستمدار)', titleEn: 'Statesman (Πολιτικός)', era: 'اواخر (پیری)', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -355.3, displayYear: '~۳۵۵ ق.م.', titleFa: 'کریتیاس', titleEn: 'Critias (Κριτίας)', era: 'اواخر (پیری)', auth: 'پذیرفته (نیمه‌کاره)', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -352, displayYear: '۳۵۷-۳۴۸ ق.م.', titleFa: 'تیمائوس', titleEn: 'Timaeus (Τίμαιος)', era: 'اواخر (پیری)', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] },
+            { type: 'book', sortYear: -348, displayYear: '۳۵۴-۳۴۷ ق.م.', titleFa: 'قوانین', titleEn: 'Laws (Νόμοι)', era: 'اواخر (پیری)', auth: 'پذیرفته', userTrans: null, isRead: false, reads: 0, dates: [] }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sort data chronologically (Note: negative years, so larger negative is earlier, we sort ascending mathematically)
+            platoData.sort((a, b) => a.sortYear - b.sortYear);
+            
+            renderStats();
+            renderMustRead();
+            renderTable();
+            renderRiverTimeline();
+            setupIntersectionObserver();
+        });
+
+        function renderStats() {
+            const books = platoData.filter(d => d.type === 'book');
+            const readBooks = books.filter(b => b.isRead);
+            const totalReads = readBooks.reduce((sum, b) => sum + b.reads, 0);
+
+            document.getElementById('stat-total-books').textContent = books.length;
+            document.getElementById('stat-read-books').textContent = readBooks.length;
+            document.getElementById('stat-total-reads').textContent = totalReads;
+        }
+
+        function renderMustRead() {
+            const container = document.getElementById('must-read-container');
+            if(!container) return;
+            
+            const mustReadBooks = platoData.filter(b => b.type === 'book' && !b.isRead);
+            
+            let html = '';
+            mustReadBooks.forEach(book => {
+                const badgeClass = "bg-stone-100 text-stone-500 border border-stone-200";
+                const badgeText = "نخوانده";
+                const icon = '<i class="ph-bold ph-hourglass mr-1"></i>';
+                
+                // Highlight masterworks (Republic, Symposium etc are already read, but let's highlight some key unreads)
+                const isMasterwork = book.titleFa.includes('فایدون') || book.titleFa.includes('قوانین') || book.titleFa.includes('پارمنیدس');
+                const borderHighlight = isMasterwork ? 'border-l-4 border-l-gold shadow-md bg-stone-50' : 'border-stone-200';
+
+                html += `
+                    <div class="bg-white p-4 rounded-lg border ${borderHighlight} shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-ink leading-snug whitespace-normal pl-2 text-base">${book.titleFa}</h3>
+                                <span class="${badgeClass} flex items-center px-2 py-0.5 rounded text-[11px] font-bold whitespace-nowrap shrink-0">${icon}${badgeText}</span>
+                            </div>
+                            <p class="text-[11px] text-ink-muted dir-ltr text-right font-sans leading-tight mt-1 break-words">${book.titleEn}</p>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center text-xs text-ink-light border-t border-stone-100 pt-2">
+                            <span class="text-aegean font-bold">${book.era}</span>
+                            <span class="font-bold text-ink">${book.displayYear}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('books-table-body');
+            const books = platoData.filter(d => d.type === 'book');
+            let html = '';
+
+            books.forEach((book, index) => {
+                const statusHtml = book.isRead 
+                    ? `<span class="badge-read px-2 py-1 rounded text-xs font-bold flex items-center justify-center gap-1"><i class="ph-bold ph-check"></i> خوانده شده</span>`
+                    : `<span class="bg-stone-100 text-stone-500 border border-stone-200 px-2 py-1 rounded text-xs font-bold flex items-center justify-center gap-1"><i class="ph-bold ph-hourglass"></i> مانده</span>`;
+                
+                const datesStr = book.isRead ? book.dates.join('<br>') : '<span class="text-stone-300">-</span>';
+                const userTransStr = book.isRead && book.userTrans ? `<span class="font-bold text-ink">${book.userTrans}</span>` : '<span class="text-stone-300">-</span>';
+                
+                // Styling the authenticity column based on acceptance
+                let authClass = "text-ink-muted";
+                if(book.auth.includes('مناقشه')) authClass = "text-amber-600 font-bold";
+                if(book.auth.includes('جعلی')) authClass = "text-red-600 font-bold";
+
+                let readsBadge = `<span class="text-stone-300">-</span>`;
+                if (book.reads > 1) {
+                    readsBadge = `<span class="bg-gold text-white font-bold px-2 py-0.5 rounded text-xs">${book.reads} بار</span>`;
+                } else if (book.reads === 1) {
+                    readsBadge = `<span class="text-ink-muted text-sm font-medium">۱ بار</span>`;
+                }
+
+                const titleClass = book.isRead ? "text-ink font-bold" : "text-ink-muted font-medium";
+
+                html += `
+                    <tr>
+                        <td class="text-center text-ink-muted font-bold text-sm">${index + 1}</td>
+                        <td class="whitespace-normal min-w-[180px]">
+                            <span class="${titleClass} text-[15px] leading-snug block break-words">${book.titleFa}</span>
+                            <span class="text-[11px] text-stone-400 font-sans block dir-ltr text-left mt-1 leading-tight break-words">${book.titleEn}</span>
+                        </td>
+                        <td class="text-center font-black text-ink-light dir-ltr">${book.displayYear}</td>
+                        <td class="text-ink-muted text-[13px] leading-snug">${book.era}</td>
+                        <td class="text-center text-[12px] ${authClass}">${book.auth}</td>
+                        <td class="text-[13px] leading-snug whitespace-normal break-words max-w-[140px]">${userTransStr}</td>
+                        <td class="text-center">${readsBadge}</td>
+                        <td class="text-ink-muted text-xs font-medium dir-ltr text-right">${datesStr}</td>
+                        <td class="text-center">${statusHtml}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function renderRiverTimeline() {
+            const container = document.getElementById('river-timeline-container');
+            let itemsHtml = '';
+            
+            platoData.forEach((item, index) => {
+                const isRightCol = index % 2 === 0;
+                
+                const wrapperClass = isRightCol ? 'river-item-right' : 'river-item-left';
+                const colPlacement = isRightCol 
+                    ? `col-start-1 col-end-2 flex justify-end` 
+                    : `col-start-3 col-end-4 flex justify-start`;
+                
+                const emptyCol = isRightCol ? `<div class="col-start-3 col-end-4 hidden md:block"></div>` : `<div class="col-start-1 col-end-2 hidden md:block"></div>`;
+                const connectorClass = isRightCol ? 'connector-right' : 'connector-left';
+
+                let cardContent = '';
+                const itemYearDisplay = item.displayYear;
+
+                if (item.type === 'event') {
+                    cardContent = `
+                        <div class="card-event w-full md:w-11/12 text-right">
+                            <div class="${connectorClass} hidden md:block"></div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-gold font-black text-xl tracking-widest font-sans dir-ltr inline-block">${itemYearDisplay}</span>
+                                <h3 class="text-lg font-bold">${item.title}</h3>
+                            </div>
+                            <p class="text-stone-300 text-[13px] leading-relaxed opacity-90">${item.desc}</p>
+                        </div>
+                    `;
+                } else if (item.type === 'book') {
+                    const statusIcon = item.isRead 
+                        ? '<i class="ph-fill ph-check-circle text-emerald-600 text-lg shrink-0"></i>' 
+                        : '<i class="ph-duotone ph-book-open text-stone-300 text-lg shrink-0"></i>';
+                    const titleClass = item.isRead ? "font-bold text-ink" : "font-medium text-ink-muted";
+                    
+                    cardContent = `
+                        <div class="card-book w-full md:w-11/12 text-right">
+                            <div class="${connectorClass} hidden md:block"></div>
+                            <div class="flex items-start justify-between mb-1 gap-2">
+                                <div class="flex items-start gap-2 pt-0.5">
+                                    ${statusIcon}
+                                    <h3 class="${titleClass} text-sm leading-snug whitespace-normal break-words">${item.titleFa}</h3>
+                                </div>
+                                <span class="text-aegean font-bold font-sans bg-aegean-light/40 px-2 py-0.5 rounded text-xs border border-aegean/20 shrink-0 mt-0.5 dir-ltr inline-block">${itemYearDisplay}</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px] text-ink-muted mt-2 pt-2 border-t border-stone-50">
+                                <span>${item.era}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                const rowHtml = isRightCol ? `
+                    <div class="river-item ${wrapperClass} ${colPlacement}">
+                        <div class="river-card-wrapper w-full flex justify-end">
+                            ${cardContent}
+                        </div>
+                    </div>
+                    <div class="river-dot-container col-start-2 col-end-3 flex justify-center items-center relative z-10">
+                        <div class="river-dot"></div>
+                    </div>
+                    ${emptyCol}
+                ` : `
+                    ${emptyCol}
+                    <div class="river-dot-container col-start-2 col-end-3 flex justify-center items-center relative z-10">
+                        <div class="river-dot"></div>
+                    </div>
+                    <div class="river-item ${wrapperClass} ${colPlacement}">
+                        <div class="river-card-wrapper w-full flex justify-start">
+                            ${cardContent}
+                        </div>
+                    </div>
+                `;
+
+                itemsHtml += rowHtml;
+            });
+
+            container.innerHTML += itemsHtml;
+        }
+
+        function setupIntersectionObserver() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            setTimeout(() => {
+                document.querySelectorAll('.river-item').forEach(item => {
+                    observer.observe(item);
+                });
+            }, 200);
+        }
+    </script>
+</body>
+</html>
