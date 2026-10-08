@@ -373,11 +373,17 @@
             '1405/04': 62, // تیر 1405
             '1405/05': 64,  // مرداد 1405
             '1405/06': 108,  // شهریور 1405
-            '1405/07': 64,  // مهر 1405
+            '1405/07': 80,  // مهر 1405
             '1405/08': 0,  // آبان 1405
+            '1405/08': 0,  // آذر 1405
+            '1405/08': 0,  // دی 1405
+            '1405/08': 0,  // بهمن 1405
+            '1405/08': 0,  // اسفند 1405
         };
 
         const booksData = [
+            { id: 260, title: 'عقاید یک دلقک', author: 'هاینریش بل', translator: 'محمد اسماعیل‌زاده', originalPubDate: '۱۹۶۳', readYear: '1405/07/17', genre: 'رمان', nationality: 'آلمان' },
+            { id: 259, title: 'زنگ‌ها برای که به صدا درمی‌آیند', author: 'ارنست همینگوی', translator: 'نجف دریابندری', originalPubDate: '۱۹۴۰', readYear: '1405/07/15', genre: 'رمان', nationality: 'آمریکا' },
             { id: 258, title: 'مرشد و مارگاریتا', author: 'میخائیل بولگاکف', translator: 'عباس میلانی', originalPubDate: '۱۹۶۷', readYear: '1405/07/14', genre: 'رمان', nationality: 'روسیه' },
             { id: 257, title: 'پیرمرد و دریا', author: 'ارنست همینگوی', translator: 'نجف دریابندری', originalPubDate: '۱۹۵۲', readYear: '1405/07/10', genre: 'رمان', nationality: 'آمریکا' },
             { id: 256, title: 'دل سگ', author: 'میخائیل بولگاکف', translator: 'آبتین گلکار', originalPubDate: '۱۹۲۵', readYear: '1405/07/10', genre: 'رمان', nationality: 'روسیه' },
@@ -725,8 +731,8 @@
             { id: 84, title: 'وضع بشر', author: 'هانا آرنت', translator: 'مسعود علیا', publisher: 'نشر ققنوس', pages: 520, genre: 'فلسفه سیاسی', nationality: 'آلمان' },
             { id: 85, title: 'مفهوم اضطراب', author: 'سورن کی‌یرکگور', translator: 'صالح نجفی', publisher: 'نشر مرکز', pages: 310, genre: 'فلسفه', nationality: 'دانمارک' },
             { id: 86, title: 'پیرمرد و دریا', author: 'ارنست همینگوی', translator: 'نجف دریابندری', publisher: 'خوارزمی', pages: 160, genre: 'رمان', nationality: 'آمریکا' },
-            { id: 87, title: 'زنگ‌ها برای که به صدا درمی‌آیند', author: 'ارنست همینگوی', translator: 'نجف دریابندری', publisher: 'خوارزمی', pages: 540, genre: 'رمان', nationality: 'آمریکا' },
             { id: 88, title: 'وداع با اسلحه', author: 'ارنست همینگوی', translator: 'نجف دریابندری', publisher: 'نیلوفر', pages: 400, genre: 'رمان', nationality: 'آمریکا' },
+            { id: 89, title: 'خورشید همچنان می‌دمد', author: 'ارنست همینگوی', translator: 'احمد کساییپور', publisher: 'هرمس', pages: 320, genre: 'رمان', nationality: 'آمریکا' },
             { id: 89, title: 'خورشید همچنان می‌دمد', author: 'ارنست همینگوی', translator: 'احمد کسایی‌‌‌‌پور', publisher: 'هرمس', pages: 320, genre: 'رمان', nationality: 'آمریکا' },
             { id: 90, title: 'برف‌های کلیمانجارو', author: 'ارنست همینگوی', translator: 'اسدالله امرایی', publisher: 'افق', pages: 210, genre: 'داستان کوتاه', nationality: 'آمریکا' },
             { id: 91, title: 'داشتن و نداشتن', author: 'ارنست همینگوی', translator: 'پرویز داریوش', publisher: 'امیرکبیر', pages: 280, genre: 'رمان', nationality: 'آمریکا' },
@@ -748,7 +754,6 @@
             { id: 107, title: 'عشق در زمان وبا', author: 'گابریل گارسیا مارکز', translator: 'بهمن فرزانه', publisher: 'ققنوس', pages: 550, genre: 'رمان', nationality: 'کلمبیا' },
             { id: 108, title: 'دزیره', author: 'آن ماری سلینکو', translator: 'پرویز شهدی', publisher: 'نشر مجید', pages: 710, genre: 'رمان', nationality: 'اتریش' },
             { id: 109, title: 'بلندی‌های بادگیر', author: 'امیلی برونته', translator: 'علی‌اصغر بهرام‌بیگی', publisher: 'علمی فرهنگی', pages: 430, genre: 'رمان', nationality: 'انگلیس' },
-            { id: 110, title: 'عقاید یک دلقک', author: 'هاینریش بل', translator: 'محمد اسماعیل‌زاده', publisher: 'چشمه', pages: 340, genre: 'رمان', nationality: 'آلمان' },
             { id: 111, title: 'خرمگس', author: 'اتل لیلیان وینیچ', translator: 'خسرو همایون‌پور', publisher: 'امیرکبیر', pages: 390, genre: 'رمان', nationality: 'ایرلند' },
             { id: 112, title: 'دختر کشیش', author: 'جورج اورول', translator: 'غلامحسین سالمی', publisher: 'نشر مجید', pages: 380, genre: 'رمان', nationality: 'انگلیس' },
             { id: 113, title: 'آس و پاس در پاریس و لندن', author: 'جورج اورول', translator: 'بهمن دارالشفایی', publisher: 'ماهی', pages: 250, genre: 'رمان', nationality: 'انگلیس' },
@@ -1198,10 +1203,6 @@
                     authorDisplayName = `<a href="sartre.html" class="text-indigo-600 hover:text-indigo-800 hover:underline transition-colors" onclick="event.stopPropagation()">${author}</a>`;    
                 } else if (author === 'میخائیل بولگاکف') {
                     authorDisplayName = `<a href="bulgakov.html" class="text-indigo-600 hover:text-indigo-800 hover:underline transition-colors" onclick="event.stopPropagation()">${author}</a>`; 
-                } else if (author === 'آلبر کامو') {
-                    authorDisplayName = `<a href="camus.html" class="text-indigo-600 hover:text-indigo-800 hover:underline transition-colors" onclick="event.stopPropagation()">${author}</a>`;      
-                } else if (author === 'افلاطون') {
-                    authorDisplayName = `<a href="plato.html" class="text-indigo-600 hover:text-indigo-800 hover:underline transition-colors" onclick="event.stopPropagation()">${author}</a>`;          
                 }
 
                 let booksHTML = Object.values(booksByTitle).map((group, idx) => {
