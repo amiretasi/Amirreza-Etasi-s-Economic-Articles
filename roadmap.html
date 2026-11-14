@@ -257,14 +257,16 @@
                       <table class="w-full text-sm text-right text-slate-500">
                           <thead class="text-xs text-slate-700 uppercase bg-slate-50 sticky-header">
                               <tr>
-                                  <th scope="col" class="px-6 py-3 w-[5%]">ردیف</th>
-                                  <th scope="col" class="px-6 py-3 w-[28%]">عنوان کتاب</th>
-                                  <th scope="col" class="px-6 py-3 w-[18%]">نویسنده</th>
-                                  <th scope="col" class="px-6 py-3 w-[15%]">مترجم</th>
-                                  <th scope="col" class="px-6 py-3">تاریخ نگارش</th>
-                                  <th scope="col" class="px-6 py-3">تاریخ مطالعه</th>
-                                  <th scope="col" class="px-6 py-3">ژانر</th>
-                                  <th scope="col" class="px-6 py-3">ملیت</th>
+                                  <th scope="col" class="px-4 py-3 w-[5%]">ردیف</th>
+                                  <th scope="col" class="px-4 py-3 w-[25%]">عنوان کتاب</th>
+                                  <th scope="col" class="px-4 py-3 w-[15%]">نویسنده</th>
+                                  <th scope="col" class="px-4 py-3 w-[12%]">مترجم</th>
+                                  <th scope="col" class="px-4 py-3">نگارش</th>
+                                  <th scope="col" class="px-4 py-3">مطالعه</th>
+                                  <th scope="col" class="px-4 py-3 text-center">موجود</th>
+                                  <th scope="col" class="px-4 py-3 text-center">علاقه</th>
+                                  <th scope="col" class="px-4 py-3">ژانر</th>
+                                  <th scope="col" class="px-4 py-3">ملیت</th>
                               </tr>
                           </thead>
                           <tbody id="books-table-body">
@@ -382,7 +384,8 @@
         };
 
         const booksData = [
-            { id: 279, title: 'دختر کشیش', author: 'جورج اورول', translator: 'غلامحسین سالمی', originalPubDate: '۱۹۳۵', readYear: '1405/08/24', genre: 'رمان', nationality: 'انگلیس' },
+            { id: 280, title: 'عشق در زمان وبا', author: 'گابریل گارسیا مارکز', translator: 'بهمن فرزانه', originalPubDate: '۱۹۸۵', readYear: '1405/08/26', genre: 'رمان', nationality: 'کلمبیا' },
+            { id: 279, title: 'دختر کشیش', author: 'جورج اورول', translator: 'غلامحسین سالمی', originalPubDate: '۱۹۳۵', readYear: '1405/08/22', genre: 'رمان', nationality: 'انگلیس' },
             { id: 278, title: 'حدیث خوش سعدی', author: 'عبدالحسین زرین‌کوب', translator: 'تألیفی', originalPubDate: '۱۳۷۹', readYear: '1405/08/20', genre: 'نقد ادبی', nationality: 'ایران' },
             { id: 277, title: 'امپراتوری ایران', author: 'دان ناردو', translator: 'مرتضی ثاقب‌فر', originalPubDate: '۱۹۹۹', readYear: '1405/08/17', genre: 'تاریخ تحلیلی', nationality: 'آمریکا' },
             { id: 276, title: 'هزارپیشه', author: 'چارلز بوکوفسکی', translator: 'پیمان خاکسار', originalPubDate: '۱۹۷۵', readYear: '1405/08/16', genre: 'رمان', nationality: 'آمریکا' },
@@ -764,8 +767,8 @@
             { id: 98, title: 'به خدای ناشناخته', author: 'جان اشتاین‌بک', translator: 'شهرزاد لولاچی', publisher: 'افق', pages: 350, genre: 'رمان', nationality: 'آمریکا' },
             { id: 99, title: 'راسته کنروسازی', author: 'جان اشتاین‌بک', translator: 'سیروس طاهباز', publisher: 'ماهی', pages: 210, genre: 'رمان', nationality: 'آمریکا' },
             { id: 100, title: 'تورتیلا فلت', author: 'جان اشتاین‌بک', translator: 'صفدر تقی‌زاده', publisher: 'علمی فرهنگی', pages: 280, genre: 'رمان', nationality: 'آمریکا' },
-            { id: 101, title: 'عشق در زمان وبا', author: 'گابریل گارسیا مارکز', translator: 'بهمن فرزانه', publisher: 'ققنوس', pages: 550, genre: 'رمان', nationality: 'کلمبیا' },
             { id: 102, title: 'دزیره', author: 'آن ماری سلینکو', translator: 'پرویز شهدی', publisher: 'نشر مجید', pages: 710, genre: 'رمان', nationality: 'اتریش' },
+            { id: 104, title: 'دختر کشیش', author: 'جورج اورول', translator: 'غلامحسین سالمی', publisher: 'نشر مجید', pages: 380, genre: 'رمان', nationality: 'انگلیس' },
             { id: 105, title: 'آس و پاس در پاریس و لندن', author: 'جورج اورول', translator: 'بهمن دارالشفایی', publisher: 'ماهی', pages: 250, genre: 'رمان', nationality: 'انگلیس' },
             { id: 106, title: 'روزهای برمه', author: 'جورج اورول', translator: 'زهرا کریمی', publisher: 'نشر مجید', pages: 340, genre: 'رمان', nationality: 'انگلیس' },
             { id: 107, title: 'هوای تازه', author: 'جورج اورول', translator: 'الهه هاشمی', publisher: 'مجید', pages: 320, genre: 'رمان', nationality: 'انگلیس' },
@@ -978,6 +981,26 @@
                 Chart.defaults.plugins.tooltip.bodyFont = { size: 12 };
             }
 
+            // --- اضافه کردن اطلاعات موجودی کتابخانه و علاقه مندی‌ها ---
+            const notOwnedIds = new Set([271, 272, 273, 274, 275, 276, 277, 278, 279, 267, 268, 269, 265, 259, 260, 261, 262, 263, 249, 250, 251, 252, 253, 254, 255, 256, 242, 243, 244, 245, 246, 247, 236, 237, 238, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 215, 216, 217, 218, 219, 220, 204, 205, 202, 198, 188, 172, 173, 174, 175, 176, 177, 178, 179, 163, 164, 158, 159, 160]);
+            
+            const userRatings = {
+                279:4, 278:2, 277:1, 276:2, 275:5, 274:3, 273:2, 272:2, 271:2,
+                270:3, 269:3, 268:2, 267:1, 266:4, 265:3, 264:4, 263:4, 262:1, 261:1, 260:2,
+                259:2, 258:4, 257:3, 256:4, 255:2, 254:3, 253:2, 252:2, 251:4, 250:4,
+                249:3, 248:3, 247:2, 246:3, 245:2, 244:3, 243:3, 242:4, 241:2, 240:2,
+                239:3, 238:3, 237:4, 236:2, 235:2, 234:3, 233:3, 232:2, 231:2, 230:3, 229:3, 228:4, 227:2, 226:2, 225:3, 224:3, 223:4, 222:4, 221:2, 220:2,
+                219:3, 218:3, 217:3, 216:3, 215:2, 214:3, 213:4, 212:4, 210:3, 209:3, 208:3, 207:3, 206:4, 205:4,
+                204:3, 203:3, 202:3, 201:3, 200:3, 199:3, 198:3,
+                197:4, 196:4, 195:4, 194:4, 193:4, 192:4, 191:4, 190:4, 189:4
+            };
+
+            booksData.forEach(book => {
+                book.owned = !notOwnedIds.has(book.id);
+                book.rating = userRatings[book.id] || null;
+            });
+            // -------------------------------------------------------------
+
             const processedData = booksData.map(book => {
                 const dateInfo = parseReadDate(book.readYear);
                 return { ...book, ...dateInfo };
@@ -1073,16 +1096,26 @@
             const totalBooks = data.length; 
             data.forEach((book, index) => {
                 const rowNum = totalBooks - index; 
+                
+                const ownedHtml = book.owned ? '<span class="text-teal-600 font-bold text-lg">✔</span>' : '<span class="text-red-500 font-bold text-lg">✘</span>';
+                
+                let ratingHtml = '<span class="text-slate-300">-</span>';
+                if (book.rating) {
+                    ratingHtml = '<span class="text-amber-400 tracking-widest text-lg">' + '★'.repeat(book.rating) + '<span class="text-slate-200">' + '★'.repeat(5 - book.rating) + '</span></span>';
+                }
+
                 const tableRow = `
                     <tr class="bg-white border-b hover:bg-slate-50">
-                        <td class="px-6 py-4 font-medium text-slate-900">${rowNum}</td>
-                        <td class="px-6 py-4 font-semibold text-slate-800">${book.title}</td>
-                        <td class="px-6 py-4">${book.author}</td>
-                        <td class="px-6 py-4">${book.translator || '---'}</td>
-                        <td class="px-6 py-4">${book.originalPubDate}</td>
-                        <td class="px-6 py-4 text-teal-700 font-medium">${book.readYear}</td>
-                        <td class="px-6 py-4">${book.genre}</td>
-                        <td class="px-6 py-4">${book.nationality}</td>
+                        <td class="px-4 py-4 font-medium text-slate-900">${rowNum}</td>
+                        <td class="px-4 py-4 font-semibold text-slate-800">${book.title}</td>
+                        <td class="px-4 py-4">${book.author}</td>
+                        <td class="px-4 py-4">${book.translator || '---'}</td>
+                        <td class="px-4 py-4">${book.originalPubDate}</td>
+                        <td class="px-4 py-4 text-teal-700 font-medium">${book.readYear}</td>
+                        <td class="px-4 py-4 text-center">${ownedHtml}</td>
+                        <td class="px-4 py-4 text-center" dir="ltr">${ratingHtml}</td>
+                        <td class="px-4 py-4">${book.genre}</td>
+                        <td class="px-4 py-4">${book.nationality}</td>
                     </tr>`;
                 tableBody.innerHTML += tableRow;
             });
