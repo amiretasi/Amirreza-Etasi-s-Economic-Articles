@@ -180,6 +180,8 @@
                 <li><a href="#author-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">نویسندگان</a></li>
                 <li><a href="#translator-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">مترجمان</a></li>
                 <li><a href="#genre-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">ژانرها</a></li>
+                <li><a href="#rating-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">امتیازها</a></li>
+                <li><a href="#shopping-list-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">لیست خرید</a></li>
                 <li><a href="#analytical-charts-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">نمودارها</a></li>
                 <li><a href="#timeline-section" class="text-slate-600 hover:text-teal-600 transition-colors duration-200">خط زمانی</a></li>
             </ul>
@@ -329,6 +331,28 @@
             </div>
             <div id="genre-list-accordion-content" class="collapsible-content">
                 <div id="genre-accordion-container" class="space-y-4 mt-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="rating-list-section" class="bg-white rounded-xl shadow-md border border-slate-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+            <div id="rating-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
+                <h2 class="accordion-title text-2xl font-bold text-slate-900">لیست کتاب‌ها بر اساس امتیاز (ستاره)</h2>
+                <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+            </div>
+            <div id="rating-list-accordion-content" class="collapsible-content">
+                <div id="rating-accordion-container" class="space-y-4 mt-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="shopping-list-section" class="bg-indigo-50 rounded-xl shadow-md border border-indigo-200 p-6 md:p-8 mb-16 reveal-on-scroll">
+            <div id="shopping-list-accordion-header" class="accordion-header accordion-header-rtl flex justify-between items-center cursor-pointer closed">
+                <h2 class="accordion-title text-2xl font-bold text-indigo-900">لیست خرید (کتاب‌های ۳، ۴ و ۵ ستاره ناموجود)</h2>
+                <span class="accordion-toggle-icon text-2xl font-bold text-indigo-600 transition-transform duration-300 transform">+</span>
+            </div>
+            <div id="shopping-list-accordion-content" class="collapsible-content">
+                <div id="shopping-accordion-container" class="space-y-4 mt-8">
                 </div>
             </div>
         </section>
@@ -982,17 +1006,29 @@
             }
 
             // --- اضافه کردن اطلاعات موجودی کتابخانه و علاقه مندی‌ها ---
-            const notOwnedIds = new Set([271, 272, 273, 274, 275, 276, 277, 278, 279, 267, 268, 269, 265, 259, 260, 261, 262, 263, 249, 250, 251, 252, 253, 254, 255, 256, 242, 243, 244, 245, 246, 247, 236, 237, 238, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 215, 216, 217, 218, 219, 220, 204, 205, 202, 198, 188, 172, 173, 174, 175, 176, 177, 178, 179, 163, 164, 158, 159, 160]);
+            const notOwnedIds = new Set([
+                129, 130, 132, 133, 135, 143, 148, 153, 154, 158, 159, 160, 163, 168, 172, 173, 174, 177, 
+                178, 179, 181, 185, 188, 198, 199, 204, 205, 208, 215, 216, 217, 218, 219, 220, 224, 225, 
+                226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 242, 243, 244, 246, 247, 
+                249, 250, 251, 252, 253, 254, 255, 256, 259, 260, 261, 262, 263, 265, 267, 268, 269, 271, 
+                272, 273, 274, 275, 276, 277, 278, 279, 280
+            ]);
             
             const userRatings = {
-                279:4, 278:2, 277:1, 276:2, 275:5, 274:3, 273:2, 272:2, 271:2,
-                270:3, 269:3, 268:2, 267:1, 266:4, 265:3, 264:4, 263:4, 262:1, 261:1, 260:2,
-                259:2, 258:4, 257:3, 256:4, 255:2, 254:3, 253:2, 252:2, 251:4, 250:4,
-                249:3, 248:3, 247:2, 246:3, 245:2, 244:3, 243:3, 242:4, 241:2, 240:2,
-                239:3, 238:3, 237:4, 236:2, 235:2, 234:3, 233:3, 232:2, 231:2, 230:3, 229:3, 228:4, 227:2, 226:2, 225:3, 224:3, 223:4, 222:4, 221:2, 220:2,
-                219:3, 218:3, 217:3, 216:3, 215:2, 214:3, 213:4, 212:4, 210:3, 209:3, 208:3, 207:3, 206:4, 205:4,
-                204:3, 203:3, 202:3, 201:3, 200:3, 199:3, 198:3,
-                197:4, 196:4, 195:4, 194:4, 193:4, 192:4, 191:4, 190:4, 189:4
+                1: 2, 2: 5, 3: 4, 4: 5, 5: 5, 6: 3, 7: 3, 8: 3, 9: 5, 10: 5, 11: 4, 12: 3, 13: 4, 14: 3, 15: 5, 16: 5, 17: 5, 18: 4, 19: 5, 20: 5,
+                21: 4, 22: 3, 23: 4, 24: 5, 25: 3, 26: 5, 27: 3, 28: 4, 29: 5, 30: 4, 31: 4, 32: 3, 33: 4, 34: 2, 35: 5, 36: 5, 37: 4, 38: 4, 39: 4, 40: 5,
+                41: 4, 42: 4, 43: 4, 44: 4, 45: 4, 46: 4, 47: 4, 48: 5, 49: 4, 50: 4, 51: 4, 52: 4, 53: 5, 54: 4, 55: 4, 56: 5, 57: 3, 58: 5, 59: 4, 60: 4,
+                61: 4, 62: 4, 63: 4, 64: 4, 65: 3, 66: 5, 67: 3, 68: 3, 69: 4, 70: 5, 71: 4, 72: 4, 73: 4, 74: 4, 75: 4, 76: 3, 77: 5, 78: 3, 79: 4, 80: 3,
+                81: 3, 82: 3, 83: 3, 84: 3, 85: 3, 86: 4, 87: 3, 88: 2, 89: 3, 90: 3, 91: 3, 92: 3, 93: 3, 94: 3, 95: 3, 96: 3, 97: 3, 98: 3, 99: 3, 100: 3,
+                101: 3, 102: 3, 103: 4, 104: 4, 105: 4, 106: 4, 107: 5, 108: 5, 109: 5, 110: 5, 111: 5, 112: 5, 113: 3, 114: 3, 115: 5, 116: 5, 117: 5, 118: 5, 119: 5, 120: 5,
+                121: 4, 122: 4, 123: 5, 124: 5, 125: 4, 126: 4, 127: 5, 128: 5, 129: 3, 130: 3, 131: 5, 132: 3, 133: 3, 134: 4, 135: 3, 136: 5, 137: 4, 138: 5, 139: 5, 140: 5,
+                141: 3, 142: 4, 143: 5, 144: 4, 145: 4, 146: 5, 147: 4, 148: 5, 149: 4, 150: 5, 151: 5, 152: 5, 153: 3, 154: 3, 155: 5, 156: 4, 157: 5, 158: 4, 159: 4, 160: 5,
+                161: 5, 162: 5, 163: 5, 164: 4, 165: 5, 166: 5, 167: 5, 168: 5, 169: 5, 170: 3, 171: 5, 172: 3, 173: 3, 174: 4, 175: 5, 176: 5, 177: 4, 178: 4, 179: 5, 180: 5,
+                181: 5, 182: 5, 183: 5, 184: 3, 185: 4, 186: 5, 187: 5, 188: 5, 189: 5, 190: 5, 191: 5, 192: 5, 193: 5, 194: 5, 195: 5, 196: 5, 197: 5, 198: 4, 199: 3, 200: 4,
+                201: 5, 202: 4, 203: 4, 204: 5, 205: 5, 206: 5, 207: 4, 208: 5, 209: 4, 210: 4, 211: 5, 212: 5, 213: 5, 214: 3, 215: 3, 216: 3, 217: 3, 218: 3, 219: 3, 220: 3,
+                221: 4, 222: 5, 223: 5, 224: 5, 225: 4, 226: 4, 227: 4, 228: 5, 229: 4, 230: 3, 231: 3, 232: 3, 233: 3, 234: 3, 235: 3, 236: 3, 237: 5, 238: 4, 239: 5, 240: 4,
+                241: 3, 242: 4, 243: 5, 244: 4, 245: 4, 246: 4, 247: 4, 248: 5, 249: 4, 250: 5, 251: 5, 252: 3, 253: 4, 254: 4, 255: 3, 256: 5, 257: 5, 258: 5, 259: 3, 260: 4,
+                261: 4, 262: 2, 263: 5, 264: 5, 265: 4, 266: 5, 267: 1, 268: 3, 269: 5, 270: 5, 271: 3, 272: 3, 273: 3, 274: 4, 275: 5, 276: 3, 277: 1, 278: 3, 279: 5, 280: 3
             };
 
             booksData.forEach(book => {
@@ -1018,11 +1054,15 @@
             setupAccordion('author-list-accordion-header', 'author-list-accordion-content');
             setupAccordion('translator-list-accordion-header', 'translator-list-accordion-content');
             setupAccordion('genre-list-accordion-header', 'genre-list-accordion-content');
+            setupAccordion('rating-list-accordion-header', 'rating-list-accordion-content');
+            setupAccordion('shopping-list-accordion-header', 'shopping-list-accordion-content');
 
             createTimeline(processedData);
             createAuthorList(processedData);
             createTranslatorList(processedData);
             createGenreList(processedData);
+            createRatingList(processedData);
+            createShoppingList(processedData);
 
             if (chartLoaded) {
                 createCharts(processedData);
@@ -1421,6 +1461,150 @@
             });
             container.innerHTML = html;
             setupDynamicAccordions('.genre-accordion-header');
+        }
+
+        function createRatingList(data) {
+            const container = document.getElementById('rating-accordion-container');
+            if (!container) return;
+
+            const groupedByRating = data.reduce((acc, book) => {
+                const rating = book.rating || 'بدون امتیاز';
+                if (!acc[rating]) acc[rating] = [];
+                acc[rating].push(book);
+                return acc;
+            }, {});
+
+            const sortedRatings = Object.keys(groupedByRating).sort((a, b) => {
+                if (a === 'بدون امتیاز') return 1;
+                if (b === 'بدون امتیاز') return -1;
+                return b - a;
+            });
+
+            let html = '';
+            sortedRatings.forEach((rating, index) => {
+                const books = groupedByRating[rating];
+                books.sort((a, b) => b.full.localeCompare(a.full));
+                
+                const booksByTitle = books.reduce((acc, book) => {
+                    if (!acc[book.title]) {
+                        acc[book.title] = { book: book, readYears: [] };
+                    }
+                    acc[book.title].readYears.push(book.readYear);
+                    return acc;
+                }, {});
+
+                const headerId = `rating-header-${index}`;
+                const contentId = `rating-content-${index}`;
+
+                let booksHTML = Object.values(booksByTitle).map((group, idx) => {
+                    const rowNum = idx + 1;
+                    const book = group.book;
+                    const dates = group.readYears.map(y => y ? String(y) : 'نامشخص').sort((a,b) => a.localeCompare(b)).join(' - '); 
+                    const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی'].includes(book.translator)) ? ` - ${book.translator}` : '';
+                    const datesText = `<span class="text-sm text-slate-500">(${dates})</span>`;
+
+                    return `<li class="text-slate-700 py-2 border-b border-slate-100 last:border-b-0 text-right flex items-start">
+                                <span class="ml-2 text-teal-600 font-bold min-w-[20px]">${rowNum}.</span>
+                                <div>
+                                    <strong>${book.title}</strong> (نویسنده: ${book.author})${translatorText} - ${datesText}
+                                </div>
+                            </li>`;
+                }).join('');
+
+                const ratingTitle = rating === 'بدون امتیاز' ? 'بدون امتیاز' : `کتاب‌های ${rating} ستاره <span class="text-amber-400 text-lg mr-2">${'★'.repeat(rating)}</span>`;
+
+                html += `
+                    <div class="border border-slate-200 rounded-lg overflow-hidden">
+                        <div id="${headerId}" class="rating-accordion-header accordion-header accordion-header-rtl bg-slate-50 p-4 flex justify-between items-center cursor-pointer hover:bg-slate-100 closed">
+                            <h3 class="accordion-title font-bold text-lg text-slate-800">
+                                ${ratingTitle}
+                                <span class="text-sm font-medium text-slate-600 mr-2">(${Object.keys(booksByTitle).length} کتاب / ${books.length} بار خوانش)</span>
+                            </h3>
+                            <span class="accordion-toggle-icon text-2xl font-bold text-teal-600 transition-transform duration-300 transform">+</span>
+                        </div>
+                        <div id="${contentId}" class="rating-collapsible-content collapsible-content bg-white">
+                            <ul class="space-y-1 p-4">
+                                ${booksHTML}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            setupDynamicAccordions('.rating-accordion-header');
+        }
+
+        function createShoppingList(data) {
+            const container = document.getElementById('shopping-accordion-container');
+            if (!container) return;
+
+            // فیلتر کتاب‌هایی که ناموجود هستند و امتیاز ۳، ۴ یا ۵ دارند
+            const toBuy = data.filter(book => !book.owned && book.rating >= 3);
+            
+            const groupedByRating = toBuy.reduce((acc, book) => {
+                const rating = book.rating;
+                if (!acc[rating]) acc[rating] = [];
+                acc[rating].push(book);
+                return acc;
+            }, {});
+
+            const sortedRatings = Object.keys(groupedByRating).sort((a, b) => b - a);
+
+            let html = '';
+            sortedRatings.forEach((rating, index) => {
+                const books = groupedByRating[rating];
+                
+                // گروه‌بندی بر اساس عنوان برای جلوگیری از تکرار کتاب‌هایی که دو بار خوانده شده‌اند
+                const booksByTitle = books.reduce((acc, book) => {
+                    if (!acc[book.title]) {
+                        acc[book.title] = { book: book };
+                    }
+                    return acc;
+                }, {});
+
+                const uniqueBooks = Object.values(booksByTitle).map(g => g.book);
+                uniqueBooks.sort((a, b) => a.title.localeCompare(b.title, 'fa'));
+
+                const headerId = `shopping-header-${index}`;
+                const contentId = `shopping-content-${index}`;
+                
+                let booksHTML = uniqueBooks.map((book, idx) => {
+                    const translatorText = (book.translator && !['تألیفی', 'تصحیح شفیعی کدکنی'].includes(book.translator)) ? ` - مترجم: ${book.translator}` : '';
+                    return `<li class="text-indigo-800 py-2 border-b border-indigo-50 last:border-b-0 text-right flex items-start">
+                                <span class="ml-2 text-indigo-600 font-bold min-w-[20px]">${idx + 1}.</span>
+                                <div>
+                                    <strong>${book.title}</strong> (نویسنده: ${book.author})${translatorText}
+                                    <span class="text-xs text-slate-500 mr-2">ملیت: ${book.nationality || 'نامشخص'}</span>
+                                </div>
+                            </li>`;
+                }).join('');
+
+                const ratingTitle = `کتاب‌های ${rating} ستاره <span class="text-amber-400 text-lg mr-2">${'★'.repeat(rating)}</span>`;
+
+                html += `
+                    <div class="border border-indigo-100 rounded-lg overflow-hidden">
+                        <div id="${headerId}" class="shopping-accordion-header accordion-header accordion-header-rtl bg-indigo-50/50 p-4 flex justify-between items-center cursor-pointer hover:bg-indigo-100 closed">
+                            <h3 class="accordion-title font-bold text-lg text-indigo-900">
+                                ${ratingTitle}
+                                <span class="text-sm font-medium text-indigo-600 mr-2">(${uniqueBooks.length} عنوان)</span>
+                            </h3>
+                            <span class="accordion-toggle-icon text-2xl font-bold text-indigo-600 transition-transform duration-300 transform">+</span>
+                        </div>
+                        <div id="${contentId}" class="shopping-collapsible-content collapsible-content bg-white">
+                            <ul class="space-y-1 p-4">
+                                ${booksHTML}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (Object.keys(groupedByRating).length === 0) {
+                html = `<div class="text-center p-6 text-slate-500 font-bold">تمام کتاب‌های ۳، ۴ و ۵ ستاره در کتابخانه شما موجود هستند!</div>`;
+            }
+
+            container.innerHTML = html;
+            setupDynamicAccordions('.shopping-accordion-header');
         }
 
         function setupDynamicAccordions(selector) {
